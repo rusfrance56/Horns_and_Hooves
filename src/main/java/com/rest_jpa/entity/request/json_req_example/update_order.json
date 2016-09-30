@@ -1,0 +1,8 @@
+  /order/1
+{
+  "id": 1,
+  "name":"black chair",
+  "date": "19-11-2016 19:24:55",
+  "type": "cushioned",
+  "employee_id": 6
+}
