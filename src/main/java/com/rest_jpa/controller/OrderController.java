@@ -1,8 +1,11 @@
 package com.rest_jpa.controller;
 
+import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
-import com.rest_jpa.entity.request.CreateOrderRequest;
+import com.rest_jpa.entity.request.OrderRequest;
+import com.rest_jpa.enumTypes.OrderStatus;
+import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
 import com.rest_jpa.servise.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +28,37 @@ public class OrderController {
     @Autowired
     private EmployeeService employeeService;
 
-    public OrderController(OrderService orderService) {
+    @Autowired
+    private DepartmentService departmentService;
+
+    public OrderController(OrderService orderService, EmployeeService employeeService, DepartmentService departmentService) {
         this.orderService = orderService;
+        this.employeeService = employeeService;
+        this.departmentService = departmentService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Order> create(@RequestBody CreateOrderRequest orderReq) {
+    public ResponseEntity<Order> create(@RequestBody OrderRequest orderReq) {
         Order newOrder = new Order();
         newOrder.setName(orderReq.getName());
         newOrder.setDate(orderReq.getDate());
-        newOrder.setType(orderReq.getType());
-        Employee employee = employeeService.findById(orderReq.getEmployee_id());
-        newOrder.setEmployee(employee);
-        newOrder = orderService.create(newOrder);
-        return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
+
+        long employee_id = orderReq.getEmployee_id();
+        Employee employee = employeeService.findById(employee_id);
+        if (employee != null) {
+            newOrder.setEmployee(employee);
+            newOrder.setStatus(OrderStatus.assigned);
+        } else {
+            newOrder.setStatus(OrderStatus.unassigned);
+        }
+
+        Department department = departmentService.findById(orderReq.getDepartment_id());
+        if (department != null) {
+            newOrder.setDepartment(department);
+            newOrder = orderService.create(newOrder);
+            return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -46,9 +66,18 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Order> findById(@PathVariable("id") long id) {
+        Order order = orderService.findById(id);
+        if (order == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/byDep/{dep}", method = RequestMethod.GET)
-    public ResponseEntity<Collection<Order>> findAllByDepartment(@PathVariable("dep") String department) {
-        return new ResponseEntity<>(orderService.findAllByDepartment(department), HttpStatus.OK);
+    public ResponseEntity<Collection<Order>> findAllByDepartmentName(@PathVariable("dep") String department) {
+        return new ResponseEntity<>(orderService.findAllByDepartmentName(department), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/byEmpId/{emp_id}", method = RequestMethod.GET)
@@ -57,19 +86,29 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Order> update(@RequestBody CreateOrderRequest orderReq) {
+    public ResponseEntity<Order> update(@RequestBody OrderRequest orderReq) {
         Order newOrder = new Order();
         newOrder.setId(orderReq.getId());
         newOrder.setName(orderReq.getName());
         newOrder.setDate(orderReq.getDate());
-        newOrder.setType(orderReq.getType());
-        Employee employee = employeeService.findById(orderReq.getEmployee_id());
-        newOrder.setEmployee(employee);
-        newOrder = orderService.create(newOrder);
-        if (newOrder == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        long employee_id = orderReq.getEmployee_id();
+        Employee employee = employeeService.findById(employee_id);
+        if (employee != null) {
+            newOrder.setEmployee(employee);
+            newOrder.setStatus(OrderStatus.assigned);
+        } else {
+            newOrder.setStatus(OrderStatus.unassigned);
         }
-        return new ResponseEntity<>(newOrder, HttpStatus.OK);
+        Department department = departmentService.findById(orderReq.getDepartment_id());
+        if (department != null && orderService.findById(orderReq.getId()) != null) {
+            newOrder.setDepartment(department);
+            newOrder = orderService.update(newOrder);
+            if (newOrder != null) {
+                return new ResponseEntity<>(newOrder, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

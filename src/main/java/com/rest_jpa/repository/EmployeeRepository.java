@@ -13,7 +13,4 @@ import java.util.List;
  */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-
-    @Query("select emp from Employee emp where emp.department = :dep")
-    List<Employee> findAllByDepartment(@Param("dep") String department);
 }

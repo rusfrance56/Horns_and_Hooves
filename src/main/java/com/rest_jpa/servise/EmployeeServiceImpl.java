@@ -1,9 +1,12 @@
 package com.rest_jpa.servise;
 
+import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
+import com.rest_jpa.repository.DepartmentRepository;
 import com.rest_jpa.repository.EmployeeRepository;
 import com.rest_jpa.repository.OrderRepository;
+import com.rest_jpa.utils.OrderHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Override
     public Employee create(Employee employee) {
@@ -53,24 +59,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (orderList.isEmpty()) {
             return;
         }
-        List<Employee> allByDepartment = employeeRepository.findAllByDepartment(employee.getDepartment());
+        Department currentDepartment = departmentRepository.findOne(employee.getDepartment().getId());
+        List<Employee> allByDepartment = currentDepartment.getEmployeeList();
         allByDepartment.remove(employee);
 
-        for (Order order : orderList) {
-            Employee freeEmployee = findFreeEmployee(allByDepartment);
-            freeEmployee.getOrderList().add(order);
-            order.setEmployee(freeEmployee);
-            orderRepository.save(order);
-        }
-    }
-
-    private Employee findFreeEmployee(List<Employee> list) {
-        Employee freeEmp = list.get(0);
-        for (int i = 1; i < list.size(); i++) {
-            if (list.get(i).getOrderList().size() < freeEmp.getOrderList().size()) {
-                freeEmp = list.get(i);
+        if (allByDepartment.isEmpty()) {
+            OrderHelper.changeOrdersStatusToUnassigned(orderRepository, orderList);
+        } else {
+            for (Order order : orderList) {
+                Employee freeEmployee = OrderHelper.findFreeEmployee(allByDepartment);
+                freeEmployee.getOrderList().add(order);
+                order.setEmployee(freeEmployee);
+                orderRepository.save(order);
             }
         }
-        return freeEmp;
     }
 }

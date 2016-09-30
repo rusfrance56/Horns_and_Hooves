@@ -1,8 +1,8 @@
-  /*/employee/12*/
+/*  PUT: /employee/12 */
 {
   "id": 12,
   "name":"Alexey4444",
   "surName": "Doljanov",
   "middleName": "Egorovitch",
-  "department": "office"
+  "department_id": 2
 }

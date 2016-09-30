@@ -1,6 +1,9 @@
 package com.rest_jpa.controller;
 
+import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
+import com.rest_jpa.entity.request.EmployeeRequest;
+import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,14 +22,30 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    @Autowired
+    private DepartmentService departmentService;
+
+    public EmployeeController(EmployeeService employeeService, DepartmentService departmentService) {
         this.employeeService = employeeService;
+        this.departmentService = departmentService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Employee> create(@RequestBody Employee employee) {
-        Employee newEmployee = employeeService.create(employee);
-        return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
+    public ResponseEntity<Employee> create(@RequestBody EmployeeRequest employeeReq) {
+        Employee newEmployee = new Employee();
+        newEmployee.setName(employeeReq.getName());
+        newEmployee.setSurName(employeeReq.getSurName());
+        newEmployee.setMiddleName(employeeReq.getMiddleName());
+
+        long department_id = employeeReq.getDepartment_id();
+        Department department = departmentService.findById(department_id);
+        if (department != null) {
+            newEmployee.setDepartment(department);
+            newEmployee = employeeService.create(newEmployee);
+            return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -44,12 +63,23 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Employee> update(@RequestBody Employee employee) {
-        Employee newEmployee = employeeService.update(employee);
-        if (newEmployee == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<Employee> update(@RequestBody EmployeeRequest employeeReq) {
+        Employee newEmployee = new Employee();
+        newEmployee.setId(employeeReq.getId());
+        newEmployee.setName(employeeReq.getName());
+        newEmployee.setSurName(employeeReq.getSurName());
+        newEmployee.setMiddleName(employeeReq.getMiddleName());
+
+        long department_id = employeeReq.getDepartment_id();
+        Department department = departmentService.findById(department_id);
+        if (department != null && employeeService.findById(employeeReq.getId()) != null) {
+            newEmployee.setDepartment(department);
+            newEmployee = employeeService.update(newEmployee);
+            if (newEmployee != null) {
+                return new ResponseEntity<>(newEmployee, HttpStatus.OK);
+            }
         }
-        return new ResponseEntity<>(newEmployee, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

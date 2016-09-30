@@ -1,5 +1,7 @@
 package com.rest_jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,10 @@ public class Employee {
 
     private String middleName;
 
-    private String department;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    @JsonIgnore
+    private Department department;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Order> orderList = new ArrayList<>();
@@ -58,11 +63,11 @@ public class Employee {
         this.middleName = middlename;
     }
 
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 

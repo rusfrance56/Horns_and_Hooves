@@ -10,13 +10,13 @@ import java.util.Date;
 /**
  * Created by User on 26.09.2016.
  */
-public class CreateOrderRequest {
+public class OrderRequest {
     private long id;
     private String name;
-    private OrderType type;
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date date;
     private long employee_id;
+    private long department_id;
 
     public long getId() {
         return id;
@@ -34,14 +34,6 @@ public class CreateOrderRequest {
         this.name = name;
     }
 
-    public OrderType getType() {
-        return type;
-    }
-
-    public void setType(OrderType type) {
-        this.type = type;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -56,5 +48,13 @@ public class CreateOrderRequest {
 
     public void setEmployee_id(long employee_id) {
         this.employee_id = employee_id;
+    }
+
+    public long getDepartment_id() {
+        return department_id;
+    }
+
+    public void setDepartment_id(long department_id) {
+        this.department_id = department_id;
     }
 }

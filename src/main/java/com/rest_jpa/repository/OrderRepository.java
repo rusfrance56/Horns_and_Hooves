@@ -15,8 +15,8 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query("select ord from Order ord join ord.employee emp where emp.department = :dep")
-    List<Order> findAllByDepartment(@Param("dep") String department);
+    @Query("select ord from Order ord join ord.department depart where depart.name = :dep")
+    List<Order> findAllByDepartmentName(@Param("dep") String department);
 
     @Query("select ord from Order ord join ord.employee emp where emp.id = :emp_id")
     List<Order> findAllByEmployeeId(@Param("emp_id") long id);

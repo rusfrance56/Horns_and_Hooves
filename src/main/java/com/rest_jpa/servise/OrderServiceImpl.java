@@ -27,8 +27,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAllByDepartment(String department) {
-        return orderRepository.findAllByDepartment(department);
+    public Order findById(long id) {
+        return orderRepository.findOne(id);
+    }
+
+    @Override
+    public List<Order> findAllByDepartmentName(String department) {
+        return orderRepository.findAllByDepartmentName(department);
     }
 
     @Override

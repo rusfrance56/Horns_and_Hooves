@@ -1,6 +1,5 @@
 package com.rest_jpa.servise;
 
-import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
 
 import java.util.List;
@@ -11,7 +10,8 @@ import java.util.List;
 public interface OrderService {
     Order create(Order order);
     List<Order> findAll();
-    List<Order> findAllByDepartment(String department);
+    Order findById(long id);
+    List<Order> findAllByDepartmentName(String department);
     List<Order> findAllByEmployeeId(long id);
     Order update(Order order);
     void delete(long id);
