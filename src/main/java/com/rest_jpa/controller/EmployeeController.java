@@ -29,7 +29,7 @@ public class EmployeeController {
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Employee>> findAll() {
         return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
     }

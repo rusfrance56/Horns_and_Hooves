@@ -15,8 +15,8 @@ import java.util.Collection;
 /**
  * Created by User on 26.09.2016.
  */
-@RestController(value = "order")
-@RequestMapping(value = "/order")
+@RestController
+@RequestMapping(value = "/orders")
 public class OrderController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class OrderController {
         return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Order>> findAll() {
         return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
     }
