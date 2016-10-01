@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-/**
- * Created by User on 26.09.2016.
- */
 @RestController
 @RequestMapping(value = "/orders")
 public class OrderController {
@@ -31,30 +28,22 @@ public class OrderController {
     @Autowired
     private DepartmentService departmentService;
 
-    public OrderController(OrderService orderService, EmployeeService employeeService, DepartmentService departmentService) {
-        this.orderService = orderService;
-        this.employeeService = employeeService;
-        this.departmentService = departmentService;
-    }
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Order> create(@RequestBody OrderRequest orderReq) {
-        Order newOrder = new Order();
-        newOrder.setName(orderReq.getName());
-        newOrder.setDate(orderReq.getDate());
-
-        long employee_id = orderReq.getEmployee_id();
-        Employee employee = employeeService.findById(employee_id);
-        if (employee != null) {
-            newOrder.setEmployee(employee);
-            newOrder.setStatus(OrderStatus.assigned);
-        } else {
-            newOrder.setStatus(OrderStatus.unassigned);
-        }
-
         Department department = departmentService.findById(orderReq.getDepartment_id());
         if (department != null) {
+            Order newOrder = new Order();
+            newOrder.setName(orderReq.getName());
+            newOrder.setDate(orderReq.getDate());
             newOrder.setDepartment(department);
+
+            Employee employee = employeeService.findById(orderReq.getEmployee_id());
+            newOrder.setEmployee(employee);
+            if (employee != null) {
+                newOrder.setOrder_status(OrderStatus.assigned);
+            } else {
+                newOrder.setOrder_status(OrderStatus.unassigned);
+            }
             newOrder = orderService.create(newOrder);
             return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
         }
@@ -87,22 +76,20 @@ public class OrderController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Order> update(@RequestBody OrderRequest orderReq) {
-        Order newOrder = new Order();
-        newOrder.setId(orderReq.getId());
-        newOrder.setName(orderReq.getName());
-        newOrder.setDate(orderReq.getDate());
-
-        long employee_id = orderReq.getEmployee_id();
-        Employee employee = employeeService.findById(employee_id);
-        if (employee != null) {
-            newOrder.setEmployee(employee);
-            newOrder.setStatus(OrderStatus.assigned);
-        } else {
-            newOrder.setStatus(OrderStatus.unassigned);
-        }
+        Order newOrder = orderService.findById(orderReq.getId());
         Department department = departmentService.findById(orderReq.getDepartment_id());
-        if (department != null && orderService.findById(orderReq.getId()) != null) {
+        if (newOrder != null && department != null) {
+            newOrder.setName(orderReq.getName());
+            newOrder.setDate(orderReq.getDate());
             newOrder.setDepartment(department);
+
+            Employee employee = employeeService.findById(orderReq.getEmployee_id());
+            newOrder.setEmployee(employee);
+            if (employee != null) {
+                newOrder.setOrder_status(OrderStatus.assigned);
+            } else {
+                newOrder.setOrder_status(OrderStatus.unassigned);
+            }
             newOrder = orderService.update(newOrder);
             if (newOrder != null) {
                 return new ResponseEntity<>(newOrder, HttpStatus.OK);

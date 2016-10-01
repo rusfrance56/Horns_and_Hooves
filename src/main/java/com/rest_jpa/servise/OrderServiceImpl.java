@@ -1,7 +1,9 @@
 package com.rest_jpa.servise;
 
+import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
 import com.rest_jpa.repository.OrderRepository;
+import com.rest_jpa.utils.OrderHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,15 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private OrderHelper orderHelper;
+
     @Override
     public Order create(Order order) {
+        if (order.getEmployee() == null) {
+            List<Employee> employeeList = order.getDepartment().getEmployeeList();
+            orderHelper.assignmentOrder(order, employeeList);
+        }
         return  orderRepository.save(order);
     }
 
@@ -43,6 +52,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order update(Order order) {
+        if (order.getEmployee() == null) {
+            List<Employee> employeeList = order.getDepartment().getEmployeeList();
+            orderHelper.assignmentOrder(order, employeeList);
+        }
         return orderRepository.save(order);
     }
 

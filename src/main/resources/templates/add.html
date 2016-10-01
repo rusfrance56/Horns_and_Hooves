@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add employee page</title>
+</head>
+<body>
+<form th:action="@{/employee}" method="post">
+    <div><label> User Name : <input type="text" name="name"/> </label></div>
+    <div><label> User Name : <input type="text" name="surName"/> </label></div>
+    <div><label> User Name : <input type="text" name="middleName"/> </label></div>
+    <div><label> User Name : <input type="text" name="department_id"/> </label></div>
+    <div><input type="submit" value="Create"/></div>
+</form>
+</body>
+</html>

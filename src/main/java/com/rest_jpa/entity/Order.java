@@ -28,7 +28,7 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     @JsonIgnore
-    private OrderStatus status;
+    private OrderStatus order_status;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -64,12 +64,12 @@ public class Order {
         this.date = date;
     }
 
-    public OrderStatus getStatus() {
-        return status;
+    public OrderStatus getOrder_status() {
+        return order_status;
     }
 
-    public void setStatus(OrderStatus orderStatus) {
-        this.status = orderStatus;
+    public void setOrder_status(OrderStatus orderStatus) {
+        this.order_status = orderStatus;
     }
 
     public Employee getEmployee() {

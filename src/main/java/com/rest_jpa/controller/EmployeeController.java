@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-/**
- * Created by Employee on 24.09.2016.
- */
 @RestController
 @RequestMapping(value = "/employee")
 public class EmployeeController {
@@ -25,27 +22,19 @@ public class EmployeeController {
     @Autowired
     private DepartmentService departmentService;
 
-    public EmployeeController(EmployeeService employeeService, DepartmentService departmentService) {
-        this.employeeService = employeeService;
-        this.departmentService = departmentService;
-    }
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Employee> create(@RequestBody EmployeeRequest employeeReq) {
-        Employee newEmployee = new Employee();
-        newEmployee.setName(employeeReq.getName());
-        newEmployee.setSurName(employeeReq.getSurName());
-        newEmployee.setMiddleName(employeeReq.getMiddleName());
-
-        long department_id = employeeReq.getDepartment_id();
-        Department department = departmentService.findById(department_id);
+        Department department = departmentService.findById(employeeReq.getDepartment_id());
         if (department != null) {
+            Employee newEmployee = new Employee();
+            newEmployee.setName(employeeReq.getName());
+            newEmployee.setSurName(employeeReq.getSurName());
+            newEmployee.setMiddleName(employeeReq.getMiddleName());
             newEmployee.setDepartment(department);
             newEmployee = employeeService.create(newEmployee);
             return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -56,28 +45,24 @@ public class EmployeeController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Employee> findById(@PathVariable("id") long id) {
         Employee employee = employeeService.findById(id);
-        if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (employee != null) {
+            return new ResponseEntity<>(employee, HttpStatus.OK);
         }
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Employee> update(@RequestBody EmployeeRequest employeeReq) {
-        Employee newEmployee = new Employee();
-        newEmployee.setId(employeeReq.getId());
-        newEmployee.setName(employeeReq.getName());
-        newEmployee.setSurName(employeeReq.getSurName());
-        newEmployee.setMiddleName(employeeReq.getMiddleName());
-
-        long department_id = employeeReq.getDepartment_id();
-        Department department = departmentService.findById(department_id);
-        if (department != null && employeeService.findById(employeeReq.getId()) != null) {
-            newEmployee.setDepartment(department);
-            newEmployee = employeeService.update(newEmployee);
-            if (newEmployee != null) {
-                return new ResponseEntity<>(newEmployee, HttpStatus.OK);
-            }
+        Department department = departmentService.findById(employeeReq.getDepartment_id());
+        Employee byId = employeeService.findById(employeeReq.getId());
+        if (byId != null && department != null) {
+            Employee employee = byId;
+            employee.setName(employeeReq.getName());
+            employee.setSurName(employeeReq.getSurName());
+            employee.setMiddleName(employeeReq.getMiddleName());
+            employee.setDepartment(department);
+            employee = employeeService.update(employee);
+            return new ResponseEntity<>(employee, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
