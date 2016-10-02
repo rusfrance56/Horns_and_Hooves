@@ -22,7 +22,7 @@ public class Order {
 
     private String name;
 
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date date;
 

@@ -1,56 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Horns and Hooves</title>
-    <script src="../js/jquery-3.1.1.js"></script>
+    <link href="css/style.css" type="text/css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
 </head>
 <body>
-<h1> Horns and Hooves </h1>
-<input type="text" id="data"/>
-<a id="post" href="#">POST</a>
-<a id="get" href="/orders">GET orders</a>
+<div ng-app="mainApp">
+    <a href="#/orders">orders</a>
+    <div ng-view></div>
 
-<div id="container"></div>
+    <script type="text/ng-template" id="addOrder.htm">
+        <h2>Create order</h2>
+        <table class="editOrd">
+            <tr>
+                <th>Name:</th><td><input type="text" ng-model="order.name" required></td>
+            </tr>
+            <tr>
+                <th>Date:</th><td><input type="text" ng-model="order.date" required></td>
+            </tr>
+            <tr>
+                <th>Employee:</th><td><input type="text" ng-model="order.employee_id"></td>
+            </tr>
+            <tr>
+                <th>Department:</th><td><input type="text" ng-model="order.department_id" required></td>
+            </tr>
+            <tr>
+                <th></th><td><input type="button" ng-click="createOrder()" value="Create"></td>
+            </tr>
+        </table>
+    </script>
+
+    <script type="text/ng-template" id="editOrder.htm">
+        <h2>Edit order</h2>
+        <table class="editOrd">
+            <tr>
+                <th>Id:</th><td><input type="text" ng-model="order.id" required readonly></td>
+            </tr>
+            <tr>
+                <th>Name:</th><td><input type="text" ng-model="order.name" required></td>
+            </tr>
+            <tr>
+                <th>Date:</th><td><input type="text" ng-model="order.date" required></td>
+            </tr>
+            <tr>
+                <th>Department:</th><td><input type="text" ng-model="order.department_id" required></td>
+            </tr>
+            <tr>
+                <th></th><td><input type="button" ng-click="saveOrder(order)" value="Save"></td>
+            </tr>
+        </table>
+    </script>
+    <script type="text/ng-template" id="viewOrders.htm">
+        <h2>Orders</h2>
+        Search: <input type="text" ng-model="search">
+        <a href="#/addOrder">Create new Order</a>
+        <table cellpadding="2" cellspacing="2" border="1">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Department</th>
+            </tr>
+            <tr ng-repeat="order in orders | filter : search">
+                <td>{{order.id}}</td>
+                <td>{{order.name}}</td>
+                <td>{{order.date}}</td>
+                <td>{{order.department_id}}</td>
+                <td><a href="" ng-click="editOrder(order)">edit</a></td>
+                <td><a href="" ng-click="deleteOrder(order)">delete</a></td>
+            </tr>
+        </table>
+    </script>
+</div>
+<script src="js/angularView/orderCRUDconfig.js"></script>
 </body>
-
-<script type="text/javascript">
-    $('#get').click(getOrders());
-    function getOrders() {
-        $.ajax({
-            type: "GET",
-            cache: false,
-            url: 'http://localhost:8080/orders/',
-            data: "",
-            success: function (response) {
-                var html = "";
-                $.each(response.data, function (i) {
-                    html = html + response.data[i] + "<br/>";
-                });
-                $('#container').html(html);
-            }
-        });
-    }
-
-    $('#post').click(function () {
-        if (!$("#data").val()) {
-            alert("Enter your data!");
-        } else {
-            $.ajax({
-                type: "POST",
-                cache: false,
-                url: '/persist',
-                data: {
-                    'data': $("#data").val()
-                },
-                success: function (response) {
-                    $('#get').click();
-                }
-            });
-        }
-
-    });
-
-</script>
-
 </html>
