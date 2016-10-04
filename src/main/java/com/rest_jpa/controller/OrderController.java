@@ -74,6 +74,11 @@ public class OrderController {
         return new ResponseEntity<>(orderService.findAllByEmployeeId(id), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/unfinished", method = RequestMethod.GET)
+    public ResponseEntity<Collection<Order>> findAllUnfinished() {
+        return new ResponseEntity<>(orderService.findAllUnfinished(), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Order> update(@RequestBody OrderRequest orderReq) {
         Order newOrder = orderService.findById(orderReq.getId());

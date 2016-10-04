@@ -13,6 +13,7 @@ public interface OrderService {
     Order findById(long id);
     List<Order> findAllByDepartmentName(String department);
     List<Order> findAllByEmployeeId(long id);
+    List<Order> findAllUnfinished();
     Order update(Order order);
     void delete(long id);
 }

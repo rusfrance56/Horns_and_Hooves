@@ -20,4 +20,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select ord from Order ord join ord.employee emp where emp.id = :emp_id")
     List<Order> findAllByEmployeeId(@Param("emp_id") long id);
+
+    @Query("select ord from Order ord where ord.date > current_timestamp")
+    List<Order> findAllUnfinished();
 }

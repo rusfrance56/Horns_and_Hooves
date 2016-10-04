@@ -29,6 +29,7 @@ public class Employee {
     private Department department;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Order> orderList = new ArrayList<>();
 
     public long getId() {

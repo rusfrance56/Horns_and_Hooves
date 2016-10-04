@@ -51,6 +51,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> findAllUnfinished() {
+        return orderRepository.findAllUnfinished();
+    }
+
+    @Override
     public Order update(Order order) {
         if (order.getEmployee() == null) {
             List<Employee> employeeList = order.getDepartment().getEmployeeList();
