@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by User on 30.09.2016.
- */
 @Service("departmentService")
 public class DepartmentServiceImpl implements DepartmentService {
 

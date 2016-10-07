@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by User on 26.09.2016.
- */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 

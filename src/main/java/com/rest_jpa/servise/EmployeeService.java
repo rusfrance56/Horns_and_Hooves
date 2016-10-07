@@ -11,6 +11,7 @@ public interface EmployeeService {
     Employee create(Employee employee);
     List<Employee> findAll();
     Employee findById(long id);
+    List<Employee> findAllByDepartmentId(long id);
     Employee update(Employee employee);
     void delete(long id);
 }

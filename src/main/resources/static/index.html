@@ -16,19 +16,35 @@
         <h2>Create order</h2>
         <table class="entityTextAlign">
             <tr>
-                <th>Name:</th><td><input type="text" ng-model="order.name" required></td>
+                <th>Name:</th>
+                <td><input type="text" ng-model="order.name" required></td>
             </tr>
             <tr>
-                <th>Date:</th><td><input type="text" ng-model="order.date" required></td>
+                <th>Date:</th>
+                <td><input type="text" ng-model="order.date" required></td>
             </tr>
             <tr>
-                <th>Employee:</th><td><input type="text" ng-model="order.employee_id"></td>
+                <th>Type:</th>
+                <td>
+                    <select name="selectDep" ng-model="order.department_id"
+                            convert-to-number ng-change="changedValue(order.department_id)">
+                        <!--<option value="">-&#45;&#45;Please select-&#45;&#45;</option>-->
+                        <option ng-repeat="dep in deps" ng-value="dep.id" ng-selected="{{department_id==filterCondition.dep}}">{{dep.name}}</option>
+                    </select>
+                </td>
             </tr>
             <tr>
-                <th>Department:</th><td><input type="text" ng-model="order.department_id" required></td>
+                <th>Employee:</th>
+                <td>
+                    <select name="selectEmp" ng-model="order.employee_id"
+                            convert-to-number>
+                        <option ng-repeat="employee in employees" ng-value="employee.id" value="{{employee.id}}">{{employee.name}} {{employee.surName}}</option>
+                    </select>
+                </td>
             </tr>
             <tr>
-                <th></th><td><input type="button" ng-click="createOrder()" value="Create"></td>
+                <th></th>
+                <td><input type="button" ng-click="createOrder()" value="Create"></td>
             </tr>
         </table>
     </script>
@@ -36,19 +52,28 @@
         <h2>Edit order</h2>
         <table class="entityTextAlign">
             <tr>
-                <th>Id:</th><td><input type="text" ng-model="order.id" required readonly></td>
+                <th>Id:</th>
+                <td><input type="text" ng-model="order.id" required readonly></td>
             </tr>
             <tr>
-                <th>Name:</th><td><input type="text" ng-model="order.name" required></td>
+                <th>Name:</th>
+                <td><input type="text" ng-model="order.name" required></td>
             </tr>
             <tr>
-                <th>Date:</th><td><input type="text" ng-model="order.date" required></td>
+                <th>Date:</th>
+                <td><input type="text" ng-model="order.date" required></td>
             </tr>
             <tr>
-                <th>Department:</th><td><input type="text" ng-model="order.department_id" required></td>
+                <th>Department:</th>
+                <td><input type="text" ng-model="order.department_id" required></td>
             </tr>
             <tr>
-                <th></th><td><input type="button" ng-click="saveOrder(order)" value="Save"></td>
+                <th>Employee:</th>
+                <td><input type="text" ng-model="order.employee_id"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="button" ng-click="saveOrder(order)" value="Save"></td>
             </tr>
         </table>
     </script>
@@ -66,12 +91,16 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Date</th>
+                <th>Department</th>
+                <th>Employee</th>
                 <th colspan="2">Options</th>
             </tr>
             <tr ng-repeat="order in orders | filter : search">
                 <td>{{order.id}}</td>
                 <td>{{order.name}}</td>
                 <td>{{order.date}}</td>
+                <td>{{order.department}}</td>
+                <td>{{order.employee}}</td>
                 <td><a href="" ng-click="editOrder(order)">edit</a></td>
                 <td><a href="" ng-click="deleteOrder(order)">delete</a></td>
             </tr>
@@ -83,19 +112,24 @@
         <h2>Create employee</h2>
         <table class="entityTextAlign">
             <tr>
-                <th>Name:</th><td><input type="text" ng-model="emp.name" required></td>
+                <th>Name:</th>
+                <td><input type="text" ng-model="emp.name" required></td>
             </tr>
             <tr>
-                <th>SurName:</th><td><input type="text" ng-model="emp.surName" required></td>
+                <th>SurName:</th>
+                <td><input type="text" ng-model="emp.surName" required></td>
             </tr>
             <tr>
-                <th>MiddleName:</th><td><input type="text" ng-model="emp.middleName"></td>
+                <th>MiddleName:</th>
+                <td><input type="text" ng-model="emp.middleName"></td>
             </tr>
             <tr>
-                <th>Department:</th><td><input type="text" ng-model="emp.department_id"></td>
+                <th>Department:</th>
+                <td><input type="text" ng-model="emp.department_id"></td>
             </tr>
             <tr>
-                <th></th><td><input type="button" ng-click="createEmp()" value="Create"></td>
+                <th></th>
+                <td><input type="button" ng-click="createEmp()" value="Create"></td>
             </tr>
         </table>
     </script>
@@ -103,29 +137,35 @@
         <h2>Employee information</h2>
         <table class="entityTextAlign">
             <tr>
-                <th>Id:</th><td><input type="text" ng-model="emp.id" required readonly></td>
+                <th>Id:</th>
+                <td><input type="text" ng-model="emp.id" required readonly></td>
             </tr>
             <tr>
-                <th>Name:</th><td><input type="text" ng-model="emp.name" required></td>
+                <th>Name:</th>
+                <td><input type="text" ng-model="emp.name" required></td>
             </tr>
             <tr>
-                <th>SurName:</th><td><input type="text" ng-model="emp.surName" required></td>
+                <th>SurName:</th>
+                <td><input type="text" ng-model="emp.surName" required></td>
             </tr>
             <tr>
-                <th>MiddleName:</th><td><input type="text" ng-model="emp.middleName" required></td>
+                <th>MiddleName:</th>
+                <td><input type="text" ng-model="emp.middleName" required></td>
             </tr>
             <tr>
-                <th>Department:</th><td><input type="text" ng-model="emp.department_id" required></td>
+                <th>Department:</th>
+                <td><input type="text" ng-model="emp.department_id" required></td>
             </tr>
             <tr>
-                <th></th><td><input type="button" ng-click="saveEmp(emp)" value="Save"></td>
+                <th></th>
+                <td><input type="button" ng-click="saveEmp(emp)" value="Save"></td>
             </tr>
         </table>
 
         <h3>orders for {{emp.name}} :</h3>
         Search: <input type="text" ng-model="search">
-       <!-- <input type="text" ng-model="id">
-        <input type="button" ng-click="ordersByEmpId(id)" value="by Department">-->
+        <!-- <input type="text" ng-model="id">
+         <input type="button" ng-click="ordersByEmpId(id)" value="by Department">-->
 
         <table cellpadding="2" cellspacing="2" border="1">
             <tr>
@@ -166,6 +206,6 @@
     </script>
 </div>
 <script src="js/angularView/orders/orderCRUDconfig.js"></script>
-<script src="js/angularView/employee/empCRUDconfig.js"></script>
+<script src="js/angularView/employee/employeeCRUDconfig.js"></script>
 </body>
 </html>

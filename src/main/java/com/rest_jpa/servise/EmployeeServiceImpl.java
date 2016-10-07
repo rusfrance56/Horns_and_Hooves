@@ -36,6 +36,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<Employee> findAllByDepartmentId(long id) {
+        return employeeRepository.findAllByDepartmentId(id);
+    }
+
+    @Override
     public Employee update(Employee employee) {
         return employeeRepository.save(employee);
     }
@@ -48,8 +53,4 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.getOrderList().clear();
         employeeRepository.delete(id);
     }
-
-
-
-
 }

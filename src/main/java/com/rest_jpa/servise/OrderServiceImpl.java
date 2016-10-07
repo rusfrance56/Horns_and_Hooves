@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by User on 26.09.2016.
- */
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 

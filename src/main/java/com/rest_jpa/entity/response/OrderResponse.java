@@ -1,18 +1,19 @@
-package com.rest_jpa.entity.request;
+package com.rest_jpa.entity.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.rest_jpa.enumTypes.OrderType;
 import com.rest_jpa.utils.CustomDateDeserializer;
 
 import java.util.Date;
 
-public class OrderRequest {
+public class OrderResponse {
     private long id;
     private String name;
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date date;
-    private long employee_id;
-    private long department_id;
+    private String employee;
+    private String department;
 
     public long getId() {
         return id;
@@ -38,19 +39,19 @@ public class OrderRequest {
         this.date = date;
     }
 
-    public long getEmployee_id() {
-        return employee_id;
+    public String getEmployee() {
+        return employee;
     }
 
-    public void setEmployee_id(long employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployee(String employee) {
+        this.employee = employee;
     }
 
-    public long getDepartment_id() {
-        return department_id;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setDepartment_id(long department_id) {
-        this.department_id = department_id;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

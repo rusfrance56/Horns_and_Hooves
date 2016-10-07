@@ -11,9 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * Created by User on 30.09.2016.
- */
 @Component
 public class OrderHelper {
 

@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Employee on 24.09.2016.
- */
 @Entity
 @Table(schema = "public", name = "employee")
 public class Employee {

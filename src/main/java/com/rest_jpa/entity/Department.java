@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by User on 30.09.2016.
- */
 @Entity
 @Table(schema = "public", name = "department")
 public class Department {

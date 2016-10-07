@@ -1,8 +1,5 @@
 package com.rest_jpa.entity.request;
 
-/**
- * Created by User on 30.09.2016.
- */
 public class EmployeeRequest {
     private long id;
     private String name;

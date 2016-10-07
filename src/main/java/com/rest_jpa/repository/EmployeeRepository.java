@@ -13,4 +13,6 @@ import java.util.List;
  */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+    @Query("select emp from Employee emp join emp.department depart where depart.id = :dep")
+    List<Employee> findAllByDepartmentId(@Param("dep") long id);
 }

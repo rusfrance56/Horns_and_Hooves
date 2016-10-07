@@ -9,9 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by User on 27.09.2016.
- */
 public class CustomDateDeserializer extends JsonDeserializer<Date> {
 
     @Override

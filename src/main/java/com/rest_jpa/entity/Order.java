@@ -9,9 +9,6 @@ import com.rest_jpa.utils.CustomDateDeserializer;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by User on 26.09.2016.
- */
 @Entity
 @Table(schema = "public", name = "order")
 public class Order {

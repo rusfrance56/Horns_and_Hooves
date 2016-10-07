@@ -51,6 +51,11 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(value = "/byDep/{dep}", method = RequestMethod.GET)
+    public ResponseEntity<Collection<Employee>> findAllByDepartment(@PathVariable("dep") long id) {
+        return new ResponseEntity<>(employeeService.findAllByDepartmentId(id), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Employee> update(@RequestBody EmployeeRequest employeeReq) {
         Department department = departmentService.findById(employeeReq.getDepartment_id());

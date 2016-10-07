@@ -1,8 +1,6 @@
 package com.rest_jpa.utils;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -12,9 +10,6 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/**
- * Created by User on 01.10.2016.
- */
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter implements WebMvcConfigurer {
 

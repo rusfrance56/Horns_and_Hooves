@@ -4,16 +4,20 @@ import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
 import com.rest_jpa.entity.request.OrderRequest;
+import com.rest_jpa.entity.response.OrderResponse;
 import com.rest_jpa.enumTypes.OrderStatus;
 import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
 import com.rest_jpa.servise.OrderService;
+import com.rest_jpa.utils.JsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orders")
@@ -51,8 +55,11 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Collection<Order>> findAll() {
-        return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
+    @ResponseBody
+    public ResponseEntity<Collection<OrderResponse>> findAll() {
+        List<Order> all = orderService.findAll();
+        List<OrderResponse> responseList = JsonConverter.convert(all);
+        return new ResponseEntity<>(responseList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
