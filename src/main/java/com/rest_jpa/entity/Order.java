@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(schema = "public", name = "order")
+@Table(schema = "horns_and_hooves", name = "order_furniture")
 public class Order {
     @Id
     @GeneratedValue(generator = "order_id_seq")

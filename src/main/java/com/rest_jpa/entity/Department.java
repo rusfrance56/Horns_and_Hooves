@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(schema = "public", name = "department")
+@Table(schema = "horns_and_hooves", name = "department")
 public class Department {
     @Id
     @GeneratedValue(generator = "department_id_seq")

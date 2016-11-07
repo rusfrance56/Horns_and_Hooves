@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(schema = "public", name = "employee")
+@Table(schema = "horns_and_hooves", name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue(generator = "User_id_seq")
-    @SequenceGenerator(name = "User_id_seq", sequenceName = "User_id_seq")
+    @GeneratedValue(generator = "employee_id_seq")
+    @SequenceGenerator(name = "employee_id_seq", sequenceName = "employee_id_seq")
     private long id;
 
     private String name;
