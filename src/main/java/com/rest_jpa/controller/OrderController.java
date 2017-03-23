@@ -5,7 +5,6 @@ import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
 import com.rest_jpa.entity.request.OrderRequest;
 import com.rest_jpa.entity.response.OrderResponse;
-import com.rest_jpa.enumTypes.OrderStatus;
 import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
 import com.rest_jpa.servise.OrderService;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -44,9 +42,9 @@ public class OrderController {
             Employee employee = employeeService.findById(orderReq.getEmployee_id());
             newOrder.setEmployee(employee);
             if (employee != null) {
-                newOrder.setOrder_status(OrderStatus.assigned);
+                newOrder.setAssign(true);
             } else {
-                newOrder.setOrder_status(OrderStatus.unassigned);
+                newOrder.setAssign(false);
             }
             newOrder = orderService.create(newOrder);
             return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
@@ -98,9 +96,9 @@ public class OrderController {
             Employee employee = employeeService.findById(orderReq.getEmployee_id());
             newOrder.setEmployee(employee);
             if (employee != null) {
-                newOrder.setOrder_status(OrderStatus.assigned);
+                newOrder.setAssign(true);
             } else {
-                newOrder.setOrder_status(OrderStatus.unassigned);
+                newOrder.setAssign(false);
             }
             newOrder = orderService.update(newOrder);
             if (newOrder != null) {

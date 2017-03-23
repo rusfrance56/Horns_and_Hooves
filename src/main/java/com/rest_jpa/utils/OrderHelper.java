@@ -3,7 +3,6 @@ package com.rest_jpa.utils;
 import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
-import com.rest_jpa.enumTypes.OrderStatus;
 import com.rest_jpa.repository.DepartmentRepository;
 import com.rest_jpa.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class OrderHelper {
 
     public void changeOrdersStatusToUnassigned(List<Order> orderList) {
         for (Order order : orderList) {
-            order.setOrder_status(OrderStatus.unassigned);
+            order.setAssign(false);
             orderRepository.save(order);
         }
     }
@@ -50,7 +49,7 @@ public class OrderHelper {
         Employee freeEmployee = findFreeEmployee(employees);
         freeEmployee.getOrderList().add(order);
         order.setEmployee(freeEmployee);
-        order.setOrder_status(OrderStatus.assigned);
+        order.setAssign(true);
     }
 
     public void reassignmentOrders(Employee employee) {

@@ -3,14 +3,13 @@ package com.rest_jpa.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.rest_jpa.enumTypes.OrderStatus;
 import com.rest_jpa.utils.CustomDateDeserializer;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(schema = "horns_and_hooves", name = "order_furniture")
+@Table(schema = "public", name = "order_furniture")
 public class Order {
     @Id
     @GeneratedValue(generator = "order_id_seq")
@@ -23,9 +22,8 @@ public class Order {
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date date;
 
-    @Enumerated(EnumType.STRING)
-    @JsonIgnore
-    private OrderStatus order_status;
+    @Column(name = "isAssigned", nullable = false, columnDefinition = "bool default false")
+    private boolean isAssigned = false;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -61,12 +59,12 @@ public class Order {
         this.date = date;
     }
 
-    public OrderStatus getOrder_status() {
-        return order_status;
+    public boolean isAssigned() {
+        return isAssigned;
     }
 
-    public void setOrder_status(OrderStatus orderStatus) {
-        this.order_status = orderStatus;
+    public void setAssign(boolean orderStatus) {
+        this.isAssigned = orderStatus;
     }
 
     public Employee getEmployee() {
