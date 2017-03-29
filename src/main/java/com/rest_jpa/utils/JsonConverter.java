@@ -12,7 +12,7 @@ public class JsonConverter {
         OrderResponse orderResponse = new OrderResponse();
         orderResponse.setId(order.getId());
         orderResponse.setName(order.getName());
-        orderResponse.setDate(order.getDate());
+        orderResponse.setDateTime(order.getDate());
         orderResponse.setDepartment(order.getDepartment().getName());
         orderResponse.setEmployee(order.getEmployee().getName().concat(" ")
                 .concat(order.getEmployee().getSurName()));

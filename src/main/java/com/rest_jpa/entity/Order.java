@@ -1,26 +1,29 @@
 package com.rest_jpa.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.rest_jpa.utils.CustomDateDeserializer;
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(schema = "public", name = "order_furniture")
 public class Order {
     @Id
-    @GeneratedValue(generator = "order_id_seq")
-    @SequenceGenerator(name = "order_id_seq", sequenceName = "order_id_seq")
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 100000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @Access(value = AccessType.PROPERTY)
     private long id;
 
     private String name;
 
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
-    @JsonDeserialize(using = CustomDateDeserializer.class)
-    private Date date;
+    /*@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")*/
+    //@JsonDeserialize(using = CustomDateDeserializer.class)
+    @Type(type="com.rest_jpa.utils.LocalDateTimeUserType")
+    @Column(name = "date", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime dateTime;
 
     @Column(name = "isAssigned", nullable = false, columnDefinition = "bool default false")
     private boolean isAssigned = false;
@@ -51,12 +54,12 @@ public class Order {
         this.name = orderName;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDate() {
+        return dateTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(LocalDateTime date) {
+        this.dateTime = date;
     }
 
     public boolean isAssigned() {

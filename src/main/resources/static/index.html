@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>Date:</th>
-                <td><input type="text" ng-model="order.date" required></td>
+                <td><input type="datetime-local" ng-model="order.dateTime" required></td>
             </tr>
             <tr>
                 <th>Type:</th>
@@ -61,7 +61,8 @@
             </tr>
             <tr>
                 <th>Date:</th>
-                <td><input type="text" ng-model="order.date" required></td>
+                <td><input type="datetime-local" ng-model="order.dateTime" required></td>
+
             </tr>
             <tr>
                 <th>Department:</th>
@@ -98,7 +99,7 @@
             <tr ng-repeat="order in orders | filter : search">
                 <td>{{order.id}}</td>
                 <td>{{order.name}}</td>
-                <td>{{order.date}}</td>
+                <td>{{order.dateTime}}</td>
                 <td>{{order.department}}</td>
                 <td>{{order.employee}}</td>
                 <td><a href="" ng-click="editOrder(order)">edit</a></td>
@@ -176,7 +177,7 @@
             <tr ng-repeat="order in orders | filter : search">
                 <td>{{order.id}}</td>
                 <td>{{order.name}}</td>
-                <td>{{order.date}}</td>
+                <td>{{order.dateTime}}</td>
                 <td><a href="" ng-click="editOrder(order)">edit</a></td>
                 <td><a href="" ng-click="deleteOrder(order)">delete</a></td>
             </tr>

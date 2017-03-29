@@ -47,10 +47,10 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAllByEmployeeId(id);
     }
 
-    @Override
+    /*@Override
     public List<Order> findAllUnfinished() {
         return orderRepository.findAllUnfinished();
-    }
+    }*/
 
     @Override
     public Order update(Order order) {

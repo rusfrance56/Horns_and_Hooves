@@ -1,19 +1,27 @@
 package com.rest_jpa.entity.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.rest_jpa.utils.CustomDateDeserializer;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class OrderResponse {
     private long id;
     private String name;
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
-    @JsonDeserialize(using = CustomDateDeserializer.class)
-    private Date date;
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
+    private LocalDateTime dateTime;
     private String employee;
     private String department;
+
+    public OrderResponse() {
+    }
+
+    public OrderResponse(long id, String name, LocalDateTime date, String employee, String department) {
+        this.id = id;
+        this.name = name;
+        this.dateTime = date;
+        this.employee = employee;
+        this.department = department;
+    }
 
     public long getId() {
         return id;
@@ -31,12 +39,12 @@ public class OrderResponse {
         this.name = name;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getEmployee() {

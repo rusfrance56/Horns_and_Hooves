@@ -36,7 +36,7 @@ public class OrderController {
         if (department != null) {
             Order newOrder = new Order();
             newOrder.setName(orderReq.getName());
-            newOrder.setDate(orderReq.getDate());
+            newOrder.setDate(orderReq.getDateTime());
             newOrder.setDepartment(department);
 
             Employee employee = employeeService.findById(orderReq.getEmployee_id());
@@ -49,68 +49,68 @@ public class OrderController {
             newOrder = orderService.create(newOrder);
             return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<Collection<OrderResponse>> findAll() {
-        List<Order> all = orderService.findAll();
-        List<OrderResponse> responseList = JsonConverter.convert(all);
-        return new ResponseEntity<>(responseList, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Order> findById(@PathVariable("id") long id) {
-        Order order = orderService.findById(id);
-        if (order == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(order, HttpStatus.OK);
-    }
 
-    @RequestMapping(value = "/byDep/{dep}", method = RequestMethod.GET)
-    public ResponseEntity<Collection<Order>> findAllByDepartmentName(@PathVariable("dep") String department) {
-        return new ResponseEntity<>(orderService.findAllByDepartmentName(department), HttpStatus.OK);
-    }
+        @RequestMapping(method = RequestMethod.GET)
+        // @ResponseBody
+        public ResponseEntity<Collection<OrderResponse>> findAll () {
+            List<Order> all = orderService.findAll();
+            List<OrderResponse> responseList = JsonConverter.convert(all);
+            return new ResponseEntity<>(responseList, HttpStatus.OK);
+        }
 
-    @RequestMapping(value = "/byEmpId/{emp_id}", method = RequestMethod.GET)
-    public ResponseEntity<Collection<Order>> findAllByEmployeeId(@PathVariable("emp_id") long id) {
-        return new ResponseEntity<>(orderService.findAllByEmployeeId(id), HttpStatus.OK);
-    }
+        @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+        public ResponseEntity<Order> findById ( @PathVariable("id") long id){
+            Order order = orderService.findById(id);
+            if (order == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(order, HttpStatus.OK);
+        }
 
-    @RequestMapping(value = "/unfinished", method = RequestMethod.GET)
+        @RequestMapping(value = "/byDep/{dep}", method = RequestMethod.GET)
+        public ResponseEntity<Collection<Order>> findAllByDepartmentName (@PathVariable("dep") String department){
+            return new ResponseEntity<>(orderService.findAllByDepartmentName(department), HttpStatus.OK);
+        }
+
+        @RequestMapping(value = "/byEmpId/{emp_id}", method = RequestMethod.GET)
+        public ResponseEntity<Collection<Order>> findAllByEmployeeId ( @PathVariable("emp_id") long id){
+            return new ResponseEntity<>(orderService.findAllByEmployeeId(id), HttpStatus.OK);
+        }
+
+    /*@RequestMapping(value = "/unfinished", method = RequestMethod.GET)
     public ResponseEntity<Collection<Order>> findAllUnfinished() {
         return new ResponseEntity<>(orderService.findAllUnfinished(), HttpStatus.OK);
-    }
+    }*/
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Order> update(@RequestBody OrderRequest orderReq) {
-        Order newOrder = orderService.findById(orderReq.getId());
-        Department department = departmentService.findById(orderReq.getDepartment_id());
-        if (newOrder != null && department != null) {
-            newOrder.setName(orderReq.getName());
-            newOrder.setDate(orderReq.getDate());
-            newOrder.setDepartment(department);
+        @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+        public ResponseEntity<Order> update (@RequestBody OrderRequest orderReq){
+            Order newOrder = orderService.findById(orderReq.getId());
+            Department department = departmentService.findById(orderReq.getDepartment_id());
+            if (newOrder != null && department != null) {
+                newOrder.setName(orderReq.getName());
+                newOrder.setDate(orderReq.getDateTime());
+                newOrder.setDepartment(department);
 
-            Employee employee = employeeService.findById(orderReq.getEmployee_id());
-            newOrder.setEmployee(employee);
-            if (employee != null) {
-                newOrder.setAssign(true);
-            } else {
-                newOrder.setAssign(false);
+                Employee employee = employeeService.findById(orderReq.getEmployee_id());
+                newOrder.setEmployee(employee);
+                if (employee != null) {
+                    newOrder.setAssign(true);
+                } else {
+                    newOrder.setAssign(false);
+                }
+                newOrder = orderService.update(newOrder);
+                if (newOrder != null) {
+                    return new ResponseEntity<>(newOrder, HttpStatus.OK);
+                }
             }
-            newOrder = orderService.update(newOrder);
-            if (newOrder != null) {
-                return new ResponseEntity<>(newOrder, HttpStatus.OK);
-            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Order> delete(@PathVariable("id") long id) {
-        orderService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+        public ResponseEntity<Order> delete ( @PathVariable("id") long id){
+            orderService.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
-}

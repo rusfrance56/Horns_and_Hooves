@@ -1,18 +1,29 @@
 package com.rest_jpa.entity.request;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.rest_jpa.enumTypes.OrderType;
-import com.rest_jpa.utils.CustomDateDeserializer;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class OrderRequest {
     private long id;
     private String name;
-    @JsonDeserialize(using = CustomDateDeserializer.class)
-    private Date date;
+    //@Type(type = "com.rest_jpa.utils.LocalDateTimeUserType")
+    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime dateTime;
     private long employee_id;
     private long department_id;
+
+    public OrderRequest() {
+    }
+
+    public OrderRequest(long id, String name, LocalDateTime dateTime, long employee_id, long department_id) {
+        this.id = id;
+        this.name = name;
+        this.dateTime = dateTime;
+        this.employee_id = employee_id;
+        this.department_id = department_id;
+    }
 
     public long getId() {
         return id;
@@ -30,12 +41,12 @@ public class OrderRequest {
         this.name = name;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public long getEmployee_id() {
