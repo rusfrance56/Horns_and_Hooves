@@ -1,17 +1,26 @@
 package com.rest_jpa.entity.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class OrderRequest {
     private long id;
+    @NotBlank
+    @SafeHtml
     private String name;
     //@Type(type = "com.rest_jpa.utils.LocalDateTimeUserType")
     //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateTime;
+
     private long employee_id;
+
+    @NotNull
     private long department_id;
 
     public OrderRequest() {

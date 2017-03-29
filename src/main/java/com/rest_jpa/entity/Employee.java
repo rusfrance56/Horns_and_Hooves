@@ -8,13 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(schema = "public", name = "employee")
-public class Employee {
-    @Id
-    @GeneratedValue(generator = "employee_id_seq")
-    @SequenceGenerator(name = "employee_id_seq", sequenceName = "employee_id_seq")
-    private long id;
-
-    private String name;
+public class Employee extends BaseEntity{
 
     private String surName;
 
@@ -25,24 +19,22 @@ public class Employee {
     @JsonIgnore
     private Department department;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     @JsonIgnore
     private List<Order> orderList = new ArrayList<>();
 
-    public long getId() {
-        return id;
+    public Employee() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Employee(String name, String surName, String middleName, Department department) {
+        this(null, name, surName, middleName, department);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public Employee(Long id, String name, String surName, String middleName, Department department) {
+        super(id, name);
+        this.surName = surName;
+        this.middleName = middleName;
+        this.department = department;
     }
 
     public String getSurName() {

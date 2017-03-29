@@ -6,34 +6,21 @@ import java.util.List;
 
 @Entity
 @Table(schema = "public", name = "department")
-public class Department {
-    @Id
-    @GeneratedValue(generator = "department_id_seq")
-    @SequenceGenerator(name = "department_id_seq", sequenceName = "department_id_seq")
-    private long id;
-
-    private String name;
+public class Department extends BaseEntity{
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private List<Employee> employeeList = new ArrayList<>();
+    private List<Employee> employeeList;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private List<Order> orderList = new ArrayList<>();
+    private List<Order> orderList;
 
-    public long getId() {
-        return id;
+    public Department() {
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public Department(Long id, String name) {
+        super(id, name);
+        this.employeeList = new ArrayList<>();
+        this.orderList = new ArrayList<>();
     }
 
     public List<Employee> getEmployeeList() {

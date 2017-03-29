@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class OrderController {
     private DepartmentService departmentService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Order> create(@RequestBody OrderRequest orderReq) {
+    public ResponseEntity<Order> create(@Valid @RequestBody OrderRequest orderReq) {
         Department department = departmentService.findById(orderReq.getDepartment_id());
         if (department != null) {
             Order newOrder = new Order();
@@ -85,7 +86,7 @@ public class OrderController {
     }*/
 
         @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-        public ResponseEntity<Order> update (@RequestBody OrderRequest orderReq){
+        public ResponseEntity<Order> update (@Valid @RequestBody OrderRequest orderReq){
             Order newOrder = orderService.findById(orderReq.getId());
             Department department = departmentService.findById(orderReq.getDepartment_id());
             if (newOrder != null && department != null) {

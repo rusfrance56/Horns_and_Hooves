@@ -1,10 +1,20 @@
 package com.rest_jpa.entity.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+
+import javax.validation.constraints.NotNull;
+
 public class EmployeeRequest {
     private long id;
+    @NotBlank
+    @SafeHtml
     private String name;
+    @NotBlank
+    @SafeHtml
     private String surName;
     private String middleName;
+    @NotNull
     private long department_id;
 
     public long getId() {

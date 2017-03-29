@@ -9,14 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(schema = "public", name = "order_furniture")
-public class Order {
-    @Id
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 100000)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    @Access(value = AccessType.PROPERTY)
-    private long id;
-
-    private String name;
+public class Order extends BaseEntity{
 
     /*@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")*/
     //@JsonDeserialize(using = CustomDateDeserializer.class)
@@ -38,20 +31,19 @@ public class Order {
     @JsonIgnore
     private Department department;
 
-    public long getId() {
-        return id;
+    public Order() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Order(String name, LocalDateTime dateTime, boolean isAssigned, Employee employee, Department department) {
+        this(null, name, dateTime, isAssigned, employee, department);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String orderName) {
-        this.name = orderName;
+    public Order(Long id, String name, LocalDateTime dateTime, boolean isAssigned, Employee employee, Department department) {
+        super(id, name);
+        this.dateTime = dateTime;
+        this.isAssigned = isAssigned;
+        this.employee = employee;
+        this.department = department;
     }
 
     public LocalDateTime getDate() {
