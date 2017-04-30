@@ -8,13 +8,13 @@ import javax.validation.constraints.NotNull;
 public class EmployeeRequest {
     private long id;
     @NotBlank
-    @SafeHtml
+    //@SafeHtml
     private String name;
     @NotBlank
-    @SafeHtml
+    //@SafeHtml
     private String surName;
     private String middleName;
-    @NotNull
+    //@NotNull
     private long department_id;
 
     public long getId() {

@@ -13,12 +13,12 @@ public class Order extends BaseEntity{
 
     /*@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")*/
     //@JsonDeserialize(using = CustomDateDeserializer.class)
-    @Type(type="com.rest_jpa.utils.LocalDateTimeUserType")
+    //@Type(type="com.rest_jpa.utils.LocalDateTimeUserType")
     @Column(name = "date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateTime;
 
-    @Column(name = "isAssigned", nullable = false, columnDefinition = "bool default false")
+    @Column(name = "is_assigned", nullable = false, columnDefinition = "bool default false")
     private boolean isAssigned = false;
 
     @ManyToOne

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class OrderRequest {
     private long id;
     @NotBlank
-    @SafeHtml
+    //@SafeHtml
     private String name;
     //@Type(type = "com.rest_jpa.utils.LocalDateTimeUserType")
     //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -20,7 +20,7 @@ public class OrderRequest {
 
     private long employee_id;
 
-    @NotNull
+    //@NotNull
     private long department_id;
 
     public OrderRequest() {

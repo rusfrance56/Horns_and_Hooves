@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -23,14 +24,11 @@ public class EmployeeController {
     private DepartmentService departmentService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Employee> create(@RequestBody EmployeeRequest employeeReq) {
+    public ResponseEntity<Employee> create(@Valid @RequestBody EmployeeRequest employeeReq) {
         Department department = departmentService.findById(employeeReq.getDepartment_id());
         if (department != null) {
-            Employee newEmployee = new Employee();
-            newEmployee.setName(employeeReq.getName());
-            newEmployee.setSurName(employeeReq.getSurName());
-            newEmployee.setMiddleName(employeeReq.getMiddleName());
-            newEmployee.setDepartment(department);
+            Employee newEmployee = new Employee(employeeReq.getName(),
+                    employeeReq.getSurName(), employeeReq.getMiddleName(), department);
             newEmployee = employeeService.create(newEmployee);
             return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
         }

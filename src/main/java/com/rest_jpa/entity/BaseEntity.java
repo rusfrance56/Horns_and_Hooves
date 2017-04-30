@@ -16,7 +16,7 @@ public class BaseEntity {
 
     @NotBlank
     @Column(name = "name", nullable = false)
-    @SafeHtml
+    //@SafeHtml
     protected String name;
 
     public BaseEntity() {
