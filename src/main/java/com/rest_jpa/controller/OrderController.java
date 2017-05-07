@@ -62,12 +62,12 @@ public class OrderController {
         }
 
         @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-        public ResponseEntity<Order> findById ( @PathVariable("id") long id){
+        public ResponseEntity<OrderResponse> findById ( @PathVariable("id") long id){
             Order order = orderService.findById(id);
             if (order == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(order, HttpStatus.OK);
+            return new ResponseEntity<>(JsonConverter.convert(order), HttpStatus.OK);
         }
 
         @RequestMapping(value = "/byDep/{dep}", method = RequestMethod.GET)

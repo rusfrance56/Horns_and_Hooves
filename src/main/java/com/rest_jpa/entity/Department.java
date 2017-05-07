@@ -1,5 +1,7 @@
 package com.rest_jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +10,11 @@ import java.util.List;
 @Table(schema = "public", name = "department")
 public class Department extends BaseEntity{
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Employee> employeeList;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Order> orderList;
 

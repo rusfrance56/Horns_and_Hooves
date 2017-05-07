@@ -37,7 +37,19 @@ mainApp.service('EmpService',
     }
 );
 mainApp.controller('AddEmpController', function ($scope, $http, $location){
+
+    $http.get("/departments").success(function (response) {
+        $scope.deps = response;
+        $scope.selectedOpt = $scope.deps[1];
+        //$scope.emp.department_id = $scope.selectedOpt;
+    });
+    $scope.changedValue = function(depId) {
+        $http.get("/employee/byDep/"+ depId).success(function (response) {
+            $scope.employees = response;
+        });
+    };
     $scope.createEmp = function() {
+        $scope.emp.department_id = $scope.selectedOpt.id;
         $http.post("/employee", $scope.emp).success(
             function(response) {
                 $location.path("/employee");

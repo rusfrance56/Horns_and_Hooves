@@ -5,6 +5,7 @@ import com.rest_jpa.entity.response.OrderResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JsonConverter {
 
@@ -20,11 +21,13 @@ public class JsonConverter {
     }
 
     public static List<OrderResponse> convert(List<Order> orders) {
-        List<OrderResponse> responseList = new ArrayList<>();
+        /*List<OrderResponse> responseList = new ArrayList<>();
         for (Order order : orders) {
             OrderResponse orderResponse = convert(order);
             responseList.add(orderResponse);
         }
-        return responseList;
+        return responseList;*/
+
+        return orders.stream().map(JsonConverter::convert).collect(Collectors.toList());
     }
 }

@@ -52,11 +52,8 @@ mainApp.controller('AddOrderController', function ($scope, $http, $location){
     $http.get("/departments").success(function (response) {
         $scope.deps = response;
         $scope.selectedOpt = $scope.deps[0];
-       /* $scope.order.department_id = $scope.selectedOption;
-        $http.get("/employee/byDep/"+ $scope.order.department_id).success(function (response) {
-            $scope.emps = response;
-        });*/
     });
+
     $scope.changedValue = function(depId) {
         $http.get("/employee/byDep/"+ depId).success(function (response) {
             $scope.employees = response;
@@ -70,6 +67,21 @@ mainApp.controller('AddOrderController', function ($scope, $http, $location){
             }
         );
     };
+    /*$http.get("/departments").success(function (response) {
+        $scope.deps = response;
+        $scope.selectedDep = $scope.deps[0];
+    });
+    $http.get("/employee/byDep/" + $scope.selectedDep.id).success(function (response) {
+        $scope.employees = response;
+        $scope.selectedEmp = "";
+    });
+    $scope.createOrder = function() {
+        $http.post("/orders", $scope.order).success(
+            function(response) {
+                $location.path("/orders");
+            }
+        );
+    };*/
 });
 mainApp.controller('EditOrderController', function ($scope, $http, $location, OrderService){
     $scope.order = OrderService.get();
