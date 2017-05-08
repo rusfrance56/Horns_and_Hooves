@@ -54,7 +54,7 @@ public class OrderController {
         }
 
         @RequestMapping(method = RequestMethod.GET)
-        // @ResponseBody
+        @ResponseBody
         public ResponseEntity<Collection<OrderResponse>> findAll () {
             List<Order> all = orderService.findAll();
             List<OrderResponse> responseList = JsonConverter.convert(all);

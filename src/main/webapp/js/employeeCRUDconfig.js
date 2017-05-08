@@ -1,3 +1,4 @@
+'use strict';
 mainApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.

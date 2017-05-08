@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter implements WebMvcConfigurer {
 
-    private static final String STATIC_FILE_PATH = "src/main/resources/static";
+    /*private static final String STATIC_FILE_PATH = "src/main/resources/static";
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -31,6 +31,6 @@ public class WebConfig extends WebMvcConfigurerAdapter implements WebMvcConfigur
         }
 
         registry.addViewController("/").setViewName("index");
-    }
+    }*/
 
 }

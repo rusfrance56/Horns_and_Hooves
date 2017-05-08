@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mainApp">
 <head>
     <title>Horns and Hooves</title>
     <link href="css/style.css" type="text/css" rel="stylesheet"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+    <script src="helpfulLib/angular-1.5.8/angular.min.js"></script>
+    <script src="helpfulLib/angular-1.5.8/angular-route.min.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="helpfulLib/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="helpfulLib/bootstrap-3.3.7/css/bootstrap-theme.min.css">
 </head>
 <body>
-<div ng-app="mainApp">
+<div >
     <div class="btn-group btn-group-lg" role="group" aria-label="...">
         <a href="#/orders" class="btn btn-default">orders</a>
         <a href="#/employee" class="btn btn-default">workers</a>
@@ -124,12 +123,12 @@
     </script>
     <script type="text/ng-template" id="viewOrders.htm">
         <h2>Orders</h2>
-        <a href="#/addOrder" class="btn btn-primary">Create Order</a>
         <div class="form-group">
             <label class="control-label col-sm-1" for="order.search">Search:</label>
             <div class="col-sm-3">
                 <input type="text" class="form-control" id="order.search" ng-model="search">
             </div>
+            <a href="#/addOrder" class="btn btn-primary col-sm-offset-6 col-sm-2">Create Order</a>
         </div>
         <!--<input type="text" ng-model="dep">
         <input type="button" ng-click="ordersByDep(dep)" value="by Department">-->
@@ -255,12 +254,12 @@
     </script>
     <script type="text/ng-template" id="viewEmps.htm">
         <h2>Workers</h2>
-        <a href="#/addEmp" class="btn btn-primary">Create employee</a>
         <div class="form-group">
             <label class="control-label col-sm-1" for="emp.search">Search:</label>
             <div class="col-sm-3">
                 <input type="text" class="form-control" id="emp.search" ng-model="search">
             </div>
+            <a href="#/addEmp" class="btn btn-primary col-sm-offset-6 col-sm-2">Create employee</a>
         </div>
         <table class="table table-striped">
             <thead>
@@ -289,7 +288,10 @@
         </table>
     </script>
 </div>
-<script src="js/angularView/orders/orderCRUDconfig.js"></script>
-<script src="js/angularView/employee/employeeCRUDconfig.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="helpfulLib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+<script src="js/orderCRUDconfig.js"></script>
+<script src="js/employeeCRUDconfig.js"></script>
 </body>
 </html>

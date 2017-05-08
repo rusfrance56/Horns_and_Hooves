@@ -8,7 +8,9 @@ import com.rest_jpa.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class OrderHelper {
@@ -19,13 +21,16 @@ public class OrderHelper {
     private DepartmentRepository departmentRepository;
 
     public Employee findFreeEmployee(List<Employee> list) {
-        Employee freeEmp = list.get(0);
+       /* Employee freeEmp = list.get(0);
         for (int i = 1; i < list.size(); i++) {
             if (list.get(i).getOrderList().size() < freeEmp.getOrderList().size()) {
                 freeEmp = list.get(i);
             }
-        }
-        return freeEmp;
+        }*/
+
+        Optional<Employee> min = list.stream().min(Comparator.comparingInt((o -> o.getOrderList().size())));
+        return min.get();
+//        return freeEmp;
     }
 
     public void changeOrdersStatusToUnassigned(List<Order> orderList) {

@@ -1,4 +1,9 @@
+'use strict';
 var mainApp = angular.module("mainApp", ['ngRoute']);
+
+/*mainApp.config(['$locationProvider', function($locationProvider) {
+    $locationProvider.hashPrefix('');
+}]);*/
 
 mainApp.service('OrderService',
     function () {
