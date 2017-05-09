@@ -50,43 +50,28 @@ mainApp.config(['$routeProvider',
     }
 ]);
 mainApp.controller('AddOrderController', function ($scope, $http, $location){
-    $scope.filterCondition = {
-        dep: 'storage'
-    }
 
     $http.get("/departments").success(function (response) {
         $scope.deps = response;
-        $scope.selectedOpt = $scope.deps[0];
+        $scope.selectedDep = $scope.deps[0];
+        $scope.refreshEmp();
     });
 
-    $scope.changedValue = function(depId) {
-        $http.get("/employee/byDep/"+ depId).success(function (response) {
+    $scope.refreshEmp = function(){
+        $http.get("/employee/byDep/" + $scope.selectedDep.id).success(function (response) {
             $scope.employees = response;
         });
-    };
+    }
 
     $scope.createOrder = function() {
+        $scope.order.employee_id = $scope.selectedEmp.id;
+        $scope.order.department_id = $scope.selectedDep.id;
         $http.post("/orders", $scope.order).success(
             function(response) {
                 $location.path("/orders");
             }
         );
     };
-    /*$http.get("/departments").success(function (response) {
-        $scope.deps = response;
-        $scope.selectedDep = $scope.deps[0];
-    });
-    $http.get("/employee/byDep/" + $scope.selectedDep.id).success(function (response) {
-        $scope.employees = response;
-        $scope.selectedEmp = "";
-    });
-    $scope.createOrder = function() {
-        $http.post("/orders", $scope.order).success(
-            function(response) {
-                $location.path("/orders");
-            }
-        );
-    };*/
 });
 mainApp.controller('EditOrderController', function ($scope, $http, $location, OrderService){
     $scope.order = OrderService.get();
@@ -107,8 +92,6 @@ mainApp.controller('OrdersController', function ($scope, $http, $location, Order
     $http.get("/orders").success(function (response) {
         $scope.orders = response;
     });
-        //OrderService.getOrders();
-
 
     $scope.editOrder = function (order) {
         OrderService.set(order);
@@ -120,7 +103,6 @@ mainApp.controller('OrdersController', function ($scope, $http, $location, Order
             $http.get("/orders").success(function (response) {
                 $scope.orders = response;
             });
-            //OrderService.getOrders();
             $location.path("/orders");
         });
     };

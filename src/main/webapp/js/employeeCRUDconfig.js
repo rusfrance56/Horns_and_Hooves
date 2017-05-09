@@ -41,8 +41,7 @@ mainApp.controller('AddEmpController', function ($scope, $http, $location){
 
     $http.get("/departments").success(function (response) {
         $scope.deps = response;
-        $scope.selectedOpt = $scope.deps[1];
-        //$scope.emp.department_id = $scope.selectedOpt;
+        $scope.selectedOpt = $scope.deps[0];
     });
     $scope.changedValue = function(depId) {
         $http.get("/employee/byDep/"+ depId).success(function (response) {
@@ -58,11 +57,30 @@ mainApp.controller('AddEmpController', function ($scope, $http, $location){
         );
     };
 });
+
+mainApp.filter('getById', function(){
+    return function(input, id) {
+        var i=0, len=input.length;
+        for (; i<len; i++) {
+            if (+input[i].id == +id) {
+                return input[i];
+            }
+        }
+        return null;
+    }
+});
+
 mainApp.controller('EditEmpController', function ($scope, $http, $location, EmpService){
     $scope.emp = EmpService.get();
+
+    $http.get("/departments").success(function (response) {
+        $scope.deps = response;
+        $scope.editEmpSelectedDep = $filter('getById')(deps, $scope.emp.department_id) ;
+    });
+
     $scope.saveEmp = function(emp) {
         $http.put("/employee/"+emp.id, emp).success(
-            function(responce) {
+            function(response) {
                 $location.path("/employee");
             });
     }
