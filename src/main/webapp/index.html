@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="btn-group btn-group-lg" role="group" aria-label="...">
+    <div class="btn-group btn-group-lg" role="group" aria-label="..." ng-controller="OrdersController">
         <a href="#/orders" class="btn btn-default">orders</a>
         <a href="#/employee" class="btn btn-default">workers</a>
     </div>
@@ -21,12 +21,16 @@
     <script type="text/ng-template" id="addOrder.htm">
         <h2>Create order</h2>
         <div class="container col-sm-5">
-            <form class="form-horizontal">
+            <form name="addOrderForm" novalidate class="form-horizontal">
                 <div class="form-group row">
                     <label class="control-label col-sm-3" for="create.orderName">Name:</label>
-                    <div class="col-sm-9">
-                        <input type="text" ng-model="order.name" class="form-control" id="create.orderName"
+                    <div class="col-sm-9 inner-addon right-addon">
+                        <!--<span class="glyphicon glyphicon-ok green" ng-show="ordName.$valid"></span>-->
+                        <input type="text" ng-model="order.name" class="form-control" name="ordName" id="create.orderName"
                                placeholder="Enter name" required>
+                       <!-- <div class="error" ng-show="addOrderForm.ordName.$invalid && addOrderForm.ordName.$dirty">
+                            {{getError(addOrderForm.ordName.$error)}}
+                        </div>-->
                     </div>
                 </div>
                 <div class="form-group row">
@@ -41,7 +45,7 @@
                     <label class="control-label col-sm-3" for="create.orderDepartment">Type:</label>
                     <div class="col-sm-9">
                          <select class="form-control" id="create.orderDepartment" ng-model="selectedDep"
-                                 ng-options="dep.name for dep in deps track by dep.id" ng-change="refreshEmp()">
+                                 ng-options="dep.name for dep in deps track by dep.id" ng-change="refreshEmp()" required>
                          </select>
                     </div>
                 </div>
@@ -49,14 +53,14 @@
                     <label class="control-label col-sm-3" for="create.orderEmployee">Employee:</label>
                     <div class="col-sm-9">
                         <select class="form-control" id="create.orderEmployee" ng-model="selectedEmp"
-                                ng-options="emp.name for emp in employees track by emp.id">
+                                ng-options="employee as emp.name+' '+emp.surName for emp in employees track by emp.id">
                             <option></option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="button" ng-click="createOrder()" class="btn btn-default">Create</button>
+                        <button type="button" ng-click="createOrder()" class="btn btn-default" ng-disabled="addOrderForm.$invalid">Create</button>
                     </div>
                 </div>
             </form>
@@ -155,7 +159,7 @@
     <script type="text/ng-template" id="addEmp.htm">
         <h2>Create employee</h2>
         <div class="container col-sm-5">
-            <form class="form-horizontal">
+            <form name="addEmpForm" novalidate class="form-horizontal">
                 <div class="form-group row">
                     <label class="control-label col-sm-3" for="edit.empName">Name:</label>
                     <div class="col-sm-9">
@@ -182,13 +186,13 @@
                     <div class="col-sm-9">
                         <select class="form-control" name="selectDep" ng-model="selectedOpt"
                                 id="create.empDepartment"
-                            ng-options="dep.name for dep in deps track by dep.id">
+                            ng-options="dep.name for dep in deps track by dep.id" required>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="button" ng-click="createEmp()" class="btn btn-default">Create</button>
+                        <button type="button" ng-click="createEmp()" class="btn btn-default" ng-disabled="addEmpForm.$invalid">Create</button>
                     </div>
                 </div>
             </form>
@@ -197,7 +201,7 @@
     <script type="text/ng-template" id="editEmp.htm">
         <h2>Employee information</h2>
         <div class="container col-sm-5">
-            <form class="form-horizontal">
+            <form name="editEmpForm" novalidate class="form-horizontal">
                 <div class="form-group row">
                     <label class="control-label col-sm-3" for="edit.empName">Name:</label>
                     <div class="col-sm-9">

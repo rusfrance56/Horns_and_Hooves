@@ -15,8 +15,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.StringJoiner;
 
 @RestController
 @RequestMapping(value = "/orders")
@@ -37,7 +42,12 @@ public class OrderController {
         if (department != null) {
             Order newOrder = new Order();
             newOrder.setName(orderReq.getName());
-            newOrder.setDate(orderReq.getDateTime());
+
+            ZonedDateTime zdt = orderReq.getDateTime().atZone(ZoneOffset.UTC);
+//          LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.of("Europe/Moscow")).toLocalDateTime();
+            LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+
+            newOrder.setDate(creationDate);
             newOrder.setDepartment(department);
 
             Employee employee = employeeService.findById(orderReq.getEmployee_id());

@@ -51,6 +51,7 @@ mainApp.config(['$routeProvider',
 ]);
 mainApp.controller('AddOrderController', function ($scope, $http, $location){
 
+
     $http.get("/departments").success(function (response) {
         $scope.deps = response;
         $scope.selectedDep = $scope.deps[0];
@@ -64,7 +65,9 @@ mainApp.controller('AddOrderController', function ($scope, $http, $location){
     }
 
     $scope.createOrder = function() {
-        $scope.order.employee_id = $scope.selectedEmp.id;
+        if ($scope.selectedEmp != null){
+            $scope.order.employee_id = $scope.selectedEmp.id;
+        }
         $scope.order.department_id = $scope.selectedDep.id;
         $http.post("/orders", $scope.order).success(
             function(response) {
@@ -88,7 +91,18 @@ mainApp.controller('EditOrderController', function ($scope, $http, $location, Or
             });
     }
 });
+
+
+
 mainApp.controller('OrdersController', function ($scope, $http, $location, OrderService) {
+    $scope.myerr = false;
+    $scope.setErrors = function(){
+        $scope.myerr = true;
+    };
+    $scope.removeErrors = function () {
+        $scope.myerr = false;
+    };
+
     $http.get("/orders").success(function (response) {
         $scope.orders = response;
     });
@@ -113,4 +127,12 @@ mainApp.controller('OrdersController', function ($scope, $http, $location, Order
             $location.path("/orders");
         });
     };
+
+    $scope.getError = function (error) {
+        if (angular.isDefined(error)) {
+            if (error.required) {
+                return "Поле не должно быть пустым";
+            }
+        }
+    }
 });
