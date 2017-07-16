@@ -6,6 +6,8 @@ import com.rest_jpa.entity.request.EmployeeRequest;
 import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +40,11 @@ public class EmployeeController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Employee>> findAll() {
         return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<Employee>> findAll(Pageable pageable) {
+        return new ResponseEntity<>(employeeService.listAllByPage(pageable), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
