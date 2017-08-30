@@ -54,3 +54,9 @@ div.error {
     color: red;
     font-weight: bold;
 }
+table {
+    margin: auto;
+}
+table td {
+    padding: 1px !important;
+}

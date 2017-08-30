@@ -3,15 +3,15 @@ mainApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
         when('/addEmp', {
-            templateUrl: 'addEmp.htm',
+            templateUrl: 'views/employee/addEmployee.html',
             controller: 'AddEmpController'
         }).
         when('/editEmp', {
-            templateUrl: 'editEmp.htm',
+            templateUrl: 'views/employee/editEmployee.html',
             controller: 'EditEmpController'
         }).
         when('/employee', {
-            templateUrl: 'viewEmps.htm',
+            templateUrl: 'views/employee/viewEmployee.html',
             controller: 'EmpsController'
         }).
         otherwise({
@@ -75,7 +75,7 @@ mainApp.controller('EditEmpController', function ($scope, $http, $location, EmpS
 
     $http.get("/departments").success(function (response) {
         $scope.deps = response;
-        $scope.editEmpSelectedDep = $filter('getById')(deps, $scope.emp.department_id) ;
+        // $scope.editEmpSelectedDep = (deps, $scope.emp.department_id) ;
     });
 
     $scope.saveEmp = function(emp) {
