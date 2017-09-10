@@ -1,0 +1,40 @@
+<h2>Create employee</h2>
+<div class="container col-sm-5">
+    <form name="addEmpForm" novalidate class="form-horizontal">
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="create.empName">Name:</label>
+            <div class="col-sm-9">
+                <input type="text" ng-model="emp.name" class="form-control" id="create.empName"
+                       placeholder="Enter name" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="create.empSurName">Surname:</label>
+            <div class="col-sm-9">
+                <input type="text" ng-model="emp.surName" class="form-control" id="create.empSurName"
+                       placeholder="Enter surname" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="create.empMiddleName">Middlename:</label>
+            <div class="col-sm-9">
+                <input type="text" ng-model="emp.middleName" class="form-control" id="create.empMiddleName"
+                       placeholder="Enter middlename">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="create.empDepartment">Department:</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="selectDep" ng-model="selectedOpt"
+                        id="create.empDepartment"
+                        ng-options="dep.name for dep in deps track by dep.id" required>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="button" ng-click="createEmp()" class="btn btn-default" ng-disabled="addEmpForm.$invalid">Create</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,54 +1,42 @@
 'use strict';
 var mainApp = angular.module("mainApp", ['ngRoute']);
 
-/*mainApp.config(['$locationProvider', function($locationProvider) {
-    $locationProvider.hashPrefix('');
-}]);*/
-
-mainApp.service('OrderService',
-    function () {
-        var savedData = {}
-
-        function set(data) {
-            savedData = data;
-        }
-
-        function get() {
-            return savedData;
-        }
-
-        savedData.getOrders = function(){
-            return $http.get("/orders").success(function(response){
-                $scope.orders = response;
-            });
-        };
-
-        return {
-            set: set,
-            get: get
-        }
+mainApp.service('OrderService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
     }
-);
-mainApp.config(['$routeProvider',
-    function ($routeProvider) {
-        $routeProvider.
-        when('/addOrder', {
-            templateUrl: 'addOrder.htm',
-            controller: 'AddOrderController'
-        }).
-        when('/editOrder', {
-            templateUrl: 'editOrder.htm',
-            controller: 'EditOrderController'
-        }).
-        when('/orders', {
-            templateUrl: 'viewOrders.htm',
-            controller: 'OrdersController'
-        }).
-        otherwise({
-            redirectTO: '/orders'
+    function get() {
+        return savedData;
+    }
+    savedData.getOrders = function(){
+        return $http.get("/orders").success(function(response){
+            $scope.orders = response;
         });
+    };
+    return {
+        set: set,
+        get: get
     }
-]);
+});
+mainApp.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.
+    when('/addOrder', {
+        templateUrl: 'views/order/addOrder.html',
+        controller: 'AddOrderController'
+    }).
+    when('/editOrder', {
+        templateUrl: 'views/order/editOrder.html',
+        controller: 'EditOrderController'
+    }).
+    when('/orders', {
+        templateUrl: 'views/order/viewOrders.html',
+        controller: 'OrdersController'
+    }).
+    otherwise({
+        redirectTO: '/orders'
+    });
+}]);
 mainApp.controller('AddOrderController', function ($scope, $http, $location){
 
 
