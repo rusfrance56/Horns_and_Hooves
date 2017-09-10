@@ -1,13 +1,18 @@
 <h2>Workers</h2>
-<div class="form-group">
-    <label class="control-label col-sm-1" for="emp.search">Search:</label>
-    <div class="col-sm-3">
-        <input type="text" class="form-control" id="emp.search" ng-model="search">
-    </div>
-    <a href="#/addEmp" class="btn btn-primary col-sm-offset-6 col-sm-2">Create employee</a>
-</div>
-<table class="table table-striped table-bordered">
+<table class="table table-striped" st-table="employees">
     <thead>
+    <tr>
+        <th></th>
+        <th>
+            <!--On page:<select class="form-control" ng-options="item in itemsByPage" ></select>-->
+        </th>
+        <th colspan="2">
+            <!--<input st-search placeholder="search" class="form-control col-lg-2" type="search"/>-->
+        </th>
+        <th>
+            <a href="" class="btn btn-primary" ng-click="navigateToCreate()">Create employee</a>
+        </th>
+    </tr>
     <tr>
         <th hidden>Id</th>
         <th>#</th>
@@ -15,10 +20,11 @@
         <th>Surname</th>
         <th>MiddleName</th>
         <th>Options</th>
+        <!--todo добавить поле департамент и обьеденить странички редактирования и создания в одну-->
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="emp in emps | filter : search">
+    <tr ng-repeat="emp in employees">
         <td hidden>{{emp.id}}</td>
         <td>{{$index+1}}</td>
         <td>{{emp.name}}</td>
@@ -26,10 +32,17 @@
         <td>{{emp.middleName}}</td>
         <td>
             <div class="btn-group btn-group" role="group" aria-label="...">
-                <a href="" class="btn btn-primary" ng-click="editEmp(emp)">info</a>
-                <a href="" class="btn btn-danger" ng-click="deleteEmp(emp)">delete</a>
+                <a href="" class="btn btn-primary" ng-click="editEmployee(emp)">info</a>
+                <a href="" class="btn btn-danger" ng-click="deleteEmployee(emp)">delete</a>
             </div>
         </td>
     </tr>
     </tbody>
+    <!--<tfoot>-->
+    <!--<tr>-->
+        <!--<td colspan="5" class="text-center">-->
+            <!--<div st-pagination=""></div>-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--</tfoot>-->
 </table>

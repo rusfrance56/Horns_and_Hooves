@@ -3,26 +3,28 @@
 <head>
     <title>Horns and Hooves</title>
     <link href="css/style.css" type="text/css" rel="stylesheet"/>
-    <script src="lib/angular-1.5.8/angular.min.js"></script>
-    <script src="lib/angular-1.5.8/angular-route.min.js"></script>
+    <!--<script src="lib/angular-1.5.8/angular.min.js"></script>-->
+    <!--<script src="lib/angular-1.5.8/angular-route.min.js"></script> -->
+    <script src="lib/angular-1.6.6/angular.min.js"></script>
+    <script src="lib/angular-1.6.6/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap-theme.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.1.8/smart-table.js"></script>
 </head>
-<body>
+<body ng-app="mainApp">
 <div class="container">
-    <div class="btn-group btn-group-lg" role="group" aria-label="..." ng-controller="OrdersController">
-        <a href="#/orders" class="btn btn-default">orders</a>
-        <a href="#/employee" class="btn btn-default">workers</a>
-    </div>
+    <ul class="nav nav-tabs">
+        <li><a href="#/orders">orders</a></li>
+        <li><a href="#/employee">workers</a></li>
+    </ul>
     <div ng-view></div>
-    <div class="form-group col-sm-1">
-        <label for="sel1">Size: </label>
-        <select ng-model="recordsOnPage" class="form-control" id="sel1" ng-options="item for item in recordsOnPageValues" ng-change="getEmps()" ></select>
-    </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script src="js/orderCRUDconfig.js"></script>
-<script src="js/employeeCRUDconfig.js"></script>
+<script src="js/orderControllers.js"></script>
+<script src="js/orderServices.js"></script>
+<script src="js/employeeControllers.js"></script>
+<script src="js/employeeServices.js"></script>
 </body>
 </html>

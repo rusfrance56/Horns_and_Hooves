@@ -2,18 +2,18 @@ package com.rest_jpa.controller;
 
 import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
-import com.rest_jpa.entity.request.EmployeeRequest;
+import com.rest_jpa.entity.to.EmployeeTO;
 import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
+import com.rest_jpa.utils.JsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/employee")
@@ -26,8 +26,8 @@ public class EmployeeController {
     private DepartmentService departmentService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Employee> create(@Valid @RequestBody EmployeeRequest employeeReq) {
-        Department department = departmentService.findById(employeeReq.getDepartment_id());
+    public ResponseEntity<Employee> create(@Valid @RequestBody EmployeeTO employeeReq) {
+        Department department = departmentService.findById(employeeReq.getDepartmentId());
         if (department != null) {
             Employee newEmployee = new Employee(employeeReq.getName(),
                     employeeReq.getSurName(), employeeReq.getMiddleName(), department);
@@ -38,14 +38,17 @@ public class EmployeeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Collection<Employee>> findAll() {
-        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
+    @ResponseBody
+    public ResponseEntity<Collection<EmployeeTO>> findAll() {
+        List<Employee> employees = employeeService.findAll();
+        List<EmployeeTO> employeeTOList = JsonConverter.convertEmployee(employees);
+        return new ResponseEntity<>(employeeTOList, HttpStatus.OK);
     }
-
+/*
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<Employee>> findAll(Pageable pageable) {
         return new ResponseEntity<>(employeeService.listAllByPage(pageable), HttpStatus.OK);
-    }
+    }*/
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Employee> findById(@PathVariable("id") long id) {
@@ -62,8 +65,8 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Employee> update(@RequestBody EmployeeRequest employeeReq) {
-        Department department = departmentService.findById(employeeReq.getDepartment_id());
+    public ResponseEntity<Employee> update(@Valid @RequestBody EmployeeTO employeeReq) {
+        Department department = departmentService.findById(employeeReq.getDepartmentId());
         Employee byId = employeeService.findById(employeeReq.getId());
         if (byId != null && department != null) {
             Employee employee = byId;

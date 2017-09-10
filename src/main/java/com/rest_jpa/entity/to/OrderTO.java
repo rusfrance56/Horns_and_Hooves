@@ -1,10 +1,9 @@
-package com.rest_jpa.entity.response;
+package com.rest_jpa.entity.to;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDateTime;
 
-public class OrderResponse {
+public class OrderTO {
     private long id;
     private String name;
     @JsonFormat(pattern="dd-MM-yyyy HH:mm")
@@ -12,10 +11,10 @@ public class OrderResponse {
     private String employee;
     private String department;
 
-    public OrderResponse() {
+    public OrderTO() {
     }
 
-    public OrderResponse(long id, String name, LocalDateTime date, String employee, String department) {
+    public OrderTO(long id, String name, LocalDateTime date, String employee, String department) {
         this.id = id;
         this.name = name;
         this.dateTime = date;

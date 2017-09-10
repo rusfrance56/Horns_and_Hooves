@@ -1,7 +1,7 @@
 'use strict';
-var mainApp = angular.module("mainApp", ['ngRoute']);
+var mainApp = angular.module("mainApp", ['ngRoute', 'smart-table']);
 
-mainApp.service('OrderService', function () {
+/*mainApp.service('OrderService', function () {
     var savedData = {}
     function set(data) {
         savedData = data;
@@ -9,17 +9,18 @@ mainApp.service('OrderService', function () {
     function get() {
         return savedData;
     }
-    savedData.getOrders = function(){
-        return $http.get("/orders").success(function(response){
-            $scope.orders = response;
+    /!*savedData.getOrders = function(){
+        return $http.get("/orders").success(function(to){
+            $scope.orders = to;
         });
-    };
+    };*!/
     return {
         set: set,
         get: get
     }
-});
-mainApp.config(['$routeProvider', function ($routeProvider) {
+});*/
+mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+    $locationProvider.hashPrefix('');
     $routeProvider.
     when('/addOrder', {
         templateUrl: 'views/order/addOrder.html',
@@ -50,8 +51,7 @@ mainApp.controller('AddOrderController', function ($scope, $http, $location){
         $http.get("/employee/byDep/" + $scope.selectedDep.id).success(function (response) {
             $scope.employees = response;
         });
-    }
-
+    };
     $scope.createOrder = function() {
         if ($scope.selectedEmp != null){
             $scope.order.employee_id = $scope.selectedEmp.id;
@@ -82,7 +82,10 @@ mainApp.controller('EditOrderController', function ($scope, $http, $location, Or
 
 
 
-mainApp.controller('OrdersController', function ($scope, $http, $location, OrderService) {
+mainApp.controller('OrdersController', function ($scope, OrderServices) {
+    $scope.orders = [];
+    getOrders();
+
     $scope.myerr = false;
     $scope.setErrors = function(){
         $scope.myerr = true;
@@ -91,30 +94,30 @@ mainApp.controller('OrdersController', function ($scope, $http, $location, Order
         $scope.myerr = false;
     };
 
-    $http.get("/orders").success(function (response) {
-        $scope.orders = response;
-    });
+    function getOrders() {
+        OrderServices.getOrders().then(function (orders) {
+            $scope.orders = orders;
+        });
+    }
 
-    $scope.editOrder = function (order) {
+   /* $scope.editOrder = function (order) {
         OrderService.set(order);
         $location.path("/editOrder");
-    };
+    };*/
 
     $scope.deleteOrder = function (order) {
-        $http.delete("/orders/"+order.id).success(function (response) {
-            $http.get("/orders").success(function (response) {
-                $scope.orders = response;
-            });
-            $location.path("/orders");
+        var indexForRemove = $scope.orders.indexOf(order);
+        OrderServices.deleteOrder(order.id).success(function () {
+            $scope.orders.splice(indexForRemove, 1);
         });
     };
-
+/*
     $scope.ordersByDep = function (dep) {
-        $http.get("/orders/byDep/"+dep).success(function (response) {
-            $scope.orders = response;
+        $http.get("/orders/byDep/"+dep).success(function (to) {
+            $scope.orders = to;
             $location.path("/orders");
         });
-    };
+    };*/
 
     $scope.getError = function (error) {
         if (angular.isDefined(error)) {

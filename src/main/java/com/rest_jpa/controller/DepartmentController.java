@@ -17,7 +17,7 @@ import java.util.Collection;
 public class DepartmentController {
 
     @Autowired
-    DepartmentService departmentService;
+    private DepartmentService departmentService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Department>> findAll() {

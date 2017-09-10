@@ -10709,11 +10709,11 @@ function headersGetter(headers) {
 /**
  * Chain all given functions
  *
- * This function is used for both request and response transforming
+ * This function is used for both request and to transforming
  *
  * @param {*} data Data to transform.
  * @param {function(string=)} headers HTTP headers getter fn.
- * @param {number} status HTTP status code of the response.
+ * @param {number} status HTTP status code of the to.
  * @param {(Function|Array.<Function>)} fns Function or an array of functions.
  * @returns {*} Transformed data.
  */
@@ -10775,7 +10775,7 @@ function $HttpProvider() {
    *
    **/
   var defaults = this.defaults = {
-    // transform incoming response data
+    // transform incoming to data
     transformResponse: [defaultHttpResponseTransform],
 
     // transform outgoing request data
@@ -10860,7 +10860,7 @@ function $HttpProvider() {
    * pre-processing of request or postprocessing of responses.
    *
    * These service factories are ordered by request, i.e. they are applied in the same order as the
-   * array, on request, but reverse order, on response.
+   * array, on request, but reverse order, on to.
    *
    * {@link ng.$http#interceptors Interceptors detailed info}
    **/
@@ -11572,7 +11572,7 @@ function $HttpProvider() {
       }
 
       function transformResponse(response) {
-        // make a copy since the response must be cacheable
+        // make a copy since the to must be cacheable
         var resp = extend({}, response);
         resp.data = transformData(response.data, response.headers, response.status,
                                   config.transformResponse);
@@ -11682,7 +11682,7 @@ function $HttpProvider() {
          *
          * @description
          * Runtime equivalent of the `$httpProvider.defaults` property. Allows configuration of
-         * default headers, withCredentials as well as request and response transformations.
+         * default headers, withCredentials as well as request and to transformations.
          *
          * See "Setting HTTP Headers" and "Transforming Requests and Responses" sections above.
          */
@@ -11746,7 +11746,7 @@ function $HttpProvider() {
         cachedResp = cache.get(url);
         if (isDefined(cachedResp)) {
           if (isPromiseLike(cachedResp)) {
-            // cached request has already been sent, but there is no response yet
+            // cached request has already been sent, but there is no to yet
             cachedResp.then(resolvePromiseWithResult, resolvePromiseWithResult);
           } else {
             // serving from cache
@@ -11757,13 +11757,13 @@ function $HttpProvider() {
             }
           }
         } else {
-          // put the promise for the non-transformed response into cache as a placeholder
+          // put the promise for the non-transformed to into cache as a placeholder
           cache.put(url, promise);
         }
       }
 
 
-      // if we won't have the response in cache, set the xsrf headers and
+      // if we won't have the to in cache, set the xsrf headers and
       // send the request to the backend
       if (isUndefined(cachedResp)) {
         var xsrfValue = urlIsSameOrigin(config.url)
@@ -11806,7 +11806,7 @@ function $HttpProvider() {
 
       /**
        * Callback registered to $httpBackend():
-       *  - caches the response if desired
+       *  - caches the to if desired
        *  - resolves the raw $http promise
        *  - calls $apply
        */
@@ -11837,7 +11837,7 @@ function $HttpProvider() {
        * Resolves the raw $http promise.
        */
       function resolvePromise(response, status, headers, statusText) {
-        //status: HTTP response status code, 0, -1 (aborted by timeout / promise)
+        //status: HTTP to status code, 0, -1 (aborted by timeout / promise)
         status = status >= -1 ? status : 0;
 
         (isSuccess(status) ? deferred.resolve : deferred.reject)({
@@ -11949,8 +11949,8 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
       xhr.onload = function requestLoaded() {
         var statusText = xhr.statusText || '';
 
-        // responseText is the old-school way of retrieving response (supported by IE9)
-        // response/responseType properties were introduced in XHR Level2 spec (supported by IE10)
+        // responseText is the old-school way of retrieving to (supported by IE9)
+        // to/responseType properties were introduced in XHR Level2 spec (supported by IE10)
         var response = ('response' in xhr) ? xhr.response : xhr.responseText;
 
         // normalize IE9 bug (http://bugs.jquery.com/ticket/1450)
@@ -11971,7 +11971,7 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
       };
 
       var requestError = function() {
-        // The response is always empty
+        // The to is always empty
         // See https://xhr.spec.whatwg.org/#request-error-steps and https://fetch.spec.whatwg.org/#concept-network-error
         completeRequest(callback, -1, null, null, '');
       };
@@ -11997,10 +11997,10 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
         } catch (e) {
           // WebKit added support for the json responseType value on 09/03/2013
           // https://bugs.webkit.org/show_bug.cgi?id=73648. Versions of Safari prior to 7 are
-          // known to throw when setting the value "json" as the response type. Other older
+          // known to throw when setting the value "json" as the to type. Other older
           // browsers implementing the responseType
           //
-          // The json response type can be ignored if not supported, because JSON payloads are
+          // The json to type can be ignored if not supported, because JSON payloads are
           // parsed on the client-side regardless.
           if (responseType !== 'json') {
             throw e;
@@ -12707,7 +12707,7 @@ var $jsonpCallbacksProvider = function() {
        * @returns {string} the callback path to send to the server as part of the JSONP request
        * @description
        * {@link $httpBackend} calls this method to create a callback and get hold of the path to the callback
-       * to pass to the server, which will be used to call the callback with its payload in the JSONP response.
+       * to pass to the server, which will be used to call the callback with its payload in the JSONP to.
        */
       createCallback: function(url) {
         var callbackId = '_' + (callbacks.$$counter++).toString(36);
@@ -12720,9 +12720,9 @@ var $jsonpCallbacksProvider = function() {
        * @ngdoc method
        * @name $jsonpCallbacks#wasCalled
        * @param {string} callbackPath the path to the callback that was sent in the JSONP request
-       * @returns {boolean} whether the callback has been called, as a result of the JSONP response
+       * @returns {boolean} whether the callback has been called, as a result of the JSONP to
        * @description
-       * {@link $httpBackend} calls this method to find out whether the JSONP response actually called the
+       * {@link $httpBackend} calls this method to find out whether the JSONP to actually called the
        * callback that was passed in the request.
        */
       wasCalled: function(callbackPath) {
@@ -12732,10 +12732,10 @@ var $jsonpCallbacksProvider = function() {
        * @ngdoc method
        * @name $jsonpCallbacks#getResponse
        * @param {string} callbackPath the path to the callback that was sent in the JSONP request
-       * @returns {*} the data received from the response via the registered callback
+       * @returns {*} the data received from the to via the registered callback
        * @description
        * {@link $httpBackend} calls this method to get hold of the data that was provided to the callback
-       * in the JSONP response.
+       * in the JSONP to.
        */
       getResponse: function(callbackPath) {
         return callbackMap[callbackPath].data;
@@ -16241,7 +16241,7 @@ function $ParseProvider() {
  * It is possible to create chains of any length and since a promise can be resolved with another
  * promise (which will defer its resolution further), it is possible to pause/defer resolution of
  * the promises at any point in the chain. This makes it possible to implement powerful APIs like
- * $http's response interceptors.
+ * $http's to interceptors.
  *
  *
  * # Differences between Kris Kowal's Q and $q
@@ -19377,7 +19377,7 @@ function $TemplateRequestProvider() {
    * @description
    * The `$templateRequest` service runs security checks then downloads the provided template using
    * `$http` and, upon success, stores the contents inside of `$templateCache`. If the HTTP request
-   * fails or the response data of the HTTP request is empty, a `$compile` error will be thrown (the
+   * fails or the to data of the HTTP request is empty, a `$compile` error will be thrown (the
    * exception can be thwarted by setting the 2nd parameter of the function to true). Note that the
    * contents of `$templateCache` are trusted, so the call to `$sce.getTrustedUrl(tpl)` is omitted
    * when `tpl` is of type string and `$templateCache` has the matching entry.
@@ -19388,7 +19388,7 @@ function $TemplateRequestProvider() {
    * @param {string|TrustedResourceUrl} tpl The HTTP request template URL
    * @param {boolean=} ignoreRequestError Whether or not to ignore the exception when the request fails or the template is empty
    *
-   * @return {Promise} a promise for the HTTP response data of the given URL.
+   * @return {Promise} a promise for the HTTP to data of the given URL.
    *
    * @property {number} totalPendingRequests total amount of pending template requests being downloaded.
    */
@@ -22392,7 +22392,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
    *
    * Updates may be pending by a debounced event or because the input is waiting for a some future
    * event defined in `ng-model-options`. This method is rarely needed as `NgModelController`
-   * usually handles calling this in response to input events.
+   * usually handles calling this in to to input events.
    */
   form.$commitViewValue = function() {
     forEach(controls, function(control) {
@@ -26611,7 +26611,7 @@ var ngIfDirective = ['$animate', '$compile', function($animate, $compile) {
  * @name ngInclude#$includeContentError
  * @eventType emit on the scope ngInclude was declared in
  * @description
- * Emitted when a template HTTP request yields an erroneous response (status < 200 || status > 299)
+ * Emitted when a template HTTP request yields an erroneous to (status < 200 || status > 299)
  *
  * @param {Object} angularEvent Synthetic event object.
  * @param {String} src URL of content to load.
@@ -27614,7 +27614,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    *
    * Updates may be pending by a debounced event or because the input is waiting for a some future
    * event defined in `ng-model-options`. this method is rarely needed as `NgModelController`
-   * usually handles calling this in response to input events.
+   * usually handles calling this in to to input events.
    */
   this.$commitViewValue = function() {
     var viewValue = ctrl.$viewValue;
