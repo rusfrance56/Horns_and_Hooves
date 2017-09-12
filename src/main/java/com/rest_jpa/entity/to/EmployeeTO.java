@@ -10,7 +10,6 @@ import java.util.List;
 public class EmployeeTO extends BaseEntity{
     @NotBlank
     private String surName;
-    @NotBlank
     private String middleName;
     @NotNull
     private Long departmentId;

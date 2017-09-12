@@ -13,9 +13,14 @@ mainApp.service('EmployeeService', function ($http) {
             });
         },
         createEmployee: function (employee) {
-          return $http.post("/employee", employee).then(function (result) {
-              return result.data;
-          });
+            return $http.post("/employee", employee).then(function (result) {
+                return result.data;
+            });
+        },
+        updateEmployee: function (employee) {
+            return $http.put("/employee/" + employee.id, employee).then(function (result) {
+                return result.data;
+            });
         },
         deleteEmployee: function (employeeId) {
             return $http.delete('/employee/' + employeeId);

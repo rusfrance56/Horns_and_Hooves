@@ -3,7 +3,6 @@ package com.rest_jpa.controller;
 import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
-import com.rest_jpa.entity.to.OrderRequest;
 import com.rest_jpa.entity.to.OrderTO;
 import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
@@ -36,8 +35,8 @@ public class OrderController {
     private DepartmentService departmentService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Order> create(@Valid @RequestBody OrderRequest orderReq) {
-        Department department = departmentService.findById(orderReq.getDepartment_id());
+    public ResponseEntity<Order> create(@Valid @RequestBody OrderTO orderReq) {
+        Department department = departmentService.findById(orderReq.getDepartmentId());
         if (department != null) {
             Order newOrder = new Order();
             newOrder.setName(orderReq.getName());
@@ -49,7 +48,7 @@ public class OrderController {
             newOrder.setDate(creationDate);
             newOrder.setDepartment(department);
 
-            Employee employee = employeeService.findById(orderReq.getEmployee_id());
+            Employee employee = employeeService.findById(orderReq.getEmployeeId());
             newOrder.setEmployee(employee);
             if (employee != null) {
                 newOrder.setAssign(true);
@@ -95,15 +94,15 @@ public class OrderController {
     }*/
 
         @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-        public ResponseEntity<Order> update (@Valid @RequestBody OrderRequest orderReq){
+        public ResponseEntity<Order> update (@Valid @RequestBody OrderTO orderReq){
             Order newOrder = orderService.findById(orderReq.getId());
-            Department department = departmentService.findById(orderReq.getDepartment_id());
+            Department department = departmentService.findById(orderReq.getDepartmentId());
             if (newOrder != null && department != null) {
                 newOrder.setName(orderReq.getName());
                 newOrder.setDate(orderReq.getDateTime());
                 newOrder.setDepartment(department);
 
-                Employee employee = employeeService.findById(orderReq.getEmployee_id());
+                Employee employee = employeeService.findById(orderReq.getEmployeeId());
                 newOrder.setEmployee(employee);
                 if (employee != null) {
                     newOrder.setAssign(true);

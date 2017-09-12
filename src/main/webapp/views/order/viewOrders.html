@@ -1,4 +1,3 @@
-<div ng-controller="OrdersController">
 <h2>Orders</h2>
 <table class="table table-striped">
     <thead>
@@ -6,7 +5,7 @@
         <th></th>
         <th><!--On page:<select class="form-control" ng-options="item in itemsByPage" ></select>--></th>
         <th colspan="2"><!--<input st-search placeholder="search" class="form-control col-lg-2" type="search"/>--></th>
-        <th><a href="#/addOrder" class="btn btn-primary">Create Order</a></th>
+        <th><a href="" class="btn btn-primary" ng-click="navigateToCreate()">Create Order</a></th>
     </tr>
     <tr>
         <th hidden>Id</th>
@@ -24,8 +23,8 @@
         <td>{{$index+1}}</td>
         <td>{{order.name}}</td>
         <td>{{order.dateTime}}</td>
-        <td>{{order.department}}</td>
-        <td>{{order.employee}}</td>
+        <td>{{order.departmentId}}</td>
+        <td>{{order.employeeId}}</td>
         <td>
             <div class="btn-group btn-group" role="group" aria-label="...">
                 <a href="" class="btn btn-primary" ng-click="editOrder(order)">edit</a>
@@ -35,4 +34,3 @@
     </tr>
     </tbody>
 </table>
-</div>

@@ -16,9 +16,8 @@ public class JsonConverter {
         orderTO.setId(order.getId());
         orderTO.setName(order.getName());
         orderTO.setDateTime(order.getDate());
-        orderTO.setDepartment(order.getDepartment().getName());
-        orderTO.setEmployee(order.getEmployee().getName().concat(" ")
-                .concat(order.getEmployee().getSurName()));
+        orderTO.setDepartmentId(order.getDepartment().getId());
+        orderTO.setEmployeeId(order.getEmployee().getId());
         return orderTO;
     }
 

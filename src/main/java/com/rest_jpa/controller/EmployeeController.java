@@ -37,6 +37,22 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Employee> update(@Valid @RequestBody EmployeeTO employeeReq) {
+        Department department = departmentService.findById(employeeReq.getDepartmentId());
+        Employee byId = employeeService.findById(employeeReq.getId());
+        if (byId != null && department != null) {
+            Employee employee = byId;
+            employee.setName(employeeReq.getName());
+            employee.setSurName(employeeReq.getSurName());
+            employee.setMiddleName(employeeReq.getMiddleName());
+            employee.setDepartment(department);
+            employee = employeeService.update(employee);
+            return new ResponseEntity<>(employee, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Collection<EmployeeTO>> findAll() {
@@ -62,22 +78,6 @@ public class EmployeeController {
     @RequestMapping(value = "/byDep/{dep}", method = RequestMethod.GET)
     public ResponseEntity<Collection<Employee>> findAllByDepartment(@PathVariable("dep") long id) {
         return new ResponseEntity<>(employeeService.findAllByDepartmentId(id), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Employee> update(@Valid @RequestBody EmployeeTO employeeReq) {
-        Department department = departmentService.findById(employeeReq.getDepartmentId());
-        Employee byId = employeeService.findById(employeeReq.getId());
-        if (byId != null && department != null) {
-            Employee employee = byId;
-            employee.setName(employeeReq.getName());
-            employee.setSurName(employeeReq.getSurName());
-            employee.setMiddleName(employeeReq.getMiddleName());
-            employee.setDepartment(department);
-            employee = employeeService.update(employee);
-            return new ResponseEntity<>(employee, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

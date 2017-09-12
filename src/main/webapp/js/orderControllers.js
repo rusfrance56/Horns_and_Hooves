@@ -1,34 +1,16 @@
 'use strict';
 var mainApp = angular.module("mainApp", ['ngRoute', 'smart-table']);
 
-/*mainApp.service('OrderService', function () {
-    var savedData = {}
-    function set(data) {
-        savedData = data;
-    }
-    function get() {
-        return savedData;
-    }
-    /!*savedData.getOrders = function(){
-        return $http.get("/orders").success(function(to){
-            $scope.orders = to;
-        });
-    };*!/
-    return {
-        set: set,
-        get: get
-    }
-});*/
 mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
     $routeProvider.
-    when('/addOrder', {
+    when('/orders/addOrder', {
         templateUrl: 'views/order/addOrder.html',
-        controller: 'AddOrderController'
+        controller: 'CreateUpdateOrderController'
     }).
-    when('/editOrder', {
+    when('/orders/editOrder', {
         templateUrl: 'views/order/editOrder.html',
-        controller: 'EditOrderController'
+        controller: 'CreateUpdateOrderController'
     }).
     when('/orders', {
         templateUrl: 'views/order/viewOrders.html',
@@ -38,87 +20,85 @@ mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider,
         redirectTO: '/orders'
     });
 }]);
-mainApp.controller('AddOrderController', function ($scope, $http, $location){
+mainApp.controller('CreateUpdateOrderController', function ($scope, $location, OrderService, EmployeeService){
+    $scope.order = OrderService.getOrder();
+    $scope.departments = [];
+    $scope.selectedDep = null;
+    $scope.selectedEmp = null;
+    getDepartments();
+    function getDepartments() {
+        EmployeeService.getDepartments().then(function (departments) {
+            $scope.departments = departments;
+            if (!angular.isUndefined($scope.departments) && null != $scope.departments) {
+                $scope.selectedDep = $scope.departments.filter(function (dep) {
+                    return dep.id == $scope.order.departmentId;
+                })[0];
+                if (angular.isUndefined($scope.selectedDep) || null == $scope.selectedDep) {
+                    $scope.selectedDep = $scope.departments[0];
+                }
+            }
+        });
+    }
 
+    if (null != $scope.selectedDep && !angular.isUndefined($scope.selectedDep.id)
+            && null != $scope.selectedDep.id){
+        $scope.order.departmentId = $scope.selectedDep.id;
+    }
+    if (!angular.isUndefined($scope.selectedEmp) && null != $scope.selectedEmp){
+        $scope.order.employeeId = $scope.selectedEmp.id;
+    }
 
-    $http.get("/departments").success(function (response) {
-        $scope.deps = response;
-        $scope.selectedDep = $scope.deps[0];
-        $scope.refreshEmp();
-    });
-
-    $scope.refreshEmp = function(){
+    $scope.saveOrder = function() {
+        if (angular.isUndefined($scope.order.id) || null == $scope.order.id) {
+            OrderService.createOrder().then(function () {
+                $location.path("/orders");
+            });
+        } else {
+            OrderService.updateOrder($scope.order).then(function () {
+                $location.path("/orders");
+            })
+        }
+    };
+    /*$scope.selectedDep.$watch('DepartmentChange', function(){
         $http.get("/employee/byDep/" + $scope.selectedDep.id).success(function (response) {
             $scope.employees = response;
         });
-    };
-    $scope.createOrder = function() {
-        if ($scope.selectedEmp != null){
-            $scope.order.employee_id = $scope.selectedEmp.id;
-        }
-        $scope.order.department_id = $scope.selectedDep.id;
-        $http.post("/orders", $scope.order).success(
-            function(response) {
-                $location.path("/orders");
-            }
-        );
-    };
+    });*/
 });
-mainApp.controller('EditOrderController', function ($scope, $http, $location, OrderService){
-    $scope.order = OrderService.get();
-
-    $http.get("/departments").success(function (response) {
-        $scope.deps = response;
-        $scope.selectedOption = $scope.deps[0];
-    });
-
-    $scope.saveOrder = function(order) {
-        $http.put("/orders/"+order.id, order).success(
-            function(responce) {
-                $location.path("/orders");
-            });
-    }
-});
-
-
-
-mainApp.controller('OrdersController', function ($scope, OrderServices) {
+mainApp.controller('OrdersController', function ($scope, $location, OrderService) {
     $scope.orders = [];
     getOrders();
-
     $scope.myerr = false;
+
+    function getOrders() {
+        OrderService.getOrders().then(function (orders) {
+            $scope.orders = orders;
+        });
+    }
+
+    $scope.deleteOrder = function (order) {
+        var indexForRemove = $scope.orders.indexOf(order);
+        OrderService.deleteOrder(order.id).then(function () {
+            $scope.orders.splice(indexForRemove, 1);
+        });
+    };
+
+    $scope.editOrder = function (order) {
+        OrderService.setOrder(order);
+        $location.path("/orders/editOrder");
+    };
+
+    $scope.navigateToCreate = function () {
+        OrderService.clearOrder();
+        $location.path("/orders/addOrder");
+    };
+
     $scope.setErrors = function(){
         $scope.myerr = true;
     };
     $scope.removeErrors = function () {
         $scope.myerr = false;
     };
-
-    function getOrders() {
-        OrderServices.getOrders().then(function (orders) {
-            $scope.orders = orders;
-        });
-    }
-
-   /* $scope.editOrder = function (order) {
-        OrderService.set(order);
-        $location.path("/editOrder");
-    };*/
-
-    $scope.deleteOrder = function (order) {
-        var indexForRemove = $scope.orders.indexOf(order);
-        OrderServices.deleteOrder(order.id).success(function () {
-            $scope.orders.splice(indexForRemove, 1);
-        });
-    };
-/*
-    $scope.ordersByDep = function (dep) {
-        $http.get("/orders/byDep/"+dep).success(function (to) {
-            $scope.orders = to;
-            $location.path("/orders");
-        });
-    };*/
-
     $scope.getError = function (error) {
         if (angular.isDefined(error)) {
             if (error.required) {

@@ -1,41 +1,28 @@
 package com.rest_jpa.entity.to;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.rest_jpa.entity.BaseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-public class OrderTO {
-    private long id;
-    private String name;
+public class OrderTO extends BaseEntity{
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(pattern="dd-MM-yyyy HH:mm")
     private LocalDateTime dateTime;
-    private String employee;
-    private String department;
+    private Long employeeId;
+    @NotNull
+    private Long departmentId;
 
     public OrderTO() {
     }
 
-    public OrderTO(long id, String name, LocalDateTime date, String employee, String department) {
-        this.id = id;
-        this.name = name;
-        this.dateTime = date;
-        this.employee = employee;
-        this.department = department;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public OrderTO(long id, String name, LocalDateTime dateTime, long employeeId, long departmentId) {
+        super(id, name);
+        this.dateTime = dateTime;
+        this.employeeId = employeeId;
+        this.departmentId = departmentId;
     }
 
     public LocalDateTime getDateTime() {
@@ -46,19 +33,19 @@ public class OrderTO {
         this.dateTime = dateTime;
     }
 
-    public String getEmployee() {
-        return employee;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee(String employee) {
-        this.employee = employee;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getDepartment() {
-        return department;
+    public Long getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 }

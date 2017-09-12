@@ -15,4 +15,6 @@ spring.datasource.password=heckfypblfy
 spring.jpa.generate-ddl=true
 добавить иконки галочек когда правильно заполнена форма
 
+create html date = now() in create orders
+
 

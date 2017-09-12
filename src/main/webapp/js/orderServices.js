@@ -1,14 +1,33 @@
-mainApp.service('OrderServices', function($http) {
+mainApp.service('OrderService', function ($http) {
     var savedData = {};
 
     return {
-        getOrders: function() {
+        getOrders: function () {
             return $http.get('/orders').then(function (result) {
-               return result.data;
+                return result.data;
+            });
+        },
+        createOrder: function (order) {
+            return $http.post("/orders", order).then(function(result) {
+                return result.data;
+            });
+        },
+        updateOrder: function (order) {
+            return $http.put("/orders/" + order.id, order).then(function (result) {
+                return result.data;
             });
         },
         deleteOrder: function (orderId) {
             return $http.delete('/orders/' + orderId);
+        },
+        setOrder: function (data) {
+            savedData = data;
+        },
+        getOrder: function () {
+            return savedData;
+        },
+        clearOrder: function () {
+            savedData = {};
         }
     }
 });
