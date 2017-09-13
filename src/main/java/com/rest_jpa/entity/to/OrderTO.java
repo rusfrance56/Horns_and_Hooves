@@ -6,30 +6,31 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class OrderTO extends BaseEntity{
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(pattern="dd-MM-yyyy HH:mm")
-    private LocalDateTime dateTime;
+    private Date dateTime;
     private Long employeeId;
     @NotNull
-    private Long departmentId;
+    private DepartmentShortTO department;
 
     public OrderTO() {
     }
 
-    public OrderTO(long id, String name, LocalDateTime dateTime, long employeeId, long departmentId) {
+    public OrderTO(long id, String name, Date dateTime, long employeeId, DepartmentShortTO department) {
         super(id, name);
         this.dateTime = dateTime;
         this.employeeId = employeeId;
-        this.departmentId = departmentId;
+        this.department = department;
     }
 
-    public LocalDateTime getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -41,11 +42,11 @@ public class OrderTO extends BaseEntity{
         this.employeeId = employeeId;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
+    public DepartmentShortTO getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(DepartmentShortTO department) {
+        this.department = department;
     }
 }

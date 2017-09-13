@@ -16,9 +16,10 @@
     <tr>
         <th hidden>Id</th>
         <th>#</th>
-        <th>Name</th>
         <th>Surname</th>
+        <th>Name</th>
         <th>MiddleName</th>
+        <th>Department</th>
         <th>Options</th>
         <!--todo добавить поле департамент и обьеденить странички редактирования и создания в одну-->
     </tr>
@@ -27,9 +28,10 @@
     <tr ng-repeat="emp in employees">
         <td hidden>{{emp.id}}</td>
         <td>{{$index+1}}</td>
-        <td>{{emp.name}}</td>
         <td>{{emp.surName}}</td>
+        <td>{{emp.name}}</td>
         <td>{{emp.middleName}}</td>
+        <td>{{emp.department.name}}</td>
         <td>
             <div class="btn-group btn-group" role="group" aria-label="...">
                 <a href="" class="btn btn-primary" ng-click="editEmployee(emp)">info</a>

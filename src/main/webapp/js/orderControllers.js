@@ -29,28 +29,37 @@ mainApp.controller('CreateUpdateOrderController', function ($scope, $location, O
     function getDepartments() {
         EmployeeService.getDepartments().then(function (departments) {
             $scope.departments = departments;
-            if (!angular.isUndefined($scope.departments) && null != $scope.departments) {
-                $scope.selectedDep = $scope.departments.filter(function (dep) {
-                    return dep.id == $scope.order.departmentId;
-                })[0];
-                if (angular.isUndefined($scope.selectedDep) || null == $scope.selectedDep) {
+            if (!angular.isUndefined($scope.departments) && null !== $scope.departments) {
+                if(null !== $scope.order.department && !angular.isUndefined($scope.order.department)) {
+                    $scope.selectedDep = $scope.departments.filter(function (dep) {
+                        return dep.id === $scope.order.department.id;
+                    })[0];
+                }
+                if (angular.isUndefined($scope.selectedDep) || null === $scope.selectedDep) {
                     $scope.selectedDep = $scope.departments[0];
                 }
             }
         });
     }
 
-    if (null != $scope.selectedDep && !angular.isUndefined($scope.selectedDep.id)
-            && null != $scope.selectedDep.id){
-        $scope.order.departmentId = $scope.selectedDep.id;
+    if (null !== $scope.order && !angular.isUndefined($scope.order)
+        && (null === $scope.order.dateTime || angular.isUndefined($scope.order.dateTime))) {
+        $scope.order.dateTime = new Date();
+        var h = $scope.order.dateTime.getHours();
+        var m = $scope.order.dateTime.getMinutes();
+        $scope.order.dateTime.setHours(h,m,0,0);
     }
-    if (!angular.isUndefined($scope.selectedEmp) && null != $scope.selectedEmp){
+    /*if (!angular.isUndefined($scope.selectedEmp) && null !== $scope.selectedEmp){
         $scope.order.employeeId = $scope.selectedEmp.id;
-    }
+    }*/
 
     $scope.saveOrder = function() {
-        if (angular.isUndefined($scope.order.id) || null == $scope.order.id) {
-            OrderService.createOrder().then(function () {
+        if (null === $scope.order.department || angular.isUndefined($scope.order.department)) {
+            $scope.order.department = {};
+        }
+        $scope.order.department.id = $scope.selectedDep.id;
+        if (angular.isUndefined($scope.order.id) || null === $scope.order.id) {
+            OrderService.createOrder($scope.order).then(function () {
                 $location.path("/orders");
             });
         } else {

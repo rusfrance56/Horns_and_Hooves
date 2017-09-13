@@ -36,12 +36,12 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Order> create(@Valid @RequestBody OrderTO orderReq) {
-        Department department = departmentService.findById(orderReq.getDepartmentId());
+        Department department = departmentService.findById(orderReq.getDepartment().getId());
         if (department != null) {
             Order newOrder = new Order();
             newOrder.setName(orderReq.getName());
 
-            ZonedDateTime zdt = orderReq.getDateTime().atZone(ZoneOffset.UTC);
+            ZonedDateTime zdt = orderReq.getDateTime().toInstant().atZone(ZoneOffset.UTC);
 //          LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.of("Europe/Moscow")).toLocalDateTime();
             LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
 
@@ -96,10 +96,14 @@ public class OrderController {
         @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
         public ResponseEntity<Order> update (@Valid @RequestBody OrderTO orderReq){
             Order newOrder = orderService.findById(orderReq.getId());
-            Department department = departmentService.findById(orderReq.getDepartmentId());
+            Department department = departmentService.findById(orderReq.getDepartment().getId());
             if (newOrder != null && department != null) {
                 newOrder.setName(orderReq.getName());
-                newOrder.setDate(orderReq.getDateTime());
+
+                ZonedDateTime zdt = orderReq.getDateTime().toInstant().atZone(ZoneOffset.UTC);
+                LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+
+                newOrder.setDate(creationDate);
                 newOrder.setDepartment(department);
 
                 Employee employee = employeeService.findById(orderReq.getEmployeeId());

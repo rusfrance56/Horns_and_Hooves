@@ -12,21 +12,21 @@ public class EmployeeTO extends BaseEntity{
     private String surName;
     private String middleName;
     @NotNull
-    private Long departmentId;
+    private DepartmentShortTO department;
     private List<Long> orderIdList = new ArrayList<>();
 
     public EmployeeTO() {
     }
 
-    public EmployeeTO(String name, String surName, String middleName, Long departmentId) {
-        this(null, name, surName, middleName, departmentId);
+    public EmployeeTO(String name, String surName, String middleName, DepartmentShortTO department) {
+        this(null, name, surName, middleName, department);
     }
 
-    public EmployeeTO(Long id, String name, String surName, String middleName, Long departmentId) {
+    public EmployeeTO(Long id, String name, String surName, String middleName, DepartmentShortTO department) {
         super(id, name);
         this.surName = surName;
         this.middleName = middleName;
-        this.departmentId = departmentId;
+        this.department = department;
     }
 
     public String getSurName() {
@@ -45,12 +45,12 @@ public class EmployeeTO extends BaseEntity{
         this.middleName = middlename;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
+    public DepartmentShortTO getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(DepartmentShortTO department) {
+        this.department = department;
     }
 
     public List<Long> getOrderIdList() {

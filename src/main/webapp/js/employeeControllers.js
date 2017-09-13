@@ -24,11 +24,13 @@ mainApp.controller('CreateUpdateEmpController', function ($scope, $location, Emp
     function getDepartments() {
         EmployeeService.getDepartments().then(function (departments) {
             $scope.departments = departments;
-            if (!angular.isUndefined($scope.departments) && null != $scope.departments) {
-                $scope.selectedDep = $scope.departments.filter(function (dep) {
-                    return dep.id == $scope.employee.departmentId;
-                })[0];
-                if (angular.isUndefined($scope.selectedDep) || null == $scope.selectedDep) {
+            if (!angular.isUndefined($scope.departments) && null !== $scope.departments) {
+                if(null !== $scope.employee.department && !angular.isUndefined($scope.employee.department)){
+                    $scope.selectedDep = $scope.departments.filter(function (dep) {
+                        return dep.id === $scope.employee.department.id;
+                    })[0];
+                }
+                if (angular.isUndefined($scope.selectedDep) || null === $scope.selectedDep) {
                     $scope.selectedDep = $scope.departments[0];
                 }
             }
@@ -38,8 +40,11 @@ mainApp.controller('CreateUpdateEmpController', function ($scope, $location, Emp
 //todo возможно просто сделать все в одном контроллере не надо будет хранить рабочего в сервисе и удобнее обращаться к списку работников
 //todo сделать выгрузку всех работников и по изменению депертамента просто фильтровать и выдавать их не обращаясь к бд
     $scope.saveEmployee = function () {
-        $scope.employee.departmentId = $scope.selectedDep.id;
-        if (angular.isUndefined($scope.employee.id) || null == $scope.employee) {
+        if (null === $scope.employee.department || angular.isUndefined($scope.employee.department)) {
+            $scope.employee.department = {};
+        }
+        $scope.employee.department.id = $scope.selectedDep.id;
+        if (angular.isUndefined($scope.employee.id) || null === $scope.employee) {
             EmployeeService.createEmployee($scope.employee).then(function () { //todo разобраться когда надо then or success
                 $location.path("/employee");
             });

@@ -27,7 +27,7 @@ public class EmployeeController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Employee> create(@Valid @RequestBody EmployeeTO employeeReq) {
-        Department department = departmentService.findById(employeeReq.getDepartmentId());
+        Department department = departmentService.findById(employeeReq.getDepartment().getId());
         if (department != null) {
             Employee newEmployee = new Employee(employeeReq.getName(),
                     employeeReq.getSurName(), employeeReq.getMiddleName(), department);
@@ -39,10 +39,9 @@ public class EmployeeController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Employee> update(@Valid @RequestBody EmployeeTO employeeReq) {
-        Department department = departmentService.findById(employeeReq.getDepartmentId());
-        Employee byId = employeeService.findById(employeeReq.getId());
-        if (byId != null && department != null) {
-            Employee employee = byId;
+        Department department = departmentService.findById(employeeReq.getDepartment().getId());
+        Employee employee = employeeService.findById(employeeReq.getId());
+        if (employee != null && department != null) {
             employee.setName(employeeReq.getName());
             employee.setSurName(employeeReq.getSurName());
             employee.setMiddleName(employeeReq.getMiddleName());

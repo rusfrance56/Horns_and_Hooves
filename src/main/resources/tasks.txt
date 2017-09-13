@@ -1,7 +1,7 @@
 сделать чтобы в слое контроллеров и сервисов передавался айди работника при поиске ордеров
 сделать валидацию
 сделать локализацию
-пейджинг и сортинг записей
+пейджинг и сортинг записей (через смарттейбл можно)
 узнать как минимизировать конвертацию обьектов в ТО
 добавить кодаси и прочую хрень
 сделать авторизацию??
@@ -13,8 +13,15 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/Horns_and_hooves
 spring.datasource.username=rusfrance
 spring.datasource.password=heckfypblfy
 spring.jpa.generate-ddl=true
+
 добавить иконки галочек когда правильно заполнена форма
 
-create html date = now() in create orders
+при обновлении в editOrder and EditEmployee теряется редактируемая сущность,
+(нет айди в пути адресной строки - переделать)
+
+при редактировании сразу закрашивать зеленым валидные поля
+сделать в OrderTO поле EmployeeTO(id, name, surname)
+
+
 
 
