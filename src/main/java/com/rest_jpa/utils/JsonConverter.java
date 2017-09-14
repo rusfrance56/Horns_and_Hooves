@@ -4,12 +4,10 @@ import com.rest_jpa.entity.BaseEntity;
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
 import com.rest_jpa.entity.to.DepartmentShortTO;
+import com.rest_jpa.entity.to.EmployeeShortTO;
 import com.rest_jpa.entity.to.EmployeeTO;
 import com.rest_jpa.entity.to.OrderTO;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +17,12 @@ public class JsonConverter {
         OrderTO orderTO = new OrderTO();
         orderTO.setId(order.getId());
         orderTO.setName(order.getName());
-
-        Instant instant = order.getDate().atZone(ZoneId.systemDefault()).toInstant();
-        Date res = Date.from(instant);
-
-        orderTO.setDateTime(res);
+        orderTO.setDateTime(order.getDate());
         orderTO.setDepartment(new DepartmentShortTO(order.getDepartment().getId(), order.getDepartment().getName()));
-        orderTO.setEmployeeId(order.getEmployee().getId());
+
+        Employee employee = order.getEmployee();
+        orderTO.setEmployee(new EmployeeShortTO(
+                employee.getId(), employee.getName(), employee.getSurName()));
         return orderTO;
     }
 

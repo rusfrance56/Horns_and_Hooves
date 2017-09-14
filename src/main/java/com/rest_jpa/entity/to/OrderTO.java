@@ -1,45 +1,43 @@
 package com.rest_jpa.entity.to;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rest_jpa.entity.BaseEntity;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class OrderTO extends BaseEntity{
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
-    private Date dateTime;
-    private Long employeeId;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+//    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
+    @NotNull
+    private LocalDateTime dateTime;
+    private EmployeeShortTO employee;
     @NotNull
     private DepartmentShortTO department;
 
     public OrderTO() {
     }
 
-    public OrderTO(long id, String name, Date dateTime, long employeeId, DepartmentShortTO department) {
+    public OrderTO(long id, String name, LocalDateTime dateTime, EmployeeShortTO employeeId, DepartmentShortTO department) {
         super(id, name);
         this.dateTime = dateTime;
-        this.employeeId = employeeId;
+        this.employee = employeeId;
         this.department = department;
     }
 
-    public Date getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 
-    public Long getEmployeeId() {
-        return employeeId;
+    public EmployeeShortTO getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(EmployeeShortTO employee) {
+        this.employee = employee;
     }
 
     public DepartmentShortTO getDepartment() {

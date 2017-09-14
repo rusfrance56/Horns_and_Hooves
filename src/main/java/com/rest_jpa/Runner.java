@@ -1,6 +1,5 @@
 package com.rest_jpa;
 
-import com.rest_jpa.utils.WebConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -41,14 +41,16 @@ public class OrderController {
             Order newOrder = new Order();
             newOrder.setName(orderReq.getName());
 
-            ZonedDateTime zdt = orderReq.getDateTime().toInstant().atZone(ZoneOffset.UTC);
-//          LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.of("Europe/Moscow")).toLocalDateTime();
+            ZonedDateTime zdt = orderReq.getDateTime().atZone(ZoneOffset.UTC);
             LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
 
             newOrder.setDate(creationDate);
             newOrder.setDepartment(department);
 
-            Employee employee = employeeService.findById(orderReq.getEmployeeId());
+            Employee employee = null;
+            if (null != orderReq.getEmployee()) {
+                employee = employeeService.findById(orderReq.getEmployee().getId());
+            }
             newOrder.setEmployee(employee);
             if (employee != null) {
                 newOrder.setAssign(true);
@@ -100,13 +102,13 @@ public class OrderController {
             if (newOrder != null && department != null) {
                 newOrder.setName(orderReq.getName());
 
-                ZonedDateTime zdt = orderReq.getDateTime().toInstant().atZone(ZoneOffset.UTC);
+                ZonedDateTime zdt = orderReq.getDateTime().atZone(ZoneOffset.UTC);
                 LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
 
                 newOrder.setDate(creationDate);
                 newOrder.setDepartment(department);
 
-                Employee employee = employeeService.findById(orderReq.getEmployeeId());
+                Employee employee = employeeService.findById(orderReq.getEmployee().getId());
                 newOrder.setEmployee(employee);
                 if (employee != null) {
                     newOrder.setAssign(true);

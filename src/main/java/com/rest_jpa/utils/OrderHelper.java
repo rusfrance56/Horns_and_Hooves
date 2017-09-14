@@ -21,32 +21,23 @@ public class OrderHelper {
     private DepartmentRepository departmentRepository;
 
     public Employee findFreeEmployee(List<Employee> list) {
-       /* Employee freeEmp = list.get(0);
-        for (int i = 1; i < list.size(); i++) {
-            if (list.get(i).getOrderList().size() < freeEmp.getOrderList().size()) {
-                freeEmp = list.get(i);
-            }
-        }*/
-
-        Optional<Employee> min = list.stream().min(Comparator.comparingInt((o -> o.getOrderList().size())));
-        return min.get();
-//        return freeEmp;
+        Optional<Employee> freeEmployee = list.stream()
+                .min(Comparator.comparingInt((emp -> emp.getOrderList().size())));
+        return freeEmployee.get();
     }
 
     public void changeOrdersStatusToUnassigned(List<Order> orderList) {
-        for (Order order : orderList) {
+        orderList.stream().forEach(order -> {
             order.setAssign(false);
             orderRepository.save(order);
-        }
+        });
     }
 
     public void assignmentOrders(List<Order> orders, List<Employee> employees) {
         if (employees.isEmpty()) {
             changeOrdersStatusToUnassigned(orders);
         } else {
-            for (Order order : orders) {
-                assignmentOrder(order, employees);
-            }
+            orders.stream().forEach(order -> assignmentOrder(order, employees));
         }
     }
 
