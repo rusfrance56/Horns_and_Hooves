@@ -1,20 +1,4 @@
 'use strict';
-mainApp.config(['$routeProvider',
-    function ($routeProvider) {
-        $routeProvider.when('/employee/addEmp', {
-            templateUrl: 'views/employee/addEmployee.html',
-            controller: 'CreateUpdateEmpController'
-        }).when('/employee/editEmp', {
-            templateUrl: 'views/employee/editEmployee.html',
-            controller: 'CreateUpdateEmpController'
-        }).when('/employee', {
-            templateUrl: 'views/employee/viewEmployee.html',
-            controller: 'EmpsController'
-        }).otherwise({
-            redirectTO: '/employee'
-        });
-    }
-]);
 mainApp.controller('CreateUpdateEmpController', function ($scope, $location, EmployeeService) {
     $scope.employee = EmployeeService.getEmployee();
     $scope.departments = [];

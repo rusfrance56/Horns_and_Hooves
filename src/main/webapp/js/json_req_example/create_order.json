@@ -1,7 +1,0 @@
-/*  POST: /order  */
-{
-  "name":"red chair",
-  "date": "18-11-2016 19:24:55",
-  "employee_id": 6, /*or without employee_id*/
-  "department_id": 1
-}

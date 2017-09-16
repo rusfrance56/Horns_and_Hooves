@@ -1,0 +1,34 @@
+{
+  "EMPLOYEES"         : "Работники",
+  "EMPLOYEE_INFO"     : "Информация о работнике",
+  "EMPLOYEE_CREATE"   : "Создание работника",
+  "ORDERS"            : "Заказы",
+  "ORDER_INFO"        : "Информация о заказе",
+  "ORDER_CREATE"      : "Создание заказа",
+  "LANG"              : "Язык",
+
+  "EMPLOYEE"          : "Работник",
+  "DATE"              : "Дата и время",
+  "NAME"              : "Имя",
+  "NAME_ORDER"        : "Название",
+  "SURNAME"           : "Фамилия",
+  "MIDDLE_NAME"       : "Отчество",
+  "DEPARTMENT"        : "Отдел",
+  "OPTIONS"           : "Действия",
+  "TYPE"              : "Тип",
+  "SEARCH"            : "Поиск",
+
+  "CREATE"            : "Создать",
+  "INFO"              : "Инфо",
+  "DELETE"            : "Удалить",
+  "SAVE"              : "Сохранить",
+
+  "ENTER_NAME"        : "Введите имя",
+  "ENTER_NAME_ORDER"  : "Введите название",
+  "ENTER_SURNAME"     : "Введите фамилию",
+  "ENTER_MIDDLE_NAME" : "Введите отчество",
+
+  "CUSHIONED"         : "Мягкая",
+  "OFFICE"            : "Офисная",
+  "STORAGE"           : "Для хранения"
+}

@@ -1,4 +1,4 @@
-<h2>Workers</h2>
+<h2>{{'EMPLOYEES' | translate}}</h2>
 <table class="table table-striped" st-table="employees">
     <thead>
     <tr>
@@ -6,36 +6,35 @@
         <th>
             <!--On page:<select class="form-control" ng-options="item in itemsByPage" ></select>-->
         </th>
-        <th colspan="2">
-            <!--<input st-search placeholder="search" class="form-control col-lg-2" type="search"/>-->
+        <th colspan="3">
+            <input placeholder="{{'SEARCH' | translate}}" class="form-control col-lg-2" ng-model="search"/><!--type="search" st-search -->
         </th>
         <th>
-            <a href="" class="btn btn-primary" ng-click="navigateToCreate()">Create employee</a>
+            <a href="" class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</a>
         </th>
     </tr>
     <tr>
         <th hidden>Id</th>
         <th>#</th>
-        <th>Surname</th>
-        <th>Name</th>
-        <th>MiddleName</th>
-        <th>Department</th>
-        <th>Options</th>
-        <!--todo добавить поле департамент и обьеденить странички редактирования и создания в одну-->
+        <th>{{'SURNAME' | translate}}</th>
+        <th>{{'NAME' | translate}}</th>
+        <th>{{'MIDDLE_NAME' | translate}}</th>
+        <th>{{'DEPARTMENT' | translate}}</th>
+        <th>{{'OPTIONS' | translate}}</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="emp in employees">
+    <tr ng-repeat="emp in employees | filter: search">
         <td hidden>{{emp.id}}</td>
         <td>{{$index+1}}</td>
         <td>{{emp.surName}}</td>
         <td>{{emp.name}}</td>
         <td>{{emp.middleName}}</td>
-        <td>{{emp.department.name}}</td>
+        <td>{{emp.department.name | translate}}</td>
         <td>
             <div class="btn-group btn-group" role="group" aria-label="...">
-                <a href="" class="btn btn-primary" ng-click="editEmployee(emp)">info</a>
-                <a href="" class="btn btn-danger" ng-click="deleteEmployee(emp)">delete</a>
+                <a href="" class="btn btn-primary" ng-click="editEmployee(emp)">{{'INFO' | translate}}</a>
+                <a href="" class="btn btn-danger" ng-click="deleteEmployee(emp)">{{'DELETE' | translate}}</a>
             </div>
         </td>
     </tr>

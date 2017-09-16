@@ -1,21 +1,4 @@
 'use strict';
-var mainApp = angular.module("mainApp", ['ngRoute', 'smart-table']);
-
-mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    $locationProvider.hashPrefix('');
-    $routeProvider.when('/orders/addOrder', {
-        templateUrl: 'views/order/addOrder.html',
-        controller: 'CreateUpdateOrderController'
-    }).when('/orders/editOrder', {
-        templateUrl: 'views/order/editOrder.html',
-        controller: 'CreateUpdateOrderController'
-    }).when('/orders', {
-        templateUrl: 'views/order/viewOrders.html',
-        controller: 'OrdersController'
-    }).otherwise({
-        redirectTO: '/orders'
-    });
-}]);
 mainApp.controller('CreateUpdateOrderController', function ($scope, $location, OrderService, EmployeeService) {
     $scope.order = OrderService.getOrder();
     $scope.departments = [];
@@ -42,10 +25,12 @@ mainApp.controller('CreateUpdateOrderController', function ($scope, $location, O
     if (null !== $scope.order && !angular.isUndefined($scope.order)) {
         if (null === $scope.order.dateTime || angular.isUndefined($scope.order.dateTime)) {
             $scope.order.dateTime = new Date();
-            var h = $scope.order.dateTime.getHours();
-            var m = $scope.order.dateTime.getMinutes();
-            $scope.order.dateTime.setHours(h, m, 0, 0);
+        } else {
+            $scope.order.dateTime = new Date($scope.order.dateTime);
         }
+        var h = $scope.order.dateTime.getHours();
+        var m = $scope.order.dateTime.getMinutes();
+        $scope.order.dateTime.setHours(h, m, 0, 0);
     }
     /*if (!angular.isUndefined($scope.selectedEmp) && null !== $scope.selectedEmp){
         $scope.order.employeeId = $scope.selectedEmp.id;

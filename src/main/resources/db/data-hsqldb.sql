@@ -5,9 +5,9 @@ DELETE FROM department;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO department (name) VALUES
-  ('cushioned'),
-  ('storage'),
-  ('office');
+  ('CUSHIONED'),
+  ('STORAGE'),
+  ('OFFICE');
 INSERT INTO employee (name, department_id, middle_name, sur_name) VALUES
   ('Сергей', 100000, 'Олегович', 'Синицын'),
   ('Егор', 100000, 'Павлович', 'Майоров'),

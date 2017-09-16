@@ -1,0 +1,34 @@
+{
+  "EMPLOYEES"        : "Employees",
+  "EMPLOYEE_INFO"    : "Employee information",
+  "EMPLOYEE_CREATE"  : "Employee create",
+  "ORDERS"           : "Orders",
+  "ORDER_INFO"       : "Order information",
+  "ORDER_CREATE"     : "Order create",
+  "LANG"             : "Language",
+
+  "EMPLOYEE"         : "Employee",
+  "DATE"             : "Date",
+  "NAME"             : "Name",
+  "NAME_ORDER"       : "Name",
+  "SURNAME"          : "Surname",
+  "MIDDLE_NAME"      : "Middle name",
+  "DEPARTMENT"       : "Department",
+  "OPTIONS"          : "Options",
+  "TYPE"             : "Type",
+  "SEARCH"           : "Search",
+
+  "CREATE"           : "Create",
+  "INFO"             : "Info",
+  "DELETE"           : "Delete",
+  "SAVE"             : "Save",
+
+  "ENTER_NAME"       : "Enter the name",
+  "ENTER_NAME_ORDER" : "Enter the order name",
+  "ENTER_SURNAME"    : "Enter the surname",
+  "ENTER_MIDDLE_NAME": "Enter the middle name",
+
+  "CUSHIONED"        : "Cushioned",
+  "OFFICE"           : "Office",
+  "STORAGE"          : "Storage"
+}
