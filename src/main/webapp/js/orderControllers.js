@@ -2,46 +2,66 @@
 mainApp.controller('CreateUpdateOrderController', function ($scope, $location, OrderService, EmployeeService) {
     $scope.order = OrderService.getOrder();
     $scope.departments = [];
-    $scope.selectedDep = null;
-    $scope.selectedEmp = null;
+    $scope.employees = [];
+    $scope.selectedDep = {};
+    $scope.selectedEmp = {};
+    $scope.employeesForSelectedDep = [];
     getDepartments();
+    getEmployees();
 
     function getDepartments() {
         EmployeeService.getDepartments().then(function (departments) {
             $scope.departments = departments;
-            if (!angular.isUndefined($scope.departments) && null !== $scope.departments) {
-                if (null !== $scope.order.department && !angular.isUndefined($scope.order.department)) {
+            if (!angular.isUndefinedOrNull($scope.departments)) {
+                if (!angular.isUndefinedOrNull($scope.order.department)) {
                     $scope.selectedDep = $scope.departments.filter(function (dep) {
                         return dep.id === $scope.order.department.id;
                     })[0];
-                }
-                if (angular.isUndefined($scope.selectedDep) || null === $scope.selectedDep) {
+                } else {
                     $scope.selectedDep = $scope.departments[0];
                 }
             }
         });
     }
-
-    if (null !== $scope.order && !angular.isUndefined($scope.order)) {
-        if (null === $scope.order.dateTime || angular.isUndefined($scope.order.dateTime)) {
+    function getEmployees() {
+        EmployeeService.getEmployees().then(function (employees) {
+            $scope.employees = employees;
+            filterEmpByDep();
+            if (!angular.isUndefinedOrNull($scope.order.employee)) {
+                $scope.selectedEmp = $scope.employeesForSelectedDep.filter(function (emp) {
+                    return emp.id === $scope.order.employee.id;
+                })[0];
+            }
+        });
+    }
+    function filterEmpByDep() {
+        if (Array.isArray($scope.employees) && $scope.employees.length > 0) {
+            $scope.employeesForSelectedDep = $scope.employees.filter(function (emp) {
+                return emp.department.id === $scope.selectedDep.id;
+            });
+        }
+    }
+    if (!angular.isUndefinedOrNull($scope.order)) {
+        if (angular.isUndefinedOrNull($scope.order.dateTime)) {
             $scope.order.dateTime = new Date();
         } else {
             $scope.order.dateTime = new Date($scope.order.dateTime);
         }
-        var h = $scope.order.dateTime.getHours();
-        var m = $scope.order.dateTime.getMinutes();
-        $scope.order.dateTime.setHours(h, m, 0, 0);
+        $scope.order.dateTime.setHours($scope.order.dateTime.getHours(), $scope.order.dateTime.getMinutes(), 0, 0);
     }
-    /*if (!angular.isUndefined($scope.selectedEmp) && null !== $scope.selectedEmp){
-        $scope.order.employeeId = $scope.selectedEmp.id;
-    }*/
 
     $scope.saveOrder = function () {
-        if (null === $scope.order.department || angular.isUndefined($scope.order.department)) {
+        if (angular.isUndefinedOrNull($scope.order.department)) {
             $scope.order.department = {};
         }
+        if (angular.isUndefinedOrNull($scope.order.employee)) {
+            $scope.order.employee = {};
+        }
+
         $scope.order.department.id = $scope.selectedDep.id;
-        if (angular.isUndefined($scope.order.id) || null === $scope.order.id) {
+        $scope.order.employee.id = $scope.selectedEmp.id;
+
+        if (angular.isUndefinedOrNull($scope.order.id)) {
             OrderService.createOrder($scope.order).then(function () {
                 $location.path("/orders");
             });
@@ -51,11 +71,10 @@ mainApp.controller('CreateUpdateOrderController', function ($scope, $location, O
             })
         }
     };
-    /*$scope.selectedDep.$watch('DepartmentChange', function(){
-        $http.get("/employee/byDep/" + $scope.selectedDep.id).success(function (response) {
-            $scope.employees = response;
-        });
-    });*/
+
+    $scope.$watch('selectedDep', function () {
+        filterEmpByDep();
+    });
 });
 mainApp.controller('OrdersController', function ($scope, $location, OrderService) {
     $scope.orders = [];

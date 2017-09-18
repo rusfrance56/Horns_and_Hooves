@@ -6,7 +6,7 @@ mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider,
     $routeProvider.when('/orders/addOrder', {
         templateUrl: 'views/order/addOrder.html',
         controller: 'CreateUpdateOrderController'
-    }).when('/orders/editOrder', {
+    }).when('/orders/editOrder/:orderId', {
         templateUrl: 'views/order/editOrder.html',
         controller: 'CreateUpdateOrderController'
     }).when('/orders', {

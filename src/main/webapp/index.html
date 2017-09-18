@@ -19,14 +19,18 @@
     <ul class="nav nav-tabs">
         <li><a href="#/orders">{{'ORDERS' | translate}}</a></li>
         <li><a href="#/employee">{{'EMPLOYEES' | translate}}</a></li>
-        <li>{{'LANG' | translate}}: </li>
-        <li>
+
+        <div class="lang">
             <select class="form-control" ng-model="selectedLang">
                 <option>ru</option>
                 <option>en</option>
             </select>
-        </li>
+        </div>
+        <div class="lang">
+            {{'LANG' | translate}}:
+        </div>
     </ul>
+
     <div ng-view></div>
 </div>
 <script src="js/config.js"></script>

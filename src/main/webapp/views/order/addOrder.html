@@ -31,8 +31,7 @@
             <label class="control-label col-sm-3" for="create.orderEmployee">{{'EMPLOYEE' | translate}}:</label>
             <div class="col-sm-9">
                 <select class="form-control" id="create.orderEmployee" ng-model="selectedEmp"
-                        ng-options="employee as emp.name+' '+emp.surName for emp in employees track by emp.id">
-                    <option></option>
+                        ng-options="emp.name+' '+emp.surName for emp in employeesForSelectedDep track by emp.id">
                 </select>
             </div>
         </div>

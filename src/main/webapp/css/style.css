@@ -57,3 +57,8 @@ div.error {
 table {
     margin: auto;
 }
+.lang {
+    float: right;
+    margin: 0 3px;
+    text-align: center;
+}

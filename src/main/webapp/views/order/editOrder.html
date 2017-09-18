@@ -32,8 +32,9 @@
         <div class="form-group row">
             <label class="control-label col-sm-3" for="edit.orderEmployee">{{'EMPLOYEE' | translate}}:</label>
             <div class="col-sm-9">
-                <input type="text" ng-model="order.employeeId" class="form-control"
-                       id="edit.orderEmployee" placeholder="Enter employee:">
+                <select class="form-control" id="edit.orderEmployee" ng-model="selectedEmp"
+                        ng-options="emp.name+' '+emp.surName for emp in employeesForSelectedDep track by emp.id">
+                </select>
             </div>
         </div>
         <div class="form-group row">
