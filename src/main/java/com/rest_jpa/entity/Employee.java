@@ -1,6 +1,7 @@
 package com.rest_jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rest_jpa.entity.to.EmployeeTO;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,8 +27,10 @@ public class Employee extends BaseEntity{
     public Employee() {
     }
 
-    public Employee(String name, String surName, String middleName, Department department) {
-        this(null, name, surName, middleName, department);
+    public Employee(EmployeeTO to) {
+        this.name = to.getName();
+        this.surName = to.getSurName();
+        this.middleName = to.getMiddleName();
     }
 
     public Employee(Long id, String name, String surName, String middleName, Department department) {

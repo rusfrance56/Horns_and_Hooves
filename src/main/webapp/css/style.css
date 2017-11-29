@@ -62,3 +62,8 @@ table {
     margin: 0 3px;
     text-align: center;
 }
+
+.trueField {
+    background-color: lightgreen;
+    border: 1px dotted gray;
+}
