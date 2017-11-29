@@ -49,10 +49,13 @@ public class EmployeeFacadeImpl implements EmployeeFacade{
     public Employee update(EmployeeTO to) {
         Department department = departmentService.findById(to.getDepartment().getId());
         Employee employee = employeeService.findById(to.getId());
+
         if (employee != null && department != null) {
-            Employee newEmployee = new Employee(to);
-            newEmployee.setId(employee.getId());
-            newEmployee.setDepartment(department);
+            employee.setId(employee.getId());
+            employee.setName(to.getName());
+            employee.setSurName(to.getSurName());
+            employee.setMiddleName(to.getMiddleName());
+            employee.setDepartment(department);
             return employeeService.update(employee);
         }
         return null;
