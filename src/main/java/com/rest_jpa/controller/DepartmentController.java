@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/departments")
@@ -26,10 +27,8 @@ public class DepartmentController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Department> findById(@PathVariable("id") long id) {
-        Department department = departmentService.findById(id);
-        if (department == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(department, HttpStatus.OK);
+        return Optional.ofNullable(departmentService.findById(id))
+                .map(department -> new ResponseEntity<>(department, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

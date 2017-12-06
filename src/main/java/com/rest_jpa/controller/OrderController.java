@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/orders")
@@ -22,11 +23,9 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Order> create(@Valid @RequestBody OrderTO orderReq) {
-        Order order = orderFacade.create(orderReq);
-        if (order != null) {
-            return new ResponseEntity<>(order, HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return Optional.ofNullable(orderFacade.create(orderReq))
+                .map(order -> new ResponseEntity<>(order, HttpStatus.CREATED))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -38,11 +37,9 @@ public class OrderController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<OrderTO> findById(@PathVariable("id") long id) {
-        Order order = orderFacade.findById(id);
-        if (order == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(JsonConverter.convertOrder(order), HttpStatus.OK);
+        return Optional.ofNullable(orderFacade.findById(id))
+                .map(order -> new ResponseEntity<>(JsonConverter.convertOrder(order), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/byDep/{dep}", method = RequestMethod.GET)
@@ -57,11 +54,9 @@ public class OrderController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Order> update(@Valid @RequestBody OrderTO orderReq) {
-        Order order = orderFacade.update(orderReq);
-        if (order != null) {
-            return new ResponseEntity<>(order, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return Optional.ofNullable(orderFacade.update(orderReq))
+                .map(order -> new ResponseEntity<>(order, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

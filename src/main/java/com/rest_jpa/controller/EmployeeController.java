@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/employee")
@@ -22,20 +23,16 @@ public class EmployeeController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Employee> create(@Valid @RequestBody EmployeeTO employeeReq) {
-        Employee employee = employeeFacade.create(employeeReq);
-        if (employee != null) {
-            return new ResponseEntity<>(employee, HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return Optional.ofNullable(employeeFacade.create(employeeReq))
+                .map(employee -> new ResponseEntity<>(employee, HttpStatus.CREATED))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Employee> update(@Valid @RequestBody EmployeeTO employeeReq) {
-        Employee employee = employeeFacade.update(employeeReq);
-        if (employee != null) {
-            return new ResponseEntity<>(employee, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return Optional.ofNullable(employeeFacade.update(employeeReq))
+                .map(employee -> new ResponseEntity<>(employee, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -47,11 +44,9 @@ public class EmployeeController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Employee> findById(@PathVariable("id") long id) {
-        Employee employee = employeeFacade.findById(id);
-        if (employee != null) {
-            return new ResponseEntity<>(employee, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return Optional.ofNullable(employeeFacade.findById(id))
+                .map(employee -> new ResponseEntity<>(employee, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/byDep/{dep}", method = RequestMethod.GET)

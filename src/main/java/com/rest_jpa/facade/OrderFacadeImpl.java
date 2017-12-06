@@ -3,6 +3,7 @@ package com.rest_jpa.facade;
 import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
+import com.rest_jpa.entity.to.EmployeeShortTO;
 import com.rest_jpa.entity.to.OrderTO;
 import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
@@ -15,6 +16,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderFacadeImpl implements OrderFacade{
@@ -42,17 +44,12 @@ public class OrderFacadeImpl implements OrderFacade{
             newOrder.setDate(creationDate);
             newOrder.setDepartment(department);
 
-            Employee employee = null;
-            if (null != to.getEmployee()) {
-                employee = employeeService.findById(to.getEmployee().getId());
-            }
-            newOrder.setEmployee(employee);
-            if (employee != null) {
-                newOrder.setAssign(true);
-            } else {
-                newOrder.setAssign(false);
-            }
+            Employee employee = Optional.ofNullable(to.getEmployee())
+                    .map(EmployeeShortTO::getId)
+                    .map(employeeService::findById).orElse(null);
 
+            newOrder.setEmployee(employee);
+            newOrder.setAssign(Optional.ofNullable(employee).isPresent());
             return orderService.create(newOrder);
         }
         return null;
@@ -93,11 +90,7 @@ public class OrderFacadeImpl implements OrderFacade{
 
             Employee employee = employeeService.findById(to.getEmployee().getId());
             newOrder.setEmployee(employee);
-            if (employee != null) {
-                newOrder.setAssign(true);
-            } else {
-                newOrder.setAssign(false);
-            }
+            newOrder.setAssign(Optional.ofNullable(employee).isPresent());
             return orderService.update(newOrder);
         }
         return null;
