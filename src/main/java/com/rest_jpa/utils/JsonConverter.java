@@ -21,8 +21,12 @@ public class JsonConverter {
         orderTO.setDepartment(new DepartmentShortTO(order.getDepartment().getId(), order.getDepartment().getName()));
 
         Employee employee = order.getEmployee();
-        orderTO.setEmployee(new EmployeeShortTO(
-                employee.getId(), employee.getName(), employee.getSurName()));
+        if (employee != null) {
+            orderTO.setEmployee(new EmployeeShortTO(
+                    employee.getId(), employee.getName(), employee.getSurName()));
+        } else {
+            orderTO.setEmployee(null);
+        }
         return orderTO;
     }
 

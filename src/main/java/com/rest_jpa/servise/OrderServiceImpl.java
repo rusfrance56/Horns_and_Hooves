@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
             List<Employee> employeeList = order.getDepartment().getEmployeeList();
             orderHelper.assignmentOrder(order, employeeList);
         }
-        return  orderRepository.save(order);
+        return orderRepository.save(order);
     }
 
     @Override
@@ -46,11 +46,6 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findAllByEmployeeId(long id) {
         return orderRepository.findAllByEmployeeId(id);
     }
-
-    /*@Override
-    public List<Order> findAllUnfinished() {
-        return orderRepository.findAllUnfinished();
-    }*/
 
     @Override
     public Order update(Order order) {

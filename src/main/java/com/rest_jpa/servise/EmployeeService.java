@@ -6,9 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
-/**
- * Created by Employee on 24.09.2016.
- */
 public interface EmployeeService {
     Employee create(Employee employee);
     List<Employee> findAll();

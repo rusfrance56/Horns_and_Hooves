@@ -3,9 +3,7 @@
     <thead>
     <tr>
         <th></th>
-        <th>
-            <!--On page:<select class="form-control" ng-options="item in itemsByPage" ></select>-->
-        </th>
+        <th></th>
         <th colspan="3">
             <input placeholder="{{'SEARCH' | translate}}" class="form-control col-lg-2" ng-model="search"/><!--type="search" st-search -->
         </th>
@@ -33,17 +31,10 @@
         <td>{{emp.department.name | translate}}</td>
         <td>
             <div class="btn-group btn-group" role="group" aria-label="...">
-                <a href="" class="btn btn-primary" ng-click="editEmployee(emp)">{{'INFO' | translate}}</a>
+                <a href="" class="btn btn-primary" ng-click="navigateToEdit(emp)">{{'INFO' | translate}}</a>
                 <a href="" class="btn btn-danger" ng-click="deleteEmployee(emp)">{{'DELETE' | translate}}</a>
             </div>
         </td>
     </tr>
     </tbody>
-    <!--<tfoot>-->
-    <!--<tr>-->
-        <!--<td colspan="5" class="text-center">-->
-            <!--<div st-pagination=""></div>-->
-        <!--</td>-->
-    <!--</tr>-->
-    <!--</tfoot>-->
 </table>

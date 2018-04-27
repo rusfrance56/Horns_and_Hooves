@@ -1,24 +1,16 @@
 package com.rest_jpa.utils;
 
-import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.Order;
-import com.rest_jpa.repository.DepartmentRepository;
-import com.rest_jpa.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class OrderHelper {
-
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private DepartmentRepository departmentRepository;
 
     public Employee findFreeEmployee(List<Employee> list) {
         Optional<Employee> freeEmployee = list.stream()
@@ -29,7 +21,7 @@ public class OrderHelper {
     public void changeOrdersStatusToUnassigned(List<Order> orderList) {
         orderList.stream().forEach(order -> {
             order.setAssign(false);
-            orderRepository.save(order);
+            order.setEmployee(null);
         });
     }
 
@@ -50,12 +42,11 @@ public class OrderHelper {
 
     public void reassignmentOrders(Employee employee) {
         List<Order> orderList = employee.getOrderList();
-        if (orderList.isEmpty()) {
-            return;
+        if (!orderList.isEmpty()) {
+            List<Employee> employeeList = employee.getDepartment().getEmployeeList();
+            employeeList.remove(employee);
+            assignmentOrders(orderList, employeeList);
+            employee.setOrderList(new ArrayList<>());
         }
-        Department currentDepartment = departmentRepository.findOne(employee.getDepartment().getId());
-        List<Employee> allByDepartment = currentDepartment.getEmployeeList();
-        allByDepartment.remove(employee);
-        assignmentOrders(orderList, allByDepartment);
     }
 }

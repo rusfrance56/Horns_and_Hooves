@@ -2,36 +2,32 @@
 var mainApp = angular.module("mainApp", ['ngRoute', 'smart-table', 'pascalprecht.translate']);
 
 mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+    // $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('');
-    $routeProvider.when('/orders/addOrder', {
-        templateUrl: 'views/order/addOrder.html',
-        controller: 'CreateUpdateOrderController'
+    $routeProvider.when('/orders/editOrder/:id', {
+        templateUrl: 'views/order/editOrder.html',
+        controller: 'EditOrderController'
     }).when('/orders/editOrder/', {
         templateUrl: 'views/order/editOrder.html',
-        controller: 'CreateUpdateOrderController'
+        controller: 'EditOrderController'
     }).when('/orders', {
         templateUrl: 'views/order/viewOrders.html',
         controller: 'OrdersController'
+    }).when('/employee/editEmp/:id', {
+        templateUrl: 'views/employee/editEmployee.html',
+        controller: 'EditEmpController'
+    }).when('/employee/editEmp', {
+        templateUrl: 'views/employee/editEmployee.html',
+        controller: 'EditEmpController'
+    }).when('/employee', {
+        templateUrl: 'views/employee/viewEmployee.html',
+        controller: 'EmpsController'
     }).otherwise({
-        redirectTO: '/orders'
+        // redirectTO: '/employee'
+        templateUrl: 'views/employee/viewEmployee.html',
+        controller: 'EmpsController'
     });
 }]);
-mainApp.config(['$routeProvider',
-    function ($routeProvider) {
-        $routeProvider.when('/employee/addEmp', {
-            templateUrl: 'views/employee/addEmployee.html',
-            controller: 'CreateUpdateEmpController'
-        }).when('/employee/editEmp', {
-            templateUrl: 'views/employee/editEmployee.html',
-            controller: 'CreateUpdateEmpController'
-        }).when('/employee', {
-            templateUrl: 'views/employee/viewEmployee.html',
-            controller: 'EmpsController'
-        }).otherwise({
-            redirectTO: '/employee'
-        });
-    }
-]);
 mainApp.config(function ($translateProvider) {
     $translateProvider.useStaticFilesLoader({
         prefix: ' i18n/i18n_',

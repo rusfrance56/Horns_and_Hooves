@@ -20,14 +20,11 @@ mainApp.service('OrderService', function ($http) {
         deleteOrder: function (orderId) {
             return $http.delete('/orders/' + orderId);
         },
-        setOrder: function (data) {
+        setOrdersToService: function (data) {
             savedData = data;
         },
-        getOrder: function () {
+        getOrdersFromService: function () {
             return savedData;
-        },
-        clearOrder: function () {
-            savedData = {};
         }
     }
 });

@@ -25,14 +25,11 @@ mainApp.service('EmployeeService', function ($http) {
         deleteEmployee: function (employeeId) {
             return $http.delete('/employee/' + employeeId);
         },
-        setEmployee: function (data) {
+        setEmployeesToService: function (data) {
             savedData = data;
         },
-        getEmployee: function () {
+        getEmployeesFromService: function () {
             return savedData;
-        },
-        clearEmployee: function () {
-            savedData = {};
         }
     }
 });
