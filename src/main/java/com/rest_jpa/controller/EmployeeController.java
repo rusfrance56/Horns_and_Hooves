@@ -2,6 +2,8 @@ package com.rest_jpa.controller;
 
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.to.EmployeeTO;
+import com.rest_jpa.exceptions.ApplicationException;
+import com.rest_jpa.exceptions.ErrorKey;
 import com.rest_jpa.facade.EmployeeFacade;
 import com.rest_jpa.utils.JsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,8 +40,11 @@ public class EmployeeController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Collection<EmployeeTO>> findAll() {
+    public ResponseEntity<Collection<EmployeeTO>> findAll() throws ApplicationException {
         List<EmployeeTO> employees = JsonConverter.convertEmployee(employeeFacade.findAll());
+        if (true) {
+            throw new ApplicationException(ErrorKey.TEST_KEY, "this is message", Collections.EMPTY_LIST);
+        }
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
