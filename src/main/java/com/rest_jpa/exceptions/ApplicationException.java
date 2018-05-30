@@ -1,49 +1,128 @@
 package com.rest_jpa.exceptions;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.function.Supplier;
 
-public class ApplicationException extends Exception {
+import static com.google.common.base.Strings.isNullOrEmpty;
 
-    private ErrorKey errorKey;
-    private String message;
-    private List<Object> errorParameters;
+public class ApplicationException extends FacadeException{
+    private static final long serialVersionUID = 1L;
+    private static final String resourceBundle = "bundles/Bundle";
+    private ErrorKey key;
 
-    public ApplicationException(ErrorKey errorKey, List<Object> errorParameters) {
-        super();
-        this.errorKey = errorKey;
-        this.errorParameters = errorParameters;
+    public ApplicationException(ErrorKey key, Object... parameters) {
+        super("ApplicationException." + key.name() + ": " + Arrays.toString(parameters), key.name(), parameters, resourceBundle);
+        this.key = key;
+        setBundleResolver(ProjectBundleResolver.class);
     }
 
-    public ApplicationException(ErrorKey errorKey, String message, Object... errorParameters) {
-        super();
-        this.errorKey = errorKey;
-        this.message = message;
-        this.errorParameters = Arrays.asList(errorParameters);
+    public ApplicationException(ErrorKey key, String param1) {
+        super("ApplicationException." + key.name() + ":" + param1, key.name(), new Object[]{param1}, resourceBundle);
+        this.key = key;
+        setBundleResolver(ProjectBundleResolver.class);
+    }
+
+    public ApplicationException(ErrorKey key) {
+        super("ApplicationException." + key.name(), key.name(), new Object[]{}, resourceBundle);
+        this.key = key;
+        setBundleResolver(ProjectBundleResolver.class);
+    }
+
+    public ApplicationException(Throwable t, ErrorKey key, Object... parameters) {
+        super(t, key.name(), parameters, resourceBundle);
+        this.key = key;
+        setBundleResolver(ProjectBundleResolver.class);
+    }
+
+    public ApplicationException(Throwable t, ErrorKey key, String param1) {
+        super(t, key.name(), new Object[]{param1}, resourceBundle);
+        this.key = key;
+        setBundleResolver(ProjectBundleResolver.class);
+    }
+
+    public ApplicationException(Throwable t, ErrorKey key) {
+        super(t, key.name(), new Object[]{}, resourceBundle);
+        this.key = key;
+        setBundleResolver(ProjectBundleResolver.class);
     }
 
     public ErrorKey getErrorKey() {
-        return errorKey;
+        return key;
     }
 
-    public void setErrorKey(ErrorKey errorKey) {
-        this.errorKey = errorKey;
+
+
+
+    public static void checkArgument(boolean condition, ErrorKey key, Object... arguments) throws ApplicationException {
+        if (!condition) {
+            throw new ApplicationException(key, arguments);
+        }
     }
 
-    @Override
-    public String getMessage() {
-        return message;
+    public static void checkArgument(boolean condition, ErrorKey key, Supplier<String>... argumentsSuppliers) throws ApplicationException {
+        if (!condition) {
+            throw new ApplicationException(key,
+                    Arrays.stream(argumentsSuppliers)
+                            .map(Supplier::get)
+                            .toArray());
+        }
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    @Nonnull
+    public static <T> Optional<T> checkIsEmpty(@Nonnull Optional<T> value, ErrorKey key, Supplier<String>... argumentsSuppliers) throws ApplicationException {
+        if (value.isPresent()) {
+            throw new ApplicationException(key,
+                    Arrays.stream(argumentsSuppliers)
+                            .map(Supplier::get)
+                            .toArray());
+        } else {
+            return value;
+        }
     }
 
-    public List<Object> getErrorParameters() {
-        return errorParameters;
+    @Nonnull
+    public static <T> T checkNotNull(@Nullable T value, ErrorKey key, Object... arguments) throws ApplicationException {
+        if (value == null) {
+            throw new ApplicationException(key, arguments);
+        } else {
+            return value;
+        }
     }
 
-    public void setErrorParameters(List<Object> errorParameters) {
-        this.errorParameters = errorParameters;
+    @Nullable
+    public static <T> T checkIsNull(@Nullable T value, ErrorKey key, Object... arguments) throws ApplicationException {
+        if (value != null) {
+            throw new ApplicationException(key, arguments);
+        } else {
+            return value;
+        }
+    }
+
+    public static String checkNotNullAndNotEmpty(String value, ErrorKey key, Object... arguments) throws ApplicationException {
+        if (isNullOrEmpty(value)) {
+            throw new ApplicationException(key, arguments);
+        } else {
+            return value;
+        }
+    }
+
+    public static <C extends Collection<E>, E> C checkNotNullAndNotEmpty(C value, ErrorKey key, Object... arguments) throws ApplicationException {
+        if (value == null || value.isEmpty()) {
+            throw new ApplicationException(key, arguments);
+        } else {
+            return value;
+        }
+    }
+
+    public static FacadeException reThrow(FacadeException e) throws FacadeException {
+        throw new FacadeException(e, e.getKey(), e.getParameters(), e.getBundleName());
+    }
+
+    public static Supplier<? extends ApplicationException> ApplicationException(ErrorKey key, Object... arguments) {
+        return () -> new ApplicationException(key, arguments);
     }
 }

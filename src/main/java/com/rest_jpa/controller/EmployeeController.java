@@ -42,9 +42,6 @@ public class EmployeeController {
     @ResponseBody
     public ResponseEntity<Collection<EmployeeTO>> findAll() throws ApplicationException {
         List<EmployeeTO> employees = JsonConverter.convertEmployee(employeeFacade.findAll());
-        if (true) {
-            throw new ApplicationException(ErrorKey.TEST_KEY, "this is message", Collections.EMPTY_LIST);
-        }
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 

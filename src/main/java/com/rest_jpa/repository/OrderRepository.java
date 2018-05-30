@@ -11,9 +11,4 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findAllByDepartmentName(String department);
     List<Order> findAllByEmployeeId(long id);
-
-
-
-    /*@Query("select ord from Order ord where ord.date > current_timestamp")
-    List<Order> findAllUnfinished();*/
 }

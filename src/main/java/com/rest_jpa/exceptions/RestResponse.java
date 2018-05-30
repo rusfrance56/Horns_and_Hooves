@@ -1,32 +1,65 @@
 package com.rest_jpa.exceptions;
 
+import java.util.Arrays;
+
 public class RestResponse {
 
-    private ErrorKey error;
-    private String message;
+    private String error;
+    private String errorMessage;
+    private Object[] errorParams;
 
-    public RestResponse(ErrorKey error) {
+    public static RestResponse FAIL(String error, Object... errorParams){
+        return new RestResponse(error,errorParams);
+    }
+
+    public static RestResponse FAIL(String error, Object[] errorParams, String errorMessage) {
+        RestResponse response = new RestResponse(error, errorParams);
+        response.setErrorMessage(errorMessage);
+        return response;
+    }
+
+    public RestResponse() {
+    }
+
+    public RestResponse(String error) {
         this.error = error;
     }
 
-    public RestResponse(ErrorKey error, String message) {
+    public RestResponse(String error, Object[] errorParams) {
         this.error = error;
-        this.message = message;
+        this.errorParams = errorParams;
     }
 
-    public ErrorKey getError() {
+    public String getError() {
         return error;
     }
 
-    public void setError(ErrorKey error) {
+    public void setError(String error) {
         this.error = error;
     }
 
-    public String getMessage() {
-        return message;
+    public Object[] getErrorParams() {
+        return errorParams;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setErrorParams(Object[] errorParams) {
+        this.errorParams = errorParams;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    @Override
+    public String toString() {
+        return "RestResponse{" +
+                "error='" + error + '\'' +
+                ", errorParams=" + Arrays.toString(errorParams) +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
     }
 }
