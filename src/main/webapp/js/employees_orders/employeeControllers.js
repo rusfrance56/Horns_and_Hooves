@@ -1,12 +1,16 @@
 'use strict';
-mainApp.controller('EmpsController', function ($scope, $location, EmployeeService) {
+mainApp.controller('EmpsController', function ($scope, $location, EmployeeService, CommonService) {
     $scope.employees = [];
     getEmployees();
 
     function getEmployees() {
-        EmployeeService.getEmployees().then(function (employees) {
-            $scope.employees = employees;
-            EmployeeService.setEmployeesToService($scope.employees);
+        EmployeeService.getEmployees().then(function (response) {
+            if (response.error) {
+                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+            } else {
+                $scope.employees = response;
+                EmployeeService.setEmployeesToService($scope.employees);
+            }
         });
     }
 

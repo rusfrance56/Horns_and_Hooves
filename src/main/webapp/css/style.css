@@ -67,3 +67,11 @@ table {
     background-color: lightgreen;
     border: 1px dotted gray;
 }
+
+.alerts {
+    position: absolute;
+    top: 30px;
+    align-self: center;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}

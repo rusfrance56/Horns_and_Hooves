@@ -5,6 +5,7 @@ import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.to.EmployeeTO;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.exceptions.ErrorKey;
+import com.rest_jpa.exceptions.FacadeException;
 import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,7 @@ public class EmployeeFacadeImpl implements EmployeeFacade{
 
     @Override
     public List<Employee> findAll() {
-        if (true) { //todo example
-            throw new ApplicationException(ErrorKey.TEST_KEY, "param1", "param2");
-        }
+//        throw new ApplicationException(ErrorKey.TEST_KEY, "param1", "param2");
         return employeeService.findAll();
     }
 

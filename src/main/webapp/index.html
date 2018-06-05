@@ -3,8 +3,11 @@
 <head>
     <title>Horns and Hooves</title>
     <link href="css/style.css" type="text/css" rel="stylesheet"/>
-    <script src="lib/angular-1.6.6/angular.min.js"></script>
-    <script src="lib/angular-1.6.6/angular-route.min.js"></script>
+    <script src="lib/angular-1.6.10/angular.min.js"></script>
+    <script src="lib/angular-1.6.10/angular-route.min.js"></script>
+    <script src="lib/angular-1.6.10/angular-animate.min.js"></script>
+    <script src="lib/angular-1.6.10/angular-touch.min.js"></script>
+    <script src="lib/angular-ui-bootstrap/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="lib/angular-translate/angular-translate.min.js"></script>
     <script src="lib/angular-translate/angular-translate-loader-static-files.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -33,11 +36,15 @@
 
     <div ng-view></div>
 </div>
-<script src="js/config.js"></script>
-<script src="js/commonController.js"></script>
-<script src="js/orderControllers.js"></script>
-<script src="js/orderServices.js"></script>
-<script src="js/employeeControllers.js"></script>
-<script src="js/employeeServices.js"></script>
+<script src="js/common/main.js"></script>
+<script src="js/common/controllers.js"></script>
+<script src="js/common/services.js"></script>
+
+<script src="js/employees_orders/main.js"></script>
+<script src="js/employees_orders/commonController.js"></script>
+<script src="js/employees_orders/employeeControllers.js"></script>
+<script src="js/employees_orders/employeeServices.js"></script>
+<script src="js/employees_orders/orderControllers.js"></script>
+<script src="js/employees_orders/orderServices.js"></script>
 </body>
 </html>
