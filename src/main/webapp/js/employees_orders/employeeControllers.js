@@ -15,8 +15,12 @@ mainApp.controller('EmpsController', function ($scope, $location, EmployeeServic
     }
 
     $scope.deleteEmployee = function (employee) {
-        EmployeeService.deleteEmployee(employee.id).then(function () {
-            $scope.employees.splice($scope.employees.indexOf(employee), 1);
+        EmployeeService.deleteEmployee(employee.id).then(function (response) {
+            if (response.error) {
+                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+            } else {
+                $scope.employees.splice($scope.employees.indexOf(employee), 1);
+            }
         });
     };
 
@@ -32,6 +36,7 @@ mainApp.controller('EmpsController', function ($scope, $location, EmployeeServic
     $scope.pageTitle = "";
     loadEmployee();
     getDepartments();
+    setDepartmentToEmp();
 
     function loadEmployee(){
         if (!angular.isUndefinedOrNull($routeParams.id)){
@@ -49,29 +54,43 @@ mainApp.controller('EmpsController', function ($scope, $location, EmployeeServic
 
     $scope.saveEmployee = function (employee) {
         if (angular.isUndefinedOrNull(employee.id)) {
-            EmployeeService.createEmployee(employee).then(function () {
-                $location.path("/employee");
+            EmployeeService.createEmployee(employee).then(function (response) {
+                if (response.error) {
+                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+                } else {
+                    $location.path("/employee");
+                }
             });
         } else {
-            EmployeeService.updateEmployee(employee).then(function () {
-                $location.path("/employee");
+            EmployeeService.updateEmployee(employee).then(function (response) {
+                if (response.error) {
+                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+                } else {
+                    $location.path("/employee");
+                }
             });
         }
     };
 
-    //todo изменить вытаскивание департаментов и разделить вытаскивание и засэчивание конкретному работнику
     function getDepartments() {
-        EmployeeService.getDepartments().then(function (departments) {
-            $scope.departments = departments;
-            if (!angular.isUndefinedOrNull($scope.departments)) {
-                if(!angular.isUndefinedOrNull($scope.currentEmployee.department)){
-                    $scope.currentEmployee.department = $scope.departments.filter(function (dep) {
-                        return dep.id === $scope.currentEmployee.department.id;
-                    })[0];
-                } else {
-                    $scope.currentEmployee.department = $scope.departments[0];
-                }
+        EmployeeService.getDepartments().then(function (response) {
+            if (response.error) {
+                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+            } else {
+                $scope.departments = response;
             }
         });
+    }
+
+    function setDepartmentToEmp() {
+        if (!angular.isUndefinedOrNull($scope.departments)) {
+            if(!angular.isUndefinedOrNull($scope.currentEmployee.department)){
+                $scope.currentEmployee.department = $scope.departments.filter(function (dep) {
+                    return dep.id === $scope.currentEmployee.department.id;
+                })[0]; //todo выйдет за границы если не найдет подходящих департаментов
+            } else {
+                $scope.currentEmployee.department = $scope.departments[0];
+            }
+        }
     }
 });

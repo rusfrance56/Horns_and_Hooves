@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNullAndNotEmpty;
-import static com.rest_jpa.exceptions.ErrorKey.EMPLOYEES_NOT_FOUND;
+import static com.rest_jpa.exceptions.ErrorKey.*;
 
 @Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
@@ -24,7 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee create(Employee employee) {
-        return employeeRepository.save(employee);
+        return checkNotNull(employeeRepository.save(employee), EMPLOYEE_NOT_CREATED);
     }
 
     @Override
@@ -34,17 +35,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findById(long id) {
-        return employeeRepository.findOne(id);
+        return checkNotNull(employeeRepository.findOne(id), EMPLOYEE_NOT_FOUND);
     }
 
     @Override
     public List<Employee> findAllByDepartmentId(long id) {
-        return employeeRepository.findAllByDepartmentId(id);
+        return checkNotNullAndNotEmpty(employeeRepository.findAllByDepartmentId(id), EMPLOYEES_NOT_FOUND);
     }
 
     @Override
     public Employee update(Employee employee) {
-        return employeeRepository.save(employee);
+        return checkNotNull(employeeRepository.save(employee), EMPLOYEE_NOT_UPDATED);
     }
 
     @Override
