@@ -6,6 +6,7 @@ import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.facade.EmployeeFacade;
 import com.rest_jpa.utils.JsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,23 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeFacade employeeFacade;
+
+
+    @RequestMapping(
+            value = "/get",
+            params = { "page", "size" },
+            method = RequestMethod.GET
+    )
+    public Page<Employee> findPaginated(
+            @RequestParam("page") int page, @RequestParam("size") int size) {
+
+        Page<Employee> resultPage = employeeFacade.findPaginated(page, size);
+        if (page > resultPage.getTotalPages()) {
+//            throw new MyResourceNotFoundException();
+        }
+        return resultPage;
+    }
+
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Employee> create(@Valid @RequestBody EmployeeTO employeeReq) {

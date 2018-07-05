@@ -1,5 +1,12 @@
 'use strict';
-var mainApp = angular.module("mainApp", ['ngRoute', 'smart-table', 'pascalprecht.translate', 'ui.bootstrap', 'Common']);
+var mainApp = angular.module("mainApp", [
+        'ngRoute',
+        'smart-table',
+        'pascalprecht.translate',
+        'ui.bootstrap', 'ui.grid',
+        'ui.grid.pagination',
+        'Common'
+    ]);
 mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     // $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('');

@@ -5,6 +5,7 @@ import com.rest_jpa.repository.EmployeeRepository;
 import com.rest_jpa.utils.OrderHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private OrderHelper orderHelper;
+
+    @Override
+    public Page<Employee> findPaginated(int page, int size) {
+        return employeeRepository.findAll(new PageRequest(page, size));
+    }
 
     @Override
     public Employee create(Employee employee) {

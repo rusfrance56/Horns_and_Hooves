@@ -3,12 +3,10 @@ package com.rest_jpa.facade;
 import com.rest_jpa.entity.Department;
 import com.rest_jpa.entity.Employee;
 import com.rest_jpa.entity.to.EmployeeTO;
-import com.rest_jpa.exceptions.ApplicationException;
-import com.rest_jpa.exceptions.ErrorKey;
-import com.rest_jpa.exceptions.FacadeException;
 import com.rest_jpa.servise.DepartmentService;
 import com.rest_jpa.servise.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +19,11 @@ public class EmployeeFacadeImpl implements EmployeeFacade{
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Override
+    public Page<Employee> findPaginated(int page, int size) {
+        return employeeService.findPaginated(page, size);
+    }
 
     @Override
     public Employee create(EmployeeTO to) {
