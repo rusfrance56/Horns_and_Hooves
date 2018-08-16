@@ -1,4 +1,3 @@
-DELETE FROM employee_roles;
 DELETE FROM order_furniture;
 DELETE FROM employee;
 DELETE FROM department;
