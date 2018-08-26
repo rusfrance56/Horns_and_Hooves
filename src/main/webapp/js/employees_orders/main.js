@@ -3,8 +3,7 @@ var mainApp = angular.module("mainApp", [
         'ngRoute',
         'smart-table',
         'pascalprecht.translate',
-        'ui.bootstrap', 'ui.grid',
-        'ui.grid.pagination',
+        'ui.bootstrap',
         'Common'
     ]);
 mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {

@@ -7,14 +7,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface EmployeeService {
-    Page<Employee> findPaginated(int page, int size);
-
     Employee create(Employee employee);
     List<Employee> findAll();
     Employee findById(long id);
     List<Employee> findAllByDepartmentId(long id);
     Employee update(Employee employee);
     void delete(long id);
-
-    Page<Employee> listAllByPage(Pageable pageable);
 }

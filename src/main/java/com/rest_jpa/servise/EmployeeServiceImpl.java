@@ -25,11 +25,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private OrderHelper orderHelper;
 
     @Override
-    public Page<Employee> findPaginated(int page, int size) {
-        return employeeRepository.findAll(new PageRequest(page, size));
-    }
-
-    @Override
     public Employee create(Employee employee) {
         return checkNotNull(employeeRepository.save(employee), EMPLOYEE_NOT_CREATED);
     }
@@ -59,10 +54,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findOne(id);
         orderHelper.reassignmentOrders(employee);
         employeeRepository.delete(id);
-    }
-
-    @Override
-    public Page<Employee> listAllByPage(Pageable pageable) {
-        return employeeRepository.findAll(pageable);
     }
 }

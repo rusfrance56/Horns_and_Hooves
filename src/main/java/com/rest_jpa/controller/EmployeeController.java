@@ -23,23 +23,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeFacade employeeFacade;
 
-
-    @RequestMapping(
-            value = "/get",
-            params = { "page", "size" },
-            method = RequestMethod.GET
-    )
-    public Page<Employee> findPaginated(
-            @RequestParam("page") int page, @RequestParam("size") int size) {
-
-        Page<Employee> resultPage = employeeFacade.findPaginated(page, size);
-        if (page > resultPage.getTotalPages()) {
-//            throw new MyResourceNotFoundException();
-        }
-        return resultPage;
-    }
-
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Employee> create(@Valid @RequestBody EmployeeTO employeeReq) {
         return Optional.ofNullable(employeeFacade.create(employeeReq))

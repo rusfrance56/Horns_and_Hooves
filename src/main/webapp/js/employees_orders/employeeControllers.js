@@ -1,50 +1,23 @@
 'use strict';
 mainApp.controller('EmpsController', function ($scope, $location, EmployeeService, CommonService) {
     $scope.employees = [];
-    // getEmployees();
+    getEmployees();
 
-    var paginationOptions = {
-        pageNumber: 1,
-        pageSize: 5,
-        sort: null
+    $scope.dropdown = {
+        availableOptions: [3, 5, 10],
+        itemsByPage: 10
     };
 
-    $scope.gridOptions = {
-        paginationPageSizes: [5, 10, 20],
-        paginationPageSize: paginationOptions.pageSize,
-        enableColumnMenus:false,
-        useExternalPagination: true,
-        columnDefs: [
-            { name: 'id' },
-            { name: 'name' },
-            { name: 'middle_name' },
-            { name: 'department' }
-        ],
-        onRegisterApi: function(gridApi) {
-            $scope.gridApi = gridApi;
-            gridApi.pagination.on.paginationChanged($scope,
-                function (newPage, pageSize) {
-                    paginationOptions.pageNumber = newPage;
-                    paginationOptions.pageSize = pageSize;
-                    EmployeeService.getEmployees(newPage, pageSize)
-                        .then(function(data){
-                            $scope.gridOptions.data = data.content;
-                            $scope.gridOptions.totalItems = data.totalElements;
-                        });
-                });
-        }
-    };
-
-    // function getEmployees() {
-    //     EmployeeService.getEmployees().then(function (response) {
-    //         if (response.error) {
-    //             CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-    //         } else {
-    //             $scope.employees = response;
-    //             EmployeeService.setEmployeesToService($scope.employees);
-    //         }
-    //     });
-    // }
+    function getEmployees() {
+        EmployeeService.getEmployees().then(function (response) {
+            if (response.error) {
+                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+            } else {
+                $scope.employees = response;
+                EmployeeService.setEmployeesToService($scope.employees);
+            }
+        });
+    }
 
     $scope.deleteEmployee = function (employee) {
         EmployeeService.deleteEmployee(employee.id).then(function (response) {

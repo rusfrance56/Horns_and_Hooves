@@ -1,36 +1,42 @@
 <h2>{{'ORDERS' | translate}}</h2>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th></th>
-        <th><!--On page:<select class="form-control" ng-options="item in itemsByPage" ></select>--></th>
-        <th colspan="3"><input placeholder="{{'SEARCH' | translate}}" class="form-control col-lg-2" ng-model="search"/></th><!--type="search" st-search-->
-        <th><a href="" class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</a></th>
-    </tr>
-    <tr>
-        <th hidden>Id</th>
-        <th>#</th>
-        <th>{{'NAME_ORDER' | translate}}</th>
-        <th>{{'DATE' | translate}}</th>
-        <th>{{'TYPE' | translate}}</th>
-        <th>{{'EMPLOYEE' | translate}}</th>
-        <th>{{'OPTIONS' | translate}}</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="order in orders | filter : search">
-        <td hidden>{{order.id}}</td>
-        <td>{{$index+1}}</td>
-        <td>{{order.name}}</td>
-        <td>{{order.dateTime |  date : "dd.MM.yyyy HH:mm"}}</td>
-        <td>{{order.department.name | translate}}</td>
-        <td>{{order.employee.name + ' ' + order.employee.surname}}</td>
-        <td>
-            <div class="btn-group btn-group" role="group" aria-label="...">
-                <a href="" class="btn btn-primary" ng-click="editOrder(order)">{{'INFO' | translate}}</a>
-                <a href="" class="btn btn-danger" ng-click="deleteOrder(order)">{{'DELETE' | translate}}</a>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div st-table="ordersTable" st-safe-src="orders">
+    <div class="row inline-row">
+        <div class="inline-row-part">
+            <button class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
+        </div>
+        <div class="inline-row-part">
+            <input st-search="" class="form-control col-lg-2" placeholder="{{'SEARCH' | translate}}" type="text"/>
+        </div>
+    </div>
+    <div id="ordersTable">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th hidden>Id</th>
+                <th>#</th>
+                <th st-sort="name">{{'NAME_ORDER' | translate}}</th>
+                <th st-sort="dateTime">{{'DATE' | translate}}</th>
+                <th st-sort="department.name">{{'TYPE' | translate}}</th>
+                <th st-sort="employee.name">{{'EMPLOYEE' | translate}}</th>
+                <th>{{'OPTIONS' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="order in ordersTable | filter : search">
+                <td hidden>{{order.id}}</td>
+                <td>{{$index+1}}</td>
+                <td>{{order.name}}</td>
+                <td>{{order.dateTime | date : "dd.MM.yyyy HH:mm"}}</td>
+                <td>{{order.department.name | translate}}</td>
+                <td>{{order.employee.name + ' ' + order.employee.surname}}</td>
+                <td>
+                    <div class="btn-group btn-group" role="group" aria-label="...">
+                        <button class="btn btn-primary" ng-click="editOrder(order)">{{'INFO' | translate}}</button>
+                        <button class="btn btn-danger" ng-click="deleteOrder(order)">{{'DELETE' | translate}}</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

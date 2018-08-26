@@ -21,11 +21,6 @@ public class EmployeeFacadeImpl implements EmployeeFacade{
     private DepartmentService departmentService;
 
     @Override
-    public Page<Employee> findPaginated(int page, int size) {
-        return employeeService.findPaginated(page, size);
-    }
-
-    @Override
     public Employee create(EmployeeTO to) {
         Department department = departmentService.findById(to.getDepartment().getId());
         if (department != null) {

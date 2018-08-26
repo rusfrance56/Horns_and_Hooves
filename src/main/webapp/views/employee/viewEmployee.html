@@ -1,4 +1,56 @@
 <h2>{{'EMPLOYEES' | translate}}</h2>
-<div ng-controller="EmpsController as emp">
-    <div ui-grid="gridOptions" class="grid" ui-grid-pagination></div>
+<div st-table="employeesTable" st-safe-src="employees">
+    <div class="row inline-row">
+        <div class="inline-row-part">
+            <button class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
+        </div>
+        <div class="inline-row-part">
+            <input st-search="" class="form-control col-lg-2" placeholder="{{'SEARCH' | translate}}" type="text"/>
+        </div>
+        <div class="inline-row-part pull-right">
+            <label for="itemsByPageDropDown">{{'SHOW_ON_PAGE' | translate}}</label>
+            <select class="form-control" id="itemsByPageDropDown"
+                    ng-options="opt for opt in dropdown.availableOptions" ng-model="dropdown.itemsByPage">
+            </select>
+        </div>
+    </div>
+    <div id="empTable">
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th hidden>Id</th>
+                <th>#</th>
+                <th st-sort="surName">{{'SURNAME' | translate}}</th>
+                <th st-sort="name">{{'NAME' | translate}}</th>
+                <th st-sort="middleName">{{'MIDDLE_NAME' | translate}}</th>
+                <th st-sort="department.name">{{'DEPARTMENT' | translate}}</th>
+                <th>{{'OPTIONS' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="emp in employeesTable | filter: search">
+                <td hidden>{{emp.id}}</td>
+                <td>{{$index+1}}</td>
+                <td>{{emp.surName}}</td>
+                <td>{{emp.name}}</td>
+                <td>{{emp.middleName}}</td>
+                <td>{{emp.department.name | translate}}</td>
+                <td>
+                    <div class="btn-group btn-group" role="group" aria-label="...">
+                        <button class="btn btn-primary" ng-click="navigateToEdit(emp)">{{'INFO' | translate}}</button>
+                        <button class="btn btn-danger" ng-click="deleteEmployee(emp)">{{'DELETE' | translate}}</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="dropdown.itemsByPage" st-displayed-pages="10"></div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>

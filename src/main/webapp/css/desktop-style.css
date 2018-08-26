@@ -1,0 +1,515 @@
+html, html > body, html > body > div[ng-view], html > body > div[ng-view] > div[ng-controller]{
+    height: calc(100% - 0px) !important;
+}
+
+body{
+    font-size: 12px;
+    font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    font-weight: 300;
+}
+
+body > div.ng-scope {
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+}
+/*Containers start*/
+.container-fluid{
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 1px !important;
+    margin-top: 2px !important;
+}
+.row-margin{
+    margin-top: 2px !important;
+}
+
+.row-padding{
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9,
+.col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9,
+.col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9,
+.col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+/*Containers end*/
+/*elements tag start*/
+select {
+    height: 25px !important;
+    padding: 0px 4px !important;
+    width: auto !important;
+    cursor: pointer;
+}
+
+p{
+    margin-bottom: 0px !important;
+}
+
+button{
+    height: 25px !important;
+    padding: 0px 4px !important;
+    margin-right: 1px;
+    margin-left: 1px;
+    outline: none !important;
+}
+
+button.btn {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 11px;
+    line-height: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: top;
+    min-width: 3em;
+    text-decoration: none;
+    box-sizing: border-box;
+    letter-spacing: 0;
+    box-shadow: none;
+    outline: 0;
+}
+
+button.btn.btn-primary,
+button.btn.btn-success,
+button.btn.btn-danger,
+button.btn.btn-warning,
+button.btn.btn-info {
+    border: 1px solid transparent;
+}
+
+.uib-datepicker-popup.dropdown-menu {
+    padding: 0px 2px 9px !important;
+}
+
+.uib-datepicker-popup .btn {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+}
+
+label.btn{
+    height: 25px !important;
+    padding: 0px 4px !important;
+}
+
+input[type=text],input[type=number], input[type=search]{
+    height: 25px !important;
+    padding: 0px 4px !important;
+    width: auto;
+}
+.h4, .h5, .h6, h4, h5, h6 {
+    margin-bottom: 4px !important;
+    margin-top: 4px !important;
+}
+.form-control{
+    font-size: 12px !important;
+}
+/*elements tag end*/
+
+/*Panel start*/
+.panel {
+    margin-bottom: 1px !important;
+}
+
+.panel > .panel-body {
+    padding: 2px !important;
+}
+
+.panel > .panel-heading {
+    padding: 2px !important;
+}
+
+.panel > .panel-footer {
+    padding: 2px !important;
+}
+/*Panel end*/
+
+/*Form start*/
+.form-group{
+    margin-bottom: 3px;
+}
+.form-horizontal .form-group {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.form-horizontal .control-label {
+    padding-top: 4px !important;
+}
+/*Form end*/
+
+/*Table start*/
+.table{
+    margin-bottom: 1px !important;
+}
+
+.table > thead > tr > th{
+    padding: 2px 4px !important;
+}
+
+.table > tbody > tr > td{
+    padding: 1px 4px !important;
+    vertical-align: middle !important;
+}
+/*Table end*/
+
+/*Tabs start*/
+ul.nav.nav-tabs>li>a {
+    padding: 0px !important;
+}
+
+ul.nav.nav-pills>li {
+    width: auto;
+    display: inline-block;
+}
+
+ul.nav.nav-pills>li>a {
+    padding: 2px 5px !important;
+    color: #777;
+}
+
+ul.nav.nav-pills>li:not(.active)>a{
+    cursor: pointer;
+}
+
+ul.nav.nav-pills{
+    border-bottom: 2px solid #e7e7e7;
+    padding: 3px !important;
+    background-color: transparent;
+    overflow: auto;
+    display: block;
+}
+
+ul.nav.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+    background-color: lightgrey;
+    color: #555;
+    font-weight: 700;
+    cursor: default;
+}
+/*Tabs end*/
+
+/*Modal start*/
+div.modal-header{
+    padding: 5px !important;
+}
+
+div.modal-footer{
+    padding: 5px !important;
+}
+
+div.modal-body{
+    padding: 5px !important;
+}
+
+.big_modal .modal-dialog .modal-content .alert .form-inline .form-group > strong {
+
+}
+
+.big_modal .modal-dialog .modal-content .alert .form-inline .form-group > button {
+    font-size: 21px !important;
+}
+
+/*Modal end*/
+
+/*Dropdown start*/
+.dropdown-menu{
+    padding: 2px 0px !important;
+    font-size: 12px !important;
+    min-width: auto;
+}
+
+.dropdown-menu>li>a{
+   padding: 2px 4px !important;
+}
+/*Dropdown end*/
+/*Pages start*/
+ul.pagination{
+    margin-top: 1px !important;
+    margin-bottom: 1px !important;
+}
+/*Pages end*/
+
+/*Alerts start*/
+.alert{
+    padding: 5px !important;
+}
+/*Alerts end*/
+
+/*Groups start*/
+
+.list-group {
+    margin-bottom: 2px !important;
+}
+
+.list-group-item{
+    padding: 5px 5px;
+}
+/*Groups end*/
+
+.inline-row{
+    display: block;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.inline-row > .inline-row-part{
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: top;
+}
+
+.inline-row > .inline-row-part p:not(.ng-hide) {
+    display: inline-table;
+    vertical-align: top;
+}
+
+.inline-row > .inline-row-part select:not(.ng-hide) {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.inline-row > .inline-row-part  input:not(.ng-hide){
+    display: inline-block !important;
+    vertical-align: top;
+}
+
+.inline-row > .inline-row-part[class*=width-]>input:not(.ng-hide):only-child{
+    width: 100% !important;
+    max-width: 250px;
+}
+
+.inline-row > .inline-row-part > div:not(.ng-hide){
+    display: inline-block !important;
+    width: auto;
+    outline: 0;
+}
+
+.inline-row > .inline-row-part > label {
+    vertical-align: middle;
+    padding-top: 4px !important;
+    margin-bottom:0px !important;
+}
+
+.inline-row > .inline-row-part > label > div:not(.ng-hide){
+    display: inline-block !important;
+    width: auto;
+    outline: 0;
+}
+
+.inline-row > .inline-row-part > div.inline-row-part-group{
+    display: block !important;
+}
+
+.inline-row > .inline-row-part > div.inline-row-part-group >input,
+.inline-row > .inline-row-part > div.inline-row-part-group > div,
+.inline-row > .inline-row-part > div.inline-row-part-group >select {
+    display: block !important;
+}
+
+.inline-row > .inline-row-part > div.inline-row-part-group > label {
+    margin-bottom: 0px !important;
+}
+
+.paramsSection{
+    padding: 5px;
+}
+
+.popover-content{
+ padding: 2px !important;
+}
+
+
+.result-table{
+
+}
+
+div.pagination{
+    margin-top: 5px !important;
+    margin-bottom: 0px !important;
+}
+
+.display-block{
+    display: block;
+}
+.display-inline-block{
+    display: inline-block;
+    float: left;
+}
+
+.required-form input.ng-invalid {
+    border-color: #FA787E;
+}
+
+.width-10{
+    width: 10% !important;
+}
+
+.width-20{
+    width: 20% !important;
+}
+
+.width-30{
+    width: 30% !important;
+}
+
+.width-40{
+    width: 40% !important;
+}
+
+.width-50{
+    width: 50% !important;
+}
+
+.width-60{
+    width: 60% !important;
+}
+
+.width-70{
+    width: 70% !important;
+}
+
+.width-80{
+    width: 80% !important;
+}
+
+.width-90{
+    width: 90% !important;
+}
+
+.width-100{
+    width: 100% !important;
+}
+
+.height-100{
+    height: calc(100% - 0px) !important;
+}
+
+.flex_container{
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex_container_row{
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+}
+
+.flex_grow_item {
+    flex-grow: 1;
+}
+
+.flex_not_shrink_item {
+    flex-shrink: 0;
+}
+
+.flex_grow_item_overflow_y {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.flex_grow_item_2_overflow_y {
+    flex-grow: 2;
+    overflow-y: auto;
+}
+
+.flex_grow_item_3_overflow_y {
+    flex-grow: 3;
+    overflow-y: auto;
+}
+
+.flex_container_item {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.flex_container_item_row {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow-x: auto;
+}
+
+.flex_include, .flex_include > div[class~=ng-scope],
+.flex_include > div[class~=ng-scope] > div[class~=row],
+.flex_include > div[class~=ng-scope] > div[class~=row] > div[class~=col-md-12],
+.flex_include > div[class~=ng-scope] > div[class~=row] > div[class~=col-md-12] > div[st-table]{
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.flex_include > div[class~=ng-scope] > div[class~=row]{
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.flex_include{
+    overflow-y: auto;
+}
+
+.flex_single,
+.flex_single > div[class~=row] > div[class*=col-md-],
+.flex_single > div[class~=row] > div[class*=col-md-] > div[st-table]{
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.flex_single > div[class~=row]{
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.flex_container_item_tab,
+.flex_container_item_tab > div.tab-content,
+.flex_container_item_tab > div.tab-content > div[class*=tab-pane]{
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+a[ng-click], i[ng-click],
+.sortable-header, th[st-sort], th[lm-server-sort],
+tr[ng-dblclick] {
+    cursor: pointer;
+}
+.no-outline {
+    outline: none;
+}
+
+.hide-validation-error .md-errors-spacer {
+    display: none;
+}
+
+.md-datepicker-width-100 .md-datepicker-input-container {
+    width: 80%;
+}
+.hide-datepicker-triangle-arrow .md-datepicker-triangle-button {
+    display: none;
+}

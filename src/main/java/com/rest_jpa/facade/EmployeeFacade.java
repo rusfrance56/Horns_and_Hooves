@@ -7,8 +7,6 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface EmployeeFacade {
-    Page<Employee> findPaginated(int page, int size);
-
     Employee create(EmployeeTO employee);
     List<Employee> findAll();
     Employee findById(long id);

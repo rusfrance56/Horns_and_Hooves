@@ -2,9 +2,8 @@ mainApp.service('EmployeeService', function ($http) {
     var savedData = {};
 
     return {
-        getEmployees: function (pageNumber, size) {
-            pageNumber = pageNumber > 0?pageNumber - 1:0;
-            return $http.get('/employee/get?page='+pageNumber+'&size='+size).then(function (result) {
+        getEmployees: function () {
+            return $http.get('/employee').then(function (result) {
                 return result.data;
             });
         },

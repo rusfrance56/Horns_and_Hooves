@@ -30,5 +30,7 @@
 
   "CUSHIONED"        : "Cushioned",
   "OFFICE"           : "Office",
-  "STORAGE"          : "Storage"
+  "STORAGE"          : "Storage",
+
+  "SHOW_ON_PAGE"      : "Show on page: "
 }
