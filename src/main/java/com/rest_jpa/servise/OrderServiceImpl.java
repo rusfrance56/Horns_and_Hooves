@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order findById(long id) {
-        return orderRepository.findOne(id);
+        return orderRepository.getOne(id);
     }
 
     @Override
@@ -58,6 +58,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delete(long id) {
-        orderRepository.delete(id);
+        orderRepository.deleteById(id);
     }
 }

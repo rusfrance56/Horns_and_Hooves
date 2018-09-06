@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findById(long id) {
-        return checkNotNull(employeeRepository.findOne(id), EMPLOYEE_NOT_FOUND);
+        return checkNotNull(employeeRepository.getOne(id), EMPLOYEE_NOT_FOUND);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delete(long id) {
-        Employee employee = employeeRepository.findOne(id);
+        Employee employee = employeeRepository.getOne(id);
         orderHelper.reassignmentOrders(employee);
-        employeeRepository.delete(id);
+        employeeRepository.deleteById(id);
     }
 }

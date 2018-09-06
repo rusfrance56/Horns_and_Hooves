@@ -25,7 +25,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department findById(long id) {
-        return departmentRepository.findOne(id);
+        return departmentRepository.getOne(id);
     }
 
     @Override
@@ -35,6 +35,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void delete(long id) {
-        departmentRepository.delete(id);
+        departmentRepository.deleteById(id);
     }
 }
