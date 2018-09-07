@@ -1,7 +1,6 @@
 package com.rest_jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ public class Order extends BaseEntity{
     /*@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")*/
     //@JsonDeserialize(using = CustomDateDeserializer.class)
     //@Type(type="com.rest_jpa.utils.LocalDateTimeUserType")
-    @Column(name = "date", nullable = false)
+    @Column(name = "due_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateTime;
 
