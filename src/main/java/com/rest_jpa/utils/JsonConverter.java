@@ -1,8 +1,8 @@
 package com.rest_jpa.utils;
 
 import com.rest_jpa.entity.BaseEntity;
-import com.rest_jpa.entity.Employee;
-import com.rest_jpa.entity.Order;
+import com.rest_jpa.entity.CustomerOrder;
+import com.rest_jpa.entity.Person;
 import com.rest_jpa.entity.to.DepartmentShortTO;
 import com.rest_jpa.entity.to.EmployeeShortTO;
 import com.rest_jpa.entity.to.EmployeeTO;
@@ -13,45 +13,45 @@ import java.util.stream.Collectors;
 
 public class JsonConverter {
 
-    public static OrderTO convertOrder(Order order) {
+    public static OrderTO convertOrder(CustomerOrder customerOrder) {
         OrderTO orderTO = new OrderTO();
-        orderTO.setId(order.getId());
-        orderTO.setName(order.getName());
-        orderTO.setDateTime(order.getDate());
-        orderTO.setDepartment(new DepartmentShortTO(order.getDepartment().getId(), order.getDepartment().getName()));
+        orderTO.setId(customerOrder.getId());
+        orderTO.setName(customerOrder.getName());
+        orderTO.setDateTime(customerOrder.getDate());
+        orderTO.setDepartment(new DepartmentShortTO(customerOrder.getDepartment().getId(), customerOrder.getDepartment().getName()));
 
-        Employee employee = order.getEmployee();
-        if (employee != null) {
+        Person person = customerOrder.getPerson();
+        if (person != null) {
             orderTO.setEmployee(new EmployeeShortTO(
-                    employee.getId(), employee.getName(), employee.getSurName()));
+                    person.getId(), person.getName(), person.getSurName()));
         } else {
             orderTO.setEmployee(null);
         }
         return orderTO;
     }
 
-    public static List<OrderTO> convertOrder(List<Order> orders) {
-        return orders.stream()
+    public static List<OrderTO> convertOrder(List<CustomerOrder> customerOrders) {
+        return customerOrders.stream()
                 .map(JsonConverter::convertOrder)
                 .collect(Collectors.toList());
     }
 
-    public static EmployeeTO convertEmployee(Employee employee) {
+    public static EmployeeTO convertEmployee(Person person) {
         EmployeeTO employeeTO = new EmployeeTO();
-        employeeTO.setId(employee.getId());
-        employeeTO.setName(employee.getName());
-        employeeTO.setSurName(employee.getSurName());
-        employeeTO.setMiddleName(employee.getMiddleName());
+        employeeTO.setId(person.getId());
+        employeeTO.setName(person.getName());
+        employeeTO.setSurName(person.getSurName());
+        employeeTO.setMiddleName(person.getMiddleName());
         employeeTO.setDepartment(
-                new DepartmentShortTO(employee.getDepartment().getId(), employee.getDepartment().getName()));
-        employeeTO.setOrderIdList(employee.getOrderList().stream()
+                new DepartmentShortTO(person.getDepartment().getId(), person.getDepartment().getName()));
+        employeeTO.setOrderIdList(person.getOrderList().stream()
                 .map(BaseEntity::getId)
                 .collect(Collectors.toList()));
         return employeeTO;
     }
 
-    public static List<EmployeeTO> convertEmployee(List<Employee> employees) {
-        return employees.stream()
+    public static List<EmployeeTO> convertEmployee(List<Person> people) {
+        return people.stream()
                 .map(JsonConverter::convertEmployee)
                 .collect(Collectors.toList());
     }

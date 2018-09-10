@@ -31,7 +31,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-3" for="edit.orderEmployee">{{'EMPLOYEE' | translate}}:</label>
             <div class="col-sm-9">
-                <select class="form-control" id="edit.orderEmployee" ng-model="currentOrder.employee"
+                <select class="form-control" id="edit.orderEmployee" ng-model="currentOrder.person"
                         ng-options="emp.name+' '+emp.surName for emp in employeesForSelectedDep track by emp.id">
                     <option></option>
                 </select>

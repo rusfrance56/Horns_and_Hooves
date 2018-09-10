@@ -1,7 +1,7 @@
 package com.rest_jpa.servise;
 
-import com.rest_jpa.entity.Employee;
-import com.rest_jpa.entity.Order;
+import com.rest_jpa.entity.CustomerOrder;
+import com.rest_jpa.entity.Person;
 import com.rest_jpa.repository.OrderRepository;
 import com.rest_jpa.utils.OrderHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,41 +19,41 @@ public class OrderServiceImpl implements OrderService {
     private OrderHelper orderHelper;
 
     @Override
-    public Order create(Order order) {
-        if (order.getEmployee() == null) {
-            List<Employee> employeeList = order.getDepartment().getEmployeeList();
-            orderHelper.assignmentOrder(order, employeeList);
+    public CustomerOrder create(CustomerOrder customerOrder) {
+        if (customerOrder.getPerson() == null) {
+            List<Person> personList = customerOrder.getDepartment().getPersonList();
+            orderHelper.assignmentOrder(customerOrder, personList);
         }
-        return orderRepository.save(order);
+        return orderRepository.save(customerOrder);
     }
 
     @Override
-    public List<Order> findAll() {
+    public List<CustomerOrder> findAll() {
         return orderRepository.findAll();
     }
 
     @Override
-    public Order findById(long id) {
+    public CustomerOrder findById(long id) {
         return orderRepository.getOne(id);
     }
 
     @Override
-    public List<Order> findAllByDepartmentName(String department) {
+    public List<CustomerOrder> findAllByDepartmentName(String department) {
         return orderRepository.findAllByDepartmentName(department);
     }
 
     @Override
-    public List<Order> findAllByEmployeeId(long id) {
+    public List<CustomerOrder> findAllByEmployeeId(long id) {
         return orderRepository.findAllByEmployeeId(id);
     }
 
     @Override
-    public Order update(Order order) {
-        if (order.getEmployee() == null) {
-            List<Employee> employeeList = order.getDepartment().getEmployeeList();
-            orderHelper.assignmentOrder(order, employeeList);
+    public CustomerOrder update(CustomerOrder customerOrder) {
+        if (customerOrder.getPerson() == null) {
+            List<Person> personList = customerOrder.getDepartment().getPersonList();
+            orderHelper.assignmentOrder(customerOrder, personList);
         }
-        return orderRepository.save(order);
+        return orderRepository.save(customerOrder);
     }
 
     @Override

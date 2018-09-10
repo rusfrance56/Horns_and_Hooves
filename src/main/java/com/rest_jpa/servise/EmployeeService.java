@@ -1,16 +1,14 @@
 package com.rest_jpa.servise;
 
-import com.rest_jpa.entity.Employee;
-import org.springframework.data.domain.Page;
+import com.rest_jpa.entity.Person;
 
-import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface EmployeeService {
-    Employee create(Employee employee);
-    List<Employee> findAll();
-    Employee findById(long id);
-    List<Employee> findAllByDepartmentId(long id);
-    Employee update(Employee employee);
+    Person create(Person person);
+    List<Person> findAll();
+    Person findById(long id);
+    List<Person> findAllByDepartmentId(long id);
+    Person update(Person person);
     void delete(long id);
 }

@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS order_furniture;
-DROP TABLE IF EXISTS employee;
+DROP TABLE IF EXISTS person;
 DROP TABLE IF EXISTS department;
 DROP SEQUENCE IF EXISTS global_seq;
 
@@ -9,7 +9,7 @@ CREATE TABLE department (
   id            INTEGER DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
   name          VARCHAR(255)         NOT NULL
 );
-CREATE TABLE employee (
+CREATE TABLE person (
   id            INTEGER DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
   name          VARCHAR(255)         NOT NULL,
   department_id INTEGER              NOT NULL,
@@ -24,6 +24,6 @@ CREATE TABLE order_furniture (
   is_assigned   BOOLEAN              DEFAULT FALSE,
   employee_id   INTEGER              DEFAULT NULL,
   department_id INTEGER              NOT NULL,
-  FOREIGN KEY (employee_id) REFERENCES employee (id),
+  FOREIGN KEY (employee_id) REFERENCES person (id),
   FOREIGN KEY (department_id) REFERENCES department (id) ON DELETE CASCADE
 );

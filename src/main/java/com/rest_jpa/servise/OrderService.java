@@ -1,16 +1,16 @@
 package com.rest_jpa.servise;
 
-import com.rest_jpa.entity.Order;
+import com.rest_jpa.entity.CustomerOrder;
 
 import java.util.List;
 
 public interface OrderService {
-    Order create(Order order);
-    List<Order> findAll();
-    Order findById(long id);
-    List<Order> findAllByDepartmentName(String department);
-    List<Order> findAllByEmployeeId(long id);
-    //List<Order> findAllUnfinished();
-    Order update(Order order);
+    CustomerOrder create(CustomerOrder customerOrder);
+    List<CustomerOrder> findAll();
+    CustomerOrder findById(long id);
+    List<CustomerOrder> findAllByDepartmentName(String department);
+    List<CustomerOrder> findAllByEmployeeId(long id);
+    //List<CustomerOrder> findAllUnfinished();
+    CustomerOrder update(CustomerOrder customerOrder);
     void delete(long id);
 }

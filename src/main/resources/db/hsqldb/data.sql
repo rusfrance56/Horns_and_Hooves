@@ -1,5 +1,5 @@
 DELETE FROM order_furniture;
-DELETE FROM employee;
+DELETE FROM person;
 DELETE FROM department;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
@@ -7,7 +7,7 @@ INSERT INTO department (name) VALUES
   ('CUSHIONED'),
   ('STORAGE'),
   ('OFFICE');
-INSERT INTO employee (name, department_id, middle_name, sur_name) VALUES
+INSERT INTO person (name, department_id, middle_name, sur_name) VALUES
   ('Сергей', 100000, 'Олегович', 'Синицын'),
   ('Егор', 100000, 'Павлович', 'Майоров'),
   ('Олег', 100000, 'Александрович', 'Петров'),

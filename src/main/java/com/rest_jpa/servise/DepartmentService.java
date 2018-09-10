@@ -1,7 +1,5 @@
 package com.rest_jpa.servise;
 
-import com.rest_jpa.entity.Department;
-
 import java.util.List;
 
 public interface DepartmentService {

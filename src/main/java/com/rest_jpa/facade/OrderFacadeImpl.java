@@ -1,8 +1,7 @@
 package com.rest_jpa.facade;
 
-import com.rest_jpa.entity.Department;
-import com.rest_jpa.entity.Employee;
-import com.rest_jpa.entity.Order;
+import com.rest_jpa.entity.CustomerOrder;
+import com.rest_jpa.entity.Person;
 import com.rest_jpa.entity.to.EmployeeShortTO;
 import com.rest_jpa.entity.to.OrderTO;
 import com.rest_jpa.servise.DepartmentService;
@@ -31,67 +30,67 @@ public class OrderFacadeImpl implements OrderFacade{
     private DepartmentService departmentService;
 
     @Override
-    public Order create(OrderTO to) {
+    public CustomerOrder create(OrderTO to) {
 
         Department department = departmentService.findById(to.getDepartment().getId());
         if (department != null) {
-            Order newOrder = new Order();
-            newOrder.setName(to.getName());
+            CustomerOrder newCustomerOrder = new CustomerOrder();
+            newCustomerOrder.setName(to.getName());
 
             ZonedDateTime zdt = to.getDateTime().atZone(ZoneOffset.UTC);
             LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
 
-            newOrder.setDate(creationDate);
-            newOrder.setDepartment(department);
+            newCustomerOrder.setDate(creationDate);
+            newCustomerOrder.setDepartment(department);
 
-            Employee employee = Optional.ofNullable(to.getEmployee())
+            Person person = Optional.ofNullable(to.getEmployee())
                     .map(EmployeeShortTO::getId)
                     .map(employeeService::findById).orElse(null);
 
-            newOrder.setEmployee(employee);
-            newOrder.setAssign(Optional.ofNullable(employee).isPresent());
-            return orderService.create(newOrder);
+            newCustomerOrder.setPerson(person);
+            newCustomerOrder.setAssign(Optional.ofNullable(person).isPresent());
+            return orderService.create(newCustomerOrder);
         }
         return null;
     }
 
     @Override
-    public List<Order> findAll() {
+    public List<CustomerOrder> findAll() {
         return orderService.findAll();
     }
 
     @Override
-    public Order findById(long id) {
+    public CustomerOrder findById(long id) {
         return orderService.findById(id);
     }
 
     @Override
-    public List<Order> findAllByDepartmentName(String department) {
+    public List<CustomerOrder> findAllByDepartmentName(String department) {
         return orderService.findAllByDepartmentName(department);
     }
 
     @Override
-    public List<Order> findAllByEmployeeId(long id) {
+    public List<CustomerOrder> findAllByEmployeeId(long id) {
         return orderService.findAllByEmployeeId(id);
     }
 
     @Override
-    public Order update(OrderTO to) {
-        Order newOrder = orderService.findById(to.getId());
+    public CustomerOrder update(OrderTO to) {
+        CustomerOrder newCustomerOrder = orderService.findById(to.getId());
         Department department = departmentService.findById(to.getDepartment().getId());
-        if (newOrder != null && department != null) {
-            newOrder.setName(to.getName());
+        if (newCustomerOrder != null && department != null) {
+            newCustomerOrder.setName(to.getName());
 
             ZonedDateTime zdt = to.getDateTime().atZone(ZoneOffset.UTC);
             LocalDateTime creationDate = zdt.withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
 
-            newOrder.setDate(creationDate);
-            newOrder.setDepartment(department);
+            newCustomerOrder.setDate(creationDate);
+            newCustomerOrder.setDepartment(department);
 
-            Employee employee = employeeService.findById(to.getEmployee().getId());
-            newOrder.setEmployee(employee);
-            newOrder.setAssign(Optional.ofNullable(employee).isPresent());
-            return orderService.update(newOrder);
+            Person person = employeeService.findById(to.getEmployee().getId());
+            newCustomerOrder.setPerson(person);
+            newCustomerOrder.setAssign(Optional.ofNullable(person).isPresent());
+            return orderService.update(newCustomerOrder);
         }
         return null;
     }

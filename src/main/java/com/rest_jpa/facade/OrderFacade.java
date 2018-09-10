@@ -1,16 +1,16 @@
 package com.rest_jpa.facade;
 
-import com.rest_jpa.entity.Order;
+import com.rest_jpa.entity.CustomerOrder;
 import com.rest_jpa.entity.to.OrderTO;
 
 import java.util.List;
 
 public interface OrderFacade {
-    Order create(OrderTO to);
-    Order update(OrderTO to);
-    List<Order> findAll();
-    Order findById(long id);
-    List<Order> findAllByDepartmentName(String department);
-    List<Order> findAllByEmployeeId(long id);
+    CustomerOrder create(OrderTO to);
+    CustomerOrder update(OrderTO to);
+    List<CustomerOrder> findAll();
+    CustomerOrder findById(long id);
+    List<CustomerOrder> findAllByDepartmentName(String department);
+    List<CustomerOrder> findAllByEmployeeId(long id);
     void delete(long id);
 }

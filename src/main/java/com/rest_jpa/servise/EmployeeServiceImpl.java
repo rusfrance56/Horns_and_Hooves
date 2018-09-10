@@ -1,12 +1,9 @@
 package com.rest_jpa.servise;
 
-import com.rest_jpa.entity.Employee;
+import com.rest_jpa.entity.Person;
 import com.rest_jpa.repository.EmployeeRepository;
 import com.rest_jpa.utils.OrderHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,34 +22,34 @@ public class EmployeeServiceImpl implements EmployeeService {
     private OrderHelper orderHelper;
 
     @Override
-    public Employee create(Employee employee) {
-        return checkNotNull(employeeRepository.save(employee), EMPLOYEE_NOT_CREATED);
+    public Person create(Person person) {
+        return checkNotNull(employeeRepository.save(person), EMPLOYEE_NOT_CREATED);
     }
 
     @Override
-    public List<Employee> findAll() {
+    public List<Person> findAll() {
         return checkNotNullAndNotEmpty(employeeRepository.findAll(), EMPLOYEES_NOT_FOUND);
     }
 
     @Override
-    public Employee findById(long id) {
+    public Person findById(long id) {
         return checkNotNull(employeeRepository.getOne(id), EMPLOYEE_NOT_FOUND);
     }
 
     @Override
-    public List<Employee> findAllByDepartmentId(long id) {
+    public List<Person> findAllByDepartmentId(long id) {
         return checkNotNullAndNotEmpty(employeeRepository.findAllByDepartmentId(id), EMPLOYEES_NOT_FOUND);
     }
 
     @Override
-    public Employee update(Employee employee) {
-        return checkNotNull(employeeRepository.save(employee), EMPLOYEE_NOT_UPDATED);
+    public Person update(Person person) {
+        return checkNotNull(employeeRepository.save(person), EMPLOYEE_NOT_UPDATED);
     }
 
     @Override
     public void delete(long id) {
-        Employee employee = employeeRepository.getOne(id);
-        orderHelper.reassignmentOrders(employee);
+        Person person = employeeRepository.getOne(id);
+        orderHelper.reassignmentOrders(person);
         employeeRepository.deleteById(id);
     }
 }

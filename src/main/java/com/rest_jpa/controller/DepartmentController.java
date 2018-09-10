@@ -1,6 +1,5 @@
 package com.rest_jpa.controller;
 
-import com.rest_jpa.entity.Department;
 import com.rest_jpa.servise.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

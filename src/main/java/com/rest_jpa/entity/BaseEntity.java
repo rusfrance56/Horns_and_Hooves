@@ -1,29 +1,38 @@
 package com.rest_jpa.entity;
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public class BaseEntity {
     @Id
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 100000)
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq",
+            allocationSize = 1, initialValue = 100000)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @Access(value = AccessType.PROPERTY)
     private Long id;
 
-    @NotBlank
+    @Column(name = "due_date", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    protected LocalDateTime created;
+
     @Column(name = "name", nullable = false)
     protected String name;
+
+    @Column(name = "description")
+    protected String description;
 
     public BaseEntity() {
     }
 
-    protected BaseEntity(Long id, String name) {
-        this.id = id;
+    public BaseEntity(LocalDateTime created, String name, String description) {
+        this.created = created;
         this.name = name;
+        this.description = description;
     }
 
     public Long getId() {
@@ -34,11 +43,37 @@ public class BaseEntity {
         this.id = id;
     }
 
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseEntity{" +
+                "id=" + id +
+                ", created=" + created +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

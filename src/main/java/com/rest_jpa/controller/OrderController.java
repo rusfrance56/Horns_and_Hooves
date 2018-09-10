@@ -1,6 +1,6 @@
 package com.rest_jpa.controller;
 
-import com.rest_jpa.entity.Order;
+import com.rest_jpa.entity.CustomerOrder;
 import com.rest_jpa.entity.to.OrderTO;
 import com.rest_jpa.facade.OrderFacade;
 import com.rest_jpa.utils.JsonConverter;
@@ -22,7 +22,7 @@ public class OrderController {
     private OrderFacade orderFacade;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Order> create(@Valid @RequestBody OrderTO orderReq) {
+    public ResponseEntity<CustomerOrder> create(@Valid @RequestBody OrderTO orderReq) {
         return Optional.ofNullable(orderFacade.create(orderReq))
                 .map(order -> new ResponseEntity<>(order, HttpStatus.CREATED))
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
@@ -43,24 +43,24 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/byDep/{dep}", method = RequestMethod.GET)
-    public ResponseEntity<Collection<Order>> findAllByDepartmentName(@PathVariable("dep") String department) {
+    public ResponseEntity<Collection<CustomerOrder>> findAllByDepartmentName(@PathVariable("dep") String department) {
         return new ResponseEntity<>(orderFacade.findAllByDepartmentName(department), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/byEmpId/{emp_id}", method = RequestMethod.GET)
-    public ResponseEntity<Collection<Order>> findAllByEmployeeId(@PathVariable("emp_id") long id) {
+    public ResponseEntity<Collection<CustomerOrder>> findAllByEmployeeId(@PathVariable("emp_id") long id) {
         return new ResponseEntity<>(orderFacade.findAllByEmployeeId(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Order> update(@Valid @RequestBody OrderTO orderReq) {
+    public ResponseEntity<CustomerOrder> update(@Valid @RequestBody OrderTO orderReq) {
         return Optional.ofNullable(orderFacade.update(orderReq))
                 .map(order -> new ResponseEntity<>(order, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Order> delete(@PathVariable("id") long id) {
+    public ResponseEntity<CustomerOrder> delete(@PathVariable("id") long id) {
         orderFacade.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

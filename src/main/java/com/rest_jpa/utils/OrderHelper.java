@@ -1,7 +1,7 @@
 package com.rest_jpa.utils;
 
-import com.rest_jpa.entity.Employee;
-import com.rest_jpa.entity.Order;
+import com.rest_jpa.entity.CustomerOrder;
+import com.rest_jpa.entity.Person;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,41 +12,41 @@ import java.util.Optional;
 @Component
 public class OrderHelper {
 
-    public Employee findFreeEmployee(List<Employee> list) {
-        Optional<Employee> freeEmployee = list.stream()
+    public Person findFreeEmployee(List<Person> list) {
+        Optional<Person> freeEmployee = list.stream()
                 .min(Comparator.comparingInt((emp -> emp.getOrderList().size())));
         return freeEmployee.get();
     }
 
-    public void changeOrdersStatusToUnassigned(List<Order> orderList) {
-        orderList.stream().forEach(order -> {
+    public void changeOrdersStatusToUnassigned(List<CustomerOrder> customerOrderList) {
+        customerOrderList.stream().forEach(order -> {
             order.setAssign(false);
-            order.setEmployee(null);
+            order.setPerson(null);
         });
     }
 
-    public void assignmentOrders(List<Order> orders, List<Employee> employees) {
-        if (employees.isEmpty()) {
-            changeOrdersStatusToUnassigned(orders);
+    public void assignmentOrders(List<CustomerOrder> customerOrders, List<Person> people) {
+        if (people.isEmpty()) {
+            changeOrdersStatusToUnassigned(customerOrders);
         } else {
-            orders.stream().forEach(order -> assignmentOrder(order, employees));
+            customerOrders.stream().forEach(order -> assignmentOrder(order, people));
         }
     }
 
-    public void assignmentOrder(Order order, List<Employee> employees) {
-        Employee freeEmployee = findFreeEmployee(employees);
-        freeEmployee.getOrderList().add(order);
-        order.setEmployee(freeEmployee);
-        order.setAssign(true);
+    public void assignmentOrder(CustomerOrder customerOrder, List<Person> people) {
+        Person freePerson = findFreeEmployee(people);
+        freePerson.getOrderList().add(customerOrder);
+        customerOrder.setPerson(freePerson);
+        customerOrder.setAssign(true);
     }
 
-    public void reassignmentOrders(Employee employee) {
-        List<Order> orderList = employee.getOrderList();
-        if (!orderList.isEmpty()) {
-            List<Employee> employeeList = employee.getDepartment().getEmployeeList();
-            employeeList.remove(employee);
-            assignmentOrders(orderList, employeeList);
-            employee.setOrderList(new ArrayList<>());
+    public void reassignmentOrders(Person person) {
+        List<CustomerOrder> customerOrderList = person.getOrderList();
+        if (!customerOrderList.isEmpty()) {
+            List<Person> personList = person.getDepartment().getPersonList();
+            personList.remove(person);
+            assignmentOrders(customerOrderList, personList);
+            person.setOrderList(new ArrayList<>());
         }
     }
 }

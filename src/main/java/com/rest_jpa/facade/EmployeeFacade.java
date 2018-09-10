@@ -1,16 +1,15 @@
 package com.rest_jpa.facade;
 
-import com.rest_jpa.entity.Employee;
+import com.rest_jpa.entity.Person;
 import com.rest_jpa.entity.to.EmployeeTO;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface EmployeeFacade {
-    Employee create(EmployeeTO employee);
-    List<Employee> findAll();
-    Employee findById(long id);
-    List<Employee> findAllByDepartmentId(long id);
-    Employee update(EmployeeTO employee);
+    Person create(EmployeeTO employee);
+    List<Person> findAll();
+    Person findById(long id);
+    List<Person> findAllByDepartmentId(long id);
+    Person update(EmployeeTO employee);
     void delete(long id);
 }

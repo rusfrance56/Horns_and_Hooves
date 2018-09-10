@@ -1,6 +1,5 @@
 package com.rest_jpa.servise;
 
-import com.rest_jpa.entity.Department;
 import com.rest_jpa.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
