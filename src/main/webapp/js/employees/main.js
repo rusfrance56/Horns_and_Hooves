@@ -1,24 +1,15 @@
 'use strict';
-var mainApp = angular.module("mainApp", [
-        'ngRoute',
-        'smart-table',
-        'pascalprecht.translate',
-        'ui.bootstrap',
-        'Common'
-    ]);
-mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+var employeeModule = angular.module("employeeModule", [
+    'ngRoute',
+    'smart-table',
+    'pascalprecht.translate',
+    'ui.bootstrap',
+    'Common'
+]);
+employeeModule.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     // $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('');
-    $routeProvider.when('/orders/editOrder/:id', {
-        templateUrl: 'views/order/editOrder.html',
-        controller: 'EditOrderController'
-    }).when('/orders/editOrder/', {
-        templateUrl: 'views/order/editOrder.html',
-        controller: 'EditOrderController'
-    }).when('/orders', {
-        templateUrl: 'views/order/viewOrders.html',
-        controller: 'OrdersController'
-    }).when('/employee/editEmp/:id', {
+    $routeProvider.when('/employee/editEmp/:id', {
         templateUrl: 'views/employee/editEmployee.html',
         controller: 'EditEmpController'
     }).when('/employee/editEmp', {
@@ -33,7 +24,7 @@ mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider,
         controller: 'EmpsController'
     });
 }]);
-mainApp.config(function ($translateProvider) {
+employeeModule.config(function ($translateProvider) {
     $translateProvider.useStaticFilesLoader({
         prefix: ' i18n/i18n_',
         suffix: '.json'

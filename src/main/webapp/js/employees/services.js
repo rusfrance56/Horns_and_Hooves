@@ -1,4 +1,4 @@
-mainApp.service('EmployeeService', function ($http) {
+employeeModule.service('EmployeeService', function ($http) {
     var savedData = {};
 
     return {
