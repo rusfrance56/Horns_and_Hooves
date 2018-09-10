@@ -1,5 +1,5 @@
 'use strict';
-mainApp.controller('OrdersController', function ($scope, $location, OrderService) {
+ordersModule.controller('OrdersController', function ($scope, $location, OrderService) {
     $scope.orders = [];
     getOrders();
 

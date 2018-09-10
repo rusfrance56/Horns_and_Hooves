@@ -1,5 +1,5 @@
 'use strict';
-mainApp.controller('EmpsController', function ($scope, $location, EmployeeService, CommonService) {
+employeeModule.controller('EmpsController', function ($scope, $location, EmployeeService, CommonService) {
     $scope.employees = [];
     getEmployees();
 

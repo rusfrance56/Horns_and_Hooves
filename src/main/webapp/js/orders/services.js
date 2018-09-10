@@ -1,4 +1,4 @@
-mainApp.service('OrderService', function ($http) {
+ordersModule.service('OrderService', function ($http) {
     var savedData = {};
 
     return {
