@@ -25,6 +25,11 @@ public class CustomerOrder extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> items;
 
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    @JsonIgnore
+    private Person person;
+
     public LocalDateTime getDueDate() {
         return dueDate;
     }
@@ -43,6 +48,14 @@ public class CustomerOrder extends BaseEntity{
 
     public List<Item> getItems() {
         return items;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     @Override

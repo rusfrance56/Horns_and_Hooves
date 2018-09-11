@@ -4,7 +4,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
@@ -16,7 +15,7 @@ public class BaseEntity {
     @Access(value = AccessType.PROPERTY)
     private Long id;
 
-    @Column(name = "due_date", nullable = false)
+    @Column(name = "created", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     protected LocalDateTime created;
 

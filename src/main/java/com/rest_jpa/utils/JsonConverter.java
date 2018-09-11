@@ -1,19 +1,8 @@
 package com.rest_jpa.utils;
 
-import com.rest_jpa.entity.BaseEntity;
-import com.rest_jpa.entity.CustomerOrder;
-import com.rest_jpa.entity.Person;
-import com.rest_jpa.entity.to.DepartmentShortTO;
-import com.rest_jpa.entity.to.EmployeeShortTO;
-import com.rest_jpa.entity.to.EmployeeTO;
-import com.rest_jpa.entity.to.OrderTO;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class JsonConverter {
 
-    public static OrderTO convertOrder(CustomerOrder customerOrder) {
+    /*public static OrderTO convertOrder(CustomerOrder customerOrder) {
         OrderTO orderTO = new OrderTO();
         orderTO.setId(customerOrder.getId());
         orderTO.setName(customerOrder.getName());
@@ -54,6 +43,6 @@ public class JsonConverter {
         return people.stream()
                 .map(JsonConverter::convertEmployee)
                 .collect(Collectors.toList());
-    }
+    }*/
 
 }

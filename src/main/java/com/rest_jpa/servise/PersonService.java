@@ -4,11 +4,11 @@ import com.rest_jpa.entity.Person;
 
 import java.util.List;
 
-public interface EmployeeService {
+public interface PersonService {
     Person create(Person person);
     List<Person> findAll();
     Person findById(long id);
-    List<Person> findAllByDepartmentId(long id);
+//    List<Person> findAllByDepartmentId(long id);
     Person update(Person person);
     void delete(long id);
 }

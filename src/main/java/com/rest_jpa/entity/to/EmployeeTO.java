@@ -1,6 +1,7 @@
 package com.rest_jpa.entity.to;
 
 import com.rest_jpa.entity.BaseEntity;
+import com.rest_jpa.enumTypes.Department;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
@@ -12,22 +13,8 @@ public class EmployeeTO extends BaseEntity{
     private String surName;
     private String middleName;
     @NotNull
-    private DepartmentShortTO department;
+    private Department department;
     private List<Long> orderIdList = new ArrayList<>();
-
-    public EmployeeTO() {
-    }
-
-    public EmployeeTO(String name, String surName, String middleName, DepartmentShortTO department) {
-        this(null, name, surName, middleName, department);
-    }
-
-    public EmployeeTO(Long id, String name, String surName, String middleName, DepartmentShortTO department) {
-        super(id, name);
-        this.surName = surName;
-        this.middleName = middleName;
-        this.department = department;
-    }
 
     public String getSurName() {
         return surName;
@@ -45,11 +32,11 @@ public class EmployeeTO extends BaseEntity{
         this.middleName = middlename;
     }
 
-    public DepartmentShortTO getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(DepartmentShortTO department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 

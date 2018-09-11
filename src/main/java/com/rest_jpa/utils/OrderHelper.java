@@ -12,7 +12,7 @@ import java.util.Optional;
 @Component
 public class OrderHelper {
 
-    public Person findFreeEmployee(List<Person> list) {
+    /*public Person findFreeEmployee(List<Person> list) {
         Optional<Person> freeEmployee = list.stream()
                 .min(Comparator.comparingInt((emp -> emp.getOrderList().size())));
         return freeEmployee.get();
@@ -48,5 +48,5 @@ public class OrderHelper {
             assignmentOrders(customerOrderList, personList);
             person.setOrderList(new ArrayList<>());
         }
-    }
+    }*/
 }

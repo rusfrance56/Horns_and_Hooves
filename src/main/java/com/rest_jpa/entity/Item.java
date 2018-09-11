@@ -1,7 +1,13 @@
 package com.rest_jpa.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import java.util.List;
 
+@Entity
+@Table(schema = "public", name = "item")
 public class Item extends BaseEntity {
 
     @Column(name = "imageUrl")
@@ -9,6 +15,9 @@ public class Item extends BaseEntity {
 
     @Column(name = "cost")
     private Double cost;
+
+    @ManyToMany(mappedBy = "items")
+    private List<CustomerOrder> customerOrders;
 
     public String getImageUrl() {
         return imageUrl;
@@ -24,6 +33,10 @@ public class Item extends BaseEntity {
 
     public void setCost(Double cost) {
         this.cost = cost;
+    }
+
+    public List<CustomerOrder> getCustomerOrders() {
+        return customerOrders;
     }
 
     @Override

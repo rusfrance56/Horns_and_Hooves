@@ -29,11 +29,16 @@ public class Person extends BaseEntity{
     private String email;
 
     @Column(name = "phone")
-    private Integer phone;
+    private String phone;
 
-   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
     @JsonIgnore
-    private List<CustomerOrder> orderList = new ArrayList<>();*/
+    private List<Task> tasks = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    @JsonIgnore
+    private List<CustomerOrder> orders = new ArrayList<>();
+
 
     public String getSurname() {
         return surname;
@@ -75,12 +80,24 @@ public class Person extends BaseEntity{
         this.email = email;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public List<CustomerOrder> getOrders() {
+        return orders;
     }
 
     @Override

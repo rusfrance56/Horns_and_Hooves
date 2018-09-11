@@ -1,7 +1,9 @@
+DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS customer_order;
-DROP TABLE IF EXISTS employee_roles;
+DROP TABLE IF EXISTS item;
+DROP TABLE IF EXISTS person_roles;
+DROP TABLE IF EXISTS task;
 DROP TABLE IF EXISTS person;
-DROP TABLE IF EXISTS department;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START 100000;
@@ -9,30 +11,32 @@ CREATE SEQUENCE global_seq START 100000;
 CREATE TABLE person (
   id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   created       TIMESTAMP           DEFAULT now(),
-  name          VARCHAR             NOT NULL,
-  surname       VARCHAR             NOT NULL,
-  middle_name   VARCHAR,
+  name          VARCHAR(50)         NOT NULL,
+  surname       VARCHAR(50)         NOT NULL,
+  middle_name   VARCHAR(50),
   address       VARCHAR             NOT NULL,
-  phone         INTEGER             NOT NULL,
-  email         VARCHAR             NOT NULL,
-  department    VARCHAR ,
+  phone         VARCHAR(20)         NOT NULL,
+  email         VARCHAR(50)         NOT NULL,
+  department    VARCHAR(20),
   description   VARCHAR
 );
 CREATE TABLE customer_order (
   id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   created       TIMESTAMP           DEFAULT now(),
-  name          VARCHAR             NOT NULL,
+  name          VARCHAR(50)         NOT NULL,
   due_date      TIMESTAMP,
-  status        VARCHAR             NOT NULL,
-  description   VARCHAR
+  status        VARCHAR(10)         NOT NULL,
+  description   VARCHAR,
+  person_id      INTEGER,
+  FOREIGN KEY (person_id) REFERENCES person (id)
 );
 CREATE TABLE item (
   id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   created       TIMESTAMP           DEFAULT now(),
-  name          VARCHAR             NOT NULL,
+  name          VARCHAR(50)         NOT NULL,
   description   VARCHAR,
   imageUrl      VARCHAR,
-  cost          DOUBLE
+  cost          NUMERIC(16,3)
 );
 CREATE TABLE order_items (
   customer_order_id     INTEGER             NOT NULL,
@@ -44,14 +48,14 @@ CREATE TABLE order_items (
 CREATE TABLE task (
   id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   created       TIMESTAMP           DEFAULT now(),
-  name          VARCHAR             NOT NULL,
+  name          VARCHAR(50)         NOT NULL,
   due_date      TIMESTAMP           DEFAULT now(),
   is_assigned   BOOL                DEFAULT FALSE,
-  status        VARCHAR             NOT NULL,
-  priority      VARCHAR             NOT NULL,
+  status        VARCHAR(10)         NOT NULL,
+  priority      VARCHAR(10)         NOT NULL,
   person_id     INTEGER,
-  department    VARCHAR             NOT NULL,
-  description   VARCHAR
+  department    VARCHAR(20)         NOT NULL,
+  description   VARCHAR,
   FOREIGN KEY (person_id) REFERENCES person (id)
 );
 CREATE TABLE person_roles(
