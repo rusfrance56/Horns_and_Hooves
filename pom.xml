@@ -145,7 +145,7 @@
             </activation>
         </profile>
         <profile>
-            <id>postgresql</id>
+            <id>postgre</id>
             <dependencies>
                 <dependency>
                     <groupId>org.postgresql</groupId>

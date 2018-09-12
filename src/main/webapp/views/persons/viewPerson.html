@@ -1,5 +1,5 @@
-<h2>{{'EMPLOYEES' | translate}}</h2>
-<div st-table="employeesTable" st-safe-src="people">
+<h2>{{'PERSONS' | translate}}</h2>
+<div st-table="personsRecords" st-safe-src="persons">
     <div class="row inline-row">
         <div class="inline-row-part">
             <button type="button" class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
@@ -14,32 +14,38 @@
             </select>
         </div>
     </div>
-    <div id="empTable">
+    <div id="personTable">
         <table class="table table-striped">
 
             <thead>
             <tr>
                 <th hidden>Id</th>
                 <th>#</th>
-                <th st-sort="surName">{{'SURNAME' | translate}}</th>
+                <th st-sort="surname">{{'SURNAME' | translate}}</th>
                 <th st-sort="name">{{'NAME' | translate}}</th>
                 <th st-sort="middleName">{{'MIDDLE_NAME' | translate}}</th>
-                <th st-sort="department.name">{{'DEPARTMENT' | translate}}</th>
+                <th st-sort="department">{{'DEPARTMENT' | translate}}</th>
+                <th st-sort="address">{{'ADDRESS' | translate}}</th>
+                <th st-sort="email">{{'EMAIL' | translate}}</th>
+                <th st-sort="phone">{{'PHONE' | translate}}</th>
                 <th>{{'OPTIONS' | translate}}</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="emp in employeesTable | filter: search">
-                <td hidden>{{emp.id}}</td>
+            <tr ng-repeat="person in personsRecords | filter: search">
+                <td hidden>{{person.id}}</td>
                 <td>{{$index+1}}</td>
-                <td>{{emp.surName}}</td>
-                <td>{{emp.name}}</td>
-                <td>{{emp.middleName}}</td>
-                <td>{{emp.department.name | translate}}</td>
+                <td>{{person.surname}}</td>
+                <td>{{person.name}}</td>
+                <td>{{person.middleName}}</td>
+                <td>{{person.department | translate}}</td>
+                <td>{{person.address | translate}}</td>
+                <td>{{person.email | translate}}</td>
+                <td>{{person.phone | translate}}</td>
                 <td>
                     <div class="btn-group btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-primary" ng-click="navigateToEdit(emp)">{{'INFO' | translate}}</button>
-                        <button type="button" class="btn btn-danger" ng-click="deleteEmployee(emp)">{{'DELETE' | translate}}</button>
+                        <button type="button" class="btn btn-primary">{{'INFO' | translate}}</button>
+                        <button type="button" class="btn btn-danger">{{'DELETE' | translate}}</button>
                     </div>
                 </td>
             </tr>

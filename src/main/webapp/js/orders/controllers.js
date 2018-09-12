@@ -22,7 +22,7 @@ ordersModule.controller('OrdersController', function ($scope, $location, OrderSe
     $scope.navigateToCreate = function () {
         $location.path("/orders/editOrder");
     };
-}).controller('EditOrderController', function ($scope, $location, $filter, $routeParams, OrderService, EmployeeService) {
+}).controller('EditOrderController', function ($scope, $location, $filter, $routeParams, OrderService, PersonsService) {
     $scope.orders = OrderService.getOrdersFromService();
     $scope.currentOrder = {};
     $scope.departments = [];

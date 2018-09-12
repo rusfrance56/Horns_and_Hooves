@@ -1,5 +1,5 @@
 {
-  "EMPLOYEES"         : "Работники",
+  "PERSONS"           : "Работники",
   "EMPLOYEE_INFO"     : "Информация о работнике",
   "EMPLOYEE_CREATE"   : "Создание работника",
   "ORDERS"            : "Заказы",
@@ -17,6 +17,9 @@
   "OPTIONS"           : "Действия",
   "TYPE"              : "Тип",
   "SEARCH"            : "Поиск",
+  "ADDRESS"           : "Адрес",
+  "EMAIL"             : "Email",
+  "PHONE"             : "Телефон",
 
   "CREATE"            : "Создать",
   "INFO"              : "Инфо",

@@ -1,5 +1,5 @@
 {
-  "EMPLOYEES"        : "Employees",
+  "PERSONS"          : "Persons",
   "EMPLOYEE_INFO"    : "Employee information",
   "EMPLOYEE_CREATE"  : "Employee create",
   "ORDERS"           : "Orders",
@@ -17,6 +17,9 @@
   "OPTIONS"          : "Options",
   "TYPE"             : "Type",
   "SEARCH"           : "Search",
+  "ADDRESS"           : "Address",
+  "EMAIL"             : "Email",
+  "PHONE"             : "Phone",
 
   "CREATE"           : "Create",
   "INFO"             : "Info",

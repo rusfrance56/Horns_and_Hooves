@@ -1,43 +1,45 @@
-package com.rest_jpa.entity;
+package com.rest_jpa.entity.to;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rest_jpa.entity.Person;
 import com.rest_jpa.enumTypes.Department;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(schema = "public", name = "person")
-public class Person extends BaseEntity{
-
-    @Column(name = "surname")
+public class PersonTO {
+    private Long id;
+    private String name;
     private String surname;
-
-    @Column(name = "middle_name")
     private String middleName;
-
-    @Column(name = "department")
-    @Enumerated(EnumType.STRING)
     private Department department;
-
-    @Column(name = "address")
     private String address;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "phone")
     private String phone;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
-//    @JsonIgnore
-    private List<Task> tasks = new ArrayList<>();
+    public PersonTO() {
+    }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
-//    @JsonIgnore
-    private List<CustomerOrder> orders = new ArrayList<>();
+    public PersonTO(Person person) {
+        this.id = person.getId();
+        this.name = person.getName();
+        this.surname = person.getSurname();
+        this.middleName = person.getMiddleName();
+        this.department = person.getDepartment();
+        this.address = person.getAddress();
+        this.email = person.getEmail();
+        this.phone = person.getPhone();
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getSurname() {
         return surname;
@@ -87,30 +89,17 @@ public class Person extends BaseEntity{
         this.phone = phone;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public List<CustomerOrder> getOrders() {
-        return orders;
-    }
-
     @Override
     public String toString() {
-        return "Person{" +
-                "surname='" + surname + '\'' +
+        return "EmployeeTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", department=" + department +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
-                ", phone=" + phone +
-                ", created=" + created +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }

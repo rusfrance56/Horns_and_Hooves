@@ -1,12 +1,12 @@
-employeeModule.service('EmployeeService', function ($http) {
+personsModule.service('PersonsService', function ($http) {
     var savedData = {};
 
     return {
-        getEmployees: function () {
-            return $http.get('/employee').then(function (result) {
+        getPersons: function () {
+            return $http.get('/persons').then(function (result) {
                 return result.data;
             });
-        },
+        }/*,
         getDepartments: function () {
             return $http.get('/departments').then(function (result) {
                 return result.data;
@@ -30,6 +30,6 @@ employeeModule.service('EmployeeService', function ($http) {
         },
         getEmployeesFromService: function () {
             return savedData;
-        }
+        }*/
     }
 });

@@ -1,15 +1,15 @@
 package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.Person;
-import com.rest_jpa.entity.to.EmployeeTO;
+import com.rest_jpa.entity.to.PersonTO;
 
 import java.util.List;
 
 public interface PersonFacade {
-    Person create(EmployeeTO employee);
-    Person update(EmployeeTO employee);
+    Person create(PersonTO employee);
+    Person update(PersonTO employee);
     void delete(long id);
-    List<Person> findAll();
+    List<PersonTO> findAll();
     Person findById(long id);
     //    List<Person> findAllByDepartmentId(long id);
 }

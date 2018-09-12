@@ -5,7 +5,7 @@ var mainApp = angular.module("mainApp", [
     'pascalprecht.translate',
     'ui.bootstrap',
     'Common',
-    'employeeModule',
+    'personsModule',
     'ordersModule'
 ]);
 
@@ -16,12 +16,12 @@ mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider,
     $routeProvider.when('/orders', {
         templateUrl: 'views/order/viewOrders.html',
         controller: 'OrdersController'
-    }).when('/employee', {
-        templateUrl: 'views/employee/viewEmployee.html',
-        controller: 'EmpsController'
+    }).when('/persons', {
+        templateUrl: 'views/persons/viewPerson.html',
+        controller: 'PersonsController'
     }).otherwise({
-        // redirectTO: '/employee'
-        templateUrl: 'views/employee/viewEmployee.html',
-        controller: 'EmpsController'
+        // redirectTO: '/persons'
+        templateUrl: 'views/persons/viewPerson.html',
+        controller: 'PersonsController'
     });
 }]);
