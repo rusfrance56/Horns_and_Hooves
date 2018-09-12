@@ -36,7 +36,7 @@ CREATE TABLE item (
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR,
   imageUrl      VARCHAR,
-  cost          NUMERIC(16,3)
+  cost          NUMERIC(10,2)
 );
 CREATE TABLE order_items (
   customer_order_id     INTEGER             NOT NULL,
