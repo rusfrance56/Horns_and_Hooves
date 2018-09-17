@@ -1,5 +1,7 @@
 package com.rest_jpa.entity;
 
+import com.rest_jpa.entity.to.ItemTO;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -18,6 +20,15 @@ public class Item extends BaseEntity {
 
     @ManyToMany(mappedBy = "items")
     private List<CustomerOrder> customerOrders;
+
+    public Item() {
+    }
+
+    public Item(ItemTO to) {
+        this.name = to.getName();
+        this.imageUrl = to.getImageUrl();
+        this.cost = to.getCost();
+    }
 
     public String getImageUrl() {
         return imageUrl;

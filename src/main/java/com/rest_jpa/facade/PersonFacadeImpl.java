@@ -13,56 +13,45 @@ import java.util.stream.Collectors;
 public class PersonFacadeImpl implements PersonFacade {
 
     @Autowired
-    private PersonService employeeService;
+    private PersonService personService;
 
     @Override
-    public Person create(PersonTO to) {
-       /* Department department = departmentService.findById(to.getDepartment().getId());
-        if (department != null) {
-            Person newPerson = new Person(to);
-            newPerson.setDepartment(department);
-            return employeeService.create(newPerson);
-        }*/
-        return null;
+    public PersonTO create(PersonTO to) {
+        Person person = new Person(to);
+        to.setId(personService.create(person).getId());
+        return to;
     }
 
     @Override
-    public List<PersonTO> findAll() {
-//        throw new ApplicationException(ErrorKey.TEST_KEY, "param1", "param2");
-        List<Person> all = employeeService.findAll();
-        return all.stream().map(PersonTO::new).collect(Collectors.toList());
-    }
-
-    @Override
-    public Person findById(long id) {
-        return employeeService.findById(id);
-    }
-/*
-
-    @Override
-    public List<Person> findAllByDepartmentId(long id) {
-       return employeeService.findAllByDepartmentId(id);
-    }
-*/
-
-    @Override
-    public Person update(PersonTO to) {
-        /*Department department = departmentService.findById(to.getDepartment().getId());
-        Person person = employeeService.findById(to.getId());
-
-        if (person != null && department != null) {
-            person.setId(person.getId());
+    public void update(PersonTO to) {
+        Person person = personService.findById(to.getId());
+        if (person != null) {
+            person.setId(to.getId());
             person.setName(to.getName());
-            person.setSurName(to.getSurName());
+            person.setSurname(to.getSurname());
             person.setMiddleName(to.getMiddleName());
-            person.setDepartment(department);
-            return employeeService.update(person);
-        }*/
-        return null;
+            person.setDepartment(to.getDepartment());
+            person.setAddress(to.getAddress());
+            person.setEmail(to.getEmail());
+            person.setPhone(to.getPhone());
+            personService.update(person);
+        }
     }
 
     @Override
     public void delete(long id) {
-        employeeService.delete(id);
+        personService.delete(id);
+    }
+
+    @Override
+    public List<PersonTO> findAll() {
+        List<Person> all = personService.findAll();
+        return all.stream().map(PersonTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public PersonTO findById(long id) {
+        Person person = personService.findById(id);
+        return new PersonTO(person);
     }
 }

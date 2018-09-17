@@ -1,6 +1,7 @@
 package com.rest_jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rest_jpa.entity.to.PersonTO;
 import com.rest_jpa.enumTypes.Department;
 
 import javax.persistence.*;
@@ -31,13 +32,23 @@ public class Person extends BaseEntity{
     private String phone;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
-//    @JsonIgnore
     private List<Task> tasks = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
-//    @JsonIgnore
     private List<CustomerOrder> orders = new ArrayList<>();
 
+    public Person() {
+    }
+
+    public Person(PersonTO to) {
+        this.name = to.getName();
+        this.surname = to.getSurname();
+        this.middleName = to.getMiddleName();
+        this.department = to.getDepartment();
+        this.address = to.getAddress();
+        this.email = to.getEmail();
+        this.phone = to.getPhone();
+    }
 
     public String getSurname() {
         return surname;

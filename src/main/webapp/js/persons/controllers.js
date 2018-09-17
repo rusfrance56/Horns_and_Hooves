@@ -14,7 +14,6 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
                 CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
             } else {
                 $scope.persons = response;
-                // personsService.setpersonsToService($scope.persons);
             }
         });
     }
@@ -35,13 +34,11 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
     $scope.navigateToCreate = function () {
         $location.path("/persons/editPerson");
     };
-}).controller("EditPersonController", function($scope, $location, $routeParams, $filter, personsService) {
-    // $scope.persons = personsService.getPersonsFromService();
+}).controller("EditPersonController", function($scope, $location, $routeParams, $filter, PersonsService) {
     $scope.currentpersons = {};
     $scope.pageTitle = "";
     // loadpersons();
     // getDepartments();
-    // setDepartmentToEmp();
 
     /*function loadpersons(){
         if (!angular.isUndefinedOrNull($routeParams.id)){
@@ -57,9 +54,9 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
         }
     }*/
 
-   /* $scope.savePersons = function (persons) {
-        if (angular.isUndefinedOrNull(persons.id)) {
-            personsService.createpersons(persons).then(function (response) {
+    $scope.savePerson = function (person) {
+        if (angular.isUndefinedOrNull(person.id)) {
+            PersonsService.createPerson(person).then(function (response) {
                 if (response.error) {
                     CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
                 } else {
@@ -67,7 +64,7 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
                 }
             });
         } else {
-            personsService.updatepersons(persons).then(function (response) {
+            PersonsService.updatePerson(person).then(function (response) {
                 if (response.error) {
                     CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
                 } else {
@@ -75,7 +72,7 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
                 }
             });
         }
-    };*/
+    };
 
     /*function getDepartments() {
         personsService.getDepartments().then(function (response) {
@@ -85,17 +82,5 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
                 $scope.departments = response;
             }
         });
-    }*/
-
-    /*function setDepartmentToEmp() {
-        if (!angular.isUndefinedOrNull($scope.departments)) {
-            if(!angular.isUndefinedOrNull($scope.currentpersons.department)){
-                $scope.currentpersons.department = $scope.departments.filter(function (dep) {
-                    return dep.id === $scope.currentpersons.department.id;
-                })[0]; //todo выйдет за границы если не найдет подходящих департаментов
-            } else {
-                $scope.currentpersons.department = $scope.departments[0];
-            }
-        }
     }*/
 });

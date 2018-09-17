@@ -18,6 +18,18 @@ public class PersonTO {
     public PersonTO() {
     }
 
+    public PersonTO(Long id, String name, String surname, String middleName,
+                    Department department, String address, String email, String phone) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.middleName = middleName;
+        this.department = department;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public PersonTO(Person person) {
         this.id = person.getId();
         this.name = person.getName();
@@ -31,6 +43,10 @@ public class PersonTO {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

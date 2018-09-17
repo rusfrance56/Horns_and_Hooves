@@ -12,7 +12,7 @@ INSERT INTO person (id, name, middle_name, surname, address, phone, email, depar
   (100003, 'Олег', 'Александрович', 'Петров', 'Address', '89268501232', 'email@mail.ru', 'OFFICE', 'description'),
   (100004, 'Олег', 'Петрович', 'Клыков', 'Address', '89268501232', 'email@mail.ru', 'CUSHIONED', 'description'),
   (100005, 'Павел', 'Иванович', 'Соболев', 'Address', '89268501232', 'email@mail.ru', 'STORAGE', 'description'),
-  (100006, 'Армен', 'Вахтангович', 'Гугаров', 'Address', '89268501232', 'email@mail.ru', 'OFFICE', 'description');
+  (100006, 'Армен', 'Вахтангович', 'Гугаров', 'Address', '89268501232', 'email@mail.ru', null, 'description');
 
 INSERT INTO item (id, name, description, imageurl, cost) VALUES
   (100007, 'Книжний шкаф', 'Книжный шкаф из красного дерева. Имееет выдвижные ящички по бокам и 3 полки', '/link/sfasfa/fasdf.jpg', 2343.12),

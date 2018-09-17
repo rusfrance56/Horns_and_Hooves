@@ -1,35 +1,28 @@
 personsModule.service('PersonsService', function ($http) {
-    var savedData = {};
-
+    var rootPath = '/persons/';
     return {
+        createPerson: function (person) {
+            return $http.post(rootPath, person).then(function (responce) {
+                return responce.data;
+            });
+        },
+        updatePerson: function (person) {
+            return $http.put(rootPath + person.id, person).then(function (responce) {
+                return responce.data;
+            });
+        },
+        deletePerson: function (id) {
+            return $http.delete(rootPath + id);
+        },
         getPersons: function () {
-            return $http.get('/persons').then(function (result) {
-                return result.data;
-            });
-        }/*,
-        getDepartments: function () {
-            return $http.get('/departments').then(function (result) {
-                return result.data;
+            return $http.get(rootPath).then(function (responce) {
+                return responce.data;
             });
         },
-        createEmployee: function (employee) {
-            return $http.post("/employee", employee).then(function (result) {
-                return result.data;
+        getPersonById: function (id) {
+            return $http.get(rootPath + id).then(function (responce) {
+                return responce.data;
             });
-        },
-        updateEmployee: function (employee) {
-            return $http.put("/employee/" + employee.id, employee).then(function (result) {
-                return result.data;
-            });
-        },
-        deleteEmployee: function (employeeId) {
-            return $http.delete('/employee/' + employeeId);
-        },
-        setEmployeesToService: function (data) {
-            savedData = data;
-        },
-        getEmployeesFromService: function () {
-            return savedData;
-        }*/
+        }
     }
 });
