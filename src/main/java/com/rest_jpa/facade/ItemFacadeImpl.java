@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
+import static com.rest_jpa.exceptions.ErrorKey.ITEM_NOT_FOUND;
+
 @Service
 public class ItemFacadeImpl implements ItemFacade {
 
@@ -25,13 +28,11 @@ public class ItemFacadeImpl implements ItemFacade {
     @Override
     public void update(ItemTO to) {
         Item item = itemService.findById(to.getId());
-        if (item != null) {
-            item.setId(to.getId());
-            item.setName(to.getName());
-            item.setImageUrl(to.getImageUrl());
-            item.setCost(to.getCost());
-            itemService.update(item);
-        }
+        checkNotNull(item, ITEM_NOT_FOUND, to.getId());
+        item.setName(to.getName());
+        item.setImageUrl(to.getImageUrl());
+        item.setCost(to.getCost());
+        itemService.update(item);
     }
 
     @Override

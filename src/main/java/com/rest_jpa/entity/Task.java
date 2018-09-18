@@ -1,6 +1,6 @@
 package com.rest_jpa.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rest_jpa.entity.to.TaskTO;
 import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.enumTypes.TaskPriority;
 import com.rest_jpa.enumTypes.TaskStatus;
@@ -17,9 +17,6 @@ public class Task extends BaseEntity{
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dueDate;
 
-    @Column(name = "is_assigned")
-    private Boolean isAssigned;
-
     @Column(name = "status")
     private TaskStatus status;
 
@@ -29,13 +26,22 @@ public class Task extends BaseEntity{
     @Column(name = "department")
     private Department department;
 
-    @Column(name = "description")
-    private String description;
-
     @ManyToOne
     @JoinColumn(name = "person_id")
-    @JsonIgnore
+//    @JsonIgnore
     private Person person;
+
+    public Task() {
+    }
+
+    public Task(TaskTO to) {
+        this.name = to.getName();
+        this.description = to.getDescription();
+        this.dueDate = to.getDueDate();
+        this.status = TaskStatus.valueOf(to.getStatus());
+        this.priority = TaskPriority.valueOf(to.getPriority());
+        this.department = Department.valueOf(to.getDepartment());
+    }
 
     public LocalDateTime getDueDate() {
         return dueDate;
@@ -43,14 +49,6 @@ public class Task extends BaseEntity{
 
     public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public Boolean getAssigned() {
-        return isAssigned;
-    }
-
-    public void setAssigned(Boolean assigned) {
-        isAssigned = assigned;
     }
 
     public TaskStatus getStatus() {
@@ -75,14 +73,6 @@ public class Task extends BaseEntity{
 
     public void setDepartment(Department department) {
         this.department = department;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Person getPerson() {

@@ -10,7 +10,6 @@ public interface PersonService {
     Person create(Person person);
     List<Person> findAll();
     Person findById(long id);
-//    List<Person> findAllByDepartmentId(long id);
     void update(Person person);
     void delete(long id);
 }

@@ -6,11 +6,11 @@ import com.rest_jpa.enumTypes.Department;
 import java.time.LocalDateTime;
 
 public class PersonTO {
-    private Long id;
+    private long id;
     private String name;
     private String surname;
     private String middleName;
-    private Department department;
+    private String department;
     private String address;
     private String email;
     private String phone;
@@ -18,13 +18,13 @@ public class PersonTO {
     public PersonTO() {
     }
 
-    public PersonTO(Long id, String name, String surname, String middleName,
+    public PersonTO(long id, String name, String surname, String middleName,
                     Department department, String address, String email, String phone) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.middleName = middleName;
-        this.department = department;
+        this.department = department.name();
         this.address = address;
         this.email = email;
         this.phone = phone;
@@ -35,17 +35,17 @@ public class PersonTO {
         this.name = person.getName();
         this.surname = person.getSurname();
         this.middleName = person.getMiddleName();
-        this.department = person.getDepartment();
+        this.department = person.getDepartment().name();
         this.address = person.getAddress();
         this.email = person.getEmail();
         this.phone = person.getPhone();
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -73,11 +73,11 @@ public class PersonTO {
         this.middleName = middleName;
     }
 
-    public Department getDepartment() {
+    public String getDepartment() {
         return department;
     }
 
-    public void setDepartment(Department department) {
+    public void setDepartment(String department) {
         this.department = department;
     }
 

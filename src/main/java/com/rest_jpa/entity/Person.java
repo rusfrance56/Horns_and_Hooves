@@ -1,6 +1,5 @@
 package com.rest_jpa.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rest_jpa.entity.to.PersonTO;
 import com.rest_jpa.enumTypes.Department;
 
@@ -44,7 +43,7 @@ public class Person extends BaseEntity{
         this.name = to.getName();
         this.surname = to.getSurname();
         this.middleName = to.getMiddleName();
-        this.department = to.getDepartment();
+        this.department = Department.valueOf(to.getDepartment());
         this.address = to.getAddress();
         this.email = to.getEmail();
         this.phone = to.getPhone();

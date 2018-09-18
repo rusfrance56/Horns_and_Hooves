@@ -2,12 +2,16 @@ package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.Person;
 import com.rest_jpa.entity.to.PersonTO;
+import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.servise.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
+import static com.rest_jpa.exceptions.ErrorKey.*;
 
 @Service
 public class PersonFacadeImpl implements PersonFacade {
@@ -25,17 +29,15 @@ public class PersonFacadeImpl implements PersonFacade {
     @Override
     public void update(PersonTO to) {
         Person person = personService.findById(to.getId());
-        if (person != null) {
-            person.setId(to.getId());
-            person.setName(to.getName());
-            person.setSurname(to.getSurname());
-            person.setMiddleName(to.getMiddleName());
-            person.setDepartment(to.getDepartment());
-            person.setAddress(to.getAddress());
-            person.setEmail(to.getEmail());
-            person.setPhone(to.getPhone());
-            personService.update(person);
-        }
+        checkNotNull(person, PERSON_NOT_FOUND, to.getId());
+        person.setName(to.getName());
+        person.setSurname(to.getSurname());
+        person.setMiddleName(to.getMiddleName());
+        person.setDepartment(Department.valueOf(to.getDepartment()));
+        person.setAddress(to.getAddress());
+        person.setEmail(to.getEmail());
+        person.setPhone(to.getPhone());
+        personService.update(person);
     }
 
     @Override

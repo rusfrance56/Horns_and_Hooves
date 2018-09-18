@@ -1,7 +1,6 @@
 package com.rest_jpa.controller;
 
 import com.rest_jpa.entity.to.PersonTO;
-import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.facade.PersonFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

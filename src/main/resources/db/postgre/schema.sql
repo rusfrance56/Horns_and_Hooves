@@ -50,7 +50,6 @@ CREATE TABLE task (
   created       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   due_date      TIMESTAMP           DEFAULT now(),
-  is_assigned   BOOL                DEFAULT FALSE,
   status        VARCHAR(10)         NOT NULL,
   priority      VARCHAR(10)         NOT NULL,
   person_id     INTEGER,

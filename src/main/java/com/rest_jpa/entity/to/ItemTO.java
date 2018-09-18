@@ -3,17 +3,19 @@ package com.rest_jpa.entity.to;
 import com.rest_jpa.entity.Item;
 
 public class ItemTO {
-    private Long id;
+    private long id;
     private String name;
+    private String description;
     private String imageUrl;
-    private Double cost;
+    private double cost;
 
     public ItemTO() {
     }
 
-    public ItemTO(Long id, String name, String imageUrl, Double cost) {
+    public ItemTO(long id, String name, String description, String imageUrl, double cost) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.imageUrl = imageUrl;
         this.cost = cost;
     }
@@ -21,15 +23,16 @@ public class ItemTO {
     public ItemTO(Item item) {
         this.id = item.getId();
         this.name = item.getName();
+        this.description = item.getDescription();
         this.imageUrl = item.getImageUrl();
         this.cost = item.getCost();
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -41,6 +44,14 @@ public class ItemTO {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -49,11 +60,11 @@ public class ItemTO {
         this.imageUrl = imageUrl;
     }
 
-    public Double getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(Double cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
