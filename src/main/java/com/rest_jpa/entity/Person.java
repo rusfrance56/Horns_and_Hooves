@@ -32,10 +32,10 @@ public class Person extends BaseEntity{
     private String phone;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
-    private List<CustomerOrder> orders = new ArrayList<>();
+    private List<CustomerOrder> orders;
 
     public Person() {
     }

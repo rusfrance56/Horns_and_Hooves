@@ -28,7 +28,7 @@ public class PersonTO {
         this.name = name;
         this.surname = surname;
         this.middleName = middleName;
-        this.department = department.name();
+        this.department = department != null ? department.name() : null;
         this.address = address;
         this.email = email;
         this.phone = phone;
@@ -41,7 +41,7 @@ public class PersonTO {
         this.name = person.getName();
         this.surname = person.getSurname();
         this.middleName = person.getMiddleName();
-        this.department = person.getDepartment().name();
+        this.department = person.getDepartment() != null ? person.getDepartment().name() : null;
         this.address = person.getAddress();
         this.email = person.getEmail();
         this.phone = person.getPhone();

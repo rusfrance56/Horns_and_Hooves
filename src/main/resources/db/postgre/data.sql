@@ -26,8 +26,8 @@ INSERT INTO order_items (customer_order_id, item_id) VALUES
   (100010, 100007),
   (100010, 100009);
 
-INSERT INTO task (id, name, due_date, is_assigned, status, priority, person_id, department, description) VALUES
-  (100011, 'Книжный шкаф задание', '2018-12-19 08:17:00', true, 'DEPLOYED', 'HIGH', 100002, 'STORAGE', 'Описание шкафа'),
-  (100012, 'Стул офисный', '2018-12-19 08:17:00', true, 'DEPLOYED', 'LOW', 100001, 'OFFICE', 'Описание стула');
+INSERT INTO task (id, name, due_date, status, priority, person_id, department, description) VALUES
+  (100011, 'Книжный шкаф задание', '2018-12-19 08:17:00', 'DEPLOYED', 'HIGH', 100002, 'STORAGE', 'Описание шкафа'),
+  (100012, 'Стул офисный', '2018-12-19 08:17:00', 'DEPLOYED', 'LOW', 100001, 'OFFICE', 'Описание стула');
 
 
