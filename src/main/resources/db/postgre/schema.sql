@@ -27,7 +27,7 @@ CREATE TABLE customer_order (
   due_date      TIMESTAMP,
   status        VARCHAR(10)         NOT NULL,
   description   VARCHAR,
-  person_id      INTEGER,
+  person_id     INTEGER,
   FOREIGN KEY (person_id) REFERENCES person (id)
 );
 CREATE TABLE item (
@@ -35,7 +35,7 @@ CREATE TABLE item (
   created       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR,
-  imageUrl      VARCHAR,
+  image_url     VARCHAR,
   cost          NUMERIC(10,2)
 );
 CREATE TABLE order_items (

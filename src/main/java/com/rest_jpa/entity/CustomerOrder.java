@@ -19,6 +19,7 @@ public class CustomerOrder extends BaseEntity{
     private LocalDateTime dueDate;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     @ManyToMany
@@ -29,7 +30,6 @@ public class CustomerOrder extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "person_id")
-    @JsonIgnore
     private Person person;
 
     public CustomerOrder() {
