@@ -1,6 +1,8 @@
 package com.rest_jpa.facade;
 
+import com.rest_jpa.entity.CustomerOrder;
 import com.rest_jpa.entity.Person;
+import com.rest_jpa.entity.Task;
 import com.rest_jpa.entity.to.PersonTO;
 import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.servise.PersonService;
@@ -37,6 +39,8 @@ public class PersonFacadeImpl implements PersonFacade {
         person.setAddress(to.getAddress());
         person.setEmail(to.getEmail());
         person.setPhone(to.getPhone());
+        person.setTasks(to.getTasks().stream().map(Task::new).collect(Collectors.toList()));
+        person.setOrders(to.getOrders().stream().map(CustomerOrder::new).collect(Collectors.toList()));
         personService.update(person);
     }
 

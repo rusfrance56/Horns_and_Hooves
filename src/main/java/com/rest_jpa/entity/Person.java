@@ -6,6 +6,7 @@ import com.rest_jpa.enumTypes.Department;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(schema = "public", name = "person")
@@ -47,6 +48,8 @@ public class Person extends BaseEntity{
         this.address = to.getAddress();
         this.email = to.getEmail();
         this.phone = to.getPhone();
+        this.tasks = to.getTasks().stream().map(Task::new).collect(Collectors.toList());
+        this.orders = to.getOrders().stream().map(CustomerOrder::new).collect(Collectors.toList());
     }
 
     public String getSurname() {
@@ -109,6 +112,10 @@ public class Person extends BaseEntity{
         return orders;
     }
 
+    public void setOrders(List<CustomerOrder> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -117,7 +124,10 @@ public class Person extends BaseEntity{
                 ", department=" + department +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
-                ", phone=" + phone +
+                ", phone='" + phone + '\'' +
+                ", tasks=" + tasks +
+                ", orders=" + orders +
+                ", id=" + id +
                 ", created=" + created +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

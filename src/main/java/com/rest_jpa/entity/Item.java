@@ -55,6 +55,8 @@ public class Item extends BaseEntity {
         return "Item{" +
                 "imageUrl='" + imageUrl + '\'' +
                 ", cost=" + cost +
+                ", customerOrders=" + customerOrders +
+                ", id=" + id +
                 ", created=" + created +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

@@ -35,6 +35,7 @@ public class Task extends BaseEntity{
     }
 
     public Task(TaskTO to) {
+        this.id = to.getId();
         this.name = to.getName();
         this.description = to.getDescription();
         this.dueDate = to.getDueDate();
@@ -81,6 +82,21 @@ public class Task extends BaseEntity{
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "dueDate=" + dueDate +
+                ", status=" + status +
+                ", priority=" + priority +
+                ", department=" + department +
+                ", person=" + person +
+                ", id=" + id +
+                ", created=" + created +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
 

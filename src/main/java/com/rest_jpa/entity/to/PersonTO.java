@@ -4,6 +4,8 @@ import com.rest_jpa.entity.Person;
 import com.rest_jpa.enumTypes.Department;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PersonTO {
     private long id;
@@ -14,12 +16,14 @@ public class PersonTO {
     private String address;
     private String email;
     private String phone;
+    private List<TaskTO> tasks;
+    private List<CustomerOrderTO> orders;
 
     public PersonTO() {
     }
 
-    public PersonTO(long id, String name, String surname, String middleName,
-                    Department department, String address, String email, String phone) {
+    public PersonTO(long id, String name, String surname, String middleName, Department department,
+                    String address, String email, String phone, List<TaskTO> tasks, List<CustomerOrderTO> orders) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -28,6 +32,8 @@ public class PersonTO {
         this.address = address;
         this.email = email;
         this.phone = phone;
+        this.tasks = tasks;
+        this.orders = orders;
     }
 
     public PersonTO(Person person) {
@@ -39,6 +45,8 @@ public class PersonTO {
         this.address = person.getAddress();
         this.email = person.getEmail();
         this.phone = person.getPhone();
+        this.tasks = person.getTasks().stream().map(TaskTO::new).collect(Collectors.toList());
+        this.orders = person.getOrders().stream().map(CustomerOrderTO::new).collect(Collectors.toList());
     }
 
     public long getId() {
@@ -105,17 +113,35 @@ public class PersonTO {
         this.phone = phone;
     }
 
+    public List<TaskTO> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskTO> tasks) {
+        this.tasks = tasks;
+    }
+
+    public List<CustomerOrderTO> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<CustomerOrderTO> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
-        return "EmployeeTO{" +
+        return "PersonTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", middleName='" + middleName + '\'' +
-                ", department=" + department +
+                ", department='" + department + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", tasks=" + tasks +
+                ", orders=" + orders +
                 '}';
     }
 }

@@ -13,7 +13,7 @@ public class BaseEntity {
             allocationSize = 1, initialValue = 100000)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     @Access(value = AccessType.PROPERTY)
-    private Long id;
+    protected Long id;
 
     @Column(name = "created", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")

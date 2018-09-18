@@ -1,12 +1,14 @@
 package com.rest_jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rest_jpa.entity.to.CustomerOrderTO;
 import com.rest_jpa.enumTypes.OrderStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(schema = "public", name = "customer_order")
@@ -30,6 +32,18 @@ public class CustomerOrder extends BaseEntity{
     @JsonIgnore
     private Person person;
 
+    public CustomerOrder() {
+    }
+
+    public CustomerOrder(CustomerOrderTO to) {
+        this.id = to.getId();
+        this.name = to.getName();
+        this.description = to.getDescription();
+        this.dueDate = to.getDueDate();
+        this.status = OrderStatus.valueOf(to.getStatus());
+        this.items = to.getItems().stream().map(Item::new).collect(Collectors.toList());
+    }
+
     public LocalDateTime getDueDate() {
         return dueDate;
     }
@@ -50,6 +64,10 @@ public class CustomerOrder extends BaseEntity{
         return items;
     }
 
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     public Person getPerson() {
         return person;
     }
@@ -63,6 +81,9 @@ public class CustomerOrder extends BaseEntity{
         return "CustomerOrder{" +
                 "dueDate=" + dueDate +
                 ", status=" + status +
+                ", items=" + items +
+                ", person=" + person +
+                ", id=" + id +
                 ", created=" + created +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
