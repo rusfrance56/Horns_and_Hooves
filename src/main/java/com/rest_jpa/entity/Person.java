@@ -4,7 +4,6 @@ import com.rest_jpa.entity.to.PersonTO;
 import com.rest_jpa.enumTypes.Department;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -4,8 +4,6 @@ import com.rest_jpa.entity.CustomerOrder;
 import com.rest_jpa.entity.Item;
 import com.rest_jpa.entity.to.CustomerOrderTO;
 import com.rest_jpa.enumTypes.OrderStatus;
-import com.rest_jpa.exceptions.ApplicationException;
-import com.rest_jpa.exceptions.ErrorKey;
 import com.rest_jpa.servise.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.rest_jpa.exceptions.ApplicationException.*;
-import static com.rest_jpa.exceptions.ErrorKey.*;
+import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
+import static com.rest_jpa.exceptions.ErrorKey.CUSTOMER_ORDER_NOT_FOUND;
 
 @Service
 public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
@@ -37,7 +35,7 @@ public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
         order.setDescription(to.getDescription());
         order.setDueDate(to.getDueDate());
         order.setStatus(OrderStatus.valueOf(to.getStatus()));
-        order.setItems(to.getItems().stream().map(Item::new).collect(Collectors.toList()));
+        order.setItems(to.getItems().stream().map(Item::new).collect(Collectors.toSet()));
     }
 
     @Override

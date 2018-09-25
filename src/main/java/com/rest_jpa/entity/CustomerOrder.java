@@ -1,13 +1,12 @@
 package com.rest_jpa.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rest_jpa.entity.to.CustomerOrderTO;
 import com.rest_jpa.enumTypes.OrderStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -22,11 +21,11 @@ public class CustomerOrder extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "order_items",
             joinColumns = @JoinColumn(name = "customer_order_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private List<Item> items;
+    private Set<Item> items;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -41,7 +40,7 @@ public class CustomerOrder extends BaseEntity{
         this.description = to.getDescription();
         this.dueDate = to.getDueDate();
         this.status = OrderStatus.valueOf(to.getStatus());
-        this.items = to.getItems().stream().map(Item::new).collect(Collectors.toList());
+        this.items = to.getItems().stream().map(Item::new).collect(Collectors.toSet());
     }
 
     public LocalDateTime getDueDate() {
@@ -60,11 +59,11 @@ public class CustomerOrder extends BaseEntity{
         this.status = status;
     }
 
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Set<Item> items) {
         this.items = items;
     }
 

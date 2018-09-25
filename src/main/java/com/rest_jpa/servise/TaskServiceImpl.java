@@ -2,7 +2,6 @@ package com.rest_jpa.servise;
 
 import com.rest_jpa.entity.Task;
 import com.rest_jpa.exceptions.ApplicationException;
-import com.rest_jpa.exceptions.ErrorKey;
 import com.rest_jpa.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNullAndNotEmpty;
-import static com.rest_jpa.exceptions.ErrorKey.*;
+import static com.rest_jpa.exceptions.ErrorKey.TASKS_NOT_FOUND;
+import static com.rest_jpa.exceptions.ErrorKey.TASK_NOT_FOUND;
 
 @Service
 public class TaskServiceImpl implements TaskService {
