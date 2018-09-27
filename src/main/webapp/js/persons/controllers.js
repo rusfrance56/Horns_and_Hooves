@@ -34,13 +34,13 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
     $scope.navigateToCreate = function () {
         $location.path("/persons/editPerson");
     };
-}).controller("EditPersonController", function($scope, $location, $routeParams, $filter, PersonsService) {
-    $scope.currentpersons = {};
+}).controller("EditPersonController", function($scope, $location, $routeParams, $filter, PersonsService, CommonService, person) {
+    $scope.person = person;
     $scope.pageTitle = "";
+    getDepartments();
     // loadpersons();
-    // getDepartments();
 
-    /*function loadpersons(){
+    /*function loadperson(){
         if (!angular.isUndefinedOrNull($routeParams.id)){
             var result = $.grep($scope.persons, function(e){ return e.id == $routeParams.id; });
             if (result.length > 0) {
@@ -74,13 +74,9 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
         }
     };
 
-    /*function getDepartments() {
-        personsService.getDepartments().then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.departments = response;
-            }
+    function getDepartments() {
+        CommonService.getEnumValues("Department").then(function (response) {
+            $scope.departments = response;
         });
-    }*/
+    }
 });

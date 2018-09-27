@@ -1,44 +1,65 @@
 <h2>{{pageTitle}}</h2>
 <div class="container col-sm-5">
-    <form name="editEmpForm" novalidate class="form-horizontal">
+    <form name="editPersonForm" novalidate class="form-horizontal">
         <div class="form-group row" hidden>
-            <label class="control-label col-sm-3" for="edit.empId">Id:</label>
+            <label class="control-label col-sm-3" for="edit.id">Id:</label>
             <div class="col-sm-9">
-                <input type="text" ng-model="currentEmployee.id" class="form-control" id="edit.empId">
+                <input type="text" ng-model="currentPerson.id" class="form-control" id="edit.id">
             </div>
         </div>
         <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.empSurName">{{'SURNAME' | translate}}:</label>
+            <label class="control-label col-sm-3" for="edit.surname">{{'SURNAME' | translate}}:</label>
             <div class="col-sm-9">
-                <input type="text" ng-model="currentEmployee.surName" class="form-control" id="edit.empSurName"
+                <input type="text" ng-model="currentPerson.surname" class="form-control" id="edit.surname"
                        placeholder="{{'ENTER_SURNAME' | translate}}" required>
             </div>
         </div>
         <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.empName">{{'NAME' | translate}}:</label>
+            <label class="control-label col-sm-3" for="edit.name">{{'NAME' | translate}}:</label>
             <div class="col-sm-9">
-                <input type="text" ng-model="currentEmployee.name" class="form-control" id="edit.empName"
+                <input type="text" ng-model="currentPerson.name" class="form-control" id="edit.name"
                        placeholder="{{'ENTER_NAME' | translate}}" required>
             </div>
         </div>
         <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.empMiddleName">{{'MIDDLE_NAME' | translate}}:</label>
+            <label class="control-label col-sm-3" for="edit.middleName">{{'MIDDLE_NAME' | translate}}:</label>
             <div class="col-sm-9">
-                <input type="text" ng-model="currentEmployee.middleName" class="form-control" id="edit.empMiddleName"
+                <input type="text" ng-model="currentPerson.middleName" class="form-control" id="edit.middleName"
                        placeholder="{{'ENTER_MIDDLE_NAME' | translate}}">
             </div>
         </div>
         <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.empDepartment">{{'DEPARTMENT' | translate}}:</label>
+            <label class="control-label col-sm-3" for="edit.address">{{'ADDRESS' | translate}}:</label>
             <div class="col-sm-9">
-                <select class="form-control"  id="edit.empDepartment" ng-model="currentEmployee.department"
-                        ng-options="dep.name | translate for dep in departments track by dep.id">
+                <input type="text" ng-model="currentPerson.address" class="form-control" id="edit.address"
+                       placeholder="{{'ENTER_ADDRESS' | translate}}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="edit.phone">{{'PHONE' | translate}}:</label>
+            <div class="col-sm-9">
+                <input type="text" ng-model="currentPerson.phone" class="form-control" id="edit.phone"
+                       placeholder="{{'ENTER_PHONE' | translate}}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="edit.email">{{'EMAIL' | translate}}:</label>
+            <div class="col-sm-9">
+                <input type="text" ng-model="currentPerson.email" class="form-control" id="edit.email"
+                       placeholder="{{'ENTER_EMAIL' | translate}}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="edit.department">{{'DEPARTMENT' | translate}}:</label>
+            <div class="col-sm-9">
+                <select class="form-control"  id="edit.department" ng-model="currentPerson.department"
+                        ng-options="dep | translate for dep in departments">
                 </select>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-offset-3 col-sm-9">
-                <button type="button" ng-click="saveEmployee(currentEmployee)" class="btn btn-default" ng-disabled="editEmpForm.$invalid">{{'SAVE' | translate}}</button>
+                <button type="button" ng-click="savePerson(currentPerson)" class="btn btn-default" ng-disabled="editPersonForm.$invalid">{{'SAVE' | translate}}</button>
             </div>
         </div>
     </form>

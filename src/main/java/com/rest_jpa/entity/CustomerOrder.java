@@ -39,7 +39,7 @@ public class CustomerOrder extends BaseEntity{
         this.name = to.getName();
         this.description = to.getDescription();
         this.dueDate = to.getDueDate();
-        this.status = OrderStatus.valueOf(to.getStatus());
+        this.status = to.getStatus() != null ? OrderStatus.valueOf(to.getStatus()) : null;
         this.items = to.getItems().stream().map(Item::new).collect(Collectors.toSet());
     }
 

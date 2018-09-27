@@ -11,7 +11,13 @@ personsModule.config(['$routeProvider', '$locationProvider', function ($routePro
     $locationProvider.hashPrefix('');
     $routeProvider.when('/persons/editPerson/:id', {
         templateUrl: 'views/persons/editPerson.html',
-        controller: 'EditPersonController'
+        controller: 'EditPersonController',
+        resolve: {
+            person: function (PersonsService, $stateParams) {
+                // PersonsService.getPersonById($stateParams.id)
+                return PersonsService.getPersonById($stateParams.id);
+            }
+        }
     }).when('/persons/editPerson', {
         templateUrl: 'views/persons/editPerson.html',
         controller: 'EditPersonController'

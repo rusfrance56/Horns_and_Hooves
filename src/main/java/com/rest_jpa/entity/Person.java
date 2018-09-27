@@ -43,7 +43,7 @@ public class Person extends BaseEntity{
         this.name = to.getName();
         this.surname = to.getSurname();
         this.middleName = to.getMiddleName();
-        this.department = Department.valueOf(to.getDepartment());
+        this.department = to.getDepartment() != null ? Department.valueOf(to.getDepartment()) : null;
         this.address = to.getAddress();
         this.email = to.getEmail();
         this.phone = to.getPhone();

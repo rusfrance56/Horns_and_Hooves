@@ -17,9 +17,9 @@
   "OPTIONS"          : "Options",
   "TYPE"             : "Type",
   "SEARCH"           : "Search",
-  "ADDRESS"           : "Address",
-  "EMAIL"             : "Email",
-  "PHONE"             : "Phone",
+  "ADDRESS"          : "Address",
+  "EMAIL"            : "Email",
+  "PHONE"            : "Phone",
 
   "CREATE"           : "Create",
   "INFO"             : "Info",
@@ -30,10 +30,13 @@
   "ENTER_NAME_ORDER" : "Enter the order name",
   "ENTER_SURNAME"    : "Enter the surname",
   "ENTER_MIDDLE_NAME": "Enter the middle name",
+  "ENTER_ADDRESS"    : "Enter address",
+  "ENTER_PHONE"      : "Enter phone",
+  "ENTER_EMAIL"      : "Enter email",
 
   "CUSHIONED"        : "Cushioned",
   "OFFICE"           : "Office",
   "STORAGE"          : "Storage",
 
-  "SHOW_ON_PAGE"      : "Show on page: "
+  "SHOW_ON_PAGE"     : "Show on page: "
 }

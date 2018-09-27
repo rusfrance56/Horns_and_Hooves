@@ -1,30 +1,23 @@
-ordersModule.service('OrderService', function ($http) {
-    var savedData = {};
-
+ordersModule.service('OrdersService', function ($http) {
+    var rootPath = '/orders/';
     return {
-        getOrders: function () {
-            return $http.get('/orders').then(function (result) {
-                return result.data;
-            });
-        },
         createOrder: function (order) {
-            return $http.post("/orders", order).then(function(result) {
-                return result.data;
+            return $http.post(rootPath, order).then(function(response) {
+                return response.data;
             });
         },
         updateOrder: function (order) {
-            return $http.put("/orders/" + order.id, order).then(function (result) {
-                return result.data;
+            return $http.put(rootPath + order.id, order).then(function (response) {
+                return response.data;
             });
         },
         deleteOrder: function (orderId) {
-            return $http.delete('/orders/' + orderId);
+            return $http.delete(rootPath + orderId);
         },
-        setOrdersToService: function (data) {
-            savedData = data;
-        },
-        getOrdersFromService: function () {
-            return savedData;
+        getOrders: function () {
+            return $http.get(rootPath).then(function (response) {
+                return response.data;
+            });
         }
     }
 });

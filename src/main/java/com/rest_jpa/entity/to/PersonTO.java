@@ -4,6 +4,7 @@ import com.rest_jpa.entity.Person;
 import com.rest_jpa.enumTypes.Department;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,8 +17,8 @@ public class PersonTO {
     private String address;
     private String email;
     private String phone;
-    private List<TaskTO> tasks;
-    private List<CustomerOrderTO> orders;
+    private List<TaskTO> tasks = new ArrayList<>();
+    private List<CustomerOrderTO> orders = new ArrayList<>();
 
     public PersonTO() {
     }

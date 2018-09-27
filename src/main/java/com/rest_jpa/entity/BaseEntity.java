@@ -15,7 +15,7 @@ public class BaseEntity {
     @Access(value = AccessType.PROPERTY)
     protected Long id;
 
-    @Column(name = "created", nullable = false)
+    @Column(name = "created", nullable = false, insertable = false, updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     protected LocalDateTime created;
 
