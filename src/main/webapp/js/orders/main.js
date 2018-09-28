@@ -1,6 +1,7 @@
 'use strict';
 var ordersModule = angular.module("ordersModule", [
         'ngRoute',
+        'ui.router',
         'smart-table',
         'pascalprecht.translate',
         'ui.bootstrap',
@@ -8,7 +9,7 @@ var ordersModule = angular.module("ordersModule", [
     ]);
 ordersModule.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     // $locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix('');
+    /*$locationProvider.hashPrefix('');
     $routeProvider.when('/orders/editOrder/:id', {
         templateUrl: 'views/order/editOrder.html',
         controller: 'EditOrderController'
@@ -22,15 +23,5 @@ ordersModule.config(['$routeProvider', '$locationProvider', function ($routeProv
         // redirectTO: '/employee'
         templateUrl: 'views/order/viewOrders.html',
         controller: 'OrdersController'
-    });
+    });*/
 }]);
-ordersModule.config(function ($translateProvider) {
-    $translateProvider.useStaticFilesLoader({
-        prefix: ' i18n/i18n_',
-        suffix: '.json'
-    }).registerAvailableLanguageKeys(['en', 'ru'], {
-        'en_US': 'en',
-        'en_UK': 'en',
-        'ru_RU': 'ru'
-    }).determinePreferredLanguage().fallbackLanguage('ru');
-});

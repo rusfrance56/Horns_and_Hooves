@@ -35,24 +35,9 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
         $location.path("/persons/editPerson");
     };
 }).controller("EditPersonController", function($scope, $location, $routeParams, $filter, PersonsService, CommonService, person) {
-    $scope.person = person;
-    $scope.pageTitle = "";
+    $scope.currentPerson = person;
     getDepartments();
-    // loadpersons();
-
-    /*function loadperson(){
-        if (!angular.isUndefinedOrNull($routeParams.id)){
-            var result = $.grep($scope.persons, function(e){ return e.id == $routeParams.id; });
-            if (result.length > 0) {
-                $scope.currentpersons = result[0];
-                $scope.pageTitle = $filter('translate')('persons_INFO');
-            } else {
-                $scope.pageTitle = $filter('translate')('persons_CREATE');
-            }
-        } else {
-            $scope.pageTitle = $filter('translate')('persons_CREATE');
-        }
-    }*/
+    $scope.pageTitle = $scope.currentPerson.id ? 'PERSON_INFO' : 'PERSON_CREATE';
 
     $scope.savePerson = function (person) {
         if (angular.isUndefinedOrNull(person.id)) {

@@ -1,6 +1,7 @@
 'use strict';
 var mainApp = angular.module("mainApp", [
     'ngRoute',
+    'ui.router',
     'smart-table',
     'pascalprecht.translate',
     'ui.bootstrap',
@@ -10,7 +11,6 @@ var mainApp = angular.module("mainApp", [
 ]);
 
 mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    // $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('');
 
     $routeProvider.when('/orders', {
@@ -25,3 +25,14 @@ mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider,
         controller: 'PersonsController'
     });
 }]);
+
+mainApp.config(function ($translateProvider) {
+    $translateProvider.useStaticFilesLoader({
+        prefix: ' i18n/i18n_',
+        suffix: '.json'
+    }).registerAvailableLanguageKeys(['en', 'ru'], {
+        'en_US': 'en',
+        'en_UK': 'en',
+        'ru_RU': 'ru'
+    }).determinePreferredLanguage().fallbackLanguage('ru');
+});

@@ -1,13 +1,13 @@
 {
   "PERSONS"          : "Persons",
-  "EMPLOYEE_INFO"    : "Employee information",
-  "EMPLOYEE_CREATE"  : "Employee create",
+  "PERSON_INFO"      : "Person information",
+  "PERSON_CREATE"    : "Person create",
   "ORDERS"           : "Orders",
   "ORDER_INFO"       : "Order information",
   "ORDER_CREATE"     : "Order create",
   "LANG"             : "Language",
 
-  "EMPLOYEE"         : "Employee",
+  "PERSON"           : "Person",
   "DATE"             : "Date",
   "NAME"             : "Name",
   "NAME_ORDER"       : "Name",
