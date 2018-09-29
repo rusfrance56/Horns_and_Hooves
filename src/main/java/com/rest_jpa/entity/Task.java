@@ -18,17 +18,19 @@ public class Task extends BaseEntity{
     private LocalDateTime dueDate;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
     @Column(name = "priority")
+    @Enumerated(EnumType.STRING)
     private TaskPriority priority;
 
     @Column(name = "department")
+    @Enumerated(EnumType.STRING)
     private Department department;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
-//    @JsonIgnore
     private Person person;
 
     public Task() {

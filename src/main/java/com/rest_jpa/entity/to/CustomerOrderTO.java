@@ -3,6 +3,7 @@ package com.rest_jpa.entity.to;
 import com.rest_jpa.entity.CustomerOrder;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,7 @@ public class CustomerOrderTO {
     private String description;
     private LocalDateTime dueDate;
     private String status;
-    private List<ItemTO> items;
+    private List<ItemTO> items = new ArrayList<>();
 
     public CustomerOrderTO() {
     }

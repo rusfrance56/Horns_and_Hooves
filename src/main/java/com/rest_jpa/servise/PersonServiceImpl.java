@@ -31,8 +31,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void delete(long id) {
-//        Person person = personRepository.getOne(id);
-//        orderHelper.reassignmentOrders(person);
+        Person person = findById(id);
+        person.getOrders().forEach(order -> order.setPerson(null));
+        person.getTasks().forEach(task -> task.setPerson(null));
         personRepository.deleteById(id);
     }
 

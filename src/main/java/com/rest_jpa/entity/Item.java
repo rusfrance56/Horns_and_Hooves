@@ -4,9 +4,7 @@ import com.rest_jpa.entity.to.ItemTO;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.List;
 
 @Entity
 @Table(schema = "public", name = "item")
@@ -17,9 +15,6 @@ public class Item extends BaseEntity {
 
     @Column(name = "cost")
     private Double cost;
-
-    @ManyToMany(mappedBy = "items")
-    private List<CustomerOrder> customerOrders;
 
     public Item() {
     }
@@ -46,16 +41,16 @@ public class Item extends BaseEntity {
         this.cost = cost;
     }
 
-    public List<CustomerOrder> getCustomerOrders() {
-        return customerOrders;
-    }
+//    public List<CustomerOrder> getCustomerOrders() {
+//        return customerOrders;
+//    }
 
     @Override
     public String toString() {
         return "Item{" +
                 "imageUrl='" + imageUrl + '\'' +
                 ", cost=" + cost +
-                ", customerOrders=" + customerOrders +
+//                ", customerOrders=" + customerOrders +
                 ", id=" + id +
                 ", created=" + created +
                 ", name='" + name + '\'' +

@@ -1,4 +1,4 @@
-common.service('CommonService', function ($uibModal) {
+common.service('CommonService', function ($uibModal, $http) {
 
     this.openMessageModal = function (mode, message, modalClass) {
         var modal = $uibModal.open({
@@ -18,5 +18,11 @@ common.service('CommonService', function ($uibModal) {
             windowClass: modalClass
         });
         return modal.result;
+    };
+
+    this.getEnumValues = function (enumName) {
+        return $http.post('/enum/get', enumName).then(function (response) {
+            return response.data
+        });
     };
 });

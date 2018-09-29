@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
-import static com.rest_jpa.exceptions.ErrorKey.*;
+import static com.rest_jpa.exceptions.ErrorKey.PERSON_NOT_FOUND;
 
 @Service
 public class PersonFacadeImpl implements PersonFacade {

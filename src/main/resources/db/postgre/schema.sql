@@ -28,22 +28,22 @@ CREATE TABLE customer_order (
   status        VARCHAR(10)         NOT NULL,
   description   VARCHAR,
   person_id     INTEGER,
-  FOREIGN KEY (person_id) REFERENCES person (id)
+  FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE CASCADE
 );
 CREATE TABLE item (
   id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   created       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR,
-  imageUrl      VARCHAR,
+  image_url     VARCHAR,
   cost          NUMERIC(10,2)
 );
 CREATE TABLE order_items (
   customer_order_id     INTEGER             NOT NULL,
   item_id               INTEGER,
   CONSTRAINT order_items_idx UNIQUE (customer_order_id, item_id),
-  FOREIGN KEY (customer_order_id) REFERENCES customer_order (id),
-  FOREIGN KEY (item_id) REFERENCES item (id)
+  FOREIGN KEY (customer_order_id) REFERENCES customer_order (id) ON DELETE CASCADE,
+  FOREIGN KEY (item_id) REFERENCES item (id) ON DELETE RESTRICT
 );
 CREATE TABLE task (
   id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
@@ -55,11 +55,11 @@ CREATE TABLE task (
   person_id     INTEGER,
   department    VARCHAR(20)         NOT NULL,
   description   VARCHAR,
-  FOREIGN KEY (person_id) REFERENCES person (id)
+  FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE SET NULL
 );
 CREATE TABLE person_roles(
   person_id     INTEGER             NOT NULL,
   role          VARCHAR,
   CONSTRAINT person_roles_idx UNIQUE (person_id, role),
-  FOREIGN KEY (person_id) REFERENCES person (id)
+  FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE CASCADE
 );

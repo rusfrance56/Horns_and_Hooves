@@ -4,7 +4,6 @@ import com.rest_jpa.entity.to.PersonTO;
 import com.rest_jpa.enumTypes.Department;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +43,7 @@ public class Person extends BaseEntity{
         this.name = to.getName();
         this.surname = to.getSurname();
         this.middleName = to.getMiddleName();
-        this.department = Department.valueOf(to.getDepartment());
+        this.department = to.getDepartment() != null ? Department.valueOf(to.getDepartment()) : null;
         this.address = to.getAddress();
         this.email = to.getEmail();
         this.phone = to.getPhone();

@@ -1,13 +1,13 @@
 {
   "PERSONS"           : "Работники",
-  "EMPLOYEE_INFO"     : "Информация о работнике",
-  "EMPLOYEE_CREATE"   : "Создание работника",
+  "PERSON_INFO"       : "Информация о работнике",
+  "PERSON_CREATE"     : "Создание работника",
   "ORDERS"            : "Заказы",
   "ORDER_INFO"        : "Информация о заказе",
   "ORDER_CREATE"      : "Создание заказа",
   "LANG"              : "Язык",
 
-  "EMPLOYEE"          : "Работник",
+  "PERSON"            : "Работник",
   "DATE"              : "Дата и время",
   "NAME"              : "Имя",
   "NAME_ORDER"        : "Название",
@@ -30,6 +30,9 @@
   "ENTER_NAME_ORDER"  : "Введите название",
   "ENTER_SURNAME"     : "Введите фамилию",
   "ENTER_MIDDLE_NAME" : "Введите отчество",
+  "ENTER_ADDRESS"     : "Введите адрес",
+  "ENTER_PHONE"       : "Введите телефон",
+  "ENTER_EMAIL"       : "Введите email",
 
   "CUSHIONED"         : "Мягкая мебель",
   "OFFICE"            : "Офисная мебель",

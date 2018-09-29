@@ -1,6 +1,7 @@
 'use strict';
 var personsModule = angular.module("personsModule", [
     'ngRoute',
+    'ui.router',
     'smart-table',
     'pascalprecht.translate',
     'ui.bootstrap',
@@ -11,26 +12,26 @@ personsModule.config(['$routeProvider', '$locationProvider', function ($routePro
     $locationProvider.hashPrefix('');
     $routeProvider.when('/persons/editPerson/:id', {
         templateUrl: 'views/persons/editPerson.html',
-        controller: 'EditPersonController'
+        controller: 'EditPersonController',
+        resolve: {
+            person: function (PersonsService, $route) {
+                // PersonsService.getPersonById($stateParams.id)
+                return PersonsService.getPersonById($route.current.params.id);
+            }
+        }
     }).when('/persons/editPerson', {
         templateUrl: 'views/persons/editPerson.html',
-        controller: 'EditPersonController'
+        controller: 'EditPersonController',
+        resolve: {
+            person: function () {
+                return {};
+            }
+        }
     }).when('/persons', {
         templateUrl: 'views/persons/viewPerson.html',
         controller: 'PersonsController'
     }).otherwise({
-        // redirectTO: '/persons'
         templateUrl: 'views/persons/viewPerson.html',
         controller: 'PersonsController'
     });
 }]);
-personsModule.config(function ($translateProvider) {
-    $translateProvider.useStaticFilesLoader({
-        prefix: ' i18n/i18n_',
-        suffix: '.json'
-    }).registerAvailableLanguageKeys(['en', 'ru'], {
-        'en_US': 'en',
-        'en_UK': 'en',
-        'ru_RU': 'ru'
-    }).determinePreferredLanguage().fallbackLanguage('ru');
-});

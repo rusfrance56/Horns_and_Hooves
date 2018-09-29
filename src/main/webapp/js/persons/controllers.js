@@ -34,25 +34,10 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
     $scope.navigateToCreate = function () {
         $location.path("/persons/editPerson");
     };
-}).controller("EditPersonController", function($scope, $location, $routeParams, $filter, PersonsService) {
-    $scope.currentpersons = {};
-    $scope.pageTitle = "";
-    // loadpersons();
-    // getDepartments();
-
-    /*function loadpersons(){
-        if (!angular.isUndefinedOrNull($routeParams.id)){
-            var result = $.grep($scope.persons, function(e){ return e.id == $routeParams.id; });
-            if (result.length > 0) {
-                $scope.currentpersons = result[0];
-                $scope.pageTitle = $filter('translate')('persons_INFO');
-            } else {
-                $scope.pageTitle = $filter('translate')('persons_CREATE');
-            }
-        } else {
-            $scope.pageTitle = $filter('translate')('persons_CREATE');
-        }
-    }*/
+}).controller("EditPersonController", function($scope, $location, $routeParams, $filter, PersonsService, CommonService, person) {
+    $scope.currentPerson = person;
+    getDepartments();
+    $scope.pageTitle = $scope.currentPerson.id ? 'PERSON_INFO' : 'PERSON_CREATE';
 
     $scope.savePerson = function (person) {
         if (angular.isUndefinedOrNull(person.id)) {
@@ -74,13 +59,9 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
         }
     };
 
-    /*function getDepartments() {
-        personsService.getDepartments().then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.departments = response;
-            }
+    function getDepartments() {
+        CommonService.getEnumValues("Department").then(function (response) {
+            $scope.departments = response;
         });
-    }*/
+    }
 });

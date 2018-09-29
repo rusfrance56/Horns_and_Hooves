@@ -44,15 +44,15 @@
                 <td>{{person.phone | translate}}</td>
                 <td>
                     <div class="btn-group btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-primary">{{'INFO' | translate}}</button>
-                        <button type="button" class="btn btn-danger">{{'DELETE' | translate}}</button>
+                        <button type="button" class="btn btn-primary" ng-click="navigateToEdit(person)">{{'INFO' | translate}}</button>
+                        <button type="button" class="btn btn-danger" ng-click="deletePerson(person)">{{'DELETE' | translate}}</button>
                     </div>
                 </td>
             </tr>
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="5" class="text-center">
+                <td colspan="10" class="text-center">
                     <div st-pagination="" st-items-by-page="dropdown.itemsByPage" st-displayed-pages="10"></div>
                 </td>
             </tr>
