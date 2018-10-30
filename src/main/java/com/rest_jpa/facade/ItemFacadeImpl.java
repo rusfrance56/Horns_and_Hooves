@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
-import static com.rest_jpa.exceptions.ErrorKey.ITEM_NOT_FOUND;
+import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 
 @Service
 public class ItemFacadeImpl implements ItemFacade {
@@ -27,8 +27,8 @@ public class ItemFacadeImpl implements ItemFacade {
 
     @Override
     public void update(ItemTO to) {
+        checkNotNull(to.getId(), WRONG_INPUT_DATA, to.getId());
         Item item = itemService.findById(to.getId());
-        checkNotNull(item, ITEM_NOT_FOUND, to.getId());
         item.setName(to.getName());
         item.setImageUrl(to.getImageUrl());
         item.setCost(to.getCost());

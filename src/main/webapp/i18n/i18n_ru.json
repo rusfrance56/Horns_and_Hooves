@@ -10,7 +10,6 @@
   "PERSON"            : "Работник",
   "DATE"              : "Дата и время",
   "NAME"              : "Имя",
-  "NAME_ORDER"        : "Название",
   "SURNAME"           : "Фамилия",
   "MIDDLE_NAME"       : "Отчество",
   "DEPARTMENT"        : "Отдел",
@@ -34,9 +33,18 @@
   "ENTER_PHONE"       : "Введите телефон",
   "ENTER_EMAIL"       : "Введите email",
 
+
   "CUSHIONED"         : "Мягкая мебель",
   "OFFICE"            : "Офисная мебель",
   "STORAGE"           : "Мебель для хранения",
 
-  "SHOW_ON_PAGE"      : "Показывать по: "
+
+  "SHOW_ON_PAGE"      : "Показывать по: ",
+  "WRONG_INPUT_DATA"  : "неправильные входные данные!",
+
+
+  "ORDER_NAME"       : "Имя заказа",
+  "DESCRIPTION"      : "Описание",
+  "DUE_DATE"         : "Дата окончания",
+  "STATUS"           : "Статус"
 }

@@ -12,4 +12,5 @@ public interface CustomerOrderService {
     void delete(long id);
     List<CustomerOrder> findAll();
     CustomerOrder findById(long id);
+    List<CustomerOrder> findAllByIds(List<Long> orderIds);
 }

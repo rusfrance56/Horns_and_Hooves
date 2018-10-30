@@ -40,15 +40,7 @@ public class Person extends BaseEntity{
     }
 
     public Person(PersonTO to) {
-        this.name = to.getName();
-        this.surname = to.getSurname();
-        this.middleName = to.getMiddleName();
-        this.department = to.getDepartment() != null ? Department.valueOf(to.getDepartment()) : null;
-        this.address = to.getAddress();
-        this.email = to.getEmail();
-        this.phone = to.getPhone();
-        this.tasks = to.getTasks().stream().map(Task::new).collect(Collectors.toList());
-        this.orders = to.getOrders().stream().map(CustomerOrder::new).collect(Collectors.toList());
+
     }
 
     public String getSurname() {
@@ -113,23 +105,5 @@ public class Person extends BaseEntity{
 
     public void setOrders(List<CustomerOrder> orders) {
         this.orders = orders;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "surname='" + surname + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", department=" + department +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", tasks=" + tasks +
-                ", orders=" + orders +
-                ", id=" + id +
-                ", created=" + created +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }

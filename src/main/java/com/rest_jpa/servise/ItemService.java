@@ -12,4 +12,5 @@ public interface ItemService {
     void delete(long id);
     List<Item> findAll();
     Item findById(long id);
+    List<Item> findAllByIds(List<Long> itemIds);
 }

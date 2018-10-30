@@ -1,5 +1,5 @@
 <h2>{{'ORDERS' | translate}}</h2>
-<div st-table="ordersTable" st-safe-src="customerOrders">
+<div st-table="orderRecords" st-safe-src="orders">
     <div class="row inline-row">
         <div class="inline-row-part">
             <button class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
@@ -14,25 +14,25 @@
             <tr>
                 <th hidden>Id</th>
                 <th>#</th>
-                <th st-sort="name">{{'NAME_ORDER' | translate}}</th>
-                <th st-sort="dateTime">{{'DATE' | translate}}</th>
-                <th st-sort="department.name">{{'TYPE' | translate}}</th>
-                <th st-sort="person.name">{{'PERSON' | translate}}</th>
+                <th st-sort="name">{{'ORDER_NAME' | translate}}</th>
+                <th st-sort="description">{{'DESCRIPTION' | translate}}</th>
+                <th st-sort="dueDate">{{'DUE_DATE' | translate}}</th>
+                <th st-sort="status">{{'STATUS' | translate}}</th>
                 <th>{{'OPTIONS' | translate}}</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="customerOrder in ordersTable | filter : search">
-                <td hidden>{{customerOrder.id}}</td>
+            <tr ng-repeat="order in orderRecords | filter : search">
+                <td hidden>{{order.id}}</td>
                 <td>{{$index+1}}</td>
-                <td>{{customerOrder.name}}</td>
-                <td>{{customerOrder.dateTime | date : "dd.MM.yyyy HH:mm"}}</td>
-                <td>{{customerOrder.department.name | translate}}</td>
-                <td>{{customerOrder.person.name + ' ' + customerOrder.person.surname}}</td>
+                <td>{{order.name}}</td>
+                <td>{{order.description}}</td>
+                <td>{{order.dueDate | date : "dd.MM.yyyy HH:mm"}}</td>
+                <td>{{order.status}}</td>
                 <td>
                     <div class="btn-group btn-group" role="group" aria-label="...">
-                        <button class="btn btn-primary" ng-click="editOrder(customerOrder)">{{'INFO' | translate}}</button>
-                        <button class="btn btn-danger" ng-click="deleteOrder(customerOrder)">{{'DELETE' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="navigateToEdit(order)">{{'INFO' | translate}}</button>
+                        <button class="btn btn-danger" ng-click="deleteOrder(order)">{{'DELETE' | translate}}</button>
                     </div>
                 </td>
             </tr>

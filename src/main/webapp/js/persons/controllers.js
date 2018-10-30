@@ -34,8 +34,9 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
     $scope.navigateToCreate = function () {
         $location.path("/persons/editPerson");
     };
-}).controller("EditPersonController", function($scope, $location, $routeParams, $filter, PersonsService, CommonService, person) {
+}).controller("EditPersonController", function($scope, $location, PersonsService, CommonService, person) {
     $scope.currentPerson = person;
+    $scope.departments = [];
     getDepartments();
     $scope.pageTitle = $scope.currentPerson.id ? 'PERSON_INFO' : 'PERSON_CREATE';
 

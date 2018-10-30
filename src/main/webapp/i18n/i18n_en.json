@@ -10,7 +10,6 @@
   "PERSON"           : "Person",
   "DATE"             : "Date",
   "NAME"             : "Name",
-  "NAME_ORDER"       : "Name",
   "SURNAME"          : "Surname",
   "MIDDLE_NAME"      : "Middle name",
   "DEPARTMENT"       : "Department",
@@ -34,9 +33,18 @@
   "ENTER_PHONE"      : "Enter phone",
   "ENTER_EMAIL"      : "Enter email",
 
+
   "CUSHIONED"        : "Cushioned",
   "OFFICE"           : "Office",
   "STORAGE"          : "Storage",
 
-  "SHOW_ON_PAGE"     : "Show on page: "
+
+  "SHOW_ON_PAGE"     : "Show on page: ",
+  "WRONG_INPUT_DATA" : "Wrong input data!",
+
+
+  "ORDER_NAME"       : "Name",
+  "DESCRIPTION"      : "Description",
+  "DUE_DATE"         : "Due date",
+  "STATUS"           : "Status"
 }

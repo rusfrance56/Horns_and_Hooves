@@ -44,4 +44,9 @@ public class TaskServiceImpl implements TaskService {
         Optional<Task> task = taskRepository.findById(id);
         return task.orElseThrow(() -> new ApplicationException(TASK_NOT_FOUND, id));
     }
+
+    @Override
+    public List<Task> findAllByIds(List<Long> taskIds) {
+        return checkNotNullAndNotEmpty(taskRepository.findAllById(taskIds), TASKS_NOT_FOUND);
+    }
 }

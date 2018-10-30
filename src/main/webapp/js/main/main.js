@@ -9,22 +9,10 @@ var mainApp = angular.module("mainApp", [
     'personsModule',
     'ordersModule'
 ]);
-
+/*
 mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
-
-    $routeProvider.when('/orders', {
-        templateUrl: 'views/order/viewOrders.html',
-        controller: 'OrdersController'
-    }).when('/persons', {
-        templateUrl: 'views/persons/viewPerson.html',
-        controller: 'PersonsController'
-    }).otherwise({
-        // redirectTO: '/persons'
-        templateUrl: 'views/persons/viewPerson.html',
-        controller: 'PersonsController'
-    });
-}]);
+}]);*/
 
 mainApp.config(function ($translateProvider) {
     $translateProvider.useStaticFilesLoader({

@@ -44,4 +44,9 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         Optional<CustomerOrder> order = customerOrderRepository.findById(id);
         return order.orElseThrow(() -> new ApplicationException(CUSTOMER_ORDER_NOT_FOUND, id));
     }
+
+    @Override
+    public List<CustomerOrder> findAllByIds(List<Long> orderIds) {
+        return checkNotNullAndNotEmpty(customerOrderRepository.findAllById(orderIds), CUSTOMER_ORDERS_NOT_FOUND);
+    }
 }

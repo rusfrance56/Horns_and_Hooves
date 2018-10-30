@@ -1,5 +1,6 @@
 package com.rest_jpa.controller;
 
+import com.rest_jpa.entity.to.PersonRequestTO;
 import com.rest_jpa.entity.to.PersonTO;
 import com.rest_jpa.facade.PersonFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class PersonController {
     private PersonFacade personFacade;
 
     @PostMapping
-    public ResponseEntity<PersonTO> create(@Valid @RequestBody PersonTO request) {
+    public ResponseEntity<PersonTO> create(@Valid @RequestBody PersonRequestTO request) {
         return new ResponseEntity<>(personFacade.create(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@Valid @RequestBody PersonTO request) {
+    public ResponseEntity<Void> update(@Valid @RequestBody PersonRequestTO request) {
         personFacade.update(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }

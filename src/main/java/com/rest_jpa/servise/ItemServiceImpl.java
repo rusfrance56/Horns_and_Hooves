@@ -51,4 +51,8 @@ public class ItemServiceImpl implements ItemService {
         Optional<Item> item = itemRepository.findById(id);
         return item.orElseThrow(() -> new ApplicationException(ITEM_NOT_FOUND, id));
     }
+
+    public List<Item> findAllByIds(List<Long> itemIds) {
+        return checkNotNullAndNotEmpty(itemRepository.findAllById(itemIds), ITEMS_NOT_FOUND);
+    }
 }

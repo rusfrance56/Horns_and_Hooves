@@ -1,5 +1,6 @@
 package com.rest_jpa.controller;
 
+import com.rest_jpa.entity.to.CustomerOrderRequestTO;
 import com.rest_jpa.entity.to.CustomerOrderTO;
 import com.rest_jpa.facade.CustomerOrderFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class CustomerOrderController {
     private CustomerOrderFacade customerOrderFacade;
 
     @PostMapping
-    public ResponseEntity<CustomerOrderTO> create(@Valid @RequestBody CustomerOrderTO to) {
+    public ResponseEntity<CustomerOrderTO> create(@Valid @RequestBody CustomerOrderRequestTO to) {
         return new ResponseEntity<>(customerOrderFacade.create(to), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@Valid @RequestBody CustomerOrderTO to) {
+    public ResponseEntity<Void> update(@Valid @RequestBody CustomerOrderRequestTO to) {
         customerOrderFacade.update(to);
         return new ResponseEntity<>(HttpStatus.OK);
     }

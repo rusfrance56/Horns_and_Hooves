@@ -1,5 +1,6 @@
-<h2>{{pageTitle}}</h2>
+<h2>{{pageTitle | translate}}</h2>
 <div class="container col-sm-5">
+    <div id="editForm">
     <form name="editOrderForm" novalidate class="form-horizontal">
         <div class="form-group row" hidden>
             <label class="control-label col-sm-3" for="edit.orderId">Id:</label>
@@ -8,33 +9,30 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.orderName">{{'NAME_ORDER' | translate}}:</label>
+            <label class="control-label col-sm-3" for="edit.orderName">{{'ORDER_NAME' | translate}}:</label>
             <div class="col-sm-9">
                 <input type="text" ng-model="currentOrder.name" class="form-control" id="edit.orderName"
                        placeholder="{{'ENTER_NAME_ORDER' | translate}}" required>
             </div>
         </div>
         <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.orderDate">{{'DATE' | translate}}:</label>
+            <label class="control-label col-sm-3" for="edit.description">{{'DESCRITPION' | translate}}:</label>
+            <div class="col-sm-9">
+                <input type="text" ng-model="currentOrder.description" class="form-control" id="edit.description"
+                       placeholder="{{'ENTER_ORDER_DESCRIPTION' | translate}}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="edit.dueDate">{{'DUE_DATE' | translate}}:</label>
             <div class="col-sm-5">
-                <input type="datetime-local" ng-model="currentOrder.dateTime" class="form-control" id="edit.orderDate" required>
+                <input type="datetime-local" ng-model="currentOrder.dueDate" class="form-control" id="edit.dueDate" required>
             </div>
         </div>
         <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.orderDepartment">{{'TYPE' | translate}}:</label>
+            <label class="control-label col-sm-3" for="edit.status">{{'STATUS' | translate}}:</label>
             <div class="col-sm-9">
-                <select class="form-control"  id="edit.orderDepartment" ng-model="currentOrder.department"
-                        ng-options="dep.name | translate for dep in departments track by dep.id">
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.orderEmployee">{{'PERSON' | translate}}:</label>
-            <div class="col-sm-9">
-                <select class="form-control" id="edit.orderEmployee" ng-model="currentOrder.person"
-                        ng-options="emp.name+' '+emp.surName for emp in employeesForSelectedDep track by emp.id">
-                    <option></option>
-                </select>
+                <input type="text" ng-model="currentOrder.status" class="form-control" id="edit.status"
+                       placeholder="{{'STATUS' | translate}}" disabled>
             </div>
         </div>
         <div class="form-group row">
@@ -43,4 +41,29 @@
             </div>
         </div>
     </form>
+    </div>
+    <div id="itemsTable">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th hidden>Id</th>
+            <th>#</th>
+            <th>name</th>
+            <th>description</th>
+            <th>cost</th>
+            <th>image</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in currentOrder.items">
+            <td hidden>{{item.id}}</td>
+            <td>{{$index+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.cost}}</td>
+            <td>{{item.image}}</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
 </div>

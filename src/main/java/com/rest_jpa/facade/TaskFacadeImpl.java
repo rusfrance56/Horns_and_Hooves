@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
-import static com.rest_jpa.exceptions.ErrorKey.TASK_NOT_FOUND;
+import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 
 @Service
 public class TaskFacadeImpl implements TaskFacade {
@@ -30,8 +30,8 @@ public class TaskFacadeImpl implements TaskFacade {
 
     @Override
     public void update(TaskTO to) {
+        checkNotNull(to.getId(), WRONG_INPUT_DATA, to.getId());
         Task task = taskService.findById(to.getId());
-        checkNotNull(task, TASK_NOT_FOUND, to.getId());
         task.setName(to.getName());
         task.setDescription(to.getDescription());
         task.setDueDate(to.getDueDate());
