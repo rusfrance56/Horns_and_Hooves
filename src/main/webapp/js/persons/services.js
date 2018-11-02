@@ -12,7 +12,9 @@ personsModule.service('PersonsService', function ($http) {
             });
         },
         deletePerson: function (id) {
-            return $http.delete(rootPath + id);
+            return $http.delete(rootPath + id).then(function (response) {
+                return response.data;
+            });
         },
         getPersons: function () {
             return $http.get(rootPath).then(function (response) {

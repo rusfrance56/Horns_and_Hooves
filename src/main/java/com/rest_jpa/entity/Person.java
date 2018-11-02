@@ -106,4 +106,22 @@ public class Person extends BaseEntity{
     public void setOrders(List<CustomerOrder> orders) {
         this.orders = orders;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "surname='" + surname + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", department=" + department +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", tasks=" + tasks +
+                ", orders=" + orders +
+                ", id=" + id +
+                ", created=" + created +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

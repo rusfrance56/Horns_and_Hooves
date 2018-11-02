@@ -1,0 +1,38 @@
+<h2>{{pageTitle | translate}}</h2>
+<div class="container col-sm-5">
+    <form id="editItemForm" novalidate class="form-horizontal">
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="edit.name">{{'ITEM_NAME' | translate}}</label>
+            <div class="col-sm-9">
+                <input class="form-control"  ng-model="currentItem.name" type="text" id="edit.name"
+                       placeholder="{{'ENTER_ITEM_NAME' | translate}}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="edit.description">{{'ITEM_DESCRIPTION' | translate}}</label>
+            <div class="col-sm-9">
+                <input class="form-control"  ng-model="currentItem.description" type="text" id="edit.description"
+                       placeholder="{{'ENTER_ITEM_DESCRIPTION' | translate}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="edit.cost">{{'ITEM_COST' | translate}}</label>
+            <div class="col-sm-9">
+                <input class="form-control"  ng-model="currentItem.cost" type="text" id="edit.cost"
+                       placeholder="{{'ENTER_ITEM_COST' | translate}}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-3" for="edit.image">{{'ITEM_IMAGE' | translate}}</label>
+            <div class="col-sm-9">
+                <input class="form-control"  ng-model="currentItem.imageUrl" type="text" id="edit.image"
+                       placeholder="{{'ENTER_ITEM_IMAGE' | translate}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-offset-3 col-sm-9">
+                <button type="button" class="btn btn-default" ng-click="saveItem(currentItem)" ng-disabled="editItemForm.$invalid">{{'SAVE' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>

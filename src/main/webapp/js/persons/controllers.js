@@ -32,7 +32,7 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
         $location.path("/persons/editPerson/" + person.id);
     };
     $scope.navigateToCreate = function () {
-        $location.path("/persons/editPerson");
+        $location.path("/persons/createPerson");
     };
 }).controller("EditPersonController", function($scope, $location, PersonsService, CommonService, person) {
     $scope.currentPerson = person;

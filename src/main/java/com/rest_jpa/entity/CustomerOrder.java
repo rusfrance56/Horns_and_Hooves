@@ -63,4 +63,18 @@ public class CustomerOrder extends BaseEntity{
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    @Override
+    public String toString() {
+        return "CustomerOrder{" +
+                "dueDate=" + dueDate +
+                ", status=" + status +
+                ", items=" + items +
+                ", person=" + person +
+                ", id=" + id +
+                ", created=" + created +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

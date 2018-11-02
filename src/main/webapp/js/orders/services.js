@@ -24,7 +24,9 @@ ordersModule.service('OrdersService', function ($http) {
             });
         },
         deleteOrder: function (orderId) {
-            return $http.delete(rootPath + orderId);
+            return $http.delete(rootPath + orderId).then(function (response) {
+                return response.data;
+            });
         },
         getOrders: function () {
             return $http.get(rootPath).then(function (response) {

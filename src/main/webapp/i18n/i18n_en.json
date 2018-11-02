@@ -46,5 +46,12 @@
   "ORDER_NAME"       : "Name",
   "DESCRIPTION"      : "Description",
   "DUE_DATE"         : "Due date",
-  "STATUS"           : "Status"
+  "STATUS"           : "Status",
+
+
+  "ITEMS"            : "Items",
+  "ITEM_NAME"        : "Name",
+  "ITEM_DESCRIPTION" : "Description",
+  "ITEM_COST"        : "Cost",
+  "ITEM_IMAGE"       : "Image"
 }

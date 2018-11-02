@@ -19,7 +19,7 @@ personsModule.config(['$routeProvider', '$locationProvider', function ($routePro
                 return PersonsService.getPersonById($route.current.params.id);
             }
         }
-    }).when('/persons/editPerson', {
+    }).when('/persons/createPerson', {
         templateUrl: 'views/persons/editPerson.html',
         controller: 'EditPersonController',
         resolve: {
@@ -28,10 +28,10 @@ personsModule.config(['$routeProvider', '$locationProvider', function ($routePro
             }
         }
     }).when('/persons', {
-        templateUrl: 'views/persons/viewPerson.html',
+        templateUrl: 'views/persons/viewPersons.html',
         controller: 'PersonsController'
     }).otherwise({
-        templateUrl: 'views/persons/viewPerson.html',
+        templateUrl: 'views/persons/viewPersons.html',
         controller: 'PersonsController'
     });
 }]);

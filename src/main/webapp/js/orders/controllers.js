@@ -1,5 +1,5 @@
 'use strict';
-ordersModule.controller('OrdersController', function ($scope, $location, OrdersService) {
+ordersModule.controller('OrdersController', function ($scope, $location, OrdersService, CommonService) {
     $scope.orders = [];
     getOrders();
 
@@ -27,27 +27,13 @@ ordersModule.controller('OrdersController', function ($scope, $location, OrdersS
         $location.path("/orders/editOrder/" + order.id);
     };
     $scope.navigateToCreate = function () {
-        $location.path("/orders/editOrder");
+        $location.path("/orders/createOrder");
     };
-}).controller('EditOrderController', function ($scope, $location, OrdersService, order) {
+}).controller('EditOrderController', function ($scope, $location, OrdersService, CommonService, order) {
     $scope.currentOrder = order;
     $scope.employees = [];
     $scope.employeesForSelectedDep = [];
     $scope.pageTitle = $scope.currentOrder.id ? 'ORDER_INFO' : 'ORDER_CREATE';
-
-    getEmployees();
-
-    function getEmployees() {
-        /*EmployeeService.getEmployees().then(function (employees) {
-            $scope.employees = employees;
-            filterEmpByDep();
-            if (!angular.isUndefinedOrNull($scope.currentOrder.employee)) {
-                $scope.currentOrder.employee = $scope.employeesForSelectedDep.filter(function (emp) {
-                    return emp.id === $scope.currentOrder.employee.id;
-                })[0];
-            }
-        });*/
-    }
 
     $scope.saveOrder = function (order) {
         if (angular.isUndefinedOrNull(order.id)) {
@@ -68,18 +54,6 @@ ordersModule.controller('OrdersController', function ($scope, $location, OrdersS
             });
         }
     };
-
-    /*
-    function filterEmpByDep() {
-        if (Array.isArray($scope.employees) && $scope.employees.length > 0) {
-            $scope.employeesForSelectedDep = $scope.employees.filter(function (employee) {
-                return employee.department.id === $scope.currentOrder.department.id;
-            });
-        }
-    }*/
-    /*$scope.$watch('currentOrder.department', function () {
-           filterEmpByDep();
-   });*/
 
     if (!angular.isUndefinedOrNull($scope.currentOrder)) {
         if (angular.isUndefinedOrNull($scope.currentOrder.dueDate)) {

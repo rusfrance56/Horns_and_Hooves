@@ -7,7 +7,8 @@ var mainApp = angular.module("mainApp", [
     'ui.bootstrap',
     'Common',
     'personsModule',
-    'ordersModule'
+    'ordersModule',
+    'itemsModule'
 ]);
 /*
 mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {

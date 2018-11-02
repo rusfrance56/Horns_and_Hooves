@@ -1,0 +1,42 @@
+<h2>{{'ITEMS' | translate}}</h2>
+<div st-table="itemRecords" st-safe-src="items">
+    <div class="row inline-row">
+        <div class="inline-row-part">
+            <button class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
+        </div>
+        <div class="inline-row-part">
+            <input st-search="" class="form-control col-lg-2" placeholder="{{'SEARCH' | translate}}" type="text"/>
+        </div>
+    </div>
+    <div id="itemsTable">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th hidden>Id</th>
+                <th>#</th>
+                <th st-sort="name">{{'ITEM_NAME' | translate}}</th>
+                <th st-sort="description">{{'ITEM_DESCRIPTION' | translate}}</th>
+                <th st-sort="cost">{{'ITEM_COST' | translate}}</th>
+                <th>{{'ITEM_IMAGE' | translate}}</th>
+                <th>{{'OPTIONS' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in itemRecords | filter : search">
+                <td hidden>{{item.id}}</td>
+                <td>{{$index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.cost}}</td>
+                <td>{{item.imageURL}}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button class="btn btn-primary" ng-click="navigateToEdit(item)">{{'INFO' | translate}}</button>
+                        <button class="btn btn-danger" ng-click="deleteItem(item)">{{'DELETE' | translate}}</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

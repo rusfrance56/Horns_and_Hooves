@@ -30,7 +30,7 @@
                 <td>{{order.dueDate | date : "dd.MM.yyyy HH:mm"}}</td>
                 <td>{{order.status}}</td>
                 <td>
-                    <div class="btn-group btn-group" role="group" aria-label="...">
+                    <div class="btn-group" role="group" aria-label="...">
                         <button class="btn btn-primary" ng-click="navigateToEdit(order)">{{'INFO' | translate}}</button>
                         <button class="btn btn-danger" ng-click="deleteOrder(order)">{{'DELETE' | translate}}</button>
                     </div>

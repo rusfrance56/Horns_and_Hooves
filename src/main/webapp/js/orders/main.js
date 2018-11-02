@@ -10,15 +10,15 @@ var ordersModule = angular.module("ordersModule", [
 ordersModule.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
     $routeProvider.when('/orders/editOrder/:id', {
-        templateUrl: 'views/order/editOrder.html',
+        templateUrl: 'views/orders/editOrder.html',
         controller: 'EditOrderController',
         resolve: {
             order: function (OrdersService, $route) {
                 return OrdersService.getOrderById($route.current.params.id);
             }
         }
-    }).when('/orders/editOrder/', {
-        templateUrl: 'views/order/editOrder.html',
+    }).when('/orders/createOrder/', {
+        templateUrl: 'views/orders/editOrder.html',
         controller: 'EditOrderController',
         resolve: {
             order: function () {
@@ -26,10 +26,10 @@ ordersModule.config(['$routeProvider', '$locationProvider', function ($routeProv
             }
         }
     }).when('/orders', {
-        templateUrl: 'views/order/viewOrders.html',
+        templateUrl: 'views/orders/viewOrders.html',
         controller: 'OrdersController'
     }).otherwise({
-        templateUrl: 'views/order/viewOrders.html',
+        templateUrl: 'views/orders/viewOrders.html',
         controller: 'OrdersController'
     });
 }]);
