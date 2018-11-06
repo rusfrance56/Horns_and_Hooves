@@ -8,12 +8,9 @@ var mainApp = angular.module("mainApp", [
     'Common',
     'personsModule',
     'ordersModule',
-    'itemsModule'
+    'itemsModule',
+    'tasksModule'
 ]);
-/*
-mainApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    $locationProvider.hashPrefix('');
-}]);*/
 
 mainApp.config(function ($translateProvider) {
     $translateProvider.useStaticFilesLoader({

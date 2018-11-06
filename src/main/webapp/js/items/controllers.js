@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 itemsModule.controller('ItemsController', function ($scope, $location, ItemsService, CommonService) {
     $scope.items = [];
     getItems();

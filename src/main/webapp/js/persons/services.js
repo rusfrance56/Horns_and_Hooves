@@ -1,3 +1,4 @@
+'use strict';
 personsModule.service('PersonsService', function ($http) {
     var rootPath = '/persons/';
     return {

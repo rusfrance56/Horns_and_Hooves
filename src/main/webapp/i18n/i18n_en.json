@@ -53,5 +53,17 @@
   "ITEM_NAME"        : "Name",
   "ITEM_DESCRIPTION" : "Description",
   "ITEM_COST"        : "Cost",
-  "ITEM_IMAGE"       : "Image"
+  "ITEM_IMAGE"       : "Image",
+
+  "TASKS"            : "Tasks",
+  "TASK_NAME"        : "Task name",
+  "PRIORITY"         : "Priority",
+  "TASK_INFO"        : "Tasks info",
+  "TASK_CREATE"      : "Task create",
+
+
+  "HIGH"             : "High",
+  "LOW"              : "Low",
+  "DEPLOYED"         : "Deployed",
+  "FINISHED"         : "Finished"
 }

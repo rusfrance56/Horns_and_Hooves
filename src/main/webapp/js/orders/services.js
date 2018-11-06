@@ -1,3 +1,4 @@
+'use strict';
 ordersModule.service('OrdersService', function ($http) {
     var rootPath = '/orders/';
 

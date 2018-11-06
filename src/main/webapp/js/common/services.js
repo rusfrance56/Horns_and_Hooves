@@ -1,3 +1,4 @@
+'use strict';
 common.service('CommonService', function ($uibModal, $http) {
 
     this.openMessageModal = function (mode, message, modalClass) {

@@ -1,0 +1,46 @@
+<h2>{{'TASKS' | translate}}</h2>
+<div st-table="tasksRecords" st-safe-src="tasks">
+    <div class="row inline-row">
+        <div class="inline-row-part">
+            <button type="button" class="btn btn-primary" ng-click="navigateToCreate(task)">{{'CREATE' | translate}}</button>
+        </div>
+        <div class="inline-row-part">
+            <input st-search="" class="form-control col-lg-2" placeholder="{{'SEARCH' | translate}}" type="text"/>
+        </div>
+    </div>
+    <div id="tasksTable">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th hidden>Id</th>
+                <th>#</th>
+                <th st-sort="name">{{'TASK_NAME' | translate}}</th>
+                <th st-sort="description">{{'DESCRIPTION' | translate}}</th>
+                <th st-sort="dueDate">{{'DUE_DATE' | translate}}</th>
+                <th st-sort="status">{{'STATUS' | translate}}</th>
+                <th st-sort="priority">{{'PRIORITY' | translate}}</th>
+                <th st-sort="department">{{'DEPARTMENT' | translate}}</th>
+                <th>{{'OPTIONS' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="task in tasksRecords | filter : search">
+                <td hidden>{{task.id}}</td>
+                <td>{{$index+1}}</td>
+                <td>{{task.name}}</td>
+                <td>{{task.description}}</td>
+                <td>{{task.dueDate | date : "dd.MM.yyyy HH:mm"}}</td>
+                <td>{{task.status | translate}}</td>
+                <td>{{task.priority | translate}}</td>
+                <td>{{task.department | translate}}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-primary" ng-click="navigateToEdit(task)">{{'INFO' | translate}}</button>
+                        <button type="button" class="btn btn-danger" ng-click="deletePerson(task)">{{'DELETE' | translate}}</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

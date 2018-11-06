@@ -16,7 +16,6 @@
     </div>
     <div id="personTable">
         <table class="table table-striped">
-
             <thead>
             <tr>
                 <th hidden>Id</th>
@@ -39,9 +38,9 @@
                 <td>{{person.name}}</td>
                 <td>{{person.middleName}}</td>
                 <td>{{person.department | translate}}</td>
-                <td>{{person.address | translate}}</td>
-                <td>{{person.email | translate}}</td>
-                <td>{{person.phone | translate}}</td>
+                <td>{{person.address}}</td>
+                <td>{{person.email}}</td>
+                <td>{{person.phone}}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="...">
                         <button type="button" class="btn btn-primary" ng-click="navigateToEdit(person)">{{'INFO' | translate}}</button>
