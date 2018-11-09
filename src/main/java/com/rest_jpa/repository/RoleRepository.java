@@ -1,10 +1,9 @@
 package com.rest_jpa.repository;
 
-import com.rest_jpa.entity.Person;
+import com.rest_jpa.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Long> {
-    Person findByEmail(String email);
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }

@@ -5,7 +5,7 @@ import com.rest_jpa.enumTypes.Department;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @Entity
 @Table(schema = "public", name = "person")
@@ -30,11 +30,19 @@ public class Person extends BaseEntity{
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "password")
+    private String password;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
     private List<Task> tasks;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
     private List<CustomerOrder> orders;
+
+    @ManyToMany
+    @JoinTable(name = "person_role", joinColumns = @JoinColumn(name = "person_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public Person() {
     }
@@ -107,6 +115,22 @@ public class Person extends BaseEntity{
         this.orders = orders;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -116,8 +140,10 @@ public class Person extends BaseEntity{
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
                 ", tasks=" + tasks +
                 ", orders=" + orders +
+                ", roles=" + roles +
                 ", id=" + id +
                 ", created=" + created +
                 ", name='" + name + '\'' +
