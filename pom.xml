@@ -6,7 +6,10 @@
     <groupId>com.rest_jpa</groupId>
     <artifactId>rest_jpa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>db-migration</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>Spring boot REST JPA</name>
     <description>Demo project for Spring Boot</description>
@@ -28,6 +31,7 @@
         <postgresql.version>42.2.4</postgresql.version>
         <hibernate.version>5.3.6.Final</hibernate.version>
         <hibernate-validator.version>6.0.12.Final</hibernate-validator.version>
+        <start-class>com.rest_jpa.Runner</start-class>
     </properties>
 
     <dependencies>

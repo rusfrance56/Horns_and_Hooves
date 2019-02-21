@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="add_new_person_for_test" author="jboss">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT count(id) FROM person WHERE email = 'email42@mail.ru'</sqlCheck>
+        </preConditions>
+        <sql splitStatements="false" stripComments="true">
+            insert into person (name, surname, middle_name, address, phone, email, department, description)
+            values ('Олег2', 'Петрович2', 'Клыков2', 'Address2', '222222222', 'email42@mail.ru', 'OFFICE' , 'description2');
+        </sql>
+        <rollback>
+            <sql splitStatements="false" stripComments="true">
+                delete from person
+                where email = 'email42@mail.ru';
+            </sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

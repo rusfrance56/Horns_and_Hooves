@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <include file="com/horns_and_hooves/db/changelog/release_1/add_new_person_for_test.xml"/>
+
+    <changeSet id="tag_1" author="jboss">
+        <tagDatabase tag="version_1"/>
+    </changeSet>
+</databaseChangeLog>
