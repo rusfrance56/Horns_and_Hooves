@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.description">{{'DESCRITPION' | translate}}:</label>
+            <label class="control-label col-sm-3" for="edit.description">{{'DESCRIPTION' | translate}}:</label>
             <div class="col-sm-9">
                 <input type="text" ng-model="currentOrder.description" class="form-control" id="edit.description"
                        placeholder="{{'ENTER_ORDER_DESCRIPTION' | translate}}" required>
@@ -30,7 +30,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-3" for="edit.status">{{'STATUS' | translate}}:</label>
             <div class="col-sm-9">
-                <input type="text" ng-model="currentOrder.status" class="form-control" id="edit.status"
+                <input type="text" ng-model="currentOrder.status | translate" class="form-control" id="edit.status"
                        placeholder="{{'STATUS' | translate}}" disabled>
             </div>
         </div>
@@ -46,10 +46,10 @@
         <tr>
             <th hidden>Id</th>
             <th>#</th>
-            <th>name</th>
-            <th>description</th>
-            <th>cost</th>
-            <th>image</th>
+            <th>{{'ITEM_NAME' | translate}}</th>
+            <th>{{'DESCRIPTION' | translate}}</th>
+            <th>{{'ITEM_COST' | translate}}</th>
+            <th>{{'ITEM_IMAGE' | translate}}</th>
         </tr>
         </thead>
         <tbody>
