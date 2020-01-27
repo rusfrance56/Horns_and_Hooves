@@ -2,9 +2,12 @@ package com.rest_jpa.entity.to;
 
 import com.rest_jpa.entity.Item;
 
+import javax.validation.constraints.NotNull;
+
 public class ItemTO {
     private long id;
     private String name;
+    @NotNull
     private String description;
     private String imageUrl;
     private double cost;

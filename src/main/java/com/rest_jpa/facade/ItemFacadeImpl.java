@@ -23,6 +23,7 @@ public class ItemFacadeImpl implements ItemFacade {
         Item item = new Item(to);
         to.setId(itemService.create(item).getId());
         return to;
+//        throw new ApplicationException(ErrorKey.TASK_NOT_FOUND, 1);
     }
 
     @Override

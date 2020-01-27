@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -29,4 +30,11 @@ public class ExceptionControllerAdvice {
             return new ResponseEntity<>(restResponse, HttpStatus.OK);
         }
     }
+//    @ExceptionHandler({MethodArgumentNotValidException.class})
+//    public ResponseEntity<RestResponse> handleExceptions(MethodArgumentNotValidException ex) {
+//        LOG.error("Exception in rest service", ex);
+//        RestResponse restResponse = RestResponse.FAIL(ex.getMessage(), ex.getBindingResult().getAllErrors().stream().map(e -> e.), ex.getLocalizedMessage());
+////        TODO переписать логику фронта для обработки нескольких ошибок, а тут собрать массив ошибок
+//        return new ResponseEntity<>(restResponse, HttpStatus.OK);
+//    }
 }

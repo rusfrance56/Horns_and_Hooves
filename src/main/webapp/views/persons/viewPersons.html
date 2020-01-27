@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="person in personsRecords | filter: search">
+            <tr ng-repeat="person in personsRecords | filter: search"> <!--ng-click="navigateToEdit(person)"-->
                 <td hidden>{{person.id}}</td>
                 <td>{{$index+1}}</td>
                 <td>{{person.surname}}</td>

@@ -33,37 +33,44 @@
   "ENTER_PHONE"       : "Введите телефон",
   "ENTER_EMAIL"       : "Введите email",
 
-
   "CUSHIONED"         : "Мягкая мебель",
   "OFFICE"            : "Офисная мебель",
   "STORAGE"           : "Мебель для хранения",
 
-
   "SHOW_ON_PAGE"      : "Показывать по: ",
   "WRONG_INPUT_DATA"  : "неправильные входные данные!",
-
 
   "ORDER_NAME"       : "Имя заказа",
   "DESCRIPTION"      : "Описание",
   "DUE_DATE"         : "Дата окончания",
   "STATUS"           : "Статус",
-
+  "ENTER_ORDER_DESCRIPTION"           : "Введите описание",
 
   "ITEMS"            : "Товары",
   "ITEM_NAME"        : "Название",
   "ITEM_DESCRIPTION" : "Описание",
   "ITEM_COST"        : "Стоимость",
   "ITEM_IMAGE"       : "Изображение",
+  "ITEM_CREATE"      : "Создание товара",
+  "ENTER_ITEM_NAME"             : "Введите название",
+  "ENTER_ITEM_DESCRIPTION"      : "Введите описание",
+  "ENTER_ITEM_COST"             : "Задайте цену",
+  "ENTER_ITEM_IMAGE"            : "Добавьте изображение",
 
   "TASKS"            : "Задания",
   "TASK_NAME"        : "Название задачи",
   "PRIORITY"         : "Приоритет",
   "TASK_INFO"        : "Информация о задаче",
   "TASK_CREATE"      : "Создание задачи",
-
+  "ENTER_TASK_NAME"             : "Введите название",
+  "ENTER_TASK_DESCRIPTION"      : "Введите описание",
 
   "HIGH"             : "Высокий",
   "LOW"              : "Низкий",
   "DEPLOYED"         : "В работе",
-  "FINISHED"         : "Завершено"
+  "FINISHED"         : "Завершено",
+
+  "CREATED"          : "Создан",
+  "DEVELOPED"        : "Выполняется",
+  "FINISHED"         : "Завершен"
 }
