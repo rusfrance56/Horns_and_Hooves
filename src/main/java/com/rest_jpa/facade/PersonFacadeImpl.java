@@ -72,7 +72,11 @@ public class PersonFacadeImpl implements PersonFacade {
         person.setAddress(to.getAddress());
         person.setEmail(to.getEmail());
         person.setPhone(to.getPhone());
-        person.setTasks(taskService.findAllByIds(to.getTasks()));
-        person.setOrders(orderService.findAllByIds(to.getOrders()));
+        if (!to.getTasks().isEmpty()) {
+            person.setTasks(taskService.findAllByIds(to.getTasks()));
+        }
+        if (!to.getOrders().isEmpty()) {
+            person.setOrders(orderService.findAllByIds(to.getOrders()));
+        }
     }
 }
