@@ -1,0 +1,1 @@
+web: java -jar webapp-runner.jar ../rest_jpa-0.0.1-SNAPSHOT.war
