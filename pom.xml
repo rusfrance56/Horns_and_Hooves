@@ -6,7 +6,7 @@
     <groupId>com.rest_jpa</groupId>
     <artifactId>rest_jpa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>Spring boot REST JPA</name>
     <description>Demo project for Spring Boot</description>
@@ -157,11 +157,11 @@
     </profiles>
     <build>
         <plugins>
-           <!-- <plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>-->
-            <plugin>
+            </plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -180,7 +180,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>
