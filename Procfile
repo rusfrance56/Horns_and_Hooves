@@ -1,1 +1,1 @@
-web: java -jar target/rest_jpa-0.0.1-SNAPSHOT.jar
+web: java -jar target/rest_jpa-0.0.1-SNAPSHOT.jar -Dspring.profiles.active=postgre
