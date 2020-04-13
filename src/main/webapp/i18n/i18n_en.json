@@ -56,6 +56,7 @@
   "ENTER_ITEM_DESCRIPTION"      : "Enter description",
   "ENTER_ITEM_COST"             : "Enter cost",
   "ENTER_ITEM_IMAGE"            : "Add image",
+  "ITEM_INFO"            : "Item info",
 
   "TASKS"            : "Tasks",
   "TASK_NAME"        : "Task name",

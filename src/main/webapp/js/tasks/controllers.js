@@ -18,7 +18,7 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
             if (response.error) {
                 CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
             } else {
-                $scope.tasks.slice($scope.tasks.indexOf(task), 1);
+                $scope.tasks.splice($scope.tasks.indexOf(task), 1);
             }
         });
     };

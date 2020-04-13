@@ -56,6 +56,7 @@
   "ENTER_ITEM_DESCRIPTION"      : "Введите описание",
   "ENTER_ITEM_COST"             : "Задайте цену",
   "ENTER_ITEM_IMAGE"            : "Добавьте изображение",
+  "ITEM_INFO"            : "Информация о товаре",
 
   "TASKS"            : "Задания",
   "TASK_NAME"        : "Название задачи",

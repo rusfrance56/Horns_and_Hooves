@@ -27,10 +27,11 @@ public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
     @Override
     public CustomerOrderTO create(CustomerOrderRequestTO to) {
         CustomerOrder order = new CustomerOrder();
-        setParameters(order, to);
-
+        setOrderParametersFromTO(order, to);
         CustomerOrderTO customerOrderTO = new CustomerOrderTO(order);
-        to.setId(customerOrderService.create(order).getId());
+        CustomerOrder newCustomerOrder = customerOrderService.create(order);
+
+        customerOrderTO.setId(newCustomerOrder.getId());
         return customerOrderTO;
     }
 
@@ -38,7 +39,7 @@ public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
     public void update(CustomerOrderRequestTO to) {
         checkNotNull(to.getId(), WRONG_INPUT_DATA, to.getId());
         CustomerOrder order = customerOrderService.findById(to.getId());
-        setParameters(order, to);
+        setOrderParametersFromTO(order, to);
         customerOrderService.update(order);
     }
 
@@ -59,7 +60,7 @@ public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
         return new CustomerOrderTO(order);
     }
 
-    private void setParameters(CustomerOrder order, CustomerOrderRequestTO to) {
+    private void setOrderParametersFromTO(CustomerOrder order, CustomerOrderRequestTO to) {
         order.setId(to.getId());
         order.setName(to.getName());
         order.setDescription(to.getDescription());

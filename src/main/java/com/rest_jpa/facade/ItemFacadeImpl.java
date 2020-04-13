@@ -31,6 +31,7 @@ public class ItemFacadeImpl implements ItemFacade {
         checkNotNull(to.getId(), WRONG_INPUT_DATA, to.getId());
         Item item = itemService.findById(to.getId());
         item.setName(to.getName());
+        item.setDescription(to.getDescription());
         item.setImageUrl(to.getImageUrl());
         item.setCost(to.getCost());
         itemService.update(item);

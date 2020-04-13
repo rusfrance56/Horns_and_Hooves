@@ -18,7 +18,7 @@ itemsModule.controller('ItemsController', function ($scope, $location, ItemsServ
             if (response.error) {
                 CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
             } else {
-                $scope.items.slice($scope.items.indexOf(item), 1);
+                $scope.items.splice($scope.items.indexOf(item), 1);
             }
         });
     };
