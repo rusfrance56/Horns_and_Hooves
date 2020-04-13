@@ -1,8 +1,9 @@
 package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.Person;
-import com.rest_jpa.entity.to.PersonRequestTO;
+import com.rest_jpa.entity.to.CustomerOrderTO;
 import com.rest_jpa.entity.to.PersonTO;
+import com.rest_jpa.entity.to.TaskTO;
 import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.servise.CustomerOrderService;
 import com.rest_jpa.servise.PersonService;
@@ -26,24 +27,22 @@ public class PersonFacadeImpl implements PersonFacade {
     private TaskService taskService;
 
     @Autowired
-    private CustomerOrderService orderService;
+    private CustomerOrderService customerOrderService;
 
     @Override
-    public PersonTO create(PersonRequestTO to) {
+    public PersonTO create(PersonTO to) {
         Person person = new Person();
-        setParameters(person, to);
-
+        setPersonParametersFromTO(person, to);
         Long newPersonId = personService.create(person).getId();
-        PersonTO personTO = new PersonTO(person);
         to.setId(newPersonId);
-        return personTO;
+        return to;
     }
 
     @Override
-    public void update(PersonRequestTO to) {
+    public void update(PersonTO to) {
         checkNotNull(to.getId(), WRONG_INPUT_DATA, to.getId());
         Person person = personService.findById(to.getId());
-        setParameters(person, to);
+        setPersonParametersFromTO(person, to);
         personService.update(person);
     }
 
@@ -64,7 +63,7 @@ public class PersonFacadeImpl implements PersonFacade {
         return new PersonTO(person);
     }
 
-    private void setParameters(Person person, PersonRequestTO to) {
+    private void setPersonParametersFromTO(Person person, PersonTO to) {
         person.setName(to.getName());
         person.setSurname(to.getSurname());
         person.setMiddleName(to.getMiddleName());
@@ -73,10 +72,10 @@ public class PersonFacadeImpl implements PersonFacade {
         person.setEmail(to.getEmail());
         person.setPhone(to.getPhone());
         if (!to.getTasks().isEmpty()) {
-            person.setTasks(taskService.findAllByIds(to.getTasks()));
+            person.setTasks(taskService.findAllByIds(to.getTasks().stream().map(TaskTO::getId).collect(Collectors.toList())));
         }
         if (!to.getOrders().isEmpty()) {
-            person.setOrders(orderService.findAllByIds(to.getOrders()));
+            person.setOrders(customerOrderService.findAllByIds(to.getOrders().stream().map(CustomerOrderTO::getId).collect(Collectors.toList())));
         }
     }
 }

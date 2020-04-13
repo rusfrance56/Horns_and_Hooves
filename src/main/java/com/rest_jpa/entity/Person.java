@@ -39,10 +39,6 @@ public class Person extends BaseEntity{
     public Person() {
     }
 
-    public Person(PersonTO to) {
-
-    }
-
     public String getSurname() {
         return surname;
     }

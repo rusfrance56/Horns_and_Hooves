@@ -20,7 +20,7 @@ public class Item extends BaseEntity {
     }
 
     public Item(ItemTO to) {
-        this.name = to.getName();
+        super(null, to.getName(), to.getDescription());
         this.imageUrl = to.getImageUrl();
         this.cost = to.getCost();
     }
