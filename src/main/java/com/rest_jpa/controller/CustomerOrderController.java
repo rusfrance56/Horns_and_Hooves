@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,12 +18,12 @@ public class CustomerOrderController {
     private CustomerOrderFacade customerOrderFacade;
 
     @PostMapping
-    public ResponseEntity<CustomerOrderTO> create(@Valid @RequestBody CustomerOrderRequestTO to) {
+    public ResponseEntity<CustomerOrderTO> create(@RequestBody CustomerOrderRequestTO to) {
         return new ResponseEntity<>(customerOrderFacade.create(to), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@Valid @RequestBody CustomerOrderRequestTO to) {
+    public ResponseEntity<Void> update(@RequestBody CustomerOrderRequestTO to) {
         customerOrderFacade.update(to);
         return new ResponseEntity<>(HttpStatus.OK);
     }

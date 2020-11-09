@@ -1,13 +1,13 @@
 package com.rest_jpa.exceptions;
 
+import org.apache.logging.log4j.util.Strings;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Supplier;
-
-import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class ApplicationException extends FacadeException{
     private static final long serialVersionUID = 1L;
@@ -103,7 +103,7 @@ public class ApplicationException extends FacadeException{
     }
 
     public static String checkNotNullAndNotEmpty(String value, ErrorKey key, Object... arguments) throws ApplicationException {
-        if (isNullOrEmpty(value)) {
+        if (Strings.isBlank(value)) {
             throw new ApplicationException(key, arguments);
         } else {
             return value;

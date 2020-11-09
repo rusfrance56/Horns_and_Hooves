@@ -1,6 +1,5 @@
 package com.rest_jpa.entity;
 
-import com.rest_jpa.entity.to.PersonTO;
 import com.rest_jpa.enumTypes.Department;
 
 import javax.persistence.*;

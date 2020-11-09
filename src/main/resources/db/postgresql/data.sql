@@ -4,7 +4,7 @@ DELETE FROM item;
 DELETE FROM person_roles;
 DELETE FROM task;
 DELETE FROM person;
-ALTER SEQUENCE global_seq RESTART WITH 100100;
+ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100100;
 
 INSERT INTO person (id, name, middle_name, surname, address, phone, email, department, description) VALUES
   (100001, 'Сергей', 'Олегович', 'Синицын', 'Address', '89268501232', 'email@mail.ru', 'OFFICE', 'description'),

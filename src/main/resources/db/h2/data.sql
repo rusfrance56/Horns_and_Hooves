@@ -1,24 +1,33 @@
-DELETE FROM order_furniture;
+DELETE FROM order_items;
+DELETE FROM customer_order;
+DELETE FROM item;
+DELETE FROM person_roles;
+DELETE FROM task;
 DELETE FROM person;
-DELETE FROM department;
-ALTER SEQUENCE global_seq RESTART WITH 100000;
+ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100100;
 
-INSERT INTO department (name) VALUES
-  ('CUSHIONED'),
-  ('STORAGE'),
-  ('OFFICE');
-INSERT INTO person (name, department_id, middle_name, sur_name) VALUES
-  ('Сергей', 100000, 'Олегович', 'Синицын'),
-  ('Егор', 100000, 'Павлович', 'Майоров'),
-  ('Олег', 100000, 'Александрович', 'Петров'),
-  ('Олег', 100001, 'Петрович', 'Клыков'),
-  ('Павел', 100001, 'Иванович', 'Соболев'),
-  ('Армен', 100002, 'Вахтангович', 'Гугаров');
-INSERT INTO order_furniture (name, date, is_assigned, employee_id, department_id) VALUES
-  ('Кожаный диван', '2017-10-11 15:36:38', 'true', 100003, 100000),
-  ('Кожаный стул', '2017-10-22 17:59:38', 'true', 100003, 100000),
-  ('Кожаный стул', '2017-10-12 12:00:00', 'true', 100005, 100000),
-  ('Книжная полка', '2017-11-08 12:30:00', 'true', 100006, 100001),
-  ('Книжная полка', '2017-11-08 12:30:00', 'true', 100007, 100001),
-  ('Кресло директора', '2017-11-12 14:38:00', 'true', 100008, 100002);
+INSERT INTO person (id, name, middle_name, surname, address, phone, email, department, description) VALUES
+  (100001, 'Сергей', 'Олегович', 'Синицын', 'Address', '89268501232', 'email@mail.ru', 'OFFICE', 'description'),
+  (100002, 'Егор', 'Павлович', 'Майоров', 'Address', '89268501232', 'email@mail.ru', 'STORAGE', 'description'),
+  (100003, 'Олег', 'Александрович', 'Петров', 'Address', '89268501232', 'email@mail.ru', 'OFFICE', 'description'),
+  (100004, 'Олег', 'Петрович', 'Клыков', 'Address', '89268501232', 'email@mail.ru', 'CUSHIONED', 'description'),
+  (100005, 'Павел', 'Иванович', 'Соболев', 'Address', '89268501232', 'email@mail.ru', 'STORAGE', 'description'),
+  (100006, 'Армен', 'Вахтангович', 'Гугаров', 'Address', '89268501232', 'email@mail.ru', null, 'description');
+
+INSERT INTO item (id, name, description, image_url, cost) VALUES
+  (100007, 'Книжний шкаф', 'Книжный шкаф из красного дерева. Имееет выдвижные ящички по бокам и 3 полки', '/link/sfasfa/fasdf.jpg', 2343.12),
+  (100008, 'Журнальный столик черный', 'Журнальный столик с добавлением пластиковых вставок и кожанной отделкой', '/link/sfasfa/fasdf.jpg', 1233.86),
+  (100009, 'Стул', 'Стул удобный, с регулируемой спинкой и высотой посадки', '/link/sfasfa/fasdf.jpg', 856.32);
+
+INSERT INTO customer_order (id, name, due_date, status, description, person_id) VALUES
+  (100010, 'order1', '2018-12-19 08:17:00', 'CREATED', 'Сделайте пожалуйста хорошо!', 100006);
+
+INSERT INTO order_items (customer_order_id, item_id) VALUES
+  (100010, 100007),
+  (100010, 100009);
+
+INSERT INTO task (id, name, due_date, status, priority, person_id, department, description) VALUES
+  (100011, 'Книжный шкаф задание', '2018-12-19 08:17:00', 'DEPLOYED', 'HIGH', 100002, 'STORAGE', 'Описание шкафа'),
+  (100012, 'Стул офисный', '2018-12-19 08:17:00', 'DEPLOYED', 'LOW', 100001, 'OFFICE', 'Описание стула');
+
 
