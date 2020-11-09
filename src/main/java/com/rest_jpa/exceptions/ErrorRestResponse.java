@@ -2,30 +2,30 @@ package com.rest_jpa.exceptions;
 
 import java.util.Arrays;
 
-public class RestResponse {
+public class ErrorRestResponse {
 
     private String error;
     private String errorMessage;
     private Object[] errorParams;
 
-    public static RestResponse FAIL(String error, Object... errorParams){
-        return new RestResponse(error,errorParams);
+    public static ErrorRestResponse FAIL(String error, Object... errorParams){
+        return new ErrorRestResponse(error,errorParams);
     }
 
-    public static RestResponse FAIL(String error, Object[] errorParams, String errorMessage) {
-        RestResponse response = new RestResponse(error, errorParams);
+    public static ErrorRestResponse FAIL(String error, Object[] errorParams, String errorMessage) {
+        ErrorRestResponse response = new ErrorRestResponse(error, errorParams);
         response.setErrorMessage(errorMessage);
         return response;
     }
 
-    public RestResponse() {
+    public ErrorRestResponse() {
     }
 
-    public RestResponse(String error) {
+    public ErrorRestResponse(String error) {
         this.error = error;
     }
 
-    public RestResponse(String error, Object[] errorParams) {
+    public ErrorRestResponse(String error, Object[] errorParams) {
         this.error = error;
         this.errorParams = errorParams;
     }
@@ -56,7 +56,7 @@ public class RestResponse {
 
     @Override
     public String toString() {
-        return "RestResponse{" +
+        return "ErrorRestResponse{" +
                 "error='" + error + '\'' +
                 ", errorParams=" + Arrays.toString(errorParams) +
                 ", errorMessage='" + errorMessage + '\'' +

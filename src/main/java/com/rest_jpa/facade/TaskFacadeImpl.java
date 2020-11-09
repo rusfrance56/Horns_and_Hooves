@@ -30,7 +30,7 @@ public class TaskFacadeImpl implements TaskFacade {
 
     @Override
     public void update(TaskTO to) {
-        checkNotNull(to.getId(), WRONG_INPUT_DATA, to.getId());
+        checkNotNull(to.getId(), WRONG_INPUT_DATA, "id");
         Task task = taskService.findById(to.getId());
         task.setName(to.getName());
         task.setDescription(to.getDescription());

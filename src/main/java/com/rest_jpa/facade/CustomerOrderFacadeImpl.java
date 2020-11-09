@@ -37,7 +37,7 @@ public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
 
     @Override
     public void update(CustomerOrderRequestTO to) {
-        checkNotNull(to.getId(), WRONG_INPUT_DATA, to.getId());
+        checkNotNull(to.getId(), WRONG_INPUT_DATA, "id");
         CustomerOrder order = customerOrderService.findById(to.getId());
         setOrderParametersFromTO(order, to);
         customerOrderService.update(order);

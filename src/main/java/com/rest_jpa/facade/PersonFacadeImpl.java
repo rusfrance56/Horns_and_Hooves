@@ -40,7 +40,7 @@ public class PersonFacadeImpl implements PersonFacade {
 
     @Override
     public void update(PersonTO to) {
-        checkNotNull(to.getId(), WRONG_INPUT_DATA, to.getId());
+        checkNotNull(to.getId(), WRONG_INPUT_DATA, "id");
         Person person = personService.findById(to.getId());
         setPersonParametersFromTO(person, to);
         personService.update(person);

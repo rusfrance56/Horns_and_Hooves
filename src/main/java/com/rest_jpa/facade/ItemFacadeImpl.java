@@ -28,7 +28,7 @@ public class ItemFacadeImpl implements ItemFacade {
 
     @Override
     public void update(ItemTO to) {
-        checkNotNull(to.getId(), WRONG_INPUT_DATA, to.getId());
+        checkNotNull(to.getId(), WRONG_INPUT_DATA, "id");
         Item item = itemService.findById(to.getId());
         item.setName(to.getName());
         item.setDescription(to.getDescription());
