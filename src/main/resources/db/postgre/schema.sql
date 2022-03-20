@@ -9,7 +9,7 @@ DROP SEQUENCE IF EXISTS GLOBAL_SEQ;
 CREATE SEQUENCE GLOBAL_SEQ START 100000;
 
 CREATE TABLE person (
-  id            INTEGER             DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
+  id            INTEGER             DEFAULT nextval('GLOBAL_SEQ') PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   surname       VARCHAR(50)         NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE person (
   description   VARCHAR
 );
 CREATE TABLE customer_order (
-  id            INTEGER             DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
+  id            INTEGER             DEFAULT nextval('GLOBAL_SEQ') PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   due_date      TIMESTAMP,
@@ -31,7 +31,7 @@ CREATE TABLE customer_order (
   FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE CASCADE
 );
 CREATE TABLE item (
-  id            INTEGER             DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
+  id            INTEGER             DEFAULT nextval('GLOBAL_SEQ') PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR,
@@ -46,7 +46,7 @@ CREATE TABLE order_items (
   FOREIGN KEY (item_id) REFERENCES item (id) ON DELETE RESTRICT
 );
 CREATE TABLE task (
-  id            INTEGER             DEFAULT GLOBAL_SEQ.nextval PRIMARY KEY,
+  id            INTEGER             DEFAULT nextval('GLOBAL_SEQ') PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   due_date      TIMESTAMP           DEFAULT now(),
