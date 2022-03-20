@@ -13,8 +13,11 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemController {
 
-    @Autowired
     private ItemFacade itemFacade;
+
+    public ItemController(ItemFacade itemFacade) {
+        this.itemFacade = itemFacade;
+    }
 
     @PostMapping
     public ResponseEntity<ItemTO> create(@RequestBody ItemTO to) {

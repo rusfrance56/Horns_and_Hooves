@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping("/orders")
 public class CustomerOrderController {
 
-    @Autowired
     private CustomerOrderFacade customerOrderFacade;
+
+    public CustomerOrderController(CustomerOrderFacade customerOrderFacade) {
+        this.customerOrderFacade = customerOrderFacade;
+    }
 
     @PostMapping
     public ResponseEntity<CustomerOrderTO> create(@RequestBody CustomerOrderRequestTO to) {

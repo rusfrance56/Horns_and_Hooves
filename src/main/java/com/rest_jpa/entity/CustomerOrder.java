@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(schema = "public", name = "customer_order")
-public class CustomerOrder extends BaseEntity{
+public class CustomerOrder extends BaseEntity {
 
     @Column(name = "due_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")

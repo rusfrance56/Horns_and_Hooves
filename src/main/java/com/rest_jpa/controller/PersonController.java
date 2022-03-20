@@ -13,8 +13,11 @@ import java.util.List;
 @RequestMapping("/persons")
 public class PersonController {
 
-    @Autowired
     private PersonFacade personFacade;
+
+    public PersonController(PersonFacade personFacade) {
+        this.personFacade = personFacade;
+    }
 
     @PostMapping
     public ResponseEntity<PersonTO> create(@RequestBody PersonTO request) {

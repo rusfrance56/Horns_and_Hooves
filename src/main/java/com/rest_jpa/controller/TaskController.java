@@ -13,8 +13,11 @@ import java.util.List;
 @RequestMapping("/tasks")
 public class TaskController {
 
-    @Autowired
     private TaskFacade taskFacade;
+
+    public TaskController(TaskFacade taskFacade) {
+        this.taskFacade = taskFacade;
+    }
 
     @PostMapping
     public ResponseEntity<TaskTO> create(@RequestBody TaskTO to) {

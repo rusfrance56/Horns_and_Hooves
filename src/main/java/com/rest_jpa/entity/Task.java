@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(schema = "public", name = "task")
-public class Task extends BaseEntity{
+public class Task extends BaseEntity {
 
     @Column(name = "due_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
