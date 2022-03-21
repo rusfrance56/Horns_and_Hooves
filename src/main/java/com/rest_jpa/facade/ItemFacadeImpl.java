@@ -3,7 +3,6 @@ package com.rest_jpa.facade;
 import com.rest_jpa.entity.Item;
 import com.rest_jpa.entity.to.ItemTO;
 import com.rest_jpa.servise.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +14,11 @@ import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 @Service
 public class ItemFacadeImpl implements ItemFacade {
 
-    @Autowired
     private ItemService itemService;
+
+    public ItemFacadeImpl(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @Override
     public ItemTO create(ItemTO to) {

@@ -3,7 +3,6 @@ package com.rest_jpa.servise;
 import com.rest_jpa.entity.Person;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +15,11 @@ import static com.rest_jpa.exceptions.ErrorKey.PERSON_NOT_FOUND;
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    @Autowired
     private PersonRepository personRepository;
+
+    public PersonServiceImpl(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     @Override
     public Person create(Person person) {

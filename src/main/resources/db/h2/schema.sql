@@ -13,7 +13,6 @@ CREATE TABLE person (
   created       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   surname       VARCHAR(50)         NOT NULL,
-  middle_name   VARCHAR(50),
   address       VARCHAR             NOT NULL,
   phone         VARCHAR(20)         NOT NULL,
   email         VARCHAR(50)         NOT NULL,

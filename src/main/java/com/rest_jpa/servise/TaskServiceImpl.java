@@ -3,7 +3,6 @@ package com.rest_jpa.servise;
 import com.rest_jpa.entity.Task;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +15,11 @@ import static com.rest_jpa.exceptions.ErrorKey.TASK_NOT_FOUND;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    @Autowired
     private TaskRepository taskRepository;
+
+    public TaskServiceImpl(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     @Override
     public Task create(Task task) {

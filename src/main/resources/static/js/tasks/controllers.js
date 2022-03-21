@@ -1,7 +1,20 @@
 'use strict';
-tasksModule.controller('TasksController', function ($scope, $location, TasksService, CommonService) {
+tasksModule.controller('TasksController', function ($scope, $location, TasksService, CommonService, PersonsService) {
     $scope.tasks = [];
-    getTasks();
+    $scope.persons = [];
+    $scope.tasks = [];
+    loadData();
+
+    function loadData() {
+        $scope.persons = PersonsService.getPersons().then(function (response) {
+            if (response.error) {
+                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+            } else {
+                $scope.persons = response;
+                getTasks();
+            }
+        });
+    }
 
     function getTasks() {
         TasksService.getTasks().then(function (response) {
@@ -9,6 +22,12 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
                 CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
             } else {
                 $scope.tasks = response;
+                $scope.tasks.forEach(task => {
+                    let personForTask = $scope.persons.filter(person => person.id === task.personId)[0];
+                    if (!angular.isUndefinedOrNull(personForTask)) {
+                        task.person = personForTask;
+                    }
+                });
             }
         });
     }
@@ -29,12 +48,13 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
     $scope.navigateToCreate = function () {
         $location.path('/tasks/createTask');
     };
-}).controller('EditTaskController', function ($scope, $location, TasksService, CommonService, task) {
+}).controller('EditTaskController', function ($scope, $location, TasksService, CommonService, task, PersonsService) {
     $scope.currentTask = task;
     $scope.pageTitle = $scope.currentTask.id ? 'TASK_INFO' : 'TASK_CREATE';
     $scope.departments = [];
     $scope.statuses = [];
     $scope.priorities = [];
+    $scope.persons = [];
 
     loadData();
 
@@ -42,6 +62,13 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
         getDepartments();
         getStatuses();
         getPriorities();
+        $scope.persons = PersonsService.getPersons().then(function (response) {
+            if (response.error) {
+                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+            } else {
+                $scope.persons = response;
+            }
+        });
     }
 
     $scope.saveTask = function (task) {

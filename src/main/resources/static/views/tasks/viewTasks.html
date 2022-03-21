@@ -20,6 +20,7 @@
                 <th st-sort="status">{{'STATUS' | translate}}</th>
                 <th st-sort="priority">{{'PRIORITY' | translate}}</th>
                 <th st-sort="department">{{'DEPARTMENT' | translate}}</th>
+                <th st-sort="person">{{'PERSON' | translate}}</th>
                 <th>{{'OPTIONS' | translate}}</th>
             </tr>
             </thead>
@@ -33,6 +34,7 @@
                 <td>{{task.status | translate}}</td>
                 <td>{{task.priority | translate}}</td>
                 <td>{{task.department | translate}}</td>
+                <td>{{task.person != null ? task.person.surname + ' ' + task.person.name : ''}}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="...">
                         <button type="button" class="btn btn-primary" ng-click="navigateToEdit(task)">{{'INFO' | translate}}</button>

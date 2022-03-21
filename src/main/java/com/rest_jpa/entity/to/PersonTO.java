@@ -12,7 +12,6 @@ public class PersonTO {
     private long id;
     private String name;
     private String surname;
-    private String middleName;
     private String department;
     private String address;
     private String email;
@@ -23,12 +22,11 @@ public class PersonTO {
     public PersonTO() {
     }
 
-    public PersonTO(long id, String name, String surname, String middleName, Department department,
+    public PersonTO(long id, String name, String surname, Department department,
                     String address, String email, String phone, List<TaskTO> tasks, List<CustomerOrderTO> orders) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.middleName = middleName;
         this.department = department != null ? department.name() : null;
         this.address = address;
         this.email = email;
@@ -41,7 +39,6 @@ public class PersonTO {
         this.id = person.getId();
         this.name = person.getName();
         this.surname = person.getSurname();
-        this.middleName = person.getMiddleName();
         this.department = person.getDepartment() != null ? person.getDepartment().name() : null;
         this.address = person.getAddress();
         this.email = person.getEmail();
@@ -72,14 +69,6 @@ public class PersonTO {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
     }
 
     public String getDepartment() {
@@ -136,7 +125,6 @@ public class PersonTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", middleName='" + middleName + '\'' +
                 ", department='" + department + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +

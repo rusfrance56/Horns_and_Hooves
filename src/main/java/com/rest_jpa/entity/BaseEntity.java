@@ -28,8 +28,7 @@ public class BaseEntity {
     public BaseEntity() {
     }
 
-    public BaseEntity(LocalDateTime created, String name, String description) {
-        this.created = created;
+    public BaseEntity(String name, String description) {
         this.name = name;
         this.description = description;
     }

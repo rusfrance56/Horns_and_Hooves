@@ -13,9 +13,6 @@ public class Person extends BaseEntity {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "middle_name")
-    private String middleName;
-
     @Column(name = "department")
     @Enumerated(EnumType.STRING)
     private Department department;
@@ -44,14 +41,6 @@ public class Person extends BaseEntity {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
     }
 
     public Department getDepartment() {
@@ -106,7 +95,6 @@ public class Person extends BaseEntity {
     public String toString() {
         return "Person{" +
                 "surname='" + surname + '\'' +
-                ", middleName='" + middleName + '\'' +
                 ", department=" + department +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +

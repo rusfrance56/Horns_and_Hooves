@@ -3,7 +3,6 @@ package com.rest_jpa.controller;
 import com.rest_jpa.entity.to.CustomerOrderRequestTO;
 import com.rest_jpa.entity.to.CustomerOrderTO;
 import com.rest_jpa.facade.CustomerOrderFacade;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

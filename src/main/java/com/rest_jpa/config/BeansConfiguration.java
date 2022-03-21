@@ -4,14 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeansConfiguration implements InitializingBean {
 
-    @Autowired
     private ObjectMapper mapper;
+
+    public BeansConfiguration(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {

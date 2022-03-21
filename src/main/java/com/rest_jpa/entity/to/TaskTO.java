@@ -9,19 +9,20 @@ import java.time.LocalDateTime;
 
 public class TaskTO {
 
-    private long id;
+    private Long id;
     private String name;
     private String description;
     private LocalDateTime dueDate;
     private String status;
     private String priority;
     private String department;
+    private Long personId;
 
     public TaskTO() {
     }
 
-    public TaskTO(long id, String name, String description, LocalDateTime dueDate,
-                  TaskStatus status, TaskPriority priority, Department department) {
+    public TaskTO(Long id, String name, String description, LocalDateTime dueDate,
+                  TaskStatus status, TaskPriority priority, Department department, Long person_id) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -29,6 +30,7 @@ public class TaskTO {
         this.status = status.name();
         this.priority = priority.name();
         this.department = department.name();
+        this.personId = person_id;
     }
 
     public TaskTO(Task task) {
@@ -39,13 +41,14 @@ public class TaskTO {
         this.status = task.getStatus().name();
         this.priority = task.getPriority().name();
         this.department = task.getDepartment().name();
+        this.personId = task.getPerson() != null ? task.getPerson().getId() : null;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -95,6 +98,14 @@ public class TaskTO {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     @Override

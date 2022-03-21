@@ -6,13 +6,13 @@ DELETE FROM task;
 DELETE FROM person;
 ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100100;
 
-INSERT INTO person (id, name, middle_name, surname, address, phone, email, department, description) VALUES
-  (100001, 'Сергей', 'Олегович', 'Синицын', 'Address', '89268501232', 'email@mail.ru', 'OFFICE', 'description'),
-  (100002, 'Егор', 'Павлович', 'Майоров', 'Address', '89268501232', 'email@mail.ru', 'STORAGE', 'description'),
-  (100003, 'Олег', 'Александрович', 'Петров', 'Address', '89268501232', 'email@mail.ru', 'OFFICE', 'description'),
-  (100004, 'Олег', 'Петрович', 'Клыков', 'Address', '89268501232', 'email@mail.ru', 'CUSHIONED', 'description'),
-  (100005, 'Павел', 'Иванович', 'Соболев', 'Address', '89268501232', 'email@mail.ru', 'STORAGE', 'description'),
-  (100006, 'Армен', 'Вахтангович', 'Гугаров', 'Address', '89268501232', 'email@mail.ru', null, 'description');
+INSERT INTO person (id, name, surname, address, phone, email, department, description) VALUES
+  (100001, 'Сергей', 'Синицын', 'Address', '89268501232', 'email@mail.ru', 'OFFICE', 'description'),
+  (100002, 'Егор', 'Майоров', 'Address', '89268501232', 'email@mail.ru', 'STORAGE', 'description'),
+  (100003, 'Олег', 'Петров', 'Address', '89268501232', 'email@mail.ru', 'OFFICE', 'description'),
+  (100004, 'Олег', 'Клыков', 'Address', '89268501232', 'email@mail.ru', 'CUSHIONED', 'description'),
+  (100005, 'Павел', 'Соболев', 'Address', '89268501232', 'email@mail.ru', 'STORAGE', 'description'),
+  (100006, 'Армен', 'Гугаров', 'Address', '89268501232', 'email@mail.ru', null, 'description');
 
 INSERT INTO item (id, name, description, image_url, cost) VALUES
   (100007, 'Книжний шкаф', 'Книжный шкаф из красного дерева. Имееет выдвижные ящички по бокам и 3 полки', '/link/sfasfa/fasdf.jpg', 2343.12),

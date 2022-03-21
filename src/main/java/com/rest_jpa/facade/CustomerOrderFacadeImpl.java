@@ -6,7 +6,6 @@ import com.rest_jpa.entity.to.CustomerOrderTO;
 import com.rest_jpa.enumTypes.OrderStatus;
 import com.rest_jpa.servise.CustomerOrderService;
 import com.rest_jpa.servise.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +17,13 @@ import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 @Service
 public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
 
-    @Autowired
     private CustomerOrderService customerOrderService;
-
-    @Autowired
     private ItemService itemService;
+
+    public CustomerOrderFacadeImpl(CustomerOrderService customerOrderService, ItemService itemService) {
+        this.customerOrderService = customerOrderService;
+        this.itemService = itemService;
+    }
 
     @Override
     public CustomerOrderTO create(CustomerOrderRequestTO to) {

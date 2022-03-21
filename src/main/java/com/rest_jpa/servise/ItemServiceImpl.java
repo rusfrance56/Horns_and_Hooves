@@ -5,7 +5,6 @@ import com.rest_jpa.entity.Item;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.CustomerOrderRepository;
 import com.rest_jpa.repository.ItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +17,13 @@ import static com.rest_jpa.exceptions.ErrorKey.*;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    @Autowired
     private ItemRepository itemRepository;
-
-    @Autowired
     private CustomerOrderRepository customerOrderRepository;
+
+    public ItemServiceImpl(ItemRepository itemRepository, CustomerOrderRepository customerOrderRepository) {
+        this.itemRepository = itemRepository;
+        this.customerOrderRepository = customerOrderRepository;
+    }
 
     @Override
     public Item create(Item item) {

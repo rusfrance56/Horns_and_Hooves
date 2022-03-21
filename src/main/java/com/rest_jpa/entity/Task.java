@@ -37,7 +37,7 @@ public class Task extends BaseEntity {
     }
 
     public Task(TaskTO to) {
-        super(null, to.getName(), to.getDescription());
+        super(to.getName(), to.getDescription());
         this.id = to.getId();
         this.dueDate = to.getDueDate();
         this.status = TaskStatus.valueOf(to.getStatus());

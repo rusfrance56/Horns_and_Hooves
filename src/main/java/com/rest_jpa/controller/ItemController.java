@@ -2,7 +2,6 @@ package com.rest_jpa.controller;
 
 import com.rest_jpa.entity.to.ItemTO;
 import com.rest_jpa.facade.ItemFacade;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

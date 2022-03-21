@@ -3,7 +3,6 @@ package com.rest_jpa.servise;
 import com.rest_jpa.entity.CustomerOrder;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.CustomerOrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +15,11 @@ import static com.rest_jpa.exceptions.ErrorKey.CUSTOMER_ORDER_NOT_FOUND;
 @Service
 public class CustomerOrderServiceImpl implements CustomerOrderService {
 
-    @Autowired
     private CustomerOrderRepository customerOrderRepository;
+
+    public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository) {
+        this.customerOrderRepository = customerOrderRepository;
+    }
 
     @Override
     public CustomerOrder create(CustomerOrder order) {

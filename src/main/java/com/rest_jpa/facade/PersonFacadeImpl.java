@@ -8,7 +8,6 @@ import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.servise.CustomerOrderService;
 import com.rest_jpa.servise.PersonService;
 import com.rest_jpa.servise.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,14 +19,15 @@ import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 @Service
 public class PersonFacadeImpl implements PersonFacade {
 
-    @Autowired
     private PersonService personService;
-
-    @Autowired
     private TaskService taskService;
-
-    @Autowired
     private CustomerOrderService customerOrderService;
+
+    public PersonFacadeImpl(PersonService personService, TaskService taskService, CustomerOrderService customerOrderService) {
+        this.personService = personService;
+        this.taskService = taskService;
+        this.customerOrderService = customerOrderService;
+    }
 
     @Override
     public PersonTO create(PersonTO to) {
@@ -66,7 +66,6 @@ public class PersonFacadeImpl implements PersonFacade {
     private void setPersonParametersFromTO(Person person, PersonTO to) {
         person.setName(to.getName());
         person.setSurname(to.getSurname());
-        person.setMiddleName(to.getMiddleName());
         person.setDepartment(to.getDepartment() != null ? Department.valueOf(to.getDepartment()) : null);
         person.setAddress(to.getAddress());
         person.setEmail(to.getEmail());
