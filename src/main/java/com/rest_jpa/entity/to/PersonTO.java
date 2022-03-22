@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PersonTO {
-    private long id;
+    private Long id;
     private String name;
     private String surname;
     private String department;
@@ -22,7 +22,7 @@ public class PersonTO {
     public PersonTO() {
     }
 
-    public PersonTO(long id, String name, String surname, Department department,
+    public PersonTO(Long id, String name, String surname, Department department,
                     String address, String email, String phone, List<TaskTO> tasks, List<CustomerOrderTO> orders) {
         this.id = id;
         this.name = name;
@@ -47,11 +47,11 @@ public class PersonTO {
         this.orders = person.getOrders().stream().map(CustomerOrderTO::new).collect(Collectors.toList());
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -6,13 +6,11 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
     loadData();
 
     function loadData() {
-        $scope.persons = PersonsService.getPersons().then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.persons = response;
-                getTasks();
-            }
+        PersonsService.getPersons().then(function (response) {
+            $scope.persons = response.persons;
+            getTasks();
+        }, function (response) {
+            CommonService.openMessageModal('danger', CommonService.translateError(response), 'big_modal');
         });
     }
 
@@ -55,19 +53,29 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
     $scope.statuses = [];
     $scope.priorities = [];
     $scope.persons = [];
+    $scope.personsByDep = [];
 
     loadData();
+
+    $scope.$watch('currentTask.department', function(newValue, oldValue){
+        if(newValue !== undefined && newValue !== oldValue) {
+            updatePersonsByDep();
+        }
+    });
+
+    function updatePersonsByDep() {
+        $scope.personsByDep = $scope.persons.filter(p => angular.equals(p.department, $scope.currentTask.department));
+    }
 
     function loadData() {
         getDepartments();
         getStatuses();
         getPriorities();
-        $scope.persons = PersonsService.getPersons().then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.persons = response;
-            }
+        PersonsService.getPersons().then(function (response) {
+            $scope.persons = response.persons;
+            updatePersonsByDep();
+        }, function (response) {
+            CommonService.openMessageModal('danger', CommonService.translateError(response), 'big_modal');
         });
     }
 

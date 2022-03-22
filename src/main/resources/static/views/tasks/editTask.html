@@ -51,11 +51,11 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row" ng-show="currentTask.department">
             <label class="control-label col-sm-3" for="edit.department">{{'PERSON' | translate}}:</label>
             <div class="col-sm-9">
                 <select class="form-control"  id="edit.person" ng-model="currentTask.personId"
-                        ng-options="per.id as per.surname + ' ' + per.name for per in persons">
+                        ng-options="per.id as per.surname + ' ' + per.name for per in personsByDep">
                     <option></option>
                 </select>
             </div>

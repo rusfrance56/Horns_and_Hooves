@@ -1,10 +1,10 @@
 'use strict';
-common.service('CommonService', function ($uibModal, $http) {
+common.service('CommonService', function ($uibModal, $http, $translate, $q) {
 
     this.openMessageModal = function (mode, message, modalClass) {
-        var modal = $uibModal.open({
+        let modal = $uibModal.open({
             animation: true,
-            templateUrl: '/static/js/common/views/messageModal.html',
+            templateUrl: '/js/common/views/messageModal.html',
             controller: 'messageModalCtrl',
             keyboard: false,
             backdrop: mode === 'success' ? true : 'static',
@@ -25,5 +25,25 @@ common.service('CommonService', function ($uibModal, $http) {
         return $http.post('/enum/get', enumName).then(function (response) {
             return response.data
         });
+    };
+
+    this.translateError = function (response) {
+        let errorCode = response.error;
+        let errorParams = response.errorParams;
+        let errorMessage = response.errorMessage;
+        let defer = $q.defer();
+        let translateParamsObject = {};
+        if (errorParams && errorParams.length > 0) {
+            errorParams.forEach(function (element, index) {
+                translateParamsObject['value' + (index + 1)] = element;
+            });
+        }
+        $translate(errorCode, translateParamsObject).then(function (translation) {
+                defer.resolve((translation == errorCode && errorMessage) ? errorMessage : translation);
+            },
+            function (a) {
+                defer.reject(a);
+            });
+        return defer.promise;
     };
 });

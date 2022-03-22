@@ -41,6 +41,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> findAll() {
+//        throw new ApplicationException(PERSONS_NOT_FOUND);
+//        throw new ApplicationException(PERSONS_NOT_FOUND, 55);
         return checkNotNullAndNotEmpty(personRepository.findAll(), PERSONS_NOT_FOUND);
     }
 

@@ -1,5 +1,5 @@
 'use strict';
-personsModule.service('PersonsService', function ($http) {
+personsModule.service('PersonsService', function ($http, $q) {
     var rootPath = '/persons/';
     return {
         createPerson: function (person) {
@@ -18,9 +18,18 @@ personsModule.service('PersonsService', function ($http) {
             });
         },
         getPersons: function () {
-            return $http.get(rootPath).then(function (response) {
-                return response.data;
+            let deferred = $q.defer();
+            $http.get(rootPath).then(function (response) {
+                response = response.data;
+                if (response.error) {
+                    deferred.reject(response);
+                } else {
+                    deferred.resolve({persons: response});
+                }
+            }, function(error) {
+                deferred.reject(error);
             });
+            return deferred.promise;
         },
         getPersonById: function (id) {
             return $http.get(rootPath + id).then(function (response) {

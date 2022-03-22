@@ -10,11 +10,9 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
 
     function getPersons() {
         PersonsService.getPersons().then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.persons = response;
-            }
+            $scope.persons = response.persons;
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
     }
 

@@ -71,5 +71,6 @@
 
   "CREATED"          : "Создан",
   "DEVELOPED"        : "Выполняется",
-  "FINISHED"         : "Завершен"
+  "FINISHED"         : "Завершен",
+  "PERSONS_NOT_FOUND" : "Работники не найдены! {{value1}}"
 }
