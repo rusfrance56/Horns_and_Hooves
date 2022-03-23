@@ -1,31 +1,68 @@
 'use strict';
-tasksModule.service('TasksService', function ($http) {
+tasksModule.service('TasksService', function ($http, $q) {
    var rootPath = "/tasks/";
     return {
-        createTask : function (task) {
-            return $http.post(rootPath, task).then(function (response) {
-                return response.data;
-            })
-        },
-        updateTasks : function (task) {
-            return $http.put(rootPath + task.id, task).then(function (response) {
-                return response.data;
-            })
+        saveTask : function (task) {
+            let deferred = $q.defer();
+            let promise;
+            if (task.id) {
+                promise = $http.put(rootPath + task.id, task);
+            } else {
+                promise = $http.post(rootPath, task);
+            }
+            promise.then(function (response) {
+                response = response.data;
+                if (response.error) {
+                    deferred.reject(response);
+                } else {
+                    deferred.resolve(response);
+                }
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
         },
         deleteTask : function (id) {
-            return $http.delete(rootPath + id).then(function (response) {
-                return response.data;
-            })
+            let deferred = $q.defer();
+            $http.delete(rootPath + id).then(function (response) {
+                response = response.data;
+                if (response.error) {
+                    deferred.reject(response);
+                } else {
+                    deferred.resolve(response);
+                }
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
         },
         getTasks : function () {
-            return $http.get(rootPath).then(function (response) {
-                return response.data;
-            })
+            let deferred = $q.defer();
+            $http.get(rootPath).then(function (response) {
+                response = response.data;
+                if (response.error) {
+                    deferred.reject(response);
+                } else {
+                    deferred.resolve({tasks: response});
+                }
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
         },
         getTaskById : function (id) {
-            return $http.get(rootPath + id).then(function (response) {
-                return response.data;
-            })
+            let deferred = $q.defer();
+            $http.get(rootPath + id).then(function (response) {
+                response = response.data;
+                if (response.error) {
+                    deferred.reject(response);
+                } else {
+                    deferred.resolve({task: response});
+                }
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
         }
     }
 });

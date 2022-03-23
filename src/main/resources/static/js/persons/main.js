@@ -14,9 +14,14 @@ personsModule.config(['$routeProvider', '$locationProvider', function ($routePro
         templateUrl: 'views/persons/editPerson.html',
         controller: 'EditPersonController',
         resolve: {
-            person: function (PersonsService, $route) {
+            person: function (PersonsService, $route, CommonService, $location) {
                 // PersonsService.getPersonById($stateParams.id)
-                return PersonsService.getPersonById($route.current.params.id);
+                return PersonsService.getPersonById($route.current.params.id).then(function (response) {
+                    return response.person;
+                }, function (response) {
+                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+                    $location.path("/persons/createPerson");
+                });
             }
         }
     }).when('/persons/createPerson', {

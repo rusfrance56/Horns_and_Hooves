@@ -14,8 +14,13 @@ tasksModule.config(['$routeProvider', '$locationProvider', function ($routeProvi
         templateUrl: 'views/tasks/editTask.html',
         controller: 'EditTaskController',
         resolve: {
-            task: function (TasksService, $route) {
-                return TasksService.getTaskById($route.current.params.id);
+            task: function (TasksService, $route, CommonService, $location) {
+                return TasksService.getTaskById($route.current.params.id).then(function (response) {
+                    return response.task;
+                }, function (response) {
+                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+                    $location.path('/tasks/createTask');
+                });
             }
         }
     }).when('/tasks/createTask', {

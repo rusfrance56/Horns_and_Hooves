@@ -16,27 +16,23 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
 
     function getTasks() {
         TasksService.getTasks().then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.tasks = response;
-                $scope.tasks.forEach(task => {
-                    let personForTask = $scope.persons.filter(person => person.id === task.personId)[0];
-                    if (!angular.isUndefinedOrNull(personForTask)) {
-                        task.person = personForTask;
-                    }
-                });
-            }
+            $scope.tasks = response.tasks;
+            $scope.tasks.forEach(task => {
+                let personForTask = $scope.persons.filter(person => person.id === task.personId)[0];
+                if (!angular.isUndefinedOrNull(personForTask)) {
+                    task.person = personForTask;
+                }
+            });
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
     }
 
     $scope.deleteTask = function (task) {
-        TasksService.deleteTask(task.id).then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.tasks.splice($scope.tasks.indexOf(task), 1);
-            }
+        TasksService.deleteTask(task.id).then(function () {
+            $scope.tasks.splice($scope.tasks.indexOf(task), 1);
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
     };
 
@@ -80,23 +76,11 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
     }
 
     $scope.saveTask = function (task) {
-        if (angular.isUndefinedOrNull(task.id)) {
-            TasksService.createTask(task).then(function (response) {
-                if (response.error) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                } else {
-                    $location.path('/tasks');
-                }
-            })
-        } else {
-            TasksService.updateTasks(task).then(function (response) {
-                if (response.error) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                } else {
-                    $location.path('/tasks')
-                }
-            })
-        }
+        TasksService.saveTask(task).then(function () {
+            $location.path('/tasks');
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+        });
     };
 
     function getDepartments() {

@@ -17,12 +17,10 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
     }
 
     $scope.deletePerson = function (person) {
-        PersonsService.deletePerson(person.id).then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.persons.splice($scope.persons.indexOf(person), 1);
-            }
+        PersonsService.deletePerson(person.id).then(function () {
+            $scope.persons.splice($scope.persons.indexOf(person), 1);
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
     };
 
@@ -39,23 +37,11 @@ personsModule.controller('PersonsController', function ($scope, $location, Perso
     $scope.pageTitle = $scope.currentPerson.id ? 'PERSON_INFO' : 'PERSON_CREATE';
 
     $scope.savePerson = function (person) {
-        if (angular.isUndefinedOrNull(person.id)) {
-            PersonsService.createPerson(person).then(function (response) {
-                if (response.error) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                } else {
-                    $location.path("/persons");
-                }
-            });
-        } else {
-            PersonsService.updatePerson(person).then(function (response) {
-                if (response.error) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                } else {
-                    $location.path("/persons");
-                }
-            });
-        }
+        PersonsService.savePerson(person).then(function () {
+            $location.path("/persons");
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+        });
     };
 
     function getDepartments() {
