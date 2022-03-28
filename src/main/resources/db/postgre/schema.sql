@@ -1,14 +1,14 @@
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS customer_order;
 DROP TABLE IF EXISTS item;
-DROP TABLE IF EXISTS person_roles;
+DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS task;
-DROP TABLE IF EXISTS person;
-DROP SEQUENCE IF EXISTS GLOBAL_SEQ;
+DROP TABLE IF EXISTS users;
+DROP SEQUENCE IF EXISTS GLOBAL_SEQ cascade ;
 
 CREATE SEQUENCE GLOBAL_SEQ START 100000;
 
-CREATE TABLE person (
+CREATE TABLE users (
   id            INTEGER             DEFAULT nextval('GLOBAL_SEQ') PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
@@ -26,8 +26,8 @@ CREATE TABLE customer_order (
   due_date      TIMESTAMP,
   status        VARCHAR(10)         NOT NULL,
   description   VARCHAR,
-  person_id     INTEGER,
-  FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE CASCADE
+  user_id     INTEGER,
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 CREATE TABLE item (
   id            INTEGER             DEFAULT nextval('GLOBAL_SEQ') PRIMARY KEY,
@@ -51,14 +51,14 @@ CREATE TABLE task (
   due_date      TIMESTAMP           DEFAULT now(),
   status        VARCHAR(10)         NOT NULL,
   priority      VARCHAR(10)         NOT NULL,
-  person_id     INTEGER,
+  user_id     INTEGER,
   department    VARCHAR(20)         NOT NULL,
   description   VARCHAR,
-  FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE SET NULL
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL
 );
-CREATE TABLE person_roles(
-  person_id     INTEGER             NOT NULL,
+CREATE TABLE user_roles(
+  user_id     INTEGER             NOT NULL,
   role          VARCHAR,
-  CONSTRAINT person_roles_idx UNIQUE (person_id, role),
-  FOREIGN KEY (person_id) REFERENCES person (id) ON DELETE CASCADE
+  CONSTRAINT user_roles_idx UNIQUE (user_id, role),
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

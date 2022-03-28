@@ -16,13 +16,13 @@ public class TaskTO {
     private String status;
     private String priority;
     private String department;
-    private Long personId;
+    private Long userId;
 
     public TaskTO() {
     }
 
     public TaskTO(Long id, String name, String description, LocalDateTime dueDate,
-                  TaskStatus status, TaskPriority priority, Department department, Long person_id) {
+                  TaskStatus status, TaskPriority priority, Department department, Long user_id) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,7 +30,7 @@ public class TaskTO {
         this.status = status.name();
         this.priority = priority.name();
         this.department = department.name();
-        this.personId = person_id;
+        this.userId = user_id;
     }
 
     public TaskTO(Task task) {
@@ -41,7 +41,7 @@ public class TaskTO {
         this.status = task.getStatus().name();
         this.priority = task.getPriority().name();
         this.department = task.getDepartment().name();
-        this.personId = task.getPerson() != null ? task.getPerson().getId() : null;
+        this.userId = task.getUser() != null ? task.getUser().getId() : null;
     }
 
     public Long getId() {
@@ -100,12 +100,12 @@ public class TaskTO {
         this.department = department;
     }
 
-    public Long getPersonId() {
-        return personId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setPersonId(Long personId) {
-        this.personId = personId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

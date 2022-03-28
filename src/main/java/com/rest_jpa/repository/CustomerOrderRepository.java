@@ -12,7 +12,7 @@ import java.util.List;
 public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, Long> {
 
     @Override
-    @EntityGraph(attributePaths = {"items", "person"})
+    @EntityGraph(attributePaths = {"items", "user"})
     List<CustomerOrder> findAll();
 
     List<CustomerOrder> findByItems_Id(long id);

@@ -1,13 +1,13 @@
 'use strict';
-tasksModule.controller('TasksController', function ($scope, $location, TasksService, CommonService, PersonsService) {
+tasksModule.controller('TasksController', function ($scope, $location, TasksService, CommonService, UsersService) {
     $scope.tasks = [];
-    $scope.persons = [];
+    $scope.users = [];
     $scope.tasks = [];
     loadData();
 
     function loadData() {
-        PersonsService.getPersons().then(function (response) {
-            $scope.persons = response.persons;
+        UsersService.getUsers().then(function (response) {
+            $scope.users = response.users;
             getTasks();
         }, function (response) {
             CommonService.openMessageModal('danger', CommonService.translateError(response), 'big_modal');
@@ -18,9 +18,9 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
         TasksService.getTasks().then(function (response) {
             $scope.tasks = response.tasks;
             $scope.tasks.forEach(task => {
-                let personForTask = $scope.persons.filter(person => person.id === task.personId)[0];
-                if (!angular.isUndefinedOrNull(personForTask)) {
-                    task.person = personForTask;
+                let userForTask = $scope.users.filter(user => user.id === task.userId)[0];
+                if (!angular.isUndefinedOrNull(userForTask)) {
+                    task.user = userForTask;
                 }
             });
         }, function (response) {
@@ -42,34 +42,34 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
     $scope.navigateToCreate = function () {
         $location.path('/tasks/createTask');
     };
-}).controller('EditTaskController', function ($scope, $location, TasksService, CommonService, task, PersonsService) {
+}).controller('EditTaskController', function ($scope, $location, TasksService, CommonService, task, UsersService) {
     $scope.currentTask = task;
     $scope.pageTitle = $scope.currentTask.id ? 'TASK_INFO' : 'TASK_CREATE';
     $scope.departments = [];
     $scope.statuses = [];
     $scope.priorities = [];
-    $scope.persons = [];
-    $scope.personsByDep = [];
+    $scope.users = [];
+    $scope.usersByDep = [];
 
     loadData();
 
     $scope.$watch('currentTask.department', function(newValue, oldValue){
         if(newValue !== undefined && newValue !== oldValue) {
-            updatePersonsByDep();
+            updateUsersByDep();
         }
     });
 
-    function updatePersonsByDep() {
-        $scope.personsByDep = $scope.persons.filter(p => angular.equals(p.department, $scope.currentTask.department));
+    function updateUsersByDep() {
+        $scope.usersByDep = $scope.users.filter(p => angular.equals(p.department, $scope.currentTask.department));
     }
 
     function loadData() {
         getDepartments();
         getStatuses();
         getPriorities();
-        PersonsService.getPersons().then(function (response) {
-            $scope.persons = response.persons;
-            updatePersonsByDep();
+        UsersService.getUsers().then(function (response) {
+            $scope.users = response.users;
+            updateUsersByDep();
         }, function (response) {
             CommonService.openMessageModal('danger', CommonService.translateError(response), 'big_modal');
         });

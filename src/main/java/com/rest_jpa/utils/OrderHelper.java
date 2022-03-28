@@ -1,19 +1,12 @@
 package com.rest_jpa.utils;
 
-import com.rest_jpa.entity.CustomerOrder;
-import com.rest_jpa.entity.Person;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
 
 @Component
 public class OrderHelper {
 
-    /*public Person findFreeEmployee(List<Person> list) {
-        Optional<Person> freeEmployee = list.stream()
+    /*public User findFreeEmployee(List<User> list) {
+        Optional<User> freeEmployee = list.stream()
                 .min(Comparator.comparingInt((emp -> emp.getOrderList().size())));
         return freeEmployee.get();
     }

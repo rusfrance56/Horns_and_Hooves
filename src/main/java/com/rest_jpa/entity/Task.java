@@ -30,8 +30,8 @@ public class Task extends BaseEntity {
     private Department department;
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
-    private Person person;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Task() {
     }
@@ -77,12 +77,12 @@ public class Task extends BaseEntity {
         this.department = department;
     }
 
-    public Person getPerson() {
-        return person;
+    public User getUser() {
+        return user;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class Task extends BaseEntity {
                 ", status=" + status +
                 ", priority=" + priority +
                 ", department=" + department +
-                ", person=" + person +
+                ", user=" + user +
                 ", id=" + id +
                 ", created=" + created +
                 ", name='" + name + '\'' +

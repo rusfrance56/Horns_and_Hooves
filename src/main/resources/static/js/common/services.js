@@ -22,7 +22,8 @@ common.service('CommonService', function ($uibModal, $http, $translate, $q) {
     };
 
     this.getEnumValues = function (enumName) {
-        return $http.post('/enum/get', enumName).then(function (response) {
+        let path = '/enum/get?enumName=' + enumName;
+        return $http.get(path).then(function (response) {
             return response.data
         });
     };

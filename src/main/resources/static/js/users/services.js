@@ -1,14 +1,14 @@
 'use strict';
-personsModule.service('PersonsService', function ($http, $q) {
-    var rootPath = '/persons/';
+usersModule.service('UsersService', function ($http, $q) {
+    var rootPath = '/users/';
     return {
-        savePerson: function (person) {
+        saveUser: function (user) {
             let deferred = $q.defer();
             let promise;
-            if (person.id) {
-                promise = $http.put(rootPath + person.id, person);
+            if (user.id) {
+                promise = $http.put(rootPath + user.id, user);
             } else {
-                promise = $http.post(rootPath, person);
+                promise = $http.post(rootPath, user);
             }
             promise.then(function (response) {
                 response = response.data;
@@ -22,7 +22,7 @@ personsModule.service('PersonsService', function ($http, $q) {
             });
             return deferred.promise;
         },
-        deletePerson: function (id) {
+        deleteUser: function (id) {
             let deferred = $q.defer();
             $http.delete(rootPath + id).then(function (response) {
                 response = response.data;
@@ -36,28 +36,28 @@ personsModule.service('PersonsService', function ($http, $q) {
             });
             return deferred.promise;
         },
-        getPersons: function () {
+        getUsers: function () {
             let deferred = $q.defer();
             $http.get(rootPath).then(function (response) {
                 response = response.data;
                 if (response.error) {
                     deferred.reject(response);
                 } else {
-                    deferred.resolve({persons: response});
+                    deferred.resolve({users: response});
                 }
             }, function (error) {
                 deferred.reject(error);
             });
             return deferred.promise;
         },
-        getPersonById: function (id) {
+        getUserById: function (id) {
             let deferred = $q.defer();
             $http.get(rootPath + id).then(function (response) {
                 response = response.data;
                 if (response.error) {
                     deferred.reject(response);
                 } else {
-                    deferred.resolve({person: response});
+                    deferred.resolve({user: response});
                 }
             }, function (error) {
                 deferred.reject(error);

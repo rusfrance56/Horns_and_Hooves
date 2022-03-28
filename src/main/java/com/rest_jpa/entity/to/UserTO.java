@@ -1,14 +1,13 @@
 package com.rest_jpa.entity.to;
 
-import com.rest_jpa.entity.Person;
+import com.rest_jpa.entity.User;
 import com.rest_jpa.enumTypes.Department;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PersonTO {
+public class UserTO {
     private Long id;
     private String name;
     private String surname;
@@ -19,11 +18,11 @@ public class PersonTO {
     private List<TaskTO> tasks = new ArrayList<>();
     private List<CustomerOrderTO> orders = new ArrayList<>();
 
-    public PersonTO() {
+    public UserTO() {
     }
 
-    public PersonTO(Long id, String name, String surname, Department department,
-                    String address, String email, String phone, List<TaskTO> tasks, List<CustomerOrderTO> orders) {
+    public UserTO(Long id, String name, String surname, Department department,
+                  String address, String email, String phone, List<TaskTO> tasks, List<CustomerOrderTO> orders) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -35,16 +34,16 @@ public class PersonTO {
         this.orders = orders;
     }
 
-    public PersonTO(Person person) {
-        this.id = person.getId();
-        this.name = person.getName();
-        this.surname = person.getSurname();
-        this.department = person.getDepartment() != null ? person.getDepartment().name() : null;
-        this.address = person.getAddress();
-        this.email = person.getEmail();
-        this.phone = person.getPhone();
-        this.tasks = person.getTasks().stream().map(TaskTO::new).collect(Collectors.toList());
-        this.orders = person.getOrders().stream().map(CustomerOrderTO::new).collect(Collectors.toList());
+    public UserTO(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.surname = user.getSurname();
+        this.department = user.getDepartment() != null ? user.getDepartment().name() : null;
+        this.address = user.getAddress();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.tasks = user.getTasks().stream().map(TaskTO::new).collect(Collectors.toList());
+        this.orders = user.getOrders().stream().map(CustomerOrderTO::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -121,7 +120,7 @@ public class PersonTO {
 
     @Override
     public String toString() {
-        return "PersonTO{" +
+        return "UserTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +

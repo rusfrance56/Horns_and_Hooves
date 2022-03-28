@@ -1,12 +1,12 @@
 package com.rest_jpa.facade;
 
-import com.rest_jpa.entity.Person;
+import com.rest_jpa.entity.User;
 import com.rest_jpa.entity.Task;
 import com.rest_jpa.entity.to.TaskTO;
 import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.enumTypes.TaskPriority;
 import com.rest_jpa.enumTypes.TaskStatus;
-import com.rest_jpa.servise.PersonService;
+import com.rest_jpa.servise.UserService;
 import com.rest_jpa.servise.TaskService;
 import org.springframework.stereotype.Service;
 
@@ -20,21 +20,21 @@ import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 public class TaskFacadeImpl implements TaskFacade {
 
     private TaskService taskService;
-    private PersonService personService;
+    private UserService userService;
 
-    public TaskFacadeImpl(TaskService taskService, PersonService personService) {
+    public TaskFacadeImpl(TaskService taskService, UserService userService) {
         this.taskService = taskService;
-        this.personService = personService;
+        this.userService = userService;
     }
 
     @Override
     public TaskTO create(TaskTO to) {
         Task task = new Task(to);
-        if (to.getPersonId() != null) {
-            Person person = personService.findById(to.getPersonId());
-            task.setPerson(person);
+        if (to.getUserId() != null) {
+            User user = userService.findById(to.getUserId());
+            task.setUser(user);
         } else {
-            task.setPerson(null);
+            task.setUser(null);
         }
         to.setId(taskService.create(task).getId());
         return to;
@@ -50,11 +50,11 @@ public class TaskFacadeImpl implements TaskFacade {
         task.setStatus(TaskStatus.valueOf(to.getStatus()));
         task.setPriority(TaskPriority.valueOf(to.getPriority()));
         task.setDepartment(Department.valueOf(to.getDepartment()));
-        if (to.getPersonId() != null) {
-            Person person = personService.findById(to.getPersonId());
-            task.setPerson(person);
+        if (to.getUserId() != null) {
+            User user = userService.findById(to.getUserId());
+            task.setUser(user);
         } else {
-            task.setPerson(null);
+            task.setUser(null);
         }
         taskService.update(task);
     }

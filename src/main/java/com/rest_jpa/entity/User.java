@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(schema = "public", name = "person")
-public class Person extends BaseEntity {
+@Table(schema = "public", name = "users")
+public class User extends BaseEntity {
 
     @Column(name = "surname")
     private String surname;
@@ -26,13 +26,13 @@ public class Person extends BaseEntity {
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Task> tasks = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<CustomerOrder> orders = new ArrayList<>();
 
-    public Person() {
+    public User() {
     }
 
     public String getSurname() {
@@ -93,7 +93,7 @@ public class Person extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Person{" +
+        return "User{" +
                 "surname='" + surname + '\'' +
                 ", department=" + department +
                 ", address='" + address + '\'' +

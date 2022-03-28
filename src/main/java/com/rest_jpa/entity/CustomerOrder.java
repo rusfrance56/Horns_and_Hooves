@@ -26,8 +26,8 @@ public class CustomerOrder extends BaseEntity {
     private List<Item> items;
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
-    private Person person;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public CustomerOrder() {
     }
@@ -56,12 +56,12 @@ public class CustomerOrder extends BaseEntity {
         this.items = items;
     }
 
-    public Person getPerson() {
-        return person;
+    public User getUser() {
+        return user;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class CustomerOrder extends BaseEntity {
                 "dueDate=" + dueDate +
                 ", status=" + status +
                 ", items=" + items +
-                ", person=" + person +
+                ", user=" + user +
                 ", id=" + id +
                 ", created=" + created +
                 ", name='" + name + '\'' +

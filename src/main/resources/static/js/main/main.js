@@ -6,7 +6,7 @@ var mainApp = angular.module("mainApp", [
     'pascalprecht.translate',
     'ui.bootstrap',
     'Common',
-    'personsModule',
+    'usersModule',
     'ordersModule',
     'itemsModule',
     'tasksModule'

@@ -1,13 +1,13 @@
 {
-  "PERSONS"          : "Persons",
-  "PERSON_INFO"      : "Person information",
-  "PERSON_CREATE"    : "Person create",
+  "USERS": "Users",
+  "USER_INFO": "User information",
+  "USER_CREATE": "User create",
   "ORDERS"           : "Orders",
   "ORDER_INFO"       : "Order information",
   "ORDER_CREATE"     : "Order create",
   "LANG"             : "Language",
 
-  "PERSON"           : "Person",
+  "USER": "User",
   "DATE"             : "Date",
   "NAME"             : "Name",
   "SURNAME"          : "Surname",
@@ -72,5 +72,5 @@
   "CREATED"          : "Created",
   "DEVELOPED"        : "Developed",
   "FINISHED"         : "Finished",
-  "PERSONS_NOT_FOUND" : "Persons not found! {{value1}}"
+  "USERS_NOT_FOUND" : "Users not found! {{value1}}"
 }

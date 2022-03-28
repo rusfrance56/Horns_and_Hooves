@@ -23,11 +23,11 @@ SQL HELP
 -----------
 On command line, type in the following commands:
 
-        select * from person;
+        select * from user;
         select * from customer_order;
         select * from item;
 
-        delete from person where id=100001;
+        delete from user where id=100001;
         delete from item where id=100007;
         delete from customer_order where id=100010;
 
@@ -40,8 +40,8 @@ On command line, type in the following commands:
         select
           p.name,
           t.name
-        from person p
-          join task t on p.id = t.person_id;
+        from user p
+          join task t on p.id = t.user_id;
 
         select * from customer_order co
         join order_items o on co.id = o.customer_order_id

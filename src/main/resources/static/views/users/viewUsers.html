@@ -1,5 +1,5 @@
-<h2>{{'PERSONS' | translate}}</h2>
-<div st-table="personsRecords" st-safe-src="persons">
+<h2>{{'USERS' | translate}}</h2>
+<div st-table="usersRecords" st-safe-src="users">
     <div class="row inline-row">
         <div class="inline-row-part">
             <button type="button" class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
@@ -14,7 +14,7 @@
             </select>
         </div>
     </div>
-    <div id="personTable">
+    <div id="userTable">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -30,19 +30,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="person in personsRecords | filter: search"> <!--ng-click="navigateToEdit(person)"-->
-                <td hidden>{{person.id}}</td>
+            <tr ng-repeat="user in usersRecords | filter: search"> <!--ng-click="navigateToEdit(user)"-->
+                <td hidden>{{user.id}}</td>
                 <td>{{$index+1}}</td>
-                <td>{{person.surname}}</td>
-                <td>{{person.name}}</td>
-                <td>{{person.department | translate}}</td>
-                <td>{{person.address}}</td>
-                <td>{{person.email}}</td>
-                <td>{{person.phone}}</td>
+                <td>{{user.surname}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.department | translate}}</td>
+                <td>{{user.address}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.phone}}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-primary" ng-click="navigateToEdit(person)">{{'INFO' | translate}}</button>
-                        <button type="button" class="btn btn-danger" ng-click="deletePerson(person)">{{'DELETE' | translate}}</button>
+                        <button type="button" class="btn btn-primary" ng-click="navigateToEdit(user)">{{'INFO' | translate}}</button>
+                        <button type="button" class="btn btn-danger" ng-click="deleteUser(user)">{{'DELETE' | translate}}</button>
                     </div>
                 </td>
             </tr>
