@@ -2,6 +2,7 @@ package com.rest_jpa.controller;
 
 import com.rest_jpa.entity.to.ItemTO;
 import com.rest_jpa.facade.ItemFacade;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/items")
+@AllArgsConstructor
 public class ItemController {
 
     private ItemFacade itemFacade;
-
-    public ItemController(ItemFacade itemFacade) {
-        this.itemFacade = itemFacade;
-    }
 
     @PostMapping
     public ResponseEntity<ItemTO> create(@RequestBody ItemTO to) {

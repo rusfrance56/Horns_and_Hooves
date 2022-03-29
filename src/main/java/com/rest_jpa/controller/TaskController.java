@@ -2,6 +2,7 @@ package com.rest_jpa.controller;
 
 import com.rest_jpa.entity.to.TaskTO;
 import com.rest_jpa.facade.TaskFacade;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
+@AllArgsConstructor
 public class TaskController {
 
     private TaskFacade taskFacade;
-
-    public TaskController(TaskFacade taskFacade) {
-        this.taskFacade = taskFacade;
-    }
 
     @PostMapping
     public ResponseEntity<TaskTO> create(@RequestBody TaskTO to) {

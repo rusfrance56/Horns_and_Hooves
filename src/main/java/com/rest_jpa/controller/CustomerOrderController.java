@@ -3,6 +3,7 @@ package com.rest_jpa.controller;
 import com.rest_jpa.entity.to.CustomerOrderRequestTO;
 import com.rest_jpa.entity.to.CustomerOrderTO;
 import com.rest_jpa.facade.CustomerOrderFacade;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
+@AllArgsConstructor
 public class CustomerOrderController {
 
     private CustomerOrderFacade customerOrderFacade;
-
-    public CustomerOrderController(CustomerOrderFacade customerOrderFacade) {
-        this.customerOrderFacade = customerOrderFacade;
-    }
 
     @PostMapping
     public ResponseEntity<CustomerOrderTO> create(@RequestBody CustomerOrderRequestTO to) {

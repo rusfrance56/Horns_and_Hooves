@@ -9,6 +9,8 @@
 
   "USER": "Работник",
   "DATE"              : "Дата и время",
+  "LOGON_NAME"        : "Логин",
+  "PASSWORD"          : "Пароль",
   "NAME"              : "Имя",
   "SURNAME"           : "Фамилия",
   "DEPARTMENT"        : "Отдел",
@@ -24,6 +26,8 @@
   "DELETE"            : "Удалить",
   "SAVE"              : "Сохранить",
 
+  "ENTER_LOGON_NAME"  : "Введите логин",
+  "ENTER_PASSWORD"    : "Введите пароль",
   "ENTER_NAME"        : "Введите имя",
   "ENTER_NAME_ORDER"  : "Введите название",
   "ENTER_SURNAME"     : "Введите фамилию",

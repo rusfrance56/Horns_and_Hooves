@@ -18,7 +18,7 @@
                 <th st-sort="description">{{'ITEM_DESCRIPTION' | translate}}</th>
                 <th st-sort="cost">{{'ITEM_COST' | translate}}</th>
                 <th>{{'ITEM_IMAGE' | translate}}</th>
-                <th>{{'OPTIONS' | translate}}</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
                 <td>{{item.cost}}</td>
-                <td>{{item.imageURL}}</td>
+                <td>{{item.imageUrl}}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="...">
                         <button class="btn btn-primary" ng-click="navigateToEdit(item)">{{'INFO' | translate}}</button>

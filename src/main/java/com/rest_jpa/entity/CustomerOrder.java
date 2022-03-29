@@ -1,6 +1,8 @@
 package com.rest_jpa.entity;
 
 import com.rest_jpa.enumTypes.OrderStatus;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -8,7 +10,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(schema = "public", name = "customer_order")
+@Table(name = "customer_orders")
+@Data
+@NoArgsConstructor
 public class CustomerOrder extends BaseEntity {
 
     @Column(name = "due_date", nullable = false)
@@ -20,7 +24,7 @@ public class CustomerOrder extends BaseEntity {
     private OrderStatus status;
 
     @ManyToMany(fetch = FetchType.LAZY)/*, cascade = CascadeType.ALL*/
-    @JoinTable(name = "order_items",
+    @JoinTable(name = "orders_items",
             joinColumns = @JoinColumn(name = "customer_order_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> items;
@@ -28,53 +32,4 @@ public class CustomerOrder extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public CustomerOrder() {
-    }
-
-    public LocalDateTime getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDateTime dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerOrder{" +
-                "dueDate=" + dueDate +
-                ", status=" + status +
-                ", items=" + items +
-                ", user=" + user +
-                ", id=" + id +
-                ", created=" + created +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

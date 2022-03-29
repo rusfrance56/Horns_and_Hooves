@@ -1,5 +1,7 @@
 package com.rest_jpa.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -7,11 +9,11 @@ import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
+@Data
+@NoArgsConstructor
 public class BaseEntity {
     @Id
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq",
-            allocationSize = 1, initialValue = 100000)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Access(value = AccessType.PROPERTY)
     protected Long id;
 
@@ -25,53 +27,8 @@ public class BaseEntity {
     @Column(name = "description")
     protected String description;
 
-    public BaseEntity() {
-    }
-
     public BaseEntity(String name, String description) {
         this.name = name;
         this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseEntity{" +
-                "id=" + id +
-                ", created=" + created +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }
