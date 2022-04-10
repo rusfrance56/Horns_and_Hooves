@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,14 +25,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
+                .disable()
+                // csrf для rest дизейблится
+//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                .and()
+                //for rest services (STATELESS - не хранит сессию на бэке, бывает что
+                // время жизни токена может быть меньше сессии, а если не хранить сессию и не выбрать
+                // remember me , то вообще не даст залогиниться)
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
                 .authorizeRequests()
                 .antMatchers("/**").authenticated()
+                .antMatchers("/resources/**").permitAll()
                 .and()
-                .formLogin()
+                    .formLogin()
+//                    .loginPage("/views/form_login.html").permitAll()
+//                    .usernameParameter("j_username")
+//                    .passwordParameter("j_password")
+//                    .loginProcessingUrl("/j_login").permitAll()
+//                    .successForwardUrl("/#/tasks")
                 .and()
-                .logout();
+                    // выдает токен и по истечении действия токена, система разлогинит пользователя
+                    .rememberMe()
+                    .key("myAppKey")
+                    .tokenValiditySeconds(60)
+                    .userDetailsService(userService)
+                .and()
+                    .logout();
     }
 
     @Bean
@@ -46,6 +65,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+        return new SecurityEvaluationContextExtension();
     }
 
     //    in memory realisation

@@ -14,63 +14,37 @@ Spring Boot Rest JPA
 
 INSTALLATION
 ------------
-В конфигурационном файле <b>application.properties</b> необходимо заполнить свойство spring.profiles.active=postgre (провайдер sql)
+В конфигурационном файле <b>application.properties</b> необходимо заполнить свойство 
+spring.profiles.active=postgre (провайдер sql)
 Для запуска необходимо создать базу данных и добавить её в конфигурационный файл 
 
 (например <b>application-postgre.properties</b>)
 
 SQL HELP
 -----------
-On command line, type in the following commands:
-
-        select * from user;
-        select * from customer_order;
-        select * from item;
-
-        delete from user where id=100001;
-        delete from item where id=100007;
-        delete from customer_order where id=100010;
-
-        select * from task;
-        select * from order_items;
-        select o.name, i.name from order_items oi
-        join customer_order o on oi.customer_order_id = o.id
-        join item i on oi.item_id = i.id;
-
-        select
-          p.name,
-          t.name
-        from user p
-          join task t on p.id = t.user_id;
-
-        select * from customer_order co
-        join order_items o on co.id = o.customer_order_id
-        join item i on o.item_id = i.id
-        where i.id = '100009';
 
 WHAT'S NEXT
 -----------
 - сделать авторизацию и фильтрацию записей из базы по юзеру при выборке(сквозная функциональность проверок)
 - починить hsqldb, h2
-- переделать angular-routing
+- переделать angular-routing на state provider
 - покрыть тестами
 - логирование
 - сделать валидацию
 - добавить кодаси и прочую хрень
 - таблицу заказов и айтемы разбить постранично с помощью спринг пейджинга
+- переделать вызовы сервисов ангуляра на промисы
+- изменить внешний вид на bootstrap 5
+- добавить форму логина и регистрации
+- при открытии нескольких заказов через ссылку на заказ(в адресной строке /tasks/editTask/100011)
+    старое модальное окно  не закрывается
 
-
-- при вытаскивании ордеров вытаскивать айдишники айтемов а не сущности, потому что это накладно вытаскивать одни и те же сущности, нужно их вытаскивать 1 раз и потом мапить (или если айтемов будет очень много, то вытаскивать позже при просмотре по айдишникам)
+- при вытаскивании ордеров вытаскивать айдишники айтемов а не сущности, потому что это накладно вытаскивать одни и те же сущности, 
+    нужно их вытаскивать 1 раз и потом мапить (или если айтемов будет очень много, то вытаскивать позже при просмотре по айдишникам)
 - написать генератор данных, который будет заполнять базу кучей данных
-
 - hibernate N+1
 - cascade = all
-
-- create and edit сделать через модальные окна
 - сделать несколько картинок у айтема
 - переделать выбор количество записей на странице под директиву
-
-ИНТЕРНЕТ МАГАЗИН ЧЕГО ЛИБО НАПИСАТЬ!!!!!!!!!!!!!!!!!!!!
-
 
 Rusfrance inc.

@@ -2,12 +2,14 @@ package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.User;
 import com.rest_jpa.entity.to.CustomerOrderTO;
-import com.rest_jpa.entity.to.UserTO;
 import com.rest_jpa.entity.to.TaskTO;
+import com.rest_jpa.entity.to.UserRequestTO;
+import com.rest_jpa.entity.to.UserResponseTO;
 import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.servise.CustomerOrderService;
-import com.rest_jpa.servise.UserService;
 import com.rest_jpa.servise.TaskService;
+import com.rest_jpa.servise.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,29 +19,25 @@ import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
 import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 
 @Service
+@AllArgsConstructor
 public class UserFacadeImpl implements UserFacade {
 
     private UserService userService;
     private TaskService taskService;
     private CustomerOrderService customerOrderService;
 
-    public UserFacadeImpl(UserService userService, TaskService taskService, CustomerOrderService customerOrderService) {
-        this.userService = userService;
-        this.taskService = taskService;
-        this.customerOrderService = customerOrderService;
-    }
-
     @Override
-    public UserTO create(UserTO to) {
+    public UserResponseTO create(UserRequestTO to) {
         User user = new User();
         setUserParametersFromTO(user, to);
         Long newUserId = userService.create(user).getId();
-        to.setId(newUserId);
-        return to;
+        UserResponseTO newUser = new UserResponseTO(user);
+        newUser.setId(newUserId);
+        return newUser;
     }
 
     @Override
-    public void update(UserTO to) {
+    public void update(UserRequestTO to) {
         checkNotNull(to.getId(), WRONG_INPUT_DATA, "id");
         User user = userService.findById(to.getId());
         setUserParametersFromTO(user, to);
@@ -52,19 +50,20 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public List<UserTO> findAll() {
+    public List<UserResponseTO> findAll() {
         List<User> all = userService.findAll();
-        return all.stream().map(UserTO::new).collect(Collectors.toList());
+        return all.stream().map(UserResponseTO::new).collect(Collectors.toList());
     }
 
     @Override
-    public UserTO findById(long id) {
+    public UserResponseTO findById(long id) {
         User user = userService.findById(id);
-        return new UserTO(user);
+        return new UserResponseTO(user);
     }
 
-    private void setUserParametersFromTO(User user, UserTO to) {
+    private void setUserParametersFromTO(User user, UserRequestTO to) {
         user.setLogonName(to.getLogonName());
+        /*user.setPassword(to.getPassword());*/
         user.setName(to.getName());
         user.setSurname(to.getSurname());
         user.setDepartment(to.getDepartment() != null ? Department.valueOf(to.getDepartment()) : null);

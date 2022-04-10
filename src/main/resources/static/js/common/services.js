@@ -40,7 +40,7 @@ common.service('CommonService', function ($uibModal, $http, $translate, $q) {
             });
         }
         $translate(errorCode, translateParamsObject).then(function (translation) {
-                defer.resolve((translation == errorCode && errorMessage) ? errorMessage : translation);
+                defer.resolve((translation === errorCode && errorMessage) ? errorMessage : translation);
             },
             function (a) {
                 defer.reject(a);

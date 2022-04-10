@@ -3,6 +3,7 @@ package com.rest_jpa.facade;
 import com.rest_jpa.entity.Item;
 import com.rest_jpa.entity.to.ItemTO;
 import com.rest_jpa.servise.ItemService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +13,10 @@ import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
 import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 
 @Service
+@AllArgsConstructor
 public class ItemFacadeImpl implements ItemFacade {
 
     private ItemService itemService;
-
-    public ItemFacadeImpl(ItemService itemService) {
-        this.itemService = itemService;
-    }
 
     @Override
     public ItemTO create(ItemTO to) {

@@ -6,6 +6,7 @@ import com.rest_jpa.entity.to.CustomerOrderTO;
 import com.rest_jpa.enumTypes.OrderStatus;
 import com.rest_jpa.servise.CustomerOrderService;
 import com.rest_jpa.servise.ItemService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,15 +16,11 @@ import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
 import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 
 @Service
+@AllArgsConstructor
 public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
 
     private CustomerOrderService customerOrderService;
     private ItemService itemService;
-
-    public CustomerOrderFacadeImpl(CustomerOrderService customerOrderService, ItemService itemService) {
-        this.customerOrderService = customerOrderService;
-        this.itemService = itemService;
-    }
 
     @Override
     public CustomerOrderTO create(CustomerOrderRequestTO to) {
