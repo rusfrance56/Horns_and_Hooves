@@ -42,7 +42,8 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
     $scope.navigateToCreate = function () {
         $location.path('/tasks/createTask');
     };
-}).controller('EditTaskController', function ($scope, $location, TasksService, CommonService, task, UsersService) {
+}).controller('EditTaskController', function ($scope, $location, TasksService, CommonService, UsersService,
+                                               task, $uibModalInstance) {
     $scope.currentTask = task;
     $scope.pageTitle = $scope.currentTask.id ? 'TASK_INFO' : 'TASK_CREATE';
     $scope.departments = [];
@@ -107,4 +108,14 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
         }
         $scope.currentTask.dueDate.setHours($scope.currentTask.dueDate.getHours(), $scope.currentTask.dueDate.getMinutes(), 0, 0);
     }
+
+    $scope.ok = function () {
+        $scope.saveTask($scope.currentTask);
+        $uibModalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $location.path('/tasks');
+        $uibModalInstance.dismiss();
+    };
 });

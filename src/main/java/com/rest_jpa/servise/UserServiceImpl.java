@@ -4,6 +4,7 @@ import com.rest_jpa.entity.Role;
 import com.rest_jpa.entity.User;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,13 +22,10 @@ import static com.rest_jpa.exceptions.ErrorKey.USERS_NOT_FOUND;
 import static com.rest_jpa.exceptions.ErrorKey.USER_NOT_FOUND;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserRepository userRepository;
-
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public User create(User user) {

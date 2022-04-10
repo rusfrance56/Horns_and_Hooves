@@ -1,7 +1,6 @@
 package com.rest_jpa.entity.to;
 
 import com.rest_jpa.entity.User;
-import com.rest_jpa.enumTypes.Department;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,9 +12,10 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserTO {
+public class UserRequestTO {
     private Long id;
     private String logonName;
+    private String password;
     private String name;
     private String surname;
     private String department;
@@ -25,9 +25,10 @@ public class UserTO {
     private List<TaskTO> tasks = new ArrayList<>();
     private List<CustomerOrderTO> orders = new ArrayList<>();
 
-    public UserTO(User user) {
+    public UserRequestTO(User user) {
         this.id = user.getId();
         this.logonName = user.getLogonName();
+        this.password = user.getPassword();
         this.name = user.getName();
         this.surname = user.getSurname();
         this.department = user.getDepartment() != null ? user.getDepartment().name() : null;

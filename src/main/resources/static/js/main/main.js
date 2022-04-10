@@ -20,5 +20,6 @@ mainApp.config(function ($translateProvider) {
         'en_US': 'en',
         'en_UK': 'en',
         'ru_RU': 'ru'
-    }).determinePreferredLanguage().fallbackLanguage('ru');
+    }).determinePreferredLanguage().fallbackLanguage('ru')
+    .useSanitizeValueStrategy('escape');
 });

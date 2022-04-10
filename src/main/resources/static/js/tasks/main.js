@@ -11,11 +11,12 @@ var tasksModule = angular.module('tasksModule', [
 tasksModule.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
     $routeProvider.when('/tasks/editTask/:id', {
-        templateUrl: 'views/tasks/editTask.html',
-        controller: 'EditTaskController',
+        templateUrl: 'views/tasks/viewTasks.html',
+        controller: 'TasksController',
         resolve: {
-            task: function (TasksService, $route, CommonService, $location) {
+            task: function (TasksService, $route, CommonService, $location, EditTaskModalService) {
                 return TasksService.getTaskById($route.current.params.id).then(function (response) {
+                    EditTaskModalService.openEditTaskModal(response.task);
                     return response.task;
                 }, function (response) {
                     CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
@@ -24,10 +25,11 @@ tasksModule.config(['$routeProvider', '$locationProvider', function ($routeProvi
             }
         }
     }).when('/tasks/createTask', {
-        templateUrl: 'views/tasks/editTask.html',
-        controller: 'EditTaskController',
+        templateUrl: 'views/tasks/viewTasks.html',
+        controller: 'TasksController',
         resolve: {
-            task: function () {
+            task: function (EditTaskModalService) {
+                EditTaskModalService.openEditTaskModal({});
                 return {};
             }
         }

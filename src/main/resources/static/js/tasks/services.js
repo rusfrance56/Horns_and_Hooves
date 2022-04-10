@@ -65,4 +65,30 @@ tasksModule.service('TasksService', function ($http, $q) {
             return deferred.promise;
         }
     }
+}).service('EditTaskModalService', function ($uibModal, $log, $route) {
+    return {
+        openEditTaskModal : function (task) {
+            var size = 'md';
+            var modalInstance =
+                $uibModal.open({
+                animation: true,
+                templateUrl: '/views/tasks/editTaskModal.html',
+                controller: 'EditTaskController',
+                size: size,
+                backdrop: 'static',
+                keyboard: false,
+                resolve: {
+                    task: function () {
+                        if (!angular.isUndefinedOrNull(task)) {
+                            return task;
+                        } else {
+                            return {};
+                        }
+                    }
+                }
+            });
+            //обработчик кнопки OK и CANCEL
+            modalInstance.result.then(function (selectedItem) {}, function () {});
+        }
+    }
 });

@@ -5,6 +5,7 @@ import com.rest_jpa.entity.Item;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.CustomerOrderRepository;
 import com.rest_jpa.repository.ItemRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,15 +16,11 @@ import static com.rest_jpa.exceptions.ApplicationException.checkNotNullAndNotEmp
 import static com.rest_jpa.exceptions.ErrorKey.*;
 
 @Service
+@AllArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
     private ItemRepository itemRepository;
     private CustomerOrderRepository customerOrderRepository;
-
-    public ItemServiceImpl(ItemRepository itemRepository, CustomerOrderRepository customerOrderRepository) {
-        this.itemRepository = itemRepository;
-        this.customerOrderRepository = customerOrderRepository;
-    }
 
     @Override
     public Item create(Item item) {

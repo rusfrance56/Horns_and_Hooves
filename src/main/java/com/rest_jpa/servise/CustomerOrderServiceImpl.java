@@ -3,6 +3,7 @@ package com.rest_jpa.servise;
 import com.rest_jpa.entity.CustomerOrder;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.CustomerOrderRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +14,10 @@ import static com.rest_jpa.exceptions.ErrorKey.CUSTOMER_ORDERS_NOT_FOUND;
 import static com.rest_jpa.exceptions.ErrorKey.CUSTOMER_ORDER_NOT_FOUND;
 
 @Service
+@AllArgsConstructor
 public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     private CustomerOrderRepository customerOrderRepository;
-
-    public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository) {
-        this.customerOrderRepository = customerOrderRepository;
-    }
 
     @Override
     public CustomerOrder create(CustomerOrder order) {

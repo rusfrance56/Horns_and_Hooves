@@ -1,6 +1,7 @@
 package com.rest_jpa.controller;
 
-import com.rest_jpa.entity.to.UserTO;
+import com.rest_jpa.entity.to.UserRequestTO;
+import com.rest_jpa.entity.to.UserResponseTO;
 import com.rest_jpa.facade.UserFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,12 @@ public class UserController {
     private UserFacade userFacade;
 
     @PostMapping
-    public ResponseEntity<UserTO> create(@RequestBody UserTO request) {
+    public ResponseEntity<UserResponseTO> create(@RequestBody UserRequestTO request) {
         return new ResponseEntity<>(userFacade.create(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody UserTO request) {
+    public ResponseEntity<Void> update(@RequestBody UserRequestTO request) {
         userFacade.update(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -34,12 +35,12 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserTO>> findAll() {
+    public ResponseEntity<List<UserResponseTO>> findAll() {
         return new ResponseEntity<>(userFacade.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserTO> findById(@PathVariable("id") long id) {
+    public ResponseEntity<UserResponseTO> findById(@PathVariable("id") long id) {
         return new ResponseEntity<>(userFacade.findById(id), HttpStatus.OK);
     }
 }
