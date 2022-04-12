@@ -7,30 +7,37 @@ var itemsModule = angular.module('itemsModule', [
     'ui.bootstrap',
     'Common'
 ]);
-
-itemsModule.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    $locationProvider.hashPrefix('');
-    $routeProvider.when('/items', {
-        templateUrl: 'views/items/viewItems.html',
-        controller: 'ItemsController'
-    }).when('/items/editItem/:id', {
-        templateUrl: 'views/items/editItem.html',
-        controller: 'EditItemController',
-        resolve: {
-            item: function (ItemsService, $route) {
-                return ItemsService.getItemById($route.current.params.id);
+itemsModule.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
+    $stateProvider
+        .state('items', {
+            url: '/items',
+            templateUrl: 'views/items/viewItems.html',
+            controller: 'ItemsController'
+        })
+        .state('items_create', {
+            url: '/items/createItem',
+            templateUrl: 'views/items/editItem.html',
+            controller: 'EditItemController',
+            resolve: {
+                item: function () {
+                    return {};
+                }
             }
-        }
-    }).when('/items/createItem/', {
-        templateUrl: 'views/items/editItem.html',
-        controller: 'EditItemController',
-        resolve: {
-            item: function () {
-                return {};
+        })
+        .state('items_edit', {
+            url: '/items/editItem/:id',
+            templateUrl: 'views/items/editItem.html',
+            controller: 'EditItemController',
+            resolve: {
+                item: function (ItemsService, $stateParams) {
+                    return ItemsService.getItemById($stateParams.id).then(function (response) {
+                        return response.item;
+                    }, function (response) {
+                        CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+                        $state.go('items_create');
+                    });
+                }
             }
-        }
-    }).otherwise({
-        templateUrl: 'views/items/viewItems.html',
-        controller: 'ItemsController'
-    })
+        });
+    $urlRouterProvider.otherwise('/items');
 }]);

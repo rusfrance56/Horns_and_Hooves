@@ -65,7 +65,7 @@ tasksModule.service('TasksService', function ($http, $q) {
             return deferred.promise;
         }
     }
-}).service('EditTaskModalService', function ($uibModal, $log, $route) {
+}).service('EditTaskModalService', function ($uibModal) {
     return {
         openEditTaskModal : function (task) {
             var size = 'md';
@@ -88,7 +88,7 @@ tasksModule.service('TasksService', function ($http, $q) {
                 }
             });
             //обработчик кнопки OK и CANCEL
-            modalInstance.result.then(function (selectedItem) {}, function () {});
+            modalInstance.result.then(function () {}, function () {});
         }
     }
 });

@@ -1,5 +1,5 @@
 'use strict';
-ordersModule.service('OrdersService', function ($http) {
+ordersModule.service('OrdersService', function ($http, $q) {
     var rootPath = '/orders/';
 
     function transformObjectToIdArray(obj) {
@@ -13,31 +13,68 @@ ordersModule.service('OrdersService', function ($http) {
     }
 
     return {
-        createOrder: function (order) {
-            return $http.post(rootPath, order).then(function(response) {
-                return response.data;
+        saveOrder : function (order) {
+            let deferred = $q.defer();
+            let promise;
+            if (order.id) {
+                order.items = transformObjectToIdArray(order.items);
+                promise = $http.put(rootPath + order.id, order);
+            } else {
+                promise = $http.post(rootPath, order);
+            }
+            promise.then(function (response) {
+                response = response.data;
+                if (response.error) {
+                    deferred.reject(response);
+                } else {
+                    deferred.resolve(response);
+                }
+            }, function (error) {
+                deferred.reject(error);
             });
+            return deferred.promise;
         },
-        updateOrder: function (order) {
-            order.items = transformObjectToIdArray(order.items);
-            return $http.put(rootPath + order.id, order).then(function (response) {
-                return response.data;
+        deleteOrder : function (id) {
+            let deferred = $q.defer();
+            $http.delete(rootPath + id).then(function (response) {
+                response = response.data;
+                if (response.error) {
+                    deferred.reject(response);
+                } else {
+                    deferred.resolve(response);
+                }
+            }, function (error) {
+                deferred.reject(error);
             });
+            return deferred.promise;
         },
-        deleteOrder: function (orderId) {
-            return $http.delete(rootPath + orderId).then(function (response) {
-                return response.data;
+        getOrders : function () {
+            let deferred = $q.defer();
+            $http.get(rootPath).then(function (response) {
+                response = response.data;
+                if (response.error) {
+                    deferred.reject(response);
+                } else {
+                    deferred.resolve({orders: response});
+                }
+            }, function (error) {
+                deferred.reject(error);
             });
+            return deferred.promise;
         },
-        getOrders: function () {
-            return $http.get(rootPath).then(function (response) {
-                return response.data;
+        getOrderById : function (id) {
+            let deferred = $q.defer();
+            $http.get(rootPath + id).then(function (response) {
+                response = response.data;
+                if (response.error) {
+                    deferred.reject(response);
+                } else {
+                    deferred.resolve({order: response});
+                }
+            }, function (error) {
+                deferred.reject(error);
             });
-        },
-        getOrderById: function (id) {
-            return $http.get(rootPath + id).then(function (response) {
-                return response.data;
-            });
+            return deferred.promise;
         }
     }
 });

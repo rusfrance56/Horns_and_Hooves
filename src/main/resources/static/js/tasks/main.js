@@ -7,37 +7,40 @@ var tasksModule = angular.module('tasksModule', [
     'ui.bootstrap',
     'Common'
 ]);
-
-tasksModule.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    $locationProvider.hashPrefix('');
-    $routeProvider.when('/tasks/editTask/:id', {
-        templateUrl: 'views/tasks/viewTasks.html',
-        controller: 'TasksController',
-        resolve: {
-            task: function (TasksService, $route, CommonService, $location, EditTaskModalService) {
-                return TasksService.getTaskById($route.current.params.id).then(function (response) {
-                    EditTaskModalService.openEditTaskModal(response.task);
-                    return response.task;
-                }, function (response) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                    $location.path('/tasks/createTask');
-                });
+tasksModule.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
+    $urlRouterProvider.when('', '/tasks');
+    $stateProvider
+        .state('tasks', {
+            url: '/tasks',
+            templateUrl: '/views/tasks/viewTasks.html',
+            controller: 'TasksController'
+        })
+        .state('tasks.create', {
+            url: '/createTask',
+            templateUrl: 'views/tasks/viewTasks.html',
+            controller: 'TasksController',
+            resolve: {
+                task: function (EditTaskModalService) {
+                    EditTaskModalService.openEditTaskModal({});
+                    return {};
+                }
             }
-        }
-    }).when('/tasks/createTask', {
-        templateUrl: 'views/tasks/viewTasks.html',
-        controller: 'TasksController',
-        resolve: {
-            task: function (EditTaskModalService) {
-                EditTaskModalService.openEditTaskModal({});
-                return {};
+        })
+        .state('tasks.edit', {
+            url: '/editTask/:id',
+            templateUrl: 'views/tasks/viewTasks.html',
+            controller: 'TasksController',
+            resolve: {
+                task: function (TasksService, $stateParams, CommonService, $state, EditTaskModalService) {
+                    return TasksService.getTaskById($stateParams.id).then(function (response) {
+                        EditTaskModalService.openEditTaskModal(response.task);
+                        return response.task;
+                    }, function (response) {
+                        CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+                        $state.go('tasks.create');
+                    });
+                }
             }
-        }
-    }).when('/tasks', {
-        templateUrl: 'views/tasks/viewTasks.html',
-        controller: 'TasksController'
-    }).otherwise({
-        templateUrl: 'views/tasks/viewTasks.html',
-        controller: 'TasksController'
-    })
+        });
+    $urlRouterProvider.otherwise('/tasks');
 }]);

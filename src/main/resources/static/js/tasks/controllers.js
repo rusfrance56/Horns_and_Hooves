@@ -1,5 +1,5 @@
 'use strict';
-tasksModule.controller('TasksController', function ($scope, $location, TasksService, CommonService, UsersService) {
+tasksModule.controller('TasksController', function ($scope, $state, TasksService, CommonService, UsersService) {
     $scope.tasks = [];
     $scope.users = [];
     $scope.tasks = [];
@@ -37,12 +37,12 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
     };
 
     $scope.navigateToEdit = function (task) {
-        $location.path('/tasks/editTask/' + task.id);
+        $state.go('tasks.edit', {id: task.id});
     };
     $scope.navigateToCreate = function () {
-        $location.path('/tasks/createTask');
+        $state.go('tasks.create');
     };
-}).controller('EditTaskController', function ($scope, $location, TasksService, CommonService, UsersService,
+}).controller('EditTaskController', function ($scope, $state, TasksService, CommonService, UsersService,
                                                task, $uibModalInstance) {
     $scope.currentTask = task;
     $scope.pageTitle = $scope.currentTask.id ? 'TASK_INFO' : 'TASK_CREATE';
@@ -78,7 +78,11 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
 
     $scope.saveTask = function (task) {
         TasksService.saveTask(task).then(function () {
-            $location.path('/tasks');
+            $state.transitionTo('tasks', {}, {
+                reload: true,
+                inherit: false,
+                notify: true
+            });
         }, function (response) {
             CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
@@ -115,7 +119,7 @@ tasksModule.controller('TasksController', function ($scope, $location, TasksServ
     };
 
     $scope.cancel = function () {
-        $location.path('/tasks');
+        $state.go('tasks');
         $uibModalInstance.dismiss();
     };
 });

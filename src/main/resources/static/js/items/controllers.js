@@ -1,55 +1,39 @@
 'use strict';
-itemsModule.controller('ItemsController', function ($scope, $location, ItemsService, CommonService) {
+itemsModule.controller('ItemsController', function ($scope, ItemsService, CommonService, $state) {
     $scope.items = [];
     getItems();
 
     function getItems() {
         ItemsService.getItems().then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.items = response;
-            }
+            $scope.items = response.items;
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
     }
 
     $scope.deleteItem = function (item) {
-        ItemsService.deleteItem(item.id).then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.items.splice($scope.items.indexOf(item), 1);
-            }
+        ItemsService.deleteItem(item.id).then(function () {
+            $scope.items.splice($scope.items.indexOf(item), 1);
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
     };
 
     $scope.navigateToEdit = function (item) {
-        $location.path("/items/editItem/" + item.id);
+        $state.go("items_edit", {id: item.id});
     };
     $scope.navigateToCreate = function () {
-        $location.path("/items/createItem");
+        $state.go("items_create");
     };
-}).controller('EditItemController', function ($scope, $location, ItemsService, CommonService, item) {
+}).controller('EditItemController', function ($scope, ItemsService, CommonService, item, $state) {
     $scope.currentItem = item;
     $scope.pageTitle = $scope.currentItem.id ? 'ITEM_INFO' : 'ITEM_CREATE';
 
     $scope.saveItem = function (item) {
-        if (angular.isUndefinedOrNull(item.id)) {
-            ItemsService.createItem(item).then(function (response) {
-                if (response.error) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                } else {
-                    $location.path('/items');
-                }
-            });
-        } else {
-            ItemsService.updateItem(item).then(function (response) {
-                if (response.error) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                } else {
-                    $location.path('/items');
-                }
-            })
-        }
+        ItemsService.saveItem(item).then(function () {
+            $state.go("items");
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+        });
     }
 });

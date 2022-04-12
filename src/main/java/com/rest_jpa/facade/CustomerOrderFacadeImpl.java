@@ -2,7 +2,7 @@ package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.CustomerOrder;
 import com.rest_jpa.entity.to.CustomerOrderRequestTO;
-import com.rest_jpa.entity.to.CustomerOrderTO;
+import com.rest_jpa.entity.to.CustomerOrderResponseTO;
 import com.rest_jpa.enumTypes.OrderStatus;
 import com.rest_jpa.servise.CustomerOrderService;
 import com.rest_jpa.servise.ItemService;
@@ -23,14 +23,14 @@ public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
     private ItemService itemService;
 
     @Override
-    public CustomerOrderTO create(CustomerOrderRequestTO to) {
+    public CustomerOrderResponseTO create(CustomerOrderRequestTO to) {
         CustomerOrder order = new CustomerOrder();
         setOrderParametersFromTO(order, to);
-        CustomerOrderTO customerOrderTO = new CustomerOrderTO(order);
+        CustomerOrderResponseTO customerOrderResponseTO = new CustomerOrderResponseTO(order);
         CustomerOrder newCustomerOrder = customerOrderService.create(order);
 
-        customerOrderTO.setId(newCustomerOrder.getId());
-        return customerOrderTO;
+        customerOrderResponseTO.setId(newCustomerOrder.getId());
+        return customerOrderResponseTO;
     }
 
     @Override
@@ -47,15 +47,15 @@ public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
     }
 
     @Override
-    public List<CustomerOrderTO> findAll() {
+    public List<CustomerOrderResponseTO> findAll() {
         List<CustomerOrder> all = customerOrderService.findAll();
-        return all.stream().map(CustomerOrderTO::new).collect(Collectors.toList());
+        return all.stream().map(CustomerOrderResponseTO::new).collect(Collectors.toList());
     }
 
     @Override
-    public CustomerOrderTO findById(long id) {
+    public CustomerOrderResponseTO findById(long id) {
         CustomerOrder order = customerOrderService.findById(id);
-        return new CustomerOrderTO(order);
+        return new CustomerOrderResponseTO(order);
     }
 
     private void setOrderParametersFromTO(CustomerOrder order, CustomerOrderRequestTO to) {

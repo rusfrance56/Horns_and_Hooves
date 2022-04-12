@@ -1,7 +1,7 @@
 package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.User;
-import com.rest_jpa.entity.to.CustomerOrderTO;
+import com.rest_jpa.entity.to.CustomerOrderResponseTO;
 import com.rest_jpa.entity.to.TaskTO;
 import com.rest_jpa.entity.to.UserRequestTO;
 import com.rest_jpa.entity.to.UserResponseTO;
@@ -74,7 +74,7 @@ public class UserFacadeImpl implements UserFacade {
             user.setTasks(taskService.findAllByIds(to.getTasks().stream().map(TaskTO::getId).collect(Collectors.toList())));
         }
         if (!to.getOrders().isEmpty()) {
-            user.setOrders(customerOrderService.findAllByIds(to.getOrders().stream().map(CustomerOrderTO::getId).collect(Collectors.toList())));
+            user.setOrders(customerOrderService.findAllByIds(to.getOrders().stream().map(CustomerOrderResponseTO::getId).collect(Collectors.toList())));
         }
     }
 }

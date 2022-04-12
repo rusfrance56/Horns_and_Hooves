@@ -23,7 +23,7 @@ public class UserRequestTO {
     private String email;
     private String phone;
     private List<TaskTO> tasks = new ArrayList<>();
-    private List<CustomerOrderTO> orders = new ArrayList<>();
+    private List<CustomerOrderResponseTO> orders = new ArrayList<>();
 
     public UserRequestTO(User user) {
         this.id = user.getId();
@@ -36,6 +36,6 @@ public class UserRequestTO {
         this.email = user.getEmail();
         this.phone = user.getPhone();
         this.tasks = user.getTasks().stream().map(TaskTO::new).collect(Collectors.toList());
-        this.orders = user.getOrders().stream().map(CustomerOrderTO::new).collect(Collectors.toList());
+        this.orders = user.getOrders().stream().map(CustomerOrderResponseTO::new).collect(Collectors.toList());
     }
 }

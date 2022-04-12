@@ -1,5 +1,5 @@
 'use strict';
-usersModule.controller('UsersController', function ($scope, $location, UsersService, CommonService) {
+usersModule.controller('UsersController', function ($scope, $state, UsersService, CommonService) {
     $scope.users = [];
     getUsers();
 
@@ -25,12 +25,12 @@ usersModule.controller('UsersController', function ($scope, $location, UsersServ
     };
 
     $scope.navigateToEdit = function (user) {
-        $location.path("/users/editUser/" + user.id);
+        $state.go("users_edit", {id: user.id});
     };
     $scope.navigateToCreate = function () {
-        $location.path("/users/createUser");
+        $state.go("users_create");
     };
-}).controller("EditUserController", function($scope, $location, UsersService, CommonService, user) {
+}).controller("EditUserController", function($scope, $state, UsersService, CommonService, user) {
     $scope.currentUser = user;
     $scope.departments = [];
     getDepartments();
@@ -38,7 +38,7 @@ usersModule.controller('UsersController', function ($scope, $location, UsersServ
 
     $scope.saveUser = function (user) {
         UsersService.saveUser(user).then(function () {
-            $location.path("/users");
+            $state.go("users");
         }, function (response) {
             CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });

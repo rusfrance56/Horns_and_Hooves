@@ -1,58 +1,52 @@
 'use strict';
-ordersModule.controller('OrdersController', function ($scope, $location, OrdersService, CommonService) {
+ordersModule.controller('OrdersController', function ($scope, OrdersService, CommonService, $state) {
     $scope.orders = [];
     getOrders();
 
     function getOrders() {
         OrdersService.getOrders().then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.orders = response;
-            }
+            $scope.orders = response.orders;
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
     }
 
     $scope.deleteOrder = function (order) {
-        OrdersService.deleteOrder(order.id).then(function (response) {
-            if (response.error) {
-                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-            } else {
-                $scope.orders.splice($scope.orders.indexOf(order), 1);
-            }
+        OrdersService.deleteOrder(order.id).then(function () {
+            $scope.orders.splice($scope.orders.indexOf(order), 1);
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
     };
 
     $scope.navigateToEdit = function (order) {
-        $location.path("/orders/editOrder/" + order.id);
+        $state.go('orders_edit', {id: order.id});
     };
     $scope.navigateToCreate = function () {
-        $location.path("/orders/createOrder");
+        $state.go('orders_create');
     };
-}).controller('EditOrderController', function ($scope, $location, OrdersService, CommonService, order) {
+}).controller('EditOrderController', function ($scope, OrdersService, CommonService, order, $state, ItemsService) {
     $scope.currentOrder = order;
     $scope.employees = [];
     $scope.employeesForSelectedDep = [];
     $scope.pageTitle = $scope.currentOrder.id ? 'ORDER_INFO' : 'ORDER_CREATE';
 
+    loadItems();
+
+    function loadItems() {
+        ItemsService.getItems().then(function (response) {
+            $scope.items = response.items;
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+        });
+    }
+
     $scope.saveOrder = function (order) {
-        if (angular.isUndefinedOrNull(order.id)) {
-            OrdersService.createOrder(order).then(function (response) {
-                if (response.error) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                } else {
-                    $location.path("/orders");
-                }
-            });
-        } else {
-            OrdersService.updateOrder(order).then(function (response) {
-                if (response.error) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                } else {
-                    $location.path("/orders");
-                }
-            });
-        }
+        OrdersService.saveOrder(order).then(function () {
+            $state.go('orders');
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+        });
     };
 
     if (!angular.isUndefinedOrNull($scope.currentOrder)) {

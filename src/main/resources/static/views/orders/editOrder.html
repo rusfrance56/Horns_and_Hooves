@@ -1,5 +1,6 @@
+<div class="container-sm">
 <h2>{{pageTitle | translate}}</h2>
-<div class="container col-sm-5">
+<div class="container-sm col-sm-6">
     <form name="editOrderForm" novalidate class="form-horizontal">
         <div class="form-group row" hidden>
             <label class="control-label col-sm-3" for="edit.orderId">Id:</label>
@@ -40,7 +41,7 @@
             </div>
         </div>
     </form>
-    <div id="itemsTable">
+    <div id="orderItemsTable">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -64,4 +65,31 @@
         </tbody>
     </table>
     </div>
+</div>
+<div class="container-sm col-sm-6">
+    <div id="itemsTable">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th hidden>Id</th>
+                <th>#</th>
+                <th>{{'ITEM_NAME' | translate}}</th>
+                <th>{{'DESCRIPTION' | translate}}</th>
+                <th>{{'ITEM_COST' | translate}}</th>
+                <th>{{'ITEM_IMAGE' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in items">
+                <td hidden>{{item.id}}</td>
+                <td>{{$index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.cost}}</td>
+                <td>{{item.image}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </div>

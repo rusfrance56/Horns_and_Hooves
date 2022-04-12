@@ -1,7 +1,7 @@
 package com.rest_jpa.controller;
 
 import com.rest_jpa.entity.to.CustomerOrderRequestTO;
-import com.rest_jpa.entity.to.CustomerOrderTO;
+import com.rest_jpa.entity.to.CustomerOrderResponseTO;
 import com.rest_jpa.facade.CustomerOrderFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class CustomerOrderController {
     private CustomerOrderFacade customerOrderFacade;
 
     @PostMapping
-    public ResponseEntity<CustomerOrderTO> create(@RequestBody CustomerOrderRequestTO to) {
+    public ResponseEntity<CustomerOrderResponseTO> create(@RequestBody CustomerOrderRequestTO to) {
         return new ResponseEntity<>(customerOrderFacade.create(to), HttpStatus.OK);
     }
 
@@ -35,12 +35,12 @@ public class CustomerOrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerOrderTO>> findAll() {
+    public ResponseEntity<List<CustomerOrderResponseTO>> findAll() {
         return new ResponseEntity<>(customerOrderFacade.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerOrderTO> findById(@PathVariable("id") long id) {
+    public ResponseEntity<CustomerOrderResponseTO> findById(@PathVariable("id") long id) {
         return new ResponseEntity<>(customerOrderFacade.findById(id), HttpStatus.OK);
     }
 }

@@ -7,36 +7,37 @@ var usersModule = angular.module("usersModule", [
     'ui.bootstrap',
     'Common'
 ]);
-usersModule.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-    // $locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix('');
-    $routeProvider.when('/users/editUser/:id', {
-        templateUrl: 'views/users/editUser.html',
-        controller: 'EditUserController',
-        resolve: {
-            user: function (UsersService, $route, CommonService, $location) {
-                // UsersService.getUserById($stateParams.id)
-                return UsersService.getUserById($route.current.params.id).then(function (response) {
-                    return response.user;
-                }, function (response) {
-                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-                    $location.path("/users/createUser");
-                });
+usersModule.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
+    $stateProvider
+        .state('users', {
+            url: '/users',
+            templateUrl: 'views/users/viewUsers.html',
+            controller: 'UsersController'
+        })
+        .state('users_create', {
+            url: '/users/createUser',
+            templateUrl: 'views/users/editUser.html',
+            controller: 'EditUserController',
+            resolve: {
+                user: function () {
+                    return {};
+                }
             }
-        }
-    }).when('/users/createUser', {
-        templateUrl: 'views/users/editUser.html',
-        controller: 'EditUserController',
-        resolve: {
-            user: function () {
-                return {};
+        })
+        .state('users_edit', {
+            url: '/users/editUser/:id',
+            templateUrl: 'views/users/editUser.html',
+            controller: 'EditUserController',
+            resolve: {
+                user: function (UsersService, $stateParams, CommonService, $state) {
+                    return UsersService.getUserById($stateParams.id).then(function (response) {
+                        return response.user;
+                    }, function (response) {
+                        CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+                        $state.go("users_create");
+                    });
+                }
             }
-        }
-    }).when('/users', {
-        templateUrl: 'views/users/viewUsers.html',
-        controller: 'UsersController'
-    }).otherwise({
-        templateUrl: 'views/users/viewUsers.html',
-        controller: 'UsersController'
-    });
+        });
+    $urlRouterProvider.otherwise('/users');
 }]);

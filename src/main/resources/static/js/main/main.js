@@ -12,6 +12,10 @@ var mainApp = angular.module("mainApp", [
     'tasksModule'
 ]);
 
+mainApp.config(['$locationProvider', function ($locationProvider) {
+    $locationProvider.hashPrefix('');
+}]);
+
 mainApp.config(function ($translateProvider) {
     $translateProvider.useStaticFilesLoader({
         prefix: ' i18n/i18n_',

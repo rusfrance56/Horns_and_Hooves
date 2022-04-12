@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerOrderTO {
+public class CustomerOrderResponseTO {
     private long id;
     private String name;
     private String description;
@@ -21,7 +21,7 @@ public class CustomerOrderTO {
     private String status;
     private List<ItemTO> items = new ArrayList<>();
 
-    public CustomerOrderTO(CustomerOrder order) {
+    public CustomerOrderResponseTO(CustomerOrder order) {
         this.id = order.getId();
         this.name = order.getName();
         this.description = order.getDescription();
