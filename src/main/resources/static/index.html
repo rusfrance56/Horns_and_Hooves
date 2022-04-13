@@ -54,7 +54,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li>
                         <a href="#/orders">{{'ORDERS' | translate}}<span class="sr-only">(current)</span></a>
                     </li>
                     <li><a href="#/users">{{'USERS' | translate}}</a></li>
@@ -79,16 +79,6 @@
 <div class="container">
     <div ui-view></div>
 </div>
-<script>
-    $(".nav a").on("click", function(){
-        $(".nav").find(".active").removeClass("active");
-        $(this).parent().addClass("active");
-    });
-    $(".navbar-brand").on("click", function(){
-        $(".nav").find(".active").removeClass("active");
-        $("a[href^=\"#/tasks\"]").parent().addClass("active");
-    });
-</script>
 
 <script src="js/main/main.js"></script>
 

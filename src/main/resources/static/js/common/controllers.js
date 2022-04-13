@@ -7,7 +7,7 @@ common.controller('messageModalCtrl', function ($scope, $uibModalInstance, mode,
         $uibModalInstance.dismiss();
     };
 });
-common.controller('CommonController', function ($scope, $translate) {
+common.controller('CommonController', function ($scope, $translate, $location) {
     $scope.selectedLang = "ru";
     $scope.$watch('selectedLang', function () {
         $translate.use($scope.selectedLang);
@@ -20,4 +20,17 @@ common.controller('CommonController', function ($scope, $translate) {
     angular.isUndefinedOrNull = function(val) {
         return angular.isUndefined(val) || val === null
     };
+
+    $scope.$watch(function(){
+        return $location.path();
+    }, function(value){
+        var pgurl = '#' + value;
+        $(".navbar-nav > li > a").each(function () {
+            if (pgurl.startsWith($(this).attr("href"))){
+                $(this).parent("li").addClass("active");
+            } else {
+                $(this).parent("li").removeClass("active");
+            }
+        });
+    });
 });
