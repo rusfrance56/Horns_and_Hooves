@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     // выдает токен и по истечении действия токена, система разлогинит пользователя
                     .rememberMe()
                     .key("myAppKey")
-                    .tokenValiditySeconds(60)
+                    .tokenValiditySeconds(60*60)
                     .userDetailsService(userService)
                 .and()
                     .logout();

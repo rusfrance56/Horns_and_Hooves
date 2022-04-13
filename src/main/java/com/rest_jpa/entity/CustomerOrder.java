@@ -1,6 +1,7 @@
 package com.rest_jpa.entity;
 
 import com.rest_jpa.enumTypes.OrderStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +14,7 @@ import java.util.List;
 @Table(name = "customer_orders")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class CustomerOrder extends BaseEntity {
 
     @Column(name = "due_date", nullable = false)
@@ -21,7 +23,7 @@ public class CustomerOrder extends BaseEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus status = OrderStatus.CREATED;
 
     @ManyToMany(fetch = FetchType.LAZY)/*, cascade = CascadeType.ALL*/
     @JoinTable(name = "orders_items",

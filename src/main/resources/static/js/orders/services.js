@@ -20,6 +20,7 @@ ordersModule.service('OrdersService', function ($http, $q) {
                 order.items = transformObjectToIdArray(order.items);
                 promise = $http.put(rootPath + order.id, order);
             } else {
+                order.items = transformObjectToIdArray(order.items);
                 promise = $http.post(rootPath, order);
             }
             promise.then(function (response) {

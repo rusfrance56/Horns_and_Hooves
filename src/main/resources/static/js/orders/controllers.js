@@ -49,6 +49,14 @@ ordersModule.controller('OrdersController', function ($scope, OrdersService, Com
         });
     };
 
+    $scope.addItemsToOrder = function () {
+        if (angular.isUndefinedOrNull($scope.currentOrder.items)) {
+            $scope.currentOrder.items = [];
+        }
+        $scope.currentOrder.items.push(...$scope.items.filter(i => i.check));
+        $scope.items.forEach(i => i.check = false);
+    };
+
     if (!angular.isUndefinedOrNull($scope.currentOrder)) {
         if (angular.isUndefinedOrNull($scope.currentOrder.dueDate)) {
             $scope.currentOrder.dueDate = new Date();
