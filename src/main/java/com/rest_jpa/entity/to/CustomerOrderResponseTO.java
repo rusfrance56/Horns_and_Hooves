@@ -1,6 +1,7 @@
 package com.rest_jpa.entity.to;
 
 import com.rest_jpa.entity.CustomerOrder;
+import com.rest_jpa.enumTypes.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,9 @@ public class CustomerOrderResponseTO {
         this.name = order.getName();
         this.description = order.getDescription();
         this.dueDate = order.getDueDate();
+        if (order.getStatus() == null) {
+            order.setStatus(OrderStatus.CREATED);
+        }
         this.status = order.getStatus().name();
         this.items = order.getItems().stream().map(ItemTO::new).collect(Collectors.toList());
     }

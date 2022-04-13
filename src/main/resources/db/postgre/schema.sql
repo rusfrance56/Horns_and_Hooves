@@ -40,7 +40,7 @@ CREATE TABLE items (
 CREATE TABLE orders_items (
   customer_order_id     INTEGER             NOT NULL,
   item_id               INTEGER,
-  CONSTRAINT orders_items_idx UNIQUE (customer_order_id, item_id),
+--   CONSTRAINT orders_items_idx UNIQUE (customer_order_id, item_id),
   FOREIGN KEY (customer_order_id) REFERENCES customer_orders (id) ON DELETE CASCADE,
   FOREIGN KEY (item_id) REFERENCES items (id) ON DELETE RESTRICT
 );

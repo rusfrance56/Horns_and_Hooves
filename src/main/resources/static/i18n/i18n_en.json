@@ -76,5 +76,6 @@
   "CREATED"          : "Created",
   "DEVELOPED"        : "Developed",
   "FINISHED"         : "Finished",
-  "USERS_NOT_FOUND" : "Users not found! {{value1}}"
+  "USERS_NOT_FOUND"  : "Users not found! {{value1}}",
+  "ADD"              : "Add"
 }
