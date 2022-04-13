@@ -1,6 +1,5 @@
 'use strict';
 var tasksModule = angular.module('tasksModule', [
-    'ngRoute',
     'ui.router',
     'smart-table',
     'pascalprecht.translate',

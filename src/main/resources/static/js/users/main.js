@@ -1,6 +1,5 @@
 'use strict';
 var usersModule = angular.module("usersModule", [
-    'ngRoute',
     'ui.router',
     'smart-table',
     'pascalprecht.translate',

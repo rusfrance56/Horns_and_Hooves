@@ -1,6 +1,5 @@
 'use strict';
 var mainApp = angular.module("mainApp", [
-    'ngRoute',
     'ui.router',
     'smart-table',
     'pascalprecht.translate',

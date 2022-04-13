@@ -13,6 +13,10 @@ common.controller('CommonController', function ($scope, $translate) {
         $translate.use($scope.selectedLang);
     });
 
+    $scope.selectLang = function (lang) {
+        $scope.selectedLang = lang;
+    };
+
     angular.isUndefinedOrNull = function(val) {
         return angular.isUndefined(val) || val === null
     };

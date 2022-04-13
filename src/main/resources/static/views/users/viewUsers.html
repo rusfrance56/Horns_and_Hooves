@@ -1,22 +1,20 @@
 <h2>{{'USERS' | translate}}</h2>
 <div st-table="usersRecords" st-safe-src="users">
-    <div class="row inline-row">
-        <div class="inline-row-part">
-            <button type="button" class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
-        </div>
-        <div class="inline-row-part">
-            <input st-search="" class="form-control col-lg-2" placeholder="{{'SEARCH' | translate}}" type="text"/>
-        </div>
-        <div class="inline-row-part pull-right">
-            <label for="itemsByPageDropDown">{{'SHOW_ON_PAGE' | translate}}</label>
-            <select class="form-control" id="itemsByPageDropDown"
-                    ng-options="opt for opt in dropdown.availableOptions" ng-model="dropdown.itemsByPage">
-            </select>
-        </div>
-    </div>
     <div id="userTable">
         <table class="table table-striped">
             <thead>
+            <tr>
+                <th colspan="4"><input st-search="" class="form-control-sm col-lg-8" placeholder="{{'SEARCH' | translate}}" type="text"/></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+                    <div class="btn-group-sm inline-row" role="group">
+                        <button type="button" class="btn-sm btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
+                    </div>
+                </th>
+            </tr>
             <tr>
                 <th hidden>Id</th>
                 <th>#</th>
@@ -27,7 +25,11 @@
                 <th st-sort="address">{{'ADDRESS' | translate}}</th>
                 <th st-sort="email">{{'EMAIL' | translate}}</th>
                 <th st-sort="phone">{{'PHONE' | translate}}</th>
-                <th></th>
+                <th>
+                    <select class="form-control-sm" id="itemsByPageDropDown"
+                            ng-options="opt for opt in dropdown.availableOptions" ng-model="dropdown.itemsByPage">
+                    </select>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -50,11 +52,11 @@
             </tr>
             </tbody>
             <tfoot>
-            <tr>
-                <td colspan="10" class="text-center">
-                    <div st-pagination="" st-items-by-page="dropdown.itemsByPage" st-displayed-pages="10"></div>
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="10" class="text-center">
+                        <div st-pagination="" st-items-by-page="dropdown.itemsByPage" st-displayed-pages="10"></div>
+                    </td>
+                </tr>
             </tfoot>
         </table>
     </div>

@@ -2,26 +2,29 @@
 <html ng-app="mainApp">
 <head>
     <title>Horns and Hooves</title>
-    <link href="css/style.css" type="text/css" rel="stylesheet"/>
-    <link href="css/desktop-style.css" type="text/css" rel="stylesheet"/>
     <link rel="icon" href="data:;base64,=">
 
-    <script src="lib/angular-1.8.2/angular.js"></script>
-    <script src="lib/angular-1.8.2/angular-route.js"></script>
-    <script src="lib/angular-ui-router/angular-ui-router-1.0.20.js"></script>
-    <script src="lib/angular-1.7.2/angular-translate.js"></script>
-    <script src="lib/angular-1.7.2/angular-translate-loader-static-files.js"></script>
-    <script src="lib/angular-smart-table/dist/smart-table.js"></script>
-    <script src="lib/angular-ui-bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
-    <script src="lib/jquery-3.3.1/query-3.3.1.min.js"></script>
+    <!-- Users stylesheets-->
+    <link href="css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="css/desktop-style.css" type="text/css" rel="stylesheet"/>
 
+    <!-- AngularJS and libraries-->
+    <script src="lib/angular-1.8.2/angular.js"></script>
+    <script src="lib/angular-translate-2.18.1/angular-translate.js"></script>
+    <script src="lib/angular-translate-2.18.1/angular-translate-loader-static-files.js"></script>
+    <script src="lib/angular-ui-router/angular-ui-router-1.0.20.js"></script>
+    <script src="lib/angular-ui-bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <script src="lib/angular-smart-table-2.1.8/smart-table.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="lib/jquery-3.3.1/query-3.3.1.min.js"></script>
     <script src="lib/bootstrap-3.3.7/js/bootstrap.js"></script>
     <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.css">
     <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap-theme.css">
 </head>
 <body ng-controller="CommonController">
 <div class="container">
-    <ul class="nav nav-tabs">
+   <!-- <ul class="nav nav-tabs">
         <li><a href="#/orders">{{'ORDERS' | translate}}</a></li>
         <li><a href="#/users">{{'USERS' | translate}}</a></li>
         <li><a href="#/items">{{'ITEMS' | translate}}</a></li>
@@ -36,10 +39,57 @@
         <div class="lang">
             {{'LANG' | translate}}:
         </div>
-    </ul>
+    </ul>-->
 
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/tasks">Horns and Hooves</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#/orders">{{'ORDERS' | translate}}<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li><a href="#/users">{{'USERS' | translate}}</a></li>
+                    <li><a href="#/items">{{'ITEMS' | translate}}</a></li>
+                    <li><a href="#/tasks">{{'TASKS' | translate}}</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/logout">Logout</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{selectedLang}}<span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="min-width: 50px !important;">
+                            <li><a ng-click="selectLang('ru')">ru</a></li>
+                            <li><a ng-click="selectLang('en')">en</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container">
     <div ui-view></div>
 </div>
+<script>
+    $(".nav a").on("click", function(){
+        $(".nav").find(".active").removeClass("active");
+        $(this).parent().addClass("active");
+    });
+    $(".navbar-brand").on("click", function(){
+        $(".nav").find(".active").removeClass("active");
+        $("a[href^=\"#/tasks\"]").parent().addClass("active");
+    });
+</script>
+
 <script src="js/main/main.js"></script>
 
 <script src="js/common/main.js"></script>

@@ -1,6 +1,5 @@
 'use strict';
 var ordersModule = angular.module("ordersModule", [
-    'ngRoute',
     'ui.router',
     'smart-table',
     'pascalprecht.translate',
