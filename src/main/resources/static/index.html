@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html ng-app="mainApp">
+<html ng-app="app">
 <head>
     <title>Horns and Hooves</title>
     <link rel="icon" href="data:;base64,=">
 
     <!-- Users stylesheets-->
-    <link href="css/style.css" type="text/css" rel="stylesheet"/>
-    <link href="css/desktop-style.css" type="text/css" rel="stylesheet"/>
+<!--    <link href="css/style.css" type="text/css" rel="stylesheet"/>-->
+<!--    <link href="css/desktop-style.css" type="text/css" rel="stylesheet"/>-->
 
     <!-- AngularJS and libraries-->
     <script src="lib/angular-1.8.2/angular.js"></script>
@@ -22,84 +22,10 @@
     <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.css">
     <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap-theme.css">
 </head>
-<body ng-controller="CommonController">
-<div class="container">
-   <!-- <ul class="nav nav-tabs">
-        <li><a href="#/orders">{{'ORDERS' | translate}}</a></li>
-        <li><a href="#/users">{{'USERS' | translate}}</a></li>
-        <li><a href="#/items">{{'ITEMS' | translate}}</a></li>
-        <li><a href="#/tasks">{{'TASKS' | translate}}</a></li>
-
-        <div class="lang">
-            <select class="form-control" ng-model="selectedLang">
-                <option>ru</option>
-                <option>en</option>
-            </select>
-        </div>
-        <div class="lang">
-            {{'LANG' | translate}}:
-        </div>
-    </ul>-->
-
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#/tasks">Horns and Hooves</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#/orders">{{'ORDERS' | translate}}<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li><a href="#/users">{{'USERS' | translate}}</a></li>
-                    <li><a href="#/items">{{'ITEMS' | translate}}</a></li>
-                    <li><a href="#/tasks">{{'TASKS' | translate}}</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout">Logout</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">{{selectedLang}}<span class="caret"></span></a>
-                        <ul class="dropdown-menu" style="min-width: 50px !important;">
-                            <li><a ng-click="selectLang('ru')">ru</a></li>
-                            <li><a ng-click="selectLang('en')">en</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
-<div class="container">
+<body>
     <div ui-view></div>
-</div>
-
-<script src="js/main/main.js"></script>
-
-<script src="js/common/main.js"></script>
-<script src="js/common/controllers.js"></script>
-<script src="js/common/services.js"></script>
-
-<script src="js/users/main.js"></script>
-<script src="js/users/controllers.js"></script>
-<script src="js/users/services.js"></script>
-
-<script src="js/orders/main.js"></script>
-<script src="js/orders/controllers.js"></script>
-<script src="js/orders/services.js"></script>
-
-<script src="js/items/main.js"></script>
-<script src="js/items/controllers.js"></script>
-<script src="js/items/services.js"></script>
-
-<script src="js/tasks/main.js"></script>
-<script src="js/tasks/controllers.js"></script>
-<script src="js/tasks/services.js"></script>
+    <script src="js/app/app.js"></script>
+    <script src="js/home/main.js"></script>
+    <script src="js/login/controllers.js"></script>
 </body>
 </html>

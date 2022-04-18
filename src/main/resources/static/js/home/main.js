@@ -14,6 +14,18 @@ var mainApp = angular.module("mainApp", [
 mainApp.config(['$locationProvider', function ($locationProvider) {
     $locationProvider.hashPrefix('');
 }]);
+mainApp.config(function ($httpProvider) {
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+});
+/*mainApp.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
+    $stateProvider
+        .state('login', {
+            url: '/login',
+            templateUrl: 'views/login.html',
+            controller: 'AuthController'
+        });
+    $urlRouterProvider.otherwise('/');
+}]);*/
 
 mainApp.config(function ($translateProvider) {
     $translateProvider.useStaticFilesLoader({
