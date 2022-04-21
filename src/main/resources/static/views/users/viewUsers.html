@@ -26,8 +26,8 @@
                 <th st-sort="email">{{'EMAIL' | translate}}</th>
                 <th st-sort="phone">{{'PHONE' | translate}}</th>
                 <th>
-                    <select class="form-control-sm" id="itemsByPageDropDown"
-                            ng-options="opt for opt in dropdown.availableOptions" ng-model="dropdown.itemsByPage">
+                    <select class="form-control-sm" id="itemsByPageDropDown" ng-change="getUsers()"
+                            ng-options="opt for opt in pagination.availableOptions" ng-model="pagination.itemsPerPage">
                     </select>
                 </th>
             </tr>
@@ -52,9 +52,16 @@
             </tr>
             </tbody>
             <tfoot>
-                <tr>
+                <!--<tr>
                     <td colspan="10" class="text-center">
                         <div st-pagination="" st-items-by-page="dropdown.itemsByPage" st-displayed-pages="10"></div>
+                    </td>
+                </tr>-->
+                <tr>
+                    <td colspan="9" class="my_table_footer">
+                        <ul uib-pagination direction-links="false" total-items="pagination.totalItems"
+                            items-per-page="pagination.itemsPerPage" ng-model="pagination.currentPage"
+                            ng-change="getUsers()"></ul>
                     </td>
                 </tr>
             </tfoot>

@@ -4,6 +4,7 @@ import com.rest_jpa.entity.to.UserRequestTO;
 import com.rest_jpa.entity.to.UserResponseTO;
 import com.rest_jpa.facade.UserFacade;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,12 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserResponseTO>> findAll() {
         return new ResponseEntity<>(userFacade.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/pagination")
+    public ResponseEntity<Page<UserResponseTO>> findAllWithPagination(@RequestParam int page, @RequestParam int size) {
+        Page<UserResponseTO> usersTOPage = userFacade.findAllWithPagination(page, size);
+        return new ResponseEntity<>(usersTOPage, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

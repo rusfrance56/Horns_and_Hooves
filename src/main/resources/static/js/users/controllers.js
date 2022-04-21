@@ -1,16 +1,22 @@
 'use strict';
 usersModule.controller('UsersController', function ($scope, $state, UsersService, CommonService) {
     $scope.users = [];
+    $scope.pagination = {
+        currentPage: 1,
+        totalItems: 10,
+        availableOptions: [5, 10, 20],
+        itemsPerPage: 5
+    };
     getUsers();
 
-    $scope.dropdown = {
-        availableOptions: [3, 5, 10],
-        itemsByPage: 10
+    $scope.getUsers = function () {
+        getUsers();
     };
 
     function getUsers() {
-        UsersService.getUsers().then(function (response) {
+        UsersService.getUsers($scope.pagination).then(function (response) {
             $scope.users = response.users;
+            $scope.pagination = response.pagination;
         }, function (response) {
             CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });

@@ -5,10 +5,7 @@ import com.rest_jpa.entity.User;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.exceptions.ErrorKey;
 import com.rest_jpa.repository.CustomerOrderRepository;
-import com.rest_jpa.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,15 +21,12 @@ import static com.rest_jpa.exceptions.ErrorKey.CUSTOMER_ORDER_NOT_FOUND;
 public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     private CustomerOrderRepository customerOrderRepository;
-    private UserRepository userRepository;
+    private AuthenticationProvider authenticationProvider;
 
     @Override
     public CustomerOrder create(CustomerOrder order) {
-        //todo как по человечески работать с принципалом?
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String logonName = authentication.getName();
-        Optional<User> user = userRepository.findByLogonName(logonName);
-        checkArgument(user.isPresent(), ErrorKey.USER_NOT_FOUND, logonName);
+        Optional<User> user =  authenticationProvider.getUser();
+        checkArgument(user.isPresent(), ErrorKey.USER_NOT_FOUND);
         order.setUser(user.get());
         return customerOrderRepository.save(order);
     }

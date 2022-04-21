@@ -10,6 +10,8 @@ import com.rest_jpa.servise.CustomerOrderService;
 import com.rest_jpa.servise.TaskService;
 import com.rest_jpa.servise.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,6 +58,14 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
+    public Page<UserResponseTO> findAllWithPagination(int page, int size) {
+        Page<User> usersPage = userService.findAllWithPagination(page, size);
+        List<UserResponseTO> usersTO = usersPage.getContent().stream().map(UserResponseTO::new)
+                .collect(Collectors.toList());
+        return new PageImpl<>(usersTO, usersPage.getPageable(), usersPage.getTotalElements());
+    }
+
+    @Override
     public UserResponseTO findById(long id) {
         User user = userService.findById(id);
         return new UserResponseTO(user);
@@ -63,7 +73,7 @@ public class UserFacadeImpl implements UserFacade {
 
     private void setUserParametersFromTO(User user, UserRequestTO to) {
         user.setLogonName(to.getLogonName());
-        /*user.setPassword(to.getPassword());*/
+        user.setPassword(to.getPassword());
         user.setName(to.getName());
         user.setSurname(to.getSurname());
         user.setDepartment(to.getDepartment() != null ? Department.valueOf(to.getDepartment()) : null);

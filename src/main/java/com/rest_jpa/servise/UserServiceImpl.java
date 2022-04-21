@@ -1,21 +1,15 @@
 package com.rest_jpa.servise;
 
-import com.rest_jpa.entity.Role;
 import com.rest_jpa.entity.User;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNullAndNotEmpty;
 import static com.rest_jpa.exceptions.ErrorKey.USERS_NOT_FOUND;
@@ -23,7 +17,7 @@ import static com.rest_jpa.exceptions.ErrorKey.USER_NOT_FOUND;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
@@ -53,21 +47,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User findById(long id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.orElseThrow(() -> new ApplicationException(USER_NOT_FOUND, id));
+    public Page<User> findAllWithPagination(int page, int size) {
+        Page<User> users = userRepository.findAll(PageRequest.of(page, size));
+        checkNotNullAndNotEmpty(users.getContent(), USERS_NOT_FOUND);
+        return users;
     }
 
     @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String logonName) {
-        Optional<User> userOptional = userRepository.findByLogonName(logonName);
-        User user = userOptional.orElseThrow(() -> new ApplicationException(USER_NOT_FOUND, logonName));
-        return new org.springframework.security.core.userdetails.User(user.getLogonName(), user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
-    }
-
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+    public User findById(long id) {
+        Optional<User> user = userRepository.findById(id);
+        return user.orElseThrow(() -> new ApplicationException(USER_NOT_FOUND, id));
     }
 }

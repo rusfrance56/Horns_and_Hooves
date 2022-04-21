@@ -4,7 +4,6 @@ import com.rest_jpa.entity.Task;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -36,7 +35,7 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom{
         CriteriaQuery<Task> query = criteriaQuery.select(taskRoot);
         if (authentication.isAuthenticated() && adminAuthorities.isEmpty()) {
             query = query.where(criteriaBuilder.equal(
-                    taskRoot.get("user").get("logonName"), ((User) authentication.getPrincipal()).getUsername()
+                    taskRoot.get("user").get("logonName"), authentication.getName()
             ));
         }
         return em.createQuery(query).getResultList();

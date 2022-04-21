@@ -2,8 +2,11 @@ DROP TABLE IF EXISTS orders_items;
 DROP TABLE IF EXISTS customer_orders;
 DROP TABLE IF EXISTS items;
 DROP TABLE IF EXISTS users_roles;
+DROP TABLE IF EXISTS roles_permissions;
 DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS permissions;
 DROP TABLE IF EXISTS tasks;
+-- DROP TABLE IF EXISTS user_logons;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -19,6 +22,14 @@ CREATE TABLE users (
   department    VARCHAR(20),
   description   VARCHAR
 );
+/*CREATE TABLE user_logons (
+  id            SERIAL              PRIMARY KEY,
+  created       TIMESTAMP           DEFAULT now(),
+  logon_name    VARCHAR(30)         NOT NULL UNIQUE,
+  password      VARCHAR(80)         NOT NULL,
+  user_id       INTEGER,
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);*/
 CREATE TABLE customer_orders (
   id            SERIAL              PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
@@ -57,8 +68,23 @@ CREATE TABLE tasks (
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL
 );
 CREATE TABLE roles(
-  id          SERIAL                PRIMARY KEY,
-  name        VARCHAR(50)           NOT NULL
+  id            SERIAL              PRIMARY KEY,
+  created       TIMESTAMP           DEFAULT now(),
+  name          VARCHAR(50)         NOT NULL,
+  description   VARCHAR
+);
+CREATE TABLE permissions(
+  id            SERIAL              PRIMARY KEY,
+  created       TIMESTAMP           DEFAULT now(),
+  name          VARCHAR(50)         NOT NULL,
+  description   VARCHAR
+);
+CREATE TABLE roles_permissions(
+  role_id           INTEGER             NOT NULL,
+  permission_id     INTEGER             NOT NULL,
+  CONSTRAINT roles_permissions_idx UNIQUE (role_id, permission_id),
+  FOREIGN KEY (permission_id) REFERENCES permissions (id),
+  FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 CREATE TABLE users_roles(
   user_id     INTEGER             NOT NULL,
