@@ -63,6 +63,15 @@
             <td>{{item.image}}</td>
         </tr>
         </tbody>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <th class="text-right">{{'TOTAL' | translate}}:</th>
+            <th>{{calculateTotal().toFixed(2)}}</th>
+            <td></td>
+        </tr>
+        </tfoot>
     </table>
     </div>
 </div>

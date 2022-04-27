@@ -47,6 +47,7 @@
   "DUE_DATE"         : "Due date",
   "STATUS"           : "Status",
   "ENTER_ORDER_DESCRIPTION"           : "Enter description",
+  "TOTAL"           : "Total",
 
   "ITEMS"            : "Items",
   "ITEM_NAME"        : "Name",

@@ -47,6 +47,7 @@
   "DUE_DATE"         : "Дата окончания",
   "STATUS"           : "Статус",
   "ENTER_ORDER_DESCRIPTION"           : "Введите описание",
+  "TOTAL"            : "Итого",
 
   "ITEMS"            : "Товары",
   "ITEM_NAME"        : "Название",

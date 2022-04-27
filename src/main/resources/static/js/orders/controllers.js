@@ -57,6 +57,12 @@ ordersModule.controller('OrdersController', function ($scope, OrdersService, Com
         $scope.items.forEach(i => i.check = false);
     };
 
+    $scope.calculateTotal = function () {
+        return $scope.currentOrder.items.reduce(
+            (accumulator, current) => accumulator + Number(current["cost"]), 0
+        );
+    };
+
     if (!angular.isUndefinedOrNull($scope.currentOrder)) {
         if (angular.isUndefinedOrNull($scope.currentOrder.dueDate)) {
             $scope.currentOrder.dueDate = new Date();

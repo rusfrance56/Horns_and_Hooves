@@ -28,12 +28,24 @@ itemsModule.controller('ItemsController', function ($scope, ItemsService, Common
 }).controller('EditItemController', function ($scope, ItemsService, CommonService, item, $state) {
     $scope.currentItem = item;
     $scope.pageTitle = $scope.currentItem.id ? 'ITEM_INFO' : 'ITEM_CREATE';
+    $scope.departments = [];
+    loadData();
+
+    function loadData() {
+        getDepartments();
+    }
 
     $scope.saveItem = function (item) {
         ItemsService.saveItem(item).then(function () {
             $state.go("items");
         }, function (response) {
             CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+        });
+    }
+
+    function getDepartments() {
+        CommonService.getEnumValues("Department").then(function (response) {
+            $scope.departments = response;
         });
     }
 });

@@ -1,12 +1,14 @@
 package com.rest_jpa.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "roles")
 public class Role extends BaseEntity {
 

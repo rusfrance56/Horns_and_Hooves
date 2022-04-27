@@ -5,6 +5,7 @@ import com.rest_jpa.facade.ItemFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('WRITE')")
     public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         itemFacade.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);

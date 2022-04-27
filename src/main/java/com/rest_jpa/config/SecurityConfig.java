@@ -1,9 +1,11 @@
 package com.rest_jpa.config;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,19 +15,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsService userService;
-
-    @Autowired
-    private void setUserService(UserDetailsService userService) {
-        this.userService = userService;
-    }
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
+        http.csrf().disable()
                 // csrf для rest дизейблится
 //                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //                .and()
@@ -35,30 +33,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //                .and()
                 .authorizeRequests()
-                .antMatchers("/**").authenticated()
                 .antMatchers("/resources/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/users/**").hasAuthority("READ")
+                .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN")
+                .antMatchers("/**").authenticated()
                 .and()
-                    .formLogin()
+//                .httpBasic()
+                .formLogin()
 //                    .loginPage("/views/form_login.html").permitAll()
-//                    .usernameParameter("j_username")
-//                    .passwordParameter("j_password")
-//                    .loginProcessingUrl("/j_login").permitAll()
-//                    .successForwardUrl("/#/tasks")
                 .and()
-                    // выдает токен и по истечении действия токена, система разлогинит пользователя
-                    .rememberMe()
-                    .key("myAppKey")
-                    .tokenValiditySeconds(60*60*12)
-                    .userDetailsService(userService)
+                // выдает токен и по истечении действия токена, система разлогинит пользователя
+                .rememberMe()
+                .key("myAppKey")
+                .tokenValiditySeconds(60 * 60 * 12)
                 .and()
-                    .logout();
+                .logout();
     }
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setUserDetailsService(userService);
+        authenticationProvider.setUserDetailsService(userDetailsService);
         return authenticationProvider;
     }
 

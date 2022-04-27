@@ -13,6 +13,7 @@ public class ItemTO {
     private String name;
     private String description;
     private String imageUrl;
+    private String department;
     private double cost;
 
     public ItemTO(Item item) {
@@ -20,6 +21,7 @@ public class ItemTO {
         this.name = item.getName();
         this.description = item.getDescription();
         this.imageUrl = item.getImageUrl();
+        this.department = item.getDepartment().name();
         this.cost = item.getCost();
     }
 }

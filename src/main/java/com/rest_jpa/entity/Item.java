@@ -1,12 +1,11 @@
 package com.rest_jpa.entity;
 
 import com.rest_jpa.entity.to.ItemTO;
+import com.rest_jpa.enumTypes.Department;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "items")
@@ -17,12 +16,17 @@ public class Item extends BaseEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "department")
+    @Enumerated(EnumType.STRING)
+    private Department department;
+
     @Column(name = "cost")
     private Double cost;
 
     public Item(ItemTO to) {
         super(to.getName(), to.getDescription());
         this.imageUrl = to.getImageUrl();
+        this.department = Department.valueOf(to.getDepartment());
         this.cost = to.getCost();
     }
 }

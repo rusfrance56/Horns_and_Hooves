@@ -6,7 +6,6 @@ DROP TABLE IF EXISTS roles_permissions;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS permissions;
 DROP TABLE IF EXISTS tasks;
--- DROP TABLE IF EXISTS user_logons;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -20,6 +19,7 @@ CREATE TABLE users (
   phone         VARCHAR(20)         NOT NULL,
   email         VARCHAR(50)         NOT NULL,
   department    VARCHAR(20),
+  status        VARCHAR(20)         DEFAULT 'ACTIVE',
   description   VARCHAR
 );
 /*CREATE TABLE user_logons (
@@ -46,6 +46,7 @@ CREATE TABLE items (
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR,
   image_url     VARCHAR,
+  department    VARCHAR(20)         NOT NULL,
   cost          NUMERIC(10,2)
 );
 CREATE TABLE orders_items (
@@ -83,8 +84,8 @@ CREATE TABLE roles_permissions(
   role_id           INTEGER             NOT NULL,
   permission_id     INTEGER             NOT NULL,
   CONSTRAINT roles_permissions_idx UNIQUE (role_id, permission_id),
-  FOREIGN KEY (permission_id) REFERENCES permissions (id),
-  FOREIGN KEY (role_id) REFERENCES roles (id)
+  FOREIGN KEY (role_id) REFERENCES roles (id),
+  FOREIGN KEY (permission_id) REFERENCES permissions (id)
 );
 CREATE TABLE users_roles(
   user_id     INTEGER             NOT NULL,

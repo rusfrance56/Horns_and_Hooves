@@ -2,6 +2,7 @@ package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.Item;
 import com.rest_jpa.entity.to.ItemTO;
+import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.servise.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,7 @@ public class ItemFacadeImpl implements ItemFacade {
         item.setName(to.getName());
         item.setDescription(to.getDescription());
         item.setImageUrl(to.getImageUrl());
+        item.setDepartment(Department.valueOf(to.getDepartment()));
         item.setCost(to.getCost());
         itemService.update(item);
     }

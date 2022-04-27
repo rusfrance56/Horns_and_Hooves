@@ -23,6 +23,14 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="control-label col-sm-3" for="edit.department">{{'DEPARTMENT' | translate}}:</label>
+            <div class="col-sm-4">
+                <select class="form-control" id="edit.department" ng-model="currentItem.department"
+                        ng-options="dep | translate for dep in departments" required>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="control-label col-sm-3" for="edit.image">{{'ITEM_IMAGE' | translate}}</label>
             <div class="col-sm-9">
                 <input class="form-control"  ng-model="currentItem.imageUrl" type="text" id="edit.image"
