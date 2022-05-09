@@ -2,9 +2,12 @@ package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.Item;
 import com.rest_jpa.entity.to.ItemTO;
-import com.rest_jpa.enumTypes.Department;
+import com.rest_jpa.fileUploading.StorageService;
 import com.rest_jpa.servise.ItemService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,7 @@ import static com.rest_jpa.exceptions.ErrorKey.WRONG_INPUT_DATA;
 public class ItemFacadeImpl implements ItemFacade {
 
     private ItemService itemService;
+    private StorageService storageService;
 
     @Override
     public ItemTO create(ItemTO to) {
@@ -31,12 +35,10 @@ public class ItemFacadeImpl implements ItemFacade {
     public void update(ItemTO to) {
         checkNotNull(to.getId(), WRONG_INPUT_DATA, "id");
         Item item = itemService.findById(to.getId());
-        item.setName(to.getName());
-        item.setDescription(to.getDescription());
-        item.setImageUrl(to.getImageUrl());
-        item.setDepartment(Department.valueOf(to.getDepartment()));
-        item.setCost(to.getCost());
+        String prevImageUrl = item.getImageUrl();
+        Item.updateEntityFromTO(item, to);
         itemService.update(item);
+        storageService.delete(prevImageUrl);
     }
 
     @Override
@@ -48,6 +50,13 @@ public class ItemFacadeImpl implements ItemFacade {
     public List<ItemTO> findAll() {
         List<Item> all = itemService.findAll();
         return all.stream().map(ItemTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ItemTO> findAllWithPagination(Pageable pageable) {
+        Page<Item> itemsPage = itemService.findAllWithPagination(pageable);
+        List<ItemTO> itemTOResponse = itemsPage.getContent().stream().map(ItemTO::new).collect(Collectors.toList());
+        return new PageImpl<>(itemTOResponse, itemsPage.getPageable(), itemsPage.getTotalElements());
     }
 
     @Override

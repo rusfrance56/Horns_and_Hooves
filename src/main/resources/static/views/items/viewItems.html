@@ -1,16 +1,18 @@
 <h2>{{'ITEMS' | translate}}</h2>
 <div st-table="itemRecords" st-safe-src="items">
-    <div class="row inline-row">
-        <div class="inline-row-part">
-            <button class="btn btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
-        </div>
-        <div class="inline-row-part">
-            <input st-search="" class="form-control col-lg-2" placeholder="{{'SEARCH' | translate}}" type="text"/>
-        </div>
-    </div>
     <div id="itemsTable">
         <table class="table table-striped">
             <thead>
+            <tr>
+                <th colspan="4"><input st-search="" class="form-control-sm col-lg-8" placeholder="{{'SEARCH' | translate}}" type="text"/></th>
+                <th></th>
+                <th></th>
+                <th>
+                    <div class="btn-group-sm inline-row" role="group">
+                        <button type="button" class="btn-sm btn-primary" ng-click="navigateToCreate()">{{'CREATE' | translate}}</button>
+                    </div>
+                </th>
+            </tr>
             <tr>
                 <th hidden>Id</th>
                 <th>#</th>
@@ -19,7 +21,11 @@
                 <th st-sort="cost">{{'ITEM_COST' | translate}}</th>
                 <th st-sort="department">{{'DEPARTMENT' | translate}}</th>
                 <th>{{'ITEM_IMAGE' | translate}}</th>
-                <th></th>
+                <th>
+                    <select class="form-control-sm" id="itemsByPageDropDown" ng-change="getItems()"
+                            ng-options="opt for opt in pagination.availableOptions" ng-model="pagination.itemsPerPage">
+                    </select>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -39,6 +45,15 @@
                 </td>
             </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" class="my_table_footer">
+                        <ul uib-pagination direction-links="false" total-items="pagination.totalItems"
+                            items-per-page="pagination.itemsPerPage" ng-model="pagination.currentPage"
+                            ng-change="getItems()"></ul>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>

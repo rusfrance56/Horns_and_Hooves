@@ -29,4 +29,13 @@ public class Item extends BaseEntity {
         this.department = Department.valueOf(to.getDepartment());
         this.cost = to.getCost();
     }
+
+    public static Item updateEntityFromTO(Item entity, ItemTO to) {
+        entity.setName(to.getName());
+        entity.setDescription(to.getDescription());
+        entity.setImageUrl(to.getImageUrl());
+        entity.setDepartment(Department.valueOf(to.getDepartment()));
+        entity.setCost(to.getCost());
+        return entity;
+    }
 }

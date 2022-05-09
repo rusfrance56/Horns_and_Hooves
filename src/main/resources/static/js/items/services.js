@@ -1,5 +1,5 @@
 'use strict';
-itemsModule.service('ItemsService', function ($http, $q) {
+itemsModule.service('ItemsService', function ($http, $q, Upload) {
    var rootPath = '/items/';
     return {
         saveItem : function (item) {
@@ -36,14 +36,34 @@ itemsModule.service('ItemsService', function ($http, $q) {
             });
             return deferred.promise;
         },
-        getItems : function () {
+        getItems : function (pagination) {
             let deferred = $q.defer();
-            $http.get(rootPath).then(function (response) {
+            let finalPath = rootPath;
+            let isPageRequest = !angular.isUndefinedOrNull(pagination);
+            if (isPageRequest) {
+                let page = pagination.currentPage;
+                let size = pagination.itemsPerPage;
+                page = page - 1;
+                finalPath = rootPath + "pagination" + "?page=" + page + "&size=" + size;
+            }
+            $http.get(finalPath).then(function (response) {
                 response = response.data;
                 if (response.error) {
                     deferred.reject(response);
                 } else {
-                    deferred.resolve({items: response});
+                    if (isPageRequest) {
+                        deferred.resolve({
+                            items: response.content,
+                            pagination: {
+                                totalItems: response.totalElements,
+                                currentPage: response.number + 1,
+                                itemsPerPage: response.size,
+                                availableOptions: pagination.availableOptions
+                            }
+                        });
+                    } else {
+                        deferred.resolve({items: response});
+                    }
                 }
             }, function (error) {
                 deferred.reject(error);

@@ -1,11 +1,22 @@
 'use strict';
 itemsModule.controller('ItemsController', function ($scope, ItemsService, CommonService, $state) {
     $scope.items = [];
+    $scope.pagination = {
+        currentPage: 1,
+        totalItems: 10,
+        availableOptions: [5, 10, 20],
+        itemsPerPage: 5
+    };
     getItems();
 
+    $scope.getItems = function () {
+        getItems();
+    };
+
     function getItems() {
-        ItemsService.getItems().then(function (response) {
+        ItemsService.getItems($scope.pagination).then(function (response) {
             $scope.items = response.items;
+            $scope.pagination = response.pagination;
         }, function (response) {
             CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
@@ -25,19 +36,30 @@ itemsModule.controller('ItemsController', function ($scope, ItemsService, Common
     $scope.navigateToCreate = function () {
         $state.go("items_create");
     };
-}).controller('EditItemController', function ($scope, ItemsService, CommonService, item, $state) {
+}).controller('EditItemController', function ($scope, ItemsService, CommonService, item, $state, FileUploadingService) {
     $scope.currentItem = item;
     $scope.pageTitle = $scope.currentItem.id ? 'ITEM_INFO' : 'ITEM_CREATE';
     $scope.departments = [];
     loadData();
+
+    $scope.$watch('currentItem.image', function () {
+        if (!angular.isUndefinedOrNull($scope.currentItem.image)) {
+            $scope.currentItem.dataURL = URL.createObjectURL($scope.currentItem.image);
+        }
+    });
 
     function loadData() {
         getDepartments();
     }
 
     $scope.saveItem = function (item) {
-        ItemsService.saveItem(item).then(function () {
-            $state.go("items");
+        FileUploadingService.saveFile(item.image).then(function (savedFileName) {
+            item.imageUrl = savedFileName;
+            ItemsService.saveItem(item).then(function () {
+                $state.go("items");
+            }, function (response) {
+                CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+            });
         }, function (response) {
             CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });

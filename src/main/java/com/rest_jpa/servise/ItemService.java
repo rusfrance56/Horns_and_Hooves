@@ -1,6 +1,8 @@
 package com.rest_jpa.servise;
 
 import com.rest_jpa.entity.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +13,7 @@ public interface ItemService {
     void update(Item item);
     void delete(long id);
     List<Item> findAll();
+    Page<Item> findAllWithPagination(Pageable pageable);
     Item findById(long id);
     List<Item> findAllByIds(List<Long> itemIds);
 }

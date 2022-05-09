@@ -1,6 +1,6 @@
 <h2>{{pageTitle | translate}}</h2>
 <div class="container col-sm-5">
-    <form id="editItemForm" novalidate class="form-horizontal">
+    <form id="editItemForm" novalidate class="form-horizontal" enctype="multipart/form-data">
         <div class="form-group row">
             <label class="control-label col-sm-3" for="edit.name">{{'ITEM_NAME' | translate}}</label>
             <div class="col-sm-9">
@@ -33,8 +33,21 @@
         <div class="form-group row">
             <label class="control-label col-sm-3" for="edit.image">{{'ITEM_IMAGE' | translate}}</label>
             <div class="col-sm-9">
-                <input class="form-control"  ng-model="currentItem.imageUrl" type="text" id="edit.image"
-                       placeholder="{{'ENTER_ITEM_IMAGE' | translate}}">
+                <!--<input class="form-control"  type="file" id="edit.image" ng-model="currentItem.imageUrl"
+                       placeholder="{{'ENTER_ITEM_IMAGE' | translate}}">-->
+                <!--Single Image with validations-->
+                <input class="form-control" type="file" ngf-select ng-model="currentItem.image" name="file" ngf-pattern="'image/*'"
+                     ngf-accept="'image/*'" ngf-max-size="40MB" ngf-min-height="100"
+                     ngf-resize="{width: 400, height: 400, quality: 1.0}" ngf-resize-if="$width > 400 || $height > 400"/>
+                <!--Multiple files-->
+<!--                <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>-->
+                <!--Drop files:-->
+<!--                <div ngf-drop ng-model="files" class="drop-box">Drop</div>-->
+
+<!--                &lt;!&ndash;Image thumbnail:&ndash;&gt; <img ngf-thumbnail="file || '/thumb.jpg'">-->
+
+<!--                <img style="width: 200px;height: 400px" ngf-thumbnail="currentItem.imageUrl"/>-->
+                <img style="width: 400px;height: 400px" ng-src="{{currentItem.dataURL}}"/><!--data:image/jpeg;base64,-->
             </div>
         </div>
         <div class="form-group row">

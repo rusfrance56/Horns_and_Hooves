@@ -8,7 +8,9 @@ var mainApp = angular.module("mainApp", [
     'usersModule',
     'ordersModule',
     'itemsModule',
-    'tasksModule'
+    'tasksModule',
+    'fileUploadingModule',
+    'ngFileUpload'
 ]);
 
 mainApp.config(['$locationProvider', function ($locationProvider) {

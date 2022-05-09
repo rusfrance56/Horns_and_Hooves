@@ -1,6 +1,8 @@
 package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.to.ItemTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,5 +13,6 @@ public interface ItemFacade {
     void update(ItemTO to);
     void delete(long id);
     List<ItemTO> findAll();
+    Page<ItemTO> findAllWithPagination(Pageable pageable);
     ItemTO findById(long id);
 }

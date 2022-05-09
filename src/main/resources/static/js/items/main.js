@@ -28,9 +28,16 @@ itemsModule.config(['$urlRouterProvider', '$stateProvider', function ($urlRouter
             templateUrl: 'views/items/editItem.html',
             controller: 'EditItemController',
             resolve: {
-                item: function (ItemsService, $stateParams) {
+                item: function (ItemsService, $stateParams, FileUploadingService) {
                     return ItemsService.getItemById($stateParams.id).then(function (response) {
-                        return response.item;
+                        let item = response.item;
+                        return FileUploadingService.getFileByName(item.imageUrl).then(function (response) {
+                            item.image = response.image;
+                            item.dataURL = URL.createObjectURL(item.image);
+                            return item;
+                        }, function (response) {
+                            return item;
+                        });
                     }, function (response) {
                         CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
                         $state.go('items_create');

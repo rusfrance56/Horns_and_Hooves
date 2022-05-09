@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //                .and()
                 .authorizeRequests()
-                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/resources/static/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users/**").hasAuthority("READ")
                 .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .key("myAppKey")
                 .tokenValiditySeconds(60 * 60 * 12)
+                .userDetailsService(userDetailsService)
                 .and()
                 .logout();
     }
