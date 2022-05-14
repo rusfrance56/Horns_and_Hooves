@@ -79,7 +79,7 @@ tasksModule.service('TasksService', function ($http, $q) {
                 keyboard: false,
                 resolve: {
                     task: function () {
-                        if (!angular.isUndefinedOrNull(task)) {
+                        if (!isUndefinedOrNull(task)) {
                             return task;
                         } else {
                             return {};

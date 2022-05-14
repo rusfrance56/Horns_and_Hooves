@@ -50,7 +50,7 @@ ordersModule.controller('OrdersController', function ($scope, OrdersService, Com
     };
 
     $scope.addItemsToOrder = function () {
-        if (angular.isUndefinedOrNull($scope.currentOrder.items)) {
+        if (isUndefinedOrNull($scope.currentOrder.items)) {
             $scope.currentOrder.items = [];
         }
         $scope.currentOrder.items.push(...$scope.items.filter(i => i.check));
@@ -63,8 +63,8 @@ ordersModule.controller('OrdersController', function ($scope, OrdersService, Com
         );
     };
 
-    if (!angular.isUndefinedOrNull($scope.currentOrder)) {
-        if (angular.isUndefinedOrNull($scope.currentOrder.dueDate)) {
+    if (!isUndefinedOrNull($scope.currentOrder)) {
+        if (isUndefinedOrNull($scope.currentOrder.dueDate)) {
             $scope.currentOrder.dueDate = new Date();
         } else {
             $scope.currentOrder.dueDate = new Date($scope.currentOrder.dueDate);

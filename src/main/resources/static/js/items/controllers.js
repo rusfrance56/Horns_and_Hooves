@@ -1,19 +1,32 @@
 'use strict';
-itemsModule.controller('ItemsController', function ($scope, ItemsService, CommonService, $state) {
+itemsModule.controller('ItemsController', function ($scope, ItemsService, CommonService, $state, $timeout) {
     $scope.items = [];
     $scope.pagination = {
         currentPage: 1,
-        totalItems: 10,
+        totalItems: null,
         availableOptions: [5, 10, 20],
-        itemsPerPage: 5
+        itemsPerPage: 5,
+        sort: {
+            direction: "ASC",
+            field: 'created'
+        },
+        from: 0/*,
+        filter: */
     };
-    getItems();
+
+    $scope.isLoading = false;
+    $scope.initLoad = false;
+    init();
+
+    function init() {
+        $timeout(function(){
+            $scope.initLoad = true;
+            let tableState = $scope.ctrl.tableState();
+            $scope.updateTable(tableState, $scope.ctrl);
+        }, 300);
+    }
 
     $scope.getItems = function () {
-        getItems();
-    };
-
-    function getItems() {
         ItemsService.getItems($scope.pagination).then(function (response) {
             $scope.items = response.items;
             $scope.pagination = response.pagination;
@@ -28,7 +41,38 @@ itemsModule.controller('ItemsController', function ($scope, ItemsService, Common
         }, function (response) {
             CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
         });
-    };
+    }
+
+    $scope.updateTable = function (tableState, ctrl) {
+        if(!$scope.ctrl && ctrl){
+            $scope.ctrl = ctrl;
+        }
+        if(!$scope.initLoad){return;}
+        $scope.isLoading = true;
+        let pagination = tableState.pagination;
+        let start = pagination.start || 0;
+        let page  = Math.ceil(start/pagination.number) + 1;
+        $scope.pagination.from = start;
+
+        $scope.pagination.currentPage = page;
+        $scope.pagination.sort.field = tableState.sort.predicate ? tableState.sort.predicate : null;
+        let reverse = !isUndefinedOrNull(tableState.sort.reverse) ? tableState.sort.reverse : null;
+        if (reverse != null) {
+            $scope.pagination.sort.direction = reverse ? "DESC" : "ASC";
+        }
+        $scope.pagination.filter = tableState.search.predicateObject ? tableState.search.predicateObject.$ : null;
+
+        ItemsService.getItems($scope.pagination).then(function (response) {
+            $scope.items = response.items;
+            tableState.pagination.numberOfPages = response.pagination.totalPages;
+            tableState.pagination.totalItemCount = response.pagination.totalItems;
+            $scope.pagination.totalItems = response.pagination.totalItems;
+            tableState.pagination.start = start;
+            $scope.isLoading = false;
+        }, function (response) {
+            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+        });
+    }
 
     $scope.navigateToEdit = function (item) {
         $state.go("items_edit", {id: item.id});
@@ -43,7 +87,7 @@ itemsModule.controller('ItemsController', function ($scope, ItemsService, Common
     loadData();
 
     $scope.$watch('currentItem.image', function () {
-        if (!angular.isUndefinedOrNull($scope.currentItem.image)) {
+        if (!isUndefinedOrNull($scope.currentItem.image)) {
             $scope.currentItem.dataURL = URL.createObjectURL($scope.currentItem.image);
         }
     });

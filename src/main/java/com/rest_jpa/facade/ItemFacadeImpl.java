@@ -53,8 +53,8 @@ public class ItemFacadeImpl implements ItemFacade {
     }
 
     @Override
-    public Page<ItemTO> findAllWithPagination(Pageable pageable) {
-        Page<Item> itemsPage = itemService.findAllWithPagination(pageable);
+    public Page<ItemTO> findPageByFilter(String filter, Pageable pageable) {
+        Page<Item> itemsPage = itemService.findPageByFilter(filter, pageable);
         List<ItemTO> itemTOResponse = itemsPage.getContent().stream().map(ItemTO::new).collect(Collectors.toList());
         return new PageImpl<>(itemTOResponse, itemsPage.getPageable(), itemsPage.getTotalElements());
     }

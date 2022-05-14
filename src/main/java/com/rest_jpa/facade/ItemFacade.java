@@ -13,6 +13,6 @@ public interface ItemFacade {
     void update(ItemTO to);
     void delete(long id);
     List<ItemTO> findAll();
-    Page<ItemTO> findAllWithPagination(Pageable pageable);
+    Page<ItemTO> findPageByFilter(String filter, Pageable pageable);
     ItemTO findById(long id);
 }

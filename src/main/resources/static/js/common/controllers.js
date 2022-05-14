@@ -17,10 +17,6 @@ common.controller('CommonController', function ($scope, $translate, $location) {
         $scope.selectedLang = lang;
     };
 
-    angular.isUndefinedOrNull = function(val) {
-        return angular.isUndefined(val) || val === null
-    };
-
     $scope.$watch(function(){
         return $location.path();
     }, function(value){

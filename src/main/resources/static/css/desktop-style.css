@@ -495,9 +495,16 @@ div.pagination{
 }
 
 a[ng-click], i[ng-click],
-.sortable-header, th[st-sort], th[lm-server-sort],
+.sortable-header, th[st-sort],
 tr[ng-dblclick] {
     cursor: pointer;
+}
+.st-sort-ascent:after {
+    content: '\25B2';
+}
+
+.st-sort-descent:after {
+    content: '\25BC';
 }
 .no-outline {
     outline: none;

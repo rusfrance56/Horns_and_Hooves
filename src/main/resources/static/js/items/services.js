@@ -39,12 +39,27 @@ itemsModule.service('ItemsService', function ($http, $q, Upload) {
         getItems : function (pagination) {
             let deferred = $q.defer();
             let finalPath = rootPath;
-            let isPageRequest = !angular.isUndefinedOrNull(pagination);
+            let isPageRequest = !isUndefinedOrNull(pagination);
             if (isPageRequest) {
                 let page = pagination.currentPage;
                 let size = pagination.itemsPerPage;
                 page = page - 1;
-                finalPath = rootPath + "pagination" + "?page=" + page + "&size=" + size;
+                if (isUndefinedOrNull(pagination.sort)
+                    || isUndefinedOrNull(pagination.sort.field)
+                    || isUndefinedOrNull(pagination.sort.direction)) {
+                    pagination.sort = {
+                        direction: "DESC",
+                        field: "updated"
+                    }
+                }
+                finalPath = rootPath + "pagination"
+                    + "?page=" + page
+                    + "&size=" + size
+                    + "&sort=" + pagination.sort.field
+                    + "&dir=" + pagination.sort.direction;
+                if (!isUndefinedOrNull(pagination.filter)) {
+                    finalPath += "&filter=" + pagination.filter;
+                }
             }
             $http.get(finalPath).then(function (response) {
                 response = response.data;
@@ -56,9 +71,12 @@ itemsModule.service('ItemsService', function ($http, $q, Upload) {
                             items: response.content,
                             pagination: {
                                 totalItems: response.totalElements,
+                                totalPages: response.totalPages,
                                 currentPage: response.number + 1,
                                 itemsPerPage: response.size,
-                                availableOptions: pagination.availableOptions
+                                availableOptions: pagination.availableOptions,
+                                sort: pagination.sort,
+                                filter: pagination.filter
                             }
                         });
                     } else {

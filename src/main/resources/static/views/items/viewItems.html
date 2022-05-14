@@ -1,5 +1,5 @@
 <h2>{{'ITEMS' | translate}}</h2>
-<div st-table="itemRecords" st-safe-src="items">
+<div st-table="items" st-pipe="updateTable">
     <div id="itemsTable">
         <table class="table table-striped">
             <thead>
@@ -22,16 +22,16 @@
                 <th st-sort="department">{{'DEPARTMENT' | translate}}</th>
                 <th>{{'ITEM_IMAGE' | translate}}</th>
                 <th>
-                    <select class="form-control-sm" id="itemsByPageDropDown" ng-change="getItems()"
+                    <select class="form-control-sm" id="itemsByPageDropDown"
                             ng-options="opt for opt in pagination.availableOptions" ng-model="pagination.itemsPerPage">
                     </select>
                 </th>
             </tr>
             </thead>
-            <tbody>
-            <tr ng-repeat="item in itemRecords | filter : search">
+            <tbody ng-show="!isLoading">
+            <tr ng-repeat="item in items | filter : search">
                 <td hidden>{{item.id}}</td>
-                <td>{{$index+1}}</td>
+                <td>{{pagination.from+$index+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
                 <td>{{item.cost}}</td>
@@ -47,10 +47,13 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="7" class="my_table_footer">
+                    <!--<td colspan="7" class="my_table_footer">
                         <ul uib-pagination direction-links="false" total-items="pagination.totalItems"
                             items-per-page="pagination.itemsPerPage" ng-model="pagination.currentPage"
                             ng-change="getItems()"></ul>
+                    </td>-->
+                    <td colspan="7" class="text-center">
+                        <div st-pagination="" st-items-by-page="pagination.itemsPerPage"></div>
                     </td>
                 </tr>
             </tfoot>

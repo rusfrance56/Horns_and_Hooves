@@ -11,3 +11,7 @@ function clearEmptyValues(filter) {
     return clearedFilter
 
 }
+
+function isUndefinedOrNull(val) {
+    return val === undefined || val === null
+}

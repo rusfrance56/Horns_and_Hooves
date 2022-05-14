@@ -5,7 +5,7 @@ ordersModule.service('OrdersService', function ($http, $q) {
     function transformObjectToIdArray(obj) {
         var ids = [];
         obj.forEach(function (elem) {
-            if (!angular.isUndefinedOrNull(elem['id'])){
+            if (!isUndefinedOrNull(elem['id'])){
                 ids.push(elem['id']);
             }
         });

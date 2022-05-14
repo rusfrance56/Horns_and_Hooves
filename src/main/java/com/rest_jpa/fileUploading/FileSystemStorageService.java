@@ -1,6 +1,7 @@
 package com.rest_jpa.fileUploading;
 
 import com.rest_jpa.config.ApplicationProperties;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -89,6 +90,9 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public boolean delete(String fileName) {
         boolean result = false;
+        if (Strings.isBlank(fileName)) {
+            return false;
+        }
         try {
             Path path = load(fileName);
             result = Files.deleteIfExists(path);

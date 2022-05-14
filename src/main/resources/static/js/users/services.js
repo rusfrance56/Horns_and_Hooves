@@ -39,7 +39,7 @@ usersModule.service('UsersService', function ($http, $q) {
         getUsers: function (pagination) {
             let deferred = $q.defer();
             let finalPath = rootPath;
-            let isPageRequest = !angular.isUndefinedOrNull(pagination);
+            let isPageRequest = !isUndefinedOrNull(pagination);
             if (isPageRequest) {
                 let page = pagination.currentPage;
                 let size = pagination.itemsPerPage;

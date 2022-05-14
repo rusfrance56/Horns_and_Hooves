@@ -19,7 +19,7 @@ tasksModule.controller('TasksController', function ($scope, $state, TasksService
             $scope.tasks = response.tasks;
             $scope.tasks.forEach(task => {
                 let userForTask = $scope.users.filter(user => user.id === task.userId)[0];
-                if (!angular.isUndefinedOrNull(userForTask)) {
+                if (!isUndefinedOrNull(userForTask)) {
                     task.user = userForTask;
                 }
             });
@@ -104,8 +104,8 @@ tasksModule.controller('TasksController', function ($scope, $state, TasksService
         });
     }
 
-    if (!angular.isUndefinedOrNull($scope.currentTask)) {
-        if (angular.isUndefinedOrNull($scope.currentTask.dueDate)) {
+    if (!isUndefinedOrNull($scope.currentTask)) {
+        if (isUndefinedOrNull($scope.currentTask.dueDate)) {
             $scope.currentTask.dueDate = new Date();
         } else {
             $scope.currentTask.dueDate = new Date($scope.currentTask.dueDate);

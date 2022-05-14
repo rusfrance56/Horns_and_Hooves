@@ -13,7 +13,7 @@ public interface ItemService {
     void update(Item item);
     void delete(long id);
     List<Item> findAll();
-    Page<Item> findAllWithPagination(Pageable pageable);
+    Page<Item> findPageByFilter(String filter, Pageable pageable);
     Item findById(long id);
     List<Item> findAllByIds(List<Long> itemIds);
 }

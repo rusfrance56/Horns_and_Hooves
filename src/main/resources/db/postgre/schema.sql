@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id            SERIAL              PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
+  updated       TIMESTAMP           DEFAULT now(),
   logon_name    VARCHAR(30)         NOT NULL UNIQUE,
   password      VARCHAR(80)         NOT NULL,
   name          VARCHAR(50)         NOT NULL,
@@ -33,6 +34,7 @@ CREATE TABLE users (
 CREATE TABLE customer_orders (
   id            SERIAL              PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
+  updated       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   due_date      TIMESTAMP,
   status        VARCHAR(10)         NOT NULL,
@@ -43,6 +45,7 @@ CREATE TABLE customer_orders (
 CREATE TABLE items (
   id            SERIAL              PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
+  updated       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR,
   image_url     VARCHAR,
@@ -59,6 +62,7 @@ CREATE TABLE orders_items (
 CREATE TABLE tasks (
   id            SERIAL              PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
+  updated       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   due_date      TIMESTAMP           DEFAULT now(),
   status        VARCHAR(10)         NOT NULL,
@@ -71,12 +75,14 @@ CREATE TABLE tasks (
 CREATE TABLE roles(
   id            SERIAL              PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
+  updated       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR
 );
 CREATE TABLE permissions(
   id            SERIAL              PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
+  updated       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR
 );

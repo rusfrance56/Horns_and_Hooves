@@ -6,6 +6,7 @@ import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.CustomerOrderRepository;
 import com.rest_jpa.repository.ItemRepository;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -47,8 +48,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Page<Item> findAllWithPagination(Pageable pageable) {
-        return itemRepository.findAll(pageable);
+    public Page<Item> findPageByFilter(String filter, Pageable pageable) {
+        Page<Item> items;
+        if (Strings.isBlank(filter)) {
+            items = itemRepository.findAll(pageable);
+        } else {
+            items = itemRepository.findPageByNameOrDescription(filter, pageable);
+        }
+        return items;
     }
 
     @Override

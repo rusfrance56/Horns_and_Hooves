@@ -3,6 +3,7 @@ package com.rest_jpa.controller;
 import com.rest_jpa.entity.to.ItemTO;
 import com.rest_jpa.facade.ItemFacade;
 import lombok.AllArgsConstructor;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -45,11 +46,14 @@ public class ItemController {
     }
 
     @GetMapping("/pagination")
-    public ResponseEntity<Page<ItemTO>> findAllWithPagination(@RequestParam int page, @RequestParam int size) {
-//        int page = 0; int size = 10;
-        //todo remove hardcode from here to front
-        Pageable pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "cost"));
-        Page<ItemTO> itemsTOPage = itemFacade.findAllWithPagination(pageRequest);
+    public ResponseEntity<Page<ItemTO>> findAllWithPagination(@RequestParam int page,
+                                                              @RequestParam int size,
+                                                              @RequestParam String sort,
+                                                              @RequestParam String dir,
+                                                              @RequestParam(required = false) String filter) {
+        Pageable pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(dir), sort));
+        String encodedFilter = StringEscapeUtils.unescapeHtml4(filter);
+        Page<ItemTO> itemsTOPage = itemFacade.findPageByFilter(encodedFilter, pageRequest);
         return new ResponseEntity<>(itemsTOPage, HttpStatus.OK);
     }
 

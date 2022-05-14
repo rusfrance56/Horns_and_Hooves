@@ -26,15 +26,19 @@ fileUploadingModule.service('FileUploadingService', function ($http, $q, Upload)
         },
         getFileByName : function (fileName) {
             let deferred = $q.defer();
-            $http.get(rootPath + fileName, {responseType: "blob"}).then(function (response) {
-                if (response.error) {
-                    deferred.reject(response);
-                } else {
-                    deferred.resolve({image: response.data});
-                }
-            }, function (error) {
-                deferred.reject(error);
-            });
+            if (!isUndefinedOrNull(fileName)) {
+                $http.get(rootPath + fileName, {responseType: "blob"}).then(function (response) {
+                    if (response.error) {
+                        deferred.reject(response);
+                    } else {
+                        deferred.resolve({image: response.data});
+                    }
+                }, function (error) {
+                    deferred.reject(error);
+                });
+            } else {
+                deferred.reject();
+            }
             return deferred.promise;
         }
     }

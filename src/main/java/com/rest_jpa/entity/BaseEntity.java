@@ -21,6 +21,10 @@ public class BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     protected LocalDateTime created;
 
+    @Column(name = "updated", nullable = false, insertable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    protected LocalDateTime updated;
+
     @Column(name = "name", nullable = false)
     protected String name;
 
@@ -30,5 +34,10 @@ public class BaseEntity {
     public BaseEntity(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated = LocalDateTime.now();
     }
 }
