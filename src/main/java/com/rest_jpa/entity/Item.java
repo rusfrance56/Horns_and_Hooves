@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "items")
@@ -13,8 +15,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Item extends BaseEntity {
 
-    @Column(name = "image_url")
-    private String imageUrl;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "item_images", joinColumns = @JoinColumn(name = "item_id"))
+    @Column(name = "name")
+    private List<String> imageUrls = new ArrayList<>();
 
     @Column(name = "department")
     @Enumerated(EnumType.STRING)
@@ -25,7 +29,7 @@ public class Item extends BaseEntity {
 
     public Item(ItemTO to) {
         super(to.getName(), to.getDescription());
-        this.imageUrl = to.getImageUrl();
+        this.imageUrls = to.getImageUrls();
         this.department = Department.valueOf(to.getDepartment());
         this.cost = to.getCost();
     }
@@ -33,7 +37,7 @@ public class Item extends BaseEntity {
     public static Item updateEntityFromTO(Item entity, ItemTO to) {
         entity.setName(to.getName());
         entity.setDescription(to.getDescription());
-        entity.setImageUrl(to.getImageUrl());
+        entity.setImageUrls(to.getImageUrls());
         entity.setDepartment(Department.valueOf(to.getDepartment()));
         entity.setCost(to.getCost());
         return entity;

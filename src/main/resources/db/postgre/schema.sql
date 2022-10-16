@@ -1,11 +1,12 @@
 DROP TABLE IF EXISTS orders_items;
+DROP TABLE IF EXISTS tasks;
 DROP TABLE IF EXISTS customer_orders;
+DROP TABLE IF EXISTS item_images;
 DROP TABLE IF EXISTS items;
 DROP TABLE IF EXISTS users_roles;
 DROP TABLE IF EXISTS roles_permissions;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS permissions;
-DROP TABLE IF EXISTS tasks;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -48,9 +49,14 @@ CREATE TABLE items (
   updated       TIMESTAMP           DEFAULT now(),
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR,
-  image_url     VARCHAR,
   department    VARCHAR(20)         NOT NULL,
   cost          NUMERIC(10,2)
+);
+CREATE TABLE item_images (
+  name          VARCHAR(300)         NOT NULL,
+  item_id       INTEGER,
+  CONSTRAINT item_images_idx UNIQUE (name, item_id),
+  FOREIGN KEY (item_id) REFERENCES items (id) ON DELETE CASCADE
 );
 CREATE TABLE orders_items (
   customer_order_id     INTEGER             NOT NULL,
@@ -68,9 +74,13 @@ CREATE TABLE tasks (
   status        VARCHAR(10)         NOT NULL,
   priority      VARCHAR(10)         NOT NULL,
   user_id       INTEGER,
+  item_id       INTEGER,
+  order_id      INTEGER,
   department    VARCHAR(20)         NOT NULL,
   description   VARCHAR,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL,
+  FOREIGN KEY (item_id) REFERENCES items (id),
+  FOREIGN KEY (order_id) REFERENCES customer_orders (id)
 );
 CREATE TABLE roles(
   id            SERIAL              PRIMARY KEY,

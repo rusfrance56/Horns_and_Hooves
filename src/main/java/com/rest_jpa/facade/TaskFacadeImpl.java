@@ -6,6 +6,8 @@ import com.rest_jpa.entity.to.TaskTO;
 import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.enumTypes.TaskPriority;
 import com.rest_jpa.enumTypes.TaskStatus;
+import com.rest_jpa.servise.CustomerOrderService;
+import com.rest_jpa.servise.ItemService;
 import com.rest_jpa.servise.TaskService;
 import com.rest_jpa.servise.UserService;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,8 @@ public class TaskFacadeImpl implements TaskFacade {
 
     private TaskService taskService;
     private UserService userService;
+    private ItemService itemService;
+    private CustomerOrderService orderService;
 
     @Override
     public TaskTO create(TaskTO to) {
@@ -33,6 +37,8 @@ public class TaskFacadeImpl implements TaskFacade {
         } else {
             task.setUser(null);
         }
+        task.setItem(itemService.findById(to.getItem().getId()));
+        task.setOrder(orderService.findById(to.getOrderRequestTO().getId()));
         to.setId(taskService.create(task).getId());
         return to;
     }
@@ -53,6 +59,8 @@ public class TaskFacadeImpl implements TaskFacade {
         } else {
             task.setUser(null);
         }
+//        task.setItem(itemService.findById(to.getItem().getId()));
+//        task.setOrder(orderService.findById(to.getOrderRequestTO().getId()));
         taskService.update(task);
     }
 

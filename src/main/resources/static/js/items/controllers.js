@@ -84,11 +84,29 @@ itemsModule.controller('ItemsController', function ($scope, ItemsService, Common
     $scope.currentItem = item;
     $scope.pageTitle = $scope.currentItem.id ? 'ITEM_INFO' : 'ITEM_CREATE';
     $scope.departments = [];
+
+    $scope.slides = [];
+    $scope.currIndex = 0;
     loadData();
 
-    $scope.$watch('currentItem.image', function () {
-        if (!isUndefinedOrNull($scope.currentItem.image)) {
-            $scope.currentItem.dataURL = URL.createObjectURL($scope.currentItem.image);
+    $scope.addSlide = function(imageUrl) {
+        $scope.slides.push({image: imageUrl, id: $scope.currIndex++});
+    };
+    $scope.deleteImage = function(image) {
+        let i = image;
+        let y = $scope.slides;
+        let z = $scope.currentItem;
+        // $scope.slides.push({image: imageUrl, id: $scope.currIndex++});
+    };
+
+    $scope.$watch('currentItem.images', function () {
+        if (!isUndefinedOrNull($scope.currentItem.images)) {
+            $scope.currentItem.dataUrls = [];
+            $scope.currentItem.images.forEach(function (image) {
+                let imageUrl = URL.createObjectURL(image);
+                $scope.currentItem.dataUrls.push(imageUrl);
+                $scope.addSlide(imageUrl);
+            });
         }
     });
 
@@ -97,16 +115,32 @@ itemsModule.controller('ItemsController', function ($scope, ItemsService, Common
     }
 
     $scope.saveItem = function (item) {
-        FileUploadingService.saveFile(item.image).then(function (savedFileName) {
-            item.imageUrl = savedFileName;
+        if (isUndefinedOrNull(item.imageUrls)) {
+            item.imageUrls = [];
+            item.images = [];
             ItemsService.saveItem(item).then(function () {
                 $state.go("items");
             }, function (response) {
                 CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
             });
-        }, function (response) {
-            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
-        });
+        } else {
+            let itemsProcessed = 0;
+            item.images.forEach(function (image) {
+                FileUploadingService.saveFile(image).then(function (savedFileName) {
+                    item.imageUrls.push(savedFileName);
+                    itemsProcessed++;
+                    if (itemsProcessed === item.images.length) {
+                        ItemsService.saveItem(item).then(function () {
+                            $state.go("items");
+                        }, function (response) {
+                            CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+                        });
+                    }
+                }, function (response) {
+                    CommonService.openMessageModal('danger', response.errorMessage, 'big_modal');
+                });
+            });
+        }
     }
 
     function getDepartments() {

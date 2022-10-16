@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -60,7 +61,6 @@ public class FileSystemStorageService implements StorageService {
         } catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
         }
-
     }
 
     @Override
@@ -100,5 +100,21 @@ public class FileSystemStorageService implements StorageService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public boolean deleteAll(List<String> fileNames) {
+/*        boolean result = false;
+        if (Strings.isBlank(fileName)) {
+            return false;
+        }
+        try {
+            Path path = load(fileName);
+            result = Files.deleteIfExists(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;*/
+        return true;
     }
 }

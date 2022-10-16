@@ -1,6 +1,7 @@
 package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.CustomerOrder;
+import com.rest_jpa.entity.Item;
 import com.rest_jpa.entity.to.CustomerOrderRequestTO;
 import com.rest_jpa.entity.to.CustomerOrderResponseTO;
 import com.rest_jpa.enumTypes.OrderStatus;
@@ -9,7 +10,10 @@ import com.rest_jpa.servise.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNull;
@@ -64,6 +68,12 @@ public class CustomerOrderFacadeImpl implements CustomerOrderFacade {
         order.setDescription(to.getDescription());
         order.setDueDate(to.getDueDate());
         order.setStatus(to.getStatus() != null ? OrderStatus.valueOf(to.getStatus()) : null);
-        order.setItems(itemService.findAllByIds(to.getItems()));
+        List<Item> basicItems = itemService.findAllByIds(to.getItems());
+        List<Item> newOrderItems = new ArrayList<>();
+        for (Long toId : to.getItems()) {
+            Optional<Item> foundedItem = basicItems.stream().filter(item -> Objects.equals(item.getId(), toId)).findFirst();
+            foundedItem.ifPresent(newOrderItems::add);
+        }
+        order.setItems(newOrderItems);
     }
 }
