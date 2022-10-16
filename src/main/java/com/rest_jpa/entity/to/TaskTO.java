@@ -19,6 +19,8 @@ public class TaskTO {
     private String priority;
     private String department;
     private Long userId;
+    private ItemTO item;
+    private CustomerOrderResponseTO orderRequestTO;
 
     public TaskTO(Task task) {
         this.id = task.getId();
@@ -29,5 +31,7 @@ public class TaskTO {
         this.priority = task.getPriority().name();
         this.department = task.getDepartment().name();
         this.userId = task.getUser() != null ? task.getUser().getId() : null;
+        this.item = new ItemTO(task.getItem());
+        this.orderRequestTO = new CustomerOrderResponseTO(task.getOrder());
     }
 }

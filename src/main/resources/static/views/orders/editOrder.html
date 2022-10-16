@@ -41,41 +41,6 @@
             </div>
         </div>
     </form>
-    <div id="orderItemsTable">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th hidden>Id</th>
-            <th>#</th>
-            <th>{{'ITEM_NAME' | translate}}</th>
-            <th>{{'DESCRIPTION' | translate}}</th>
-            <th>{{'ITEM_COST' | translate}}</th>
-            <th>{{'ITEM_IMAGE' | translate}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="item in currentOrder.items">
-            <td hidden>{{item.id}}</td>
-            <td>{{$index+1}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.cost}}</td>
-            <td>{{item.image}}</td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <td></td>
-            <td></td>
-            <th class="text-right">{{'TOTAL' | translate}}:</th>
-            <th>{{calculateTotal().toFixed(2)}}</th>
-            <td></td>
-        </tr>
-        </tfoot>
-    </table>
-    </div>
-</div>
-<div class="container col-sm-6">
     <div id="itemsTable">
         <table class="table table-striped">
             <thead>
@@ -86,7 +51,6 @@
                 <th>{{'ITEM_NAME' | translate}}</th>
                 <th>{{'DESCRIPTION' | translate}}</th>
                 <th>{{'ITEM_COST' | translate}}</th>
-                <th>{{'ITEM_IMAGE' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -96,12 +60,43 @@
                 <td><input type="checkbox" ng-model="item.check"></td>
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
-                <td>{{item.cost}}</td>
-                <td>{{item.image}}</td>
+                <td>{{item.cost.toFixed(2)}}</td>
             </tr>
             </tbody>
             <tfoot>
-                <button class="btn btn-primary" ng-click="addItemsToOrder()">{{'ADD' | translate}}</button>
+            <button class="btn btn-primary" ng-click="addItemsToOrder()">{{'ADD' | translate}}</button>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="container col-sm-6">
+    <div id="orderItemsTable">
+        <table ng-if="currentOrder.items" class="table table-striped">
+            <thead>
+            <tr>
+                <th hidden>Id</th>
+                <th>#</th>
+                <th>{{'ITEM_NAME' | translate}}</th>
+                <th>{{'DESCRIPTION' | translate}}</th>
+                <th>{{'ITEM_COST' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in currentOrder.items track by $index">
+                <td hidden>{{item.id}}</td>
+                <td>{{$index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.cost.toFixed(2)}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <th class="text-right" ng-if="calculateTotal() != 0">{{'TOTAL' | translate}}:</th>
+                <th ng-if="calculateTotal() != 0">{{calculateTotal().toFixed(2)}}</th>
+            </tr>
             </tfoot>
         </table>
     </div>

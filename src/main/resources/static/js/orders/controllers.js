@@ -58,6 +58,9 @@ ordersModule.controller('OrdersController', function ($scope, OrdersService, Com
     };
 
     $scope.calculateTotal = function () {
+        if (isUndefinedOrNull($scope.currentOrder.items)) {
+            return 0;
+        }
         return $scope.currentOrder.items.reduce(
             (accumulator, current) => accumulator + Number(current["cost"]), 0
         );

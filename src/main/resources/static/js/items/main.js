@@ -31,11 +31,19 @@ itemsModule.config(['$urlRouterProvider', '$stateProvider', function ($urlRouter
                 item: function (ItemsService, $stateParams, FileUploadingService) {
                     return ItemsService.getItemById($stateParams.id).then(function (response) {
                         let item = response.item;
-                        return FileUploadingService.getFileByName(item.imageUrl).then(function (response) {
-                            item.image = response.image;
-                            item.dataURL = URL.createObjectURL(item.image);
+                        item.images = [];
+                        item.dataUrls = [];
+                        if (isUndefinedOrNull(item.imageUrls) || item.imageUrls.length === 0) {
                             return item;
-                        }, function (response) {
+                        }
+                        return Promise.all(item.imageUrls.map(function (imageUrl) {
+                            return FileUploadingService.getFileByName(imageUrl).then(function (response) {
+                                item.images.push(response.image);
+                                item.dataUrls.push(URL.createObjectURL(response.image));
+                            }, function (response) {
+                                return item;
+                            });
+                        })).then(function () {
                             return item;
                         });
                     }, function (response) {

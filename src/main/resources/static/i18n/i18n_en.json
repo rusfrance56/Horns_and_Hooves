@@ -49,6 +49,7 @@
   "ENTER_ORDER_DESCRIPTION"           : "Enter description",
   "TOTAL"           : "Total",
 
+  "ITEM"             : "Item",
   "ITEMS"            : "Items",
   "ITEM_NAME"        : "Name",
   "ITEM_DESCRIPTION" : "Description",

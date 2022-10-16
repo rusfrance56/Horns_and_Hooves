@@ -37,6 +37,14 @@ public class Task extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private CustomerOrder order;
+
     public Task(TaskTO to) {
         super(to.getName(), to.getDescription());
         this.id = to.getId();

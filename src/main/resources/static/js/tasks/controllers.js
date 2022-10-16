@@ -1,13 +1,19 @@
 'use strict';
-tasksModule.controller('TasksController', function ($scope, $state, TasksService, CommonService, UsersService) {
+tasksModule.controller('TasksController', function ($scope, $state, TasksService, CommonService, UsersService, ItemsService) {
     $scope.tasks = [];
     $scope.users = [];
-    $scope.tasks = [];
+    $scope.items = [];
     loadData();
 
     function loadData() {
         UsersService.getUsers().then(function (response) {
             $scope.users = response.users;
+            getTasks();
+        }, function (response) {
+            CommonService.openMessageModal('danger', CommonService.translateError(response), 'big_modal');
+        });
+        ItemsService.getItems().then(function (response) {
+            $scope.items = response.items;
             getTasks();
         }, function (response) {
             CommonService.openMessageModal('danger', CommonService.translateError(response), 'big_modal');
@@ -21,6 +27,10 @@ tasksModule.controller('TasksController', function ($scope, $state, TasksService
                 let userForTask = $scope.users.filter(user => user.id === task.userId)[0];
                 if (!isUndefinedOrNull(userForTask)) {
                     task.user = userForTask;
+                }
+                let itemForTask = $scope.items.filter(item => item.id === task.item.id)[0];
+                if (!isUndefinedOrNull(itemForTask)) {
+                    task.item = itemForTask;
                 }
             });
         }, function (response) {
@@ -42,7 +52,7 @@ tasksModule.controller('TasksController', function ($scope, $state, TasksService
     $scope.navigateToCreate = function () {
         $state.go('tasks.create');
     };
-}).controller('EditTaskController', function ($scope, $state, TasksService, CommonService, UsersService,
+}).controller('EditTaskController', function ($scope, $state, TasksService, CommonService, UsersService, ItemsService,
                                                task, $uibModalInstance) {
     $scope.currentTask = task;
     $scope.pageTitle = $scope.currentTask.id ? 'TASK_INFO' : 'TASK_CREATE';
@@ -51,17 +61,24 @@ tasksModule.controller('TasksController', function ($scope, $state, TasksService
     $scope.priorities = [];
     $scope.users = [];
     $scope.usersByDep = [];
+    $scope.items = [];
+    $scope.itemsByDep = [];
 
     loadData();
 
     $scope.$watch('currentTask.department', function(newValue, oldValue){
         if(newValue !== undefined && newValue !== oldValue) {
             updateUsersByDep();
+            updateItemsByDep();
         }
     });
 
     function updateUsersByDep() {
         $scope.usersByDep = $scope.users.filter(p => angular.equals(p.department, $scope.currentTask.department));
+    }
+
+    function updateItemsByDep() {
+        $scope.itemsByDep = $scope.items.filter(p => angular.equals(p.department, $scope.currentTask.department));
     }
 
     function loadData() {
@@ -71,6 +88,12 @@ tasksModule.controller('TasksController', function ($scope, $state, TasksService
         UsersService.getUsers().then(function (response) {
             $scope.users = response.users;
             updateUsersByDep();
+        }, function (response) {
+            CommonService.openMessageModal('danger', CommonService.translateError(response), 'big_modal');
+        });
+        ItemsService.getItems().then(function (response) {
+            $scope.items = response.items;
+            updateItemsByDep();
         }, function (response) {
             CommonService.openMessageModal('danger', CommonService.translateError(response), 'big_modal');
         });

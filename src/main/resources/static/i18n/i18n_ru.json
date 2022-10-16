@@ -49,6 +49,7 @@
   "ENTER_ORDER_DESCRIPTION"           : "Введите описание",
   "TOTAL"            : "Итого",
 
+  "ITEM"             : "Товар",
   "ITEMS"            : "Товары",
   "ITEM_NAME"        : "Название",
   "ITEM_DESCRIPTION" : "Описание",
@@ -71,12 +72,13 @@
 
   "HIGH"             : "Высокий",
   "LOW"              : "Низкий",
+  "NEW"              : "Новая",
   "DEPLOYED"         : "В работе",
-  "FINISHED"         : "Завершено",
+  "FINISHED"         : "Завершена",
 
   "CREATED"          : "Создан",
   "DEVELOPED"        : "Выполняется",
-  "FINISHED"         : "Завершен",
+  "COMPLETE"         : "Завершена",
   "USERS_NOT_FOUND"  : "Работники не найдены! {{value1}}",
   "ADD"              : "Добавить"
 }
