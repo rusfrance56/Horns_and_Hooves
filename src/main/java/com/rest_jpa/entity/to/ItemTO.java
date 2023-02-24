@@ -1,6 +1,7 @@
 package com.rest_jpa.entity.to;
 
 import com.rest_jpa.entity.Item;
+import com.rest_jpa.enumTypes.Department;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,15 +16,15 @@ public class ItemTO {
     private String name;
     private String description;
     private List<String> imageUrls;
-    private String department;
-    private double cost;
+    private Department department;
+    private double price;
 
     public ItemTO(Item item) {
         this.id = item.getId();
         this.name = item.getName();
         this.description = item.getDescription();
         this.imageUrls = item.getImageUrls();
-        this.department = item.getDepartment().name();
-        this.cost = item.getCost();
+        this.department = item.getDepartment();
+        this.price = item.getPrice();
     }
 }

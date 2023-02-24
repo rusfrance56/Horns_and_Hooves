@@ -50,7 +50,7 @@ CREATE TABLE items (
   name          VARCHAR(50)         NOT NULL,
   description   VARCHAR,
   department    VARCHAR(20)         NOT NULL,
-  cost          NUMERIC(10,2)
+  price          NUMERIC(10,2)
 );
 CREATE TABLE item_images (
   name          VARCHAR(300)         NOT NULL,

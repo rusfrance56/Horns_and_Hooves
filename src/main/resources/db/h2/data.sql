@@ -14,7 +14,7 @@ INSERT INTO user (id, name, surname, address, phone, email, department, descript
   (100005, 'Павел', 'Соболев', 'Address', '89268501232', 'email@mail.ru', 'STORAGE', 'description'),
   (100006, 'Армен', 'Гугаров', 'Address', '89268501232', 'email@mail.ru', null, 'description');
 
-INSERT INTO item (id, name, description, image_url, cost) VALUES
+INSERT INTO item (id, name, description, image_url, price) VALUES
   (100007, 'Книжний шкаф', 'Книжный шкаф из красного дерева. Имееет выдвижные ящички по бокам и 3 полки', '/link/sfasfa/fasdf.jpg', 2343.12),
   (100008, 'Журнальный столик черный', 'Журнальный столик с добавлением пластиковых вставок и кожанной отделкой', '/link/sfasfa/fasdf.jpg', 1233.86),
   (100009, 'Стул', 'Стул удобный, с регулируемой спинкой и высотой посадки', '/link/sfasfa/fasdf.jpg', 856.32);

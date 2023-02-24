@@ -17,7 +17,7 @@ INSERT INTO users (id, logon_name, password, name, surname, address, phone, emai
   (100005, 'user5', '$2a$12$HG/H3BcXMMD.F9mKPxB0o.3civXRcLH997LZv2Q30JexRWXah7HLq', 'Павел', 'Соболев', '6 Carioca Street', '+86 (317) 469-2821', 'elohde6@booking.com', 'STORAGE', 'description'),
   (100006, 'user6', '$2a$12$HG/H3BcXMMD.F9mKPxB0o.3civXRcLH997LZv2Q30JexRWXah7HLq', 'Армен', 'Гугаров', '68 Logan Point', '+353 (757) 489-9946', 'asimmens4@freewebs.com', null, 'description');
 
-INSERT INTO items (id, name, description, department, cost) VALUES
+INSERT INTO items (id, name, description, department, price) VALUES
   (100007, 'Стенка Версаль', 'Версаль СБ-1655 Стенка', 'STORAGE', 38490.90),
   (100008, 'Диван угловой', 'Диван угловой Атланта Классик со столом, 145, рогожка, дельфин', 'CUSHIONED', 26080),
   (100009, 'Комод Медея', 'Медея СБ-2454 Комод', 'STORAGE', 9490),

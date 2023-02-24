@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.MultipartConfigElement;
 
@@ -39,5 +42,15 @@ public class BeansConfiguration implements InitializingBean {
         commonsMultipartResolver.setMaxUploadSize(100000*100*4);/*4Mb*/
         commonsMultipartResolver.setDefaultEncoding("UTF-8");
         return commonsMultipartResolver;
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfig() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**");
+            }
+        };
     }
 }
