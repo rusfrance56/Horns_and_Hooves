@@ -24,14 +24,14 @@ public class Item extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Department department;
 
-    @Column(name = "cost")
-    private Double cost;
+    @Column(name = "price")
+    private Double price;
 
     public Item(ItemTO to) {
         super(to.getName(), to.getDescription());
         this.imageUrls = to.getImageUrls();
         this.department = Department.valueOf(to.getDepartment());
-        this.cost = to.getCost();
+        this.price = to.getPrice();
     }
 
     public static Item updateEntityFromTO(Item entity, ItemTO to) {
@@ -39,7 +39,7 @@ public class Item extends BaseEntity {
         entity.setDescription(to.getDescription());
         entity.setImageUrls(to.getImageUrls());
         entity.setDepartment(Department.valueOf(to.getDepartment()));
-        entity.setCost(to.getCost());
+        entity.setPrice(to.getPrice());
         return entity;
     }
 }

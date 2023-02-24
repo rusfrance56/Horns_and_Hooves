@@ -16,7 +16,7 @@ public class ItemTO {
     private String description;
     private List<String> imageUrls;
     private String department;
-    private double cost;
+    private double price;
 
     public ItemTO(Item item) {
         this.id = item.getId();
@@ -24,6 +24,6 @@ public class ItemTO {
         this.description = item.getDescription();
         this.imageUrls = item.getImageUrls();
         this.department = item.getDepartment().name();
-        this.cost = item.getCost();
+        this.price = item.getPrice();
     }
 }

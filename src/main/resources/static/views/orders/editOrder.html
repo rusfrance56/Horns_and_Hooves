@@ -50,7 +50,7 @@
                 <th>#</th>
                 <th>{{'ITEM_NAME' | translate}}</th>
                 <th>{{'DESCRIPTION' | translate}}</th>
-                <th>{{'ITEM_COST' | translate}}</th>
+                <th>{{'ITEM_PRICE' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -60,7 +60,7 @@
                 <td><input type="checkbox" ng-model="item.check"></td>
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
-                <td>{{item.cost.toFixed(2)}}</td>
+                <td>{{item.price.toFixed(2)}}</td>
             </tr>
             </tbody>
             <tfoot>
@@ -78,7 +78,7 @@
                 <th>#</th>
                 <th>{{'ITEM_NAME' | translate}}</th>
                 <th>{{'DESCRIPTION' | translate}}</th>
-                <th>{{'ITEM_COST' | translate}}</th>
+                <th>{{'ITEM_PRICE' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -87,7 +87,7 @@
                 <td>{{$index+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
-                <td>{{item.cost.toFixed(2)}}</td>
+                <td>{{item.price.toFixed(2)}}</td>
             </tr>
             </tbody>
             <tfoot>

@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/items")
+@CrossOrigin
 @AllArgsConstructor
 public class ItemController {
 

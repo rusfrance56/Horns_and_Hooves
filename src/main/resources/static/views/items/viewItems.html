@@ -18,7 +18,7 @@
                 <th>#</th>
                 <th st-sort="name">{{'ITEM_NAME' | translate}}</th>
                 <th st-sort="description">{{'ITEM_DESCRIPTION' | translate}}</th>
-                <th st-sort="cost">{{'ITEM_COST' | translate}}</th>
+                <th st-sort="price">{{'ITEM_PRICE' | translate}}</th>
                 <th st-sort="department">{{'DEPARTMENT' | translate}}</th>
                 <th>
                     <select class="form-control-sm" id="itemsByPageDropDown"
@@ -33,7 +33,7 @@
                 <td>{{pagination.from+$index+1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
-                <td>{{item.cost.toFixed(2)}}</td>
+                <td>{{item.price.toFixed(2)}}</td>
                 <td>{{item.department | translate}}</td>
                 <td class="col-md-1">
                     <button class="btn btn-primary" ng-click="navigateToEdit(item)">
@@ -69,7 +69,7 @@
                     <div style="margin: 5px">
                         <div style="font: bold 14px sans-serif; text-align: center">{{item.name}}</div>
                         <div style="font: italic 12px sans-serif; text-align: center">{{item.description}}</div>
-                        <div style="text-align: center">{{item.cost.toFixed(2)}}</div>
+                        <div style="text-align: center">{{item.price.toFixed(2)}}</div>
                     </div>
                     <div style="text-align: center">
                         <button class="btn btn-primary" ng-click="navigateToEdit(item)">

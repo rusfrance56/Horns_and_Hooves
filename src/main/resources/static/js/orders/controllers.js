@@ -62,7 +62,7 @@ ordersModule.controller('OrdersController', function ($scope, OrdersService, Com
             return 0;
         }
         return $scope.currentOrder.items.reduce(
-            (accumulator, current) => accumulator + Number(current["cost"]), 0
+            (accumulator, current) => accumulator + Number(current["price"]), 0
         );
     };
 

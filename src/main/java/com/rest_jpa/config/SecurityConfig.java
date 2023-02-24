@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors().and()
                 // csrf для rest дизейблится
 //                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //                .and()
@@ -34,12 +35,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
                 .authorizeRequests()
                 .antMatchers("/resources/static/**").permitAll()
+
+                //todo открыл для того чтобы можно было дергать api из angular
+                .antMatchers("/items/**").permitAll()
+
                 .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users/**").hasAuthority("READ")
                 .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN")
                 .antMatchers("/**").authenticated()
                 .and()
+
 //                .httpBasic()
                 .formLogin()
 //                    .loginPage("/views/form_login.html").permitAll()
@@ -50,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(60 * 60 * 12)
                 .userDetailsService(userDetailsService)
                 .and()
+
                 .logout();
     }
 

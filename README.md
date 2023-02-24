@@ -66,4 +66,12 @@ WHAT'S NEXT
 - Переделать систему на микросервисы и очереди (чтобы задачи бились на очереди и после того как работник закрывал задачу, 
   система кидала ему новую)
 
+COMMANDS
+-----------
+ng extract-i18n --output-path src/locale - создать файл с локализацией (только его потом надо 
+добавить оттуда свежие слова в файл с русской локалью)
+или если настроена команда, то: npm run int:extract
+
+https://www.digitalocean.com/community/tutorials/angular-internationalization
+
 Rusfrance inc.
