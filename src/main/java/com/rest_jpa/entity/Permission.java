@@ -4,11 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
-@Entity
+@Entity(name = "permissions")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "permissions")
 public class Permission extends BaseEntity{
 }

@@ -2,7 +2,8 @@ package com.rest_jpa.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,12 +18,12 @@ public class BaseEntity {
     @Access(value = AccessType.PROPERTY)
     protected Long id;
 
+    @CreatedDate
     @Column(name = "created", nullable = false, insertable = false, updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     protected LocalDateTime created;
 
+    @LastModifiedDate
     @Column(name = "updated", nullable = false, insertable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     protected LocalDateTime updated;
 
     @Column(name = "name", nullable = false)
@@ -34,10 +35,5 @@ public class BaseEntity {
     public BaseEntity(String name, String description) {
         this.name = name;
         this.description = description;
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updated = LocalDateTime.now();
     }
 }

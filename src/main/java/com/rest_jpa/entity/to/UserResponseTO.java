@@ -1,5 +1,6 @@
 package com.rest_jpa.entity.to;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest_jpa.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserResponseTO {
     private Long id;
     private String logonName;
@@ -26,7 +28,7 @@ public class UserResponseTO {
 
     public UserResponseTO(User user) {
         this.id = user.getId();
-        this.logonName = user.getLogonName();
+        this.logonName = user.getUserName();
         this.name = user.getName();
         this.surname = user.getSurname();
         this.department = user.getDepartment() != null ? user.getDepartment().name() : null;

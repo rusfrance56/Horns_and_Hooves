@@ -17,8 +17,6 @@
     </parent>
 
     <properties>
-        <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
-        <!--<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
         <java.version>1.8</java.version>
         <postgresql.version>42.3.3</postgresql.version>
     </properties>
@@ -39,6 +37,12 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-data</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
 
         <dependency>

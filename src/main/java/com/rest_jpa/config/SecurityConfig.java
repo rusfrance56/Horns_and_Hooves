@@ -1,27 +1,79 @@
 package com.rest_jpa.config;
 
 
-import lombok.AllArgsConstructor;
+import com.rest_jpa.security.JwtConfigurer;
+import com.rest_jpa.security.JwtTokenProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
+    private static final String LOGIN_ENDPOINT = "/api/v1/auth/signin";
+    private static final String REGISTER_ENDPOINT = "/api/v1/auth/signup";
 
-    private final UserDetailsService userDetailsService;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .httpBasic().disable()
+                .csrf().disable()
+//                .cors().disable()
+                .cors().and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers(LOGIN_ENDPOINT).permitAll()
+                .antMatchers(REGISTER_ENDPOINT).permitAll()
+                .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .apply(new JwtConfigurer(jwtTokenProvider));
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:4200").allowCredentials(true);
+            }
+        };
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+   /* @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .cors().and()
@@ -31,19 +83,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //for rest services (STATELESS - не хранит сессию на бэке, бывает что
                 // время жизни токена может быть меньше сессии, а если не хранить сессию и не выбрать
                 // remember me , то вообще не даст залогиниться)
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
                 .antMatchers("/resources/static/**").permitAll()
 
                 //todo открыл для того чтобы можно было дергать api из angular
                 .antMatchers("/items/**").permitAll()
 
-                .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/users/**").hasAuthority("READ")
+//                .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.GET, "/users/**").hasAuthority("READ")
                 .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN")
-                .antMatchers("/**").authenticated()
+//                .antMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN")
+//                .antMatchers("/**").authenticated()
+                .anyRequest().authenticated()
                 .and()
 
 //                .httpBasic()
@@ -58,7 +111,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .logout();
+
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
@@ -69,36 +125,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
         return new SecurityEvaluationContextExtension();
-    }
-
-    //    in memory realisation
-    /*@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("1").password(passwordEncoder().encode("1"))
-                .authorities("ROLE_USER");
     }*/
 
-//    jdbc realisation
-    /*@Bean
-    public UserDetailsService users() {
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("1"))
-                .roles("USER")
-                .build();
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("1"))
-                .roles("ADMIN", "USER")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
-    }*/
 }

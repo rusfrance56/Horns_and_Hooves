@@ -72,7 +72,7 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     private void setUserParametersFromTO(User user, UserRequestTO to) {
-        user.setLogonName(to.getLogonName());
+        user.setUserName(to.getLogonName());
         user.setPassword(to.getPassword());
         user.setName(to.getName());
         user.setSurname(to.getSurname());

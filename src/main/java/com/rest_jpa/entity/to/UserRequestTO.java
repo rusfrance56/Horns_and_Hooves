@@ -27,7 +27,7 @@ public class UserRequestTO {
 
     public UserRequestTO(User user) {
         this.id = user.getId();
-        this.logonName = user.getLogonName();
+        this.logonName = user.getUserName();
         this.password = user.getPassword();
         this.name = user.getName();
         this.surname = user.getSurname();

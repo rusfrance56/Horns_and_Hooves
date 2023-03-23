@@ -7,6 +7,7 @@ DELETE FROM users_roles;
 DELETE FROM roles_permissions;
 DELETE FROM roles;
 DELETE FROM permissions;
+DELETE FROM refresh_tokens;
 DELETE FROM users;
 
 INSERT INTO users (id, logon_name, password, name, surname, address, phone, email, department, description) VALUES

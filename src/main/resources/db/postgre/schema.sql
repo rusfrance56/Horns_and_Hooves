@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS users_roles;
 DROP TABLE IF EXISTS roles_permissions;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS permissions;
+DROP TABLE IF EXISTS refresh_tokens;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -15,23 +16,15 @@ CREATE TABLE users (
   updated       TIMESTAMP           DEFAULT now(),
   logon_name    VARCHAR(30)         NOT NULL UNIQUE,
   password      VARCHAR(80)         NOT NULL,
-  name          VARCHAR(50)         NOT NULL,
-  surname       VARCHAR(50)         NOT NULL,
-  address       VARCHAR             NOT NULL,
-  phone         VARCHAR(20)         NOT NULL,
-  email         VARCHAR(50)         NOT NULL,
+  name          VARCHAR(50),
+  surname       VARCHAR(50),
+  address       VARCHAR,
+  phone         VARCHAR(20),
+  email         VARCHAR(50)         UNIQUE,
   department    VARCHAR(20),
   status        VARCHAR(20)         DEFAULT 'ACTIVE',
   description   VARCHAR
 );
-/*CREATE TABLE user_logons (
-  id            SERIAL              PRIMARY KEY,
-  created       TIMESTAMP           DEFAULT now(),
-  logon_name    VARCHAR(30)         NOT NULL UNIQUE,
-  password      VARCHAR(80)         NOT NULL,
-  user_id       INTEGER,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
-);*/
 CREATE TABLE customer_orders (
   id            SERIAL              PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
@@ -109,4 +102,11 @@ CREATE TABLE users_roles(
   CONSTRAINT users_roles_idx UNIQUE (user_id, role_id),
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (role_id) REFERENCES roles (id)
+);
+CREATE TABLE refresh_tokens(
+  id          SERIAL              PRIMARY KEY,
+  user_id     INTEGER             NOT NULL,
+  token       VARCHAR(50)         NOT NULL,
+  expiry_date TIMESTAMP           DEFAULT now(),
+  FOREIGN KEY (user_id) REFERENCES users (id)
 );
