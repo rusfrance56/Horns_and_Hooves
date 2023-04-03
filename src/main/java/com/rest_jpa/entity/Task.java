@@ -11,7 +11,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name = "tasks")
+@Entity
+@Table(name = "tasks")
 @Data
 @NoArgsConstructor
 public class Task extends BaseEntity {

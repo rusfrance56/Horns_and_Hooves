@@ -5,7 +5,6 @@ import com.rest_jpa.entity.User;
 import com.rest_jpa.exceptions.TokenRefreshException;
 import com.rest_jpa.repository.RefreshTokenRepository;
 import com.rest_jpa.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +13,10 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.rest_jpa.exceptions.ErrorKey.REFRESH_TOKEN_EXPIRED;
+import static com.rest_jpa.exceptions.ErrorKey.REFRESH_TOKEN_NOT_FOUND;
+
 @Service
-@AllArgsConstructor
 public class RefreshTokenService {
     @Value("${jwt.refresh.token.expired}")
     private Long refreshTokenDurationMs;
@@ -23,11 +24,19 @@ public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
 
-    public Optional<RefreshToken> findByToken(String token) {
-        return refreshTokenRepository.findByToken(token);
+    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository, UserRepository userRepository) {
+        this.refreshTokenRepository = refreshTokenRepository;
+        this.userRepository = userRepository;
     }
 
+    public RefreshToken findByToken(String token) {
+        Optional<RefreshToken> refreshTokenOpt = refreshTokenRepository.findByToken(token);
+        return refreshTokenOpt.orElseThrow(() -> new TokenRefreshException(REFRESH_TOKEN_NOT_FOUND, token));
+    }
+
+    @Transactional
     public RefreshToken createRefreshToken(User user) {
+        refreshTokenRepository.deleteByUser(user);
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(user);
         refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenDurationMs));
@@ -38,7 +47,7 @@ public class RefreshTokenService {
     public RefreshToken verifyExpiration(RefreshToken token) {
         if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(token);
-            throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signin request");
+            throw new TokenRefreshException(REFRESH_TOKEN_EXPIRED, token.getToken());
         }
         return token;
     }

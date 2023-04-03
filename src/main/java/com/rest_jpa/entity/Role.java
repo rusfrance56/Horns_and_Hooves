@@ -9,7 +9,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Entity(name = "roles")
+@Entity
+@Table(name = "roles")
 @Data
 public class Role {
     @Id

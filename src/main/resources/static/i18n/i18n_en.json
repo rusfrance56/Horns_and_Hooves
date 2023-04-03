@@ -9,7 +9,7 @@
 
   "USER": "User",
   "DATE"             : "Date",
-  "LOGON_NAME"       : "Logon name",
+  "USER_NAME"       : "Username",
   "PASSWORD"         : "Password",
   "NAME"             : "Name",
   "SURNAME"          : "Surname",
@@ -26,7 +26,7 @@
   "DELETE"           : "Delete",
   "SAVE"             : "Save",
 
-  "ENTER_LOGON_NAME" : "Enter a logon name",
+  "ENTER_USER_NAME" : "Enter a username",
   "ENTER_PASSWORD"   : "Enter a password",
   "ENTER_NAME"       : "Enter the name",
   "ENTER_NAME_ORDER" : "Enter the order name",

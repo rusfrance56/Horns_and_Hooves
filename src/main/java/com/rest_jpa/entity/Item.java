@@ -9,7 +9,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "items")
+@Entity
+@Table(name = "items")
 @Data
 @NoArgsConstructor
 public class Item extends BaseEntity {

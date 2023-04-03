@@ -22,10 +22,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername (String logonName) {
-        Optional<User> userOptional = userRepository.findByUserName(logonName);
-        User user = userOptional.orElseThrow(() -> new ApplicationException(USER_NOT_FOUND, logonName));
-        log.info("IN loadUserByUsername - user with logonName: {} successfully loaded", logonName);
+    public UserDetails loadUserByUsername (String userName) {
+        Optional<User> userOptional = userRepository.findByUserName(userName);
+        User user = userOptional.orElseThrow(() -> new ApplicationException(USER_NOT_FOUND, userName));
+        log.info("IN loadUserByUsername - user with userName: {} successfully loaded", userName);
         return JwtUser.create(user);
     }
 }

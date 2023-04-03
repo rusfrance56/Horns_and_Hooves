@@ -15,6 +15,8 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+import static com.rest_jpa.exceptions.ErrorKey.ACCESS_TOKEN_EXPIRED_OR_INVALID;
+
 @Component
 public class JwtTokenProvider {
     @Value("${jwt.token.secret}")
@@ -76,7 +78,7 @@ public class JwtTokenProvider {
 
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
+            throw new JwtAuthenticationException(ACCESS_TOKEN_EXPIRED_OR_INVALID, token);
         }
     }
 

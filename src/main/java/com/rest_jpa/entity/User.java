@@ -11,13 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Entity(name = "users")
+@Entity
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends BaseEntity {
 
-    @Column(name = "logon_name")
+    @Column(name = "user_name")
     private String userName;
 
     @Column(name = "password")

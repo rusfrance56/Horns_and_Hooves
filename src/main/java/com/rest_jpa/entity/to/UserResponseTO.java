@@ -2,6 +2,7 @@ package com.rest_jpa.entity.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest_jpa.entity.User;
+import com.rest_jpa.enumTypes.Department;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,10 @@ import java.util.stream.Collectors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserResponseTO {
     private Long id;
-    private String logonName;
+    private String userName;
     private String name;
     private String surname;
-    private String department;
+    private Department department;
     private String address;
     private String email;
     private String phone;
@@ -28,10 +29,10 @@ public class UserResponseTO {
 
     public UserResponseTO(User user) {
         this.id = user.getId();
-        this.logonName = user.getUserName();
+        this.userName = user.getUserName();
         this.name = user.getName();
         this.surname = user.getSurname();
-        this.department = user.getDepartment() != null ? user.getDepartment().name() : null;
+        this.department = user.getDepartment() != null ? user.getDepartment() : null;
         this.address = user.getAddress();
         this.email = user.getEmail();
         this.phone = user.getPhone();

@@ -5,7 +5,6 @@ import com.rest_jpa.entity.User;
 import com.rest_jpa.entity.to.*;
 import com.rest_jpa.servise.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -58,16 +56,11 @@ public class AuthenticationRestControllerV1 {
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
         String requestRefreshToken = request.getRefreshToken();
-
-        Optional<RefreshToken> refreshTokenOpt = refreshTokenService.findByToken(requestRefreshToken);
-        if (refreshTokenOpt.isPresent()) {
-            RefreshToken refreshToken = refreshTokenOpt.get();
-            refreshTokenService.verifyExpiration(refreshToken);
-            User user = refreshToken.getUser();
-            String accessToken = jwtTokenProvider.createToken(user);
-            return ResponseEntity.ok(new TokenRefreshResponse(accessToken, requestRefreshToken));
-        }//todo переписать это как то получше
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        RefreshToken refreshToken = refreshTokenService.findByToken(requestRefreshToken);
+        refreshTokenService.verifyExpiration(refreshToken);
+        User user = refreshToken.getUser();
+        String accessToken = jwtTokenProvider.createToken(user);
+        return ResponseEntity.ok(new TokenRefreshResponse(accessToken, requestRefreshToken));
     }
 
     @PostMapping("/signout")

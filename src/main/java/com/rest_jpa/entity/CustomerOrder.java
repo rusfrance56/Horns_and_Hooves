@@ -10,7 +10,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity(name = "customer_orders")
+@Entity
+@Table(name = "customer_orders")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

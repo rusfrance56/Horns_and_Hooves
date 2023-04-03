@@ -35,7 +35,7 @@ public class TaskRepositoryImpl implements TaskRepositoryCustom{
         CriteriaQuery<Task> query = criteriaQuery.select(taskRoot);
         if (authentication.isAuthenticated() && adminAuthorities.isEmpty()) {
             query = query.where(criteriaBuilder.equal(
-                    taskRoot.get("user").get("logonName"), authentication.getName()
+                    taskRoot.get("user").get("userName"), authentication.getName()
             ));
         }
         return em.createQuery(query).getResultList();

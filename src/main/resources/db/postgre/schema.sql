@@ -14,7 +14,7 @@ CREATE TABLE users (
   id            SERIAL              PRIMARY KEY,
   created       TIMESTAMP           DEFAULT now(),
   updated       TIMESTAMP           DEFAULT now(),
-  logon_name    VARCHAR(30)         NOT NULL UNIQUE,
+  user_name    VARCHAR(30)         NOT NULL UNIQUE,
   password      VARCHAR(80)         NOT NULL,
   name          VARCHAR(50),
   surname       VARCHAR(50),

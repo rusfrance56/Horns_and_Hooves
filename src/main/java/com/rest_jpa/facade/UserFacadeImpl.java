@@ -5,7 +5,6 @@ import com.rest_jpa.entity.to.CustomerOrderResponseTO;
 import com.rest_jpa.entity.to.TaskTO;
 import com.rest_jpa.entity.to.UserRequestTO;
 import com.rest_jpa.entity.to.UserResponseTO;
-import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.servise.CustomerOrderService;
 import com.rest_jpa.servise.TaskService;
 import com.rest_jpa.servise.UserService;
@@ -32,7 +31,7 @@ public class UserFacadeImpl implements UserFacade {
     public UserResponseTO create(UserRequestTO to) {
         User user = new User();
         setUserParametersFromTO(user, to);
-        Long newUserId = userService.create(user).getId();
+        Long newUserId = userService.register(user).getId();
         UserResponseTO newUser = new UserResponseTO(user);
         newUser.setId(newUserId);
         return newUser;
@@ -72,11 +71,13 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     private void setUserParametersFromTO(User user, UserRequestTO to) {
-        user.setUserName(to.getLogonName());
-        user.setPassword(to.getPassword());
+        user.setUserName(to.getUserName());
+        if (user.getId() == null) {
+            user.setPassword(to.getPassword());
+        }
         user.setName(to.getName());
         user.setSurname(to.getSurname());
-        user.setDepartment(to.getDepartment() != null ? Department.valueOf(to.getDepartment()) : null);
+        user.setDepartment(to.getDepartment() != null ? to.getDepartment() : null);
         user.setAddress(to.getAddress());
         user.setEmail(to.getEmail());
         user.setPhone(to.getPhone());

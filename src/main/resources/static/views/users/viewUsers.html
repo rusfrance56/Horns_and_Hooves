@@ -18,7 +18,7 @@
             <tr>
                 <th hidden>Id</th>
                 <th>#</th>
-                <th st-sort="logonName">{{'LOGON_NAME' | translate}}</th>
+                <th st-sort="userName">{{'USER_NAME' | translate}}</th>
                 <th st-sort="surname">{{'SURNAME' | translate}}</th>
                 <th st-sort="name">{{'NAME' | translate}}</th>
                 <th st-sort="department">{{'DEPARTMENT' | translate}}</th>
@@ -36,7 +36,7 @@
             <tr ng-repeat="user in usersRecords | filter: search"> <!--ng-click="navigateToEdit(user)"-->
                 <td hidden>{{user.id}}</td>
                 <td>{{$index+1}}</td>
-                <td>{{user.logonName}}</td>
+                <td>{{user.userName}}</td>
                 <td>{{user.surname}}</td>
                 <td>{{user.name}}</td>
                 <td>{{user.department | translate}}</td>
