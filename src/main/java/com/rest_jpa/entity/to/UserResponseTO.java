@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ public class UserResponseTO {
     private String address;
     private String email;
     private String phone;
+    private LocalDateTime updated;
     private List<TaskTO> tasks = new ArrayList<>();
     private List<CustomerOrderResponseTO> orders = new ArrayList<>();
 
@@ -36,6 +38,7 @@ public class UserResponseTO {
         this.address = user.getAddress();
         this.email = user.getEmail();
         this.phone = user.getPhone();
+        this.updated = user.getUpdated();
         this.tasks = user.getTasks().stream().map(TaskTO::new).collect(Collectors.toList());
         this.orders = user.getOrders().stream().map(CustomerOrderResponseTO::new).collect(Collectors.toList());
     }

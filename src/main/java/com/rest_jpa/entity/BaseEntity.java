@@ -3,7 +3,6 @@ package com.rest_jpa.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,7 +21,6 @@ public class BaseEntity {
     @Column(name = "created", nullable = false, insertable = false, updatable = false)
     protected LocalDateTime created;
 
-    @LastModifiedDate
     @Column(name = "updated", nullable = false, insertable = false)
     protected LocalDateTime updated;
 
@@ -35,5 +33,10 @@ public class BaseEntity {
     public BaseEntity(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated = LocalDateTime.now();
     }
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -18,6 +19,7 @@ public class ItemTO {
     private List<String> imageUrls;
     private Department department;
     private double price;
+    private LocalDateTime updated;
 
     public ItemTO(Item item) {
         this.id = item.getId();
@@ -26,5 +28,6 @@ public class ItemTO {
         this.imageUrls = item.getImageUrls();
         this.department = item.getDepartment();
         this.price = item.getPrice();
+        this.updated = item.getUpdated();
     }
 }

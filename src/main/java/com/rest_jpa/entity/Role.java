@@ -3,7 +3,6 @@ package com.rest_jpa.entity;
 import com.rest_jpa.enumTypes.ERole;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,7 +20,6 @@ public class Role {
     @CreatedDate
     protected LocalDateTime created;
 
-    @LastModifiedDate
     protected LocalDateTime updated;
 
     @Enumerated(EnumType.STRING)
@@ -36,4 +34,9 @@ public class Role {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
     private Set<Permission> permissions;
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated = LocalDateTime.now();
+    }
 }
