@@ -50,4 +50,9 @@ public class UserController {
     public ResponseEntity<UserResponseTO> findById(@PathVariable("id") long id) {
         return new ResponseEntity<>(userFacade.findById(id), HttpStatus.OK);
     }
+
+    @GetMapping("/byDepartment")
+    public ResponseEntity<List<UserResponseTO>> findByDepartment(@RequestParam(value = "department") String department) {
+        return new ResponseEntity<>(userFacade.findByDepartment(department), HttpStatus.OK);
+    }
 }

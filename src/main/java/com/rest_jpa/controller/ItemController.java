@@ -61,4 +61,15 @@ public class ItemController {
     public ResponseEntity<ItemTO> findById(@PathVariable("id") long id) {
         return new ResponseEntity<>(itemFacade.findById(id), HttpStatus.OK);
     }
+
+    @GetMapping("/paginationWithFilter")
+    public ResponseEntity<Page<ItemTO>> findAllWithPagination(@RequestParam int page,
+                                                              @RequestParam int size,
+                                                              @RequestParam String sort,
+                                                              @RequestParam String dir, ItemTO filter) {
+        Pageable pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(dir), sort));
+//        String encodedFilter = StringEscapeUtils.unescapeHtml4(filter);
+        Page<ItemTO> itemsTOPage = itemFacade.findPageByFilter(filter, pageRequest);
+        return new ResponseEntity<>(itemsTOPage, HttpStatus.OK);
+    }
 }

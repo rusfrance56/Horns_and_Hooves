@@ -15,4 +15,5 @@ public interface ItemFacade {
     List<ItemTO> findAll();
     Page<ItemTO> findPageByFilter(String filter, Pageable pageable);
     ItemTO findById(long id);
+    Page<ItemTO> findPageByFilter(ItemTO itemTO, Pageable pageable);
 }

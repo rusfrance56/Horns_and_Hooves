@@ -2,6 +2,7 @@ package com.rest_jpa.servise;
 
 import com.rest_jpa.entity.Role;
 import com.rest_jpa.entity.User;
+import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.enumTypes.ERole;
 import com.rest_jpa.enumTypes.UserActiveStatus;
 import com.rest_jpa.exceptions.ApplicationException;
@@ -14,10 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNullAndNotEmpty;
 import static com.rest_jpa.exceptions.ErrorKey.*;
@@ -88,5 +86,11 @@ public class UserServiceImpl implements UserService {
     public User findByUserName(String userName) {
         Optional<User> user = userRepository.findByUserName(userName);
         return user.orElseThrow(() -> new ApplicationException(USER_NOT_FOUND, userName));
+    }
+
+    @Override
+    public List<User> findByDepartment(Department department) {
+        return Optional.of(userRepository.findAllByDepartment(department))
+                .orElse(Collections.emptyList());
     }
 }

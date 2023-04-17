@@ -5,6 +5,7 @@ import com.rest_jpa.entity.to.CustomerOrderResponseTO;
 import com.rest_jpa.entity.to.TaskTO;
 import com.rest_jpa.entity.to.UserRequestTO;
 import com.rest_jpa.entity.to.UserResponseTO;
+import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.servise.CustomerOrderService;
 import com.rest_jpa.servise.TaskService;
 import com.rest_jpa.servise.UserService;
@@ -68,6 +69,13 @@ public class UserFacadeImpl implements UserFacade {
     public UserResponseTO findById(long id) {
         User user = userService.findById(id);
         return new UserResponseTO(user);
+    }
+
+    @Override
+    public List<UserResponseTO> findByDepartment(String department) {
+        Department dep = Department.valueOf(department);
+        List<User> usersByDep = userService.findByDepartment(dep);
+        return usersByDep.stream().map(UserResponseTO::new).collect(Collectors.toList());
     }
 
     private void setUserParametersFromTO(User user, UserRequestTO to) {

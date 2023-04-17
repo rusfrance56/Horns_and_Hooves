@@ -68,4 +68,11 @@ public class ItemFacadeImpl implements ItemFacade {
         Item item = itemService.findById(id);
         return new ItemTO(item);
     }
+
+    @Override
+    public Page<ItemTO> findPageByFilter(ItemTO itemTO, Pageable pageable) {
+        Page<Item> itemsPage = itemService.findPageByFilter(itemTO, pageable);
+        List<ItemTO> itemTOResponse = itemsPage.getContent().stream().map(ItemTO::new).collect(Collectors.toList());
+        return new PageImpl<>(itemTOResponse, itemsPage.getPageable(), itemsPage.getTotalElements());
+    }
 }
