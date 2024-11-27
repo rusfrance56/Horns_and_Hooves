@@ -27,18 +27,22 @@ public class ItemFacadeImpl implements ItemFacade {
     public ItemTO create(ItemTO to) {
         Item item = new Item(to);
         to.setId(itemService.create(item).getId());
+        updateImages(item, to);
         return to;
-//        throw new ApplicationException(ErrorKey.TASK_NOT_FOUND, 1);
     }
 
     @Override
     public void update(ItemTO to) {
         checkNotNull(to.getId(), WRONG_INPUT_DATA, "id");
         Item item = itemService.findById(to.getId());
-        List<String> prevImageUrl = item.getImageUrls();
         Item.updateEntityFromTO(item, to);
         itemService.update(item);
-        List<String> removedImages = prevImageUrl.stream()
+        updateImages(item, to);
+    }
+
+    private void updateImages(Item item, ItemTO to) {
+        List<String> prevImageUrls = item.getImageUrls();
+        List<String> removedImages = prevImageUrls.stream()
                 .filter(img -> !to.getImageUrls().contains(img))
                 .collect(Collectors.toList());
         //        todo delete old images which don't exist in new list from to

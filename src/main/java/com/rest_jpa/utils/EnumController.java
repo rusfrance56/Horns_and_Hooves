@@ -1,6 +1,5 @@
 package com.rest_jpa.utils;
 
-import com.google.common.collect.ImmutableMap;
 import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.enumTypes.OrderStatus;
 import com.rest_jpa.enumTypes.TaskPriority;
@@ -9,26 +8,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.server.PathParam;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/enum")
 public class EnumController {
-
     private final static Logger log = LoggerFactory.getLogger(EnumController.class);
 
-    private static Map<String, Class<? extends Enum<?>>> ENUM_MAP = ImmutableMap.<String, Class<? extends Enum<?>>>builder()
-            .put("Department", Department.class)
-            .put("OrderStatus", OrderStatus.class)
-            .put("TaskPriority", TaskPriority.class)
-            .put("TaskStatus", TaskStatus.class)
-            .build();
+    private static Map<String, Class<? extends Enum<?>>> map = new HashMap<String, Class<? extends Enum<?>>>(){{
+        put("Department", Department.class);
+        put("OrderStatus", OrderStatus.class);
+        put("TaskPriority", TaskPriority.class);
+        put("TaskStatus", TaskStatus.class);
+    }};
+    private static Map<String, Class<? extends Enum<?>>> ENUM_MAP = Collections.unmodifiableMap(map);
 
     private static <T extends Enum<T>> List<String> getEnumValuesByClass(String enumName) {
         @SuppressWarnings("unchecked") Class<T> elementType = (Class<T>) ENUM_MAP.get(enumName);
