@@ -3,18 +3,16 @@ package com.rest_jpa.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.servlet.MultipartConfigElement;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import javax.servlet.MultipartConfigElement;
 
 
 @EnableJpaAuditing
@@ -41,15 +39,15 @@ public class BeansConfiguration implements InitializingBean {
 
     @Bean
     public MultipartResolver multipartResolver() {
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-        commonsMultipartResolver.setMaxUploadSize(100000*100*4);/*4Mb*/
-        commonsMultipartResolver.setDefaultEncoding("UTF-8");
+        StandardServletMultipartResolver commonsMultipartResolver = new StandardServletMultipartResolver();
+//        commonsMultipartResolver.setMaxUploadSize(100000*100*4);/*4Mb*/ TODO refactoring
+//        commonsMultipartResolver.setDefaultEncoding("UTF-8");
         return commonsMultipartResolver;
     }
 
     @Bean
     public WebMvcConfigurer corsConfig() {
-        return new WebMvcConfigurerAdapter() {
+        return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**");

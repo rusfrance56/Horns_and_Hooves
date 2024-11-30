@@ -2,10 +2,10 @@ package com.rest_jpa.entity;
 
 import com.rest_jpa.entity.to.ItemTO;
 import com.rest_jpa.enumTypes.Department;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

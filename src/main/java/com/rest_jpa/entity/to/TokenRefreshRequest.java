@@ -1,8 +1,7 @@
 package com.rest_jpa.entity.to;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
 
 @Data
 public class TokenRefreshRequest {

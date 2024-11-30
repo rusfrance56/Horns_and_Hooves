@@ -1,7 +1,6 @@
 package com.rest_jpa.repository;
 
 import com.rest_jpa.entity.Item;
-import com.rest_jpa.entity.Item_;
 import com.rest_jpa.enumTypes.Department;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,13 +21,13 @@ public interface ItemRepository extends JpaRepository<Item, Long>, JpaSpecificat
         static Specification<Item> byDepartment(Department department) {
             return (root, query, builder) -> department == null
                     ? null
-                    : builder.equal(root.get(Item_.department), department);
+                    : builder.equal(root.get("department"), department);
         }
 
         static Specification<Item> byPriceGreaterThanEqual(Double price) {
             return (root, query, builder) -> price == null
                     ? null
-                    : builder.greaterThanOrEqualTo(root.get(Item_.price), price);
+                    : builder.greaterThanOrEqualTo(root.get("price"), price);
         }
 /*
         static Specification<Item> byReviewLike(String reviewPattern) {
@@ -38,7 +37,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>, JpaSpecificat
 
         static Specification<Item> orderByUpdated(Specification<Item> spec) {
             return (root, query, builder) -> {
-                query.orderBy(builder.asc(root.get(Item_.updated)));
+                query.orderBy(builder.asc(root.get("updated")));
                 return spec.toPredicate(root, query, builder);
             };
         }

@@ -1,10 +1,10 @@
 package com.rest_jpa.entity;
 
 import com.rest_jpa.enumTypes.ERole;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 

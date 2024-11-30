@@ -4,6 +4,7 @@ import com.rest_jpa.entity.RefreshToken;
 import com.rest_jpa.entity.User;
 import com.rest_jpa.entity.to.*;
 import com.rest_jpa.servise.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.Set;
 import java.util.stream.Collectors;
 
