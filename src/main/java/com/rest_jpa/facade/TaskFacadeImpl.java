@@ -38,7 +38,9 @@ public class TaskFacadeImpl implements TaskFacade {
             task.setUser(null);
         }
         task.setItem(itemService.findById(to.getItem().getId()));
-        task.setOrder(orderService.findById(to.getOrderRequestTO().getId()));
+        if (to.getOrderRequestTO() != null) {
+            task.setOrder(orderService.findById(to.getOrderRequestTO().getId()));
+        }
         to.setId(taskService.create(task).getId());
         return to;
     }
@@ -59,7 +61,7 @@ public class TaskFacadeImpl implements TaskFacade {
         } else {
             task.setUser(null);
         }
-//        task.setItem(itemService.findById(to.getItem().getId()));
+        task.setItem(itemService.findById(to.getItem().getId()));
 //        task.setOrder(orderService.findById(to.getOrderRequestTO().getId()));
         taskService.update(task);
     }

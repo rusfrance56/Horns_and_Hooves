@@ -7,9 +7,10 @@ DELETE FROM users_roles;
 DELETE FROM roles_permissions;
 DELETE FROM roles;
 DELETE FROM permissions;
+DELETE FROM refresh_tokens;
 DELETE FROM users;
 
-INSERT INTO users (id, logon_name, password, name, surname, address, phone, email, department, description) VALUES
+INSERT INTO users (id, user_name, password, name, surname, address, phone, email, department, description) VALUES
   (100001, 'user1', '$2a$12$HG/H3BcXMMD.F9mKPxB0o.3civXRcLH997LZv2Q30JexRWXah7HLq', 'Сергей', 'Синицын', '05096 Lotheville Crossing', '+7 (152) 446-1962', 'tbridge0@howstuffworks.com', 'OFFICE', 'description'),
   (100002, 'user2', '$2a$12$HG/H3BcXMMD.F9mKPxB0o.3civXRcLH997LZv2Q30JexRWXah7HLq', 'Егор', 'Майоров', '09570 Mcguire Trail', '+234 (282) 175-0310', 'cundrell1@go.com', 'STORAGE', 'description'),
   (100003, 'user3', '$2a$12$HG/H3BcXMMD.F9mKPxB0o.3civXRcLH997LZv2Q30JexRWXah7HLq', 'Олег', 'Петров', '615 Elka Parkway', '+7 (744) 572-8930', 'wconeybeer2@cbc.ca', 'OFFICE', 'description'),
@@ -17,7 +18,7 @@ INSERT INTO users (id, logon_name, password, name, surname, address, phone, emai
   (100005, 'user5', '$2a$12$HG/H3BcXMMD.F9mKPxB0o.3civXRcLH997LZv2Q30JexRWXah7HLq', 'Павел', 'Соболев', '6 Carioca Street', '+86 (317) 469-2821', 'elohde6@booking.com', 'STORAGE', 'description'),
   (100006, 'user6', '$2a$12$HG/H3BcXMMD.F9mKPxB0o.3civXRcLH997LZv2Q30JexRWXah7HLq', 'Армен', 'Гугаров', '68 Logan Point', '+353 (757) 489-9946', 'asimmens4@freewebs.com', null, 'description');
 
-INSERT INTO items (id, name, description, department, cost) VALUES
+INSERT INTO items (id, name, description, department, price) VALUES
   (100007, 'Стенка Версаль', 'Версаль СБ-1655 Стенка', 'STORAGE', 38490.90),
   (100008, 'Диван угловой', 'Диван угловой Атланта Классик со столом, 145, рогожка, дельфин', 'CUSHIONED', 26080),
   (100009, 'Комод Медея', 'Медея СБ-2454 Комод', 'STORAGE', 9490),

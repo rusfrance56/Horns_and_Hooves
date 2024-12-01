@@ -18,6 +18,7 @@ public class ExceptionControllerAdvice {
         ErrorRestResponse errorRestResponse = ErrorRestResponse.FAIL(ex.getErrorKey().name(), ex.getParameters(), ex.getLocalizedMessage());
         return new ResponseEntity<>(errorRestResponse, HttpStatus.OK);
     }
+
     @ExceptionHandler({FacadeException.class})
     public ResponseEntity<ErrorRestResponse> handleExceptions(FacadeException ex) {
         LOG.error("Exception in rest service", ex);
@@ -36,4 +37,11 @@ public class ExceptionControllerAdvice {
 ////        TODO переписать логику фронта для обработки нескольких ошибок, а тут собрать массив ошибок
 //        return new ResponseEntity<>(restResponse, HttpStatus.OK);
 //    }
+
+    @ExceptionHandler({TokenRefreshException.class, JwtAuthenticationException.class})
+    public ResponseEntity<ErrorRestResponse> handleAuthenticateException(TokenRefreshException ex) {
+        LOG.error("Exception in rest service", ex);
+        ErrorRestResponse errorRestResponse = ErrorRestResponse.FAIL(ex.getKey(), ex.getParameters(), ex.getLocalizedMessage());
+        return new ResponseEntity<>(errorRestResponse, HttpStatus.FORBIDDEN);
+    }
 }

@@ -32,7 +32,7 @@ public class UserFacadeImpl implements UserFacade {
     public UserResponseTO create(UserRequestTO to) {
         User user = new User();
         setUserParametersFromTO(user, to);
-        Long newUserId = userService.create(user).getId();
+        Long newUserId = userService.register(user).getId();
         UserResponseTO newUser = new UserResponseTO(user);
         newUser.setId(newUserId);
         return newUser;
@@ -71,12 +71,21 @@ public class UserFacadeImpl implements UserFacade {
         return new UserResponseTO(user);
     }
 
+    @Override
+    public List<UserResponseTO> findByDepartment(String department) {
+        Department dep = Department.valueOf(department);
+        List<User> usersByDep = userService.findByDepartment(dep);
+        return usersByDep.stream().map(UserResponseTO::new).collect(Collectors.toList());
+    }
+
     private void setUserParametersFromTO(User user, UserRequestTO to) {
-        user.setLogonName(to.getLogonName());
-        user.setPassword(to.getPassword());
+        user.setUserName(to.getUserName());
+        if (user.getId() == null) {
+            user.setPassword(to.getPassword());
+        }
         user.setName(to.getName());
         user.setSurname(to.getSurname());
-        user.setDepartment(to.getDepartment() != null ? Department.valueOf(to.getDepartment()) : null);
+        user.setDepartment(to.getDepartment() != null ? to.getDepartment() : null);
         user.setAddress(to.getAddress());
         user.setEmail(to.getEmail());
         user.setPhone(to.getPhone());

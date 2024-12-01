@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long>, TaskRepositoryCustom {
 
-    /*@Query("select task from Task task where task.user.logonName like " +
+    /*@Query("select task from Task task where task.user.userName like " +
             "?#{hasRole('ROLE_ADMIN') ? '%' : principal.username}")
     @Override
     List<Task> findAll();*/

@@ -2,6 +2,7 @@ package com.rest_jpa.servise;
 
 import com.rest_jpa.entity.CustomerOrder;
 import com.rest_jpa.entity.Item;
+import com.rest_jpa.entity.to.ItemTO;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.CustomerOrderRepository;
 import com.rest_jpa.repository.ItemRepository;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.Optional;
 import static com.rest_jpa.exceptions.ApplicationException.checkArgument;
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNullAndNotEmpty;
 import static com.rest_jpa.exceptions.ErrorKey.*;
+import static com.rest_jpa.repository.ItemRepository.Specs.byDepartment;
+import static com.rest_jpa.repository.ItemRepository.Specs.byPriceGreaterThanEqual;
 
 @Service
 @AllArgsConstructor
@@ -64,7 +68,16 @@ public class ItemServiceImpl implements ItemService {
         return item.orElseThrow(() -> new ApplicationException(ITEM_NOT_FOUND, id));
     }
 
+    @Override
     public List<Item> findAllByIds(List<Long> itemIds) {
         return checkNotNullAndNotEmpty(itemRepository.findAllById(itemIds), ITEMS_NOT_FOUND);
+    }
+
+    @Override
+    public Page<Item> findPageByFilter(ItemTO itemTO, Pageable pageRequest) {
+        Specification<Item> specification = byDepartment(itemTO.getDepartment())
+                        .and(byPriceGreaterThanEqual(itemTO.getPrice()));
+        Page<Item> itemPage = itemRepository.findAll(specification, pageRequest);
+        return itemPage;
     }
 }

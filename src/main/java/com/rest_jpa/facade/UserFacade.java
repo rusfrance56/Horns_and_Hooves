@@ -15,4 +15,5 @@ public interface UserFacade {
     List<UserResponseTO> findAll();
     Page<UserResponseTO> findAllWithPagination(int page, int size);
     UserResponseTO findById(long id);
+    List<UserResponseTO> findByDepartment(String department);
 }

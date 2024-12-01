@@ -1,25 +1,33 @@
 package com.rest_jpa.servise;
 
+import com.rest_jpa.entity.Role;
 import com.rest_jpa.entity.User;
+import com.rest_jpa.enumTypes.Department;
+import com.rest_jpa.enumTypes.ERole;
+import com.rest_jpa.enumTypes.UserActiveStatus;
 import com.rest_jpa.exceptions.ApplicationException;
+import com.rest_jpa.repository.RoleRepository;
 import com.rest_jpa.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNullAndNotEmpty;
-import static com.rest_jpa.exceptions.ErrorKey.USERS_NOT_FOUND;
-import static com.rest_jpa.exceptions.ErrorKey.USER_NOT_FOUND;
+import static com.rest_jpa.exceptions.ErrorKey.*;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public User create(User user) {
@@ -41,8 +49,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-//        throw new ApplicationException(USERS_NOT_FOUND);
-//        throw new ApplicationException(USERS_NOT_FOUND, 55);
         return checkNotNullAndNotEmpty(userRepository.findAll(), USERS_NOT_FOUND);
     }
 
@@ -57,5 +63,34 @@ public class UserServiceImpl implements UserService {
     public User findById(long id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ApplicationException(USER_NOT_FOUND, id));
+    }
+
+    @Override
+    public User register(User user) {
+        Optional<Role> roleUserOpt = roleRepository.findByName(ERole.ROLE_USER);
+        Role roleUser = roleUserOpt.orElseThrow(() -> new ApplicationException(ROLE_NOT_FOUND, ERole.ROLE_USER));
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(roleUser);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(userRoles);
+        user.setStatus(UserActiveStatus.ACTIVE);
+
+        User registeredUser = userRepository.save(user);
+
+        log.info("IN register - user: {} successfully registered", registeredUser);
+        return registeredUser;
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        Optional<User> user = userRepository.findByUserName(userName);
+        return user.orElseThrow(() -> new ApplicationException(USER_NOT_FOUND, userName));
+    }
+
+    @Override
+    public List<User> findByDepartment(Department department) {
+        return Optional.of(userRepository.findAllByDepartment(department))
+                .orElse(Collections.emptyList());
     }
 }

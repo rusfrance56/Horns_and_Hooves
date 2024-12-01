@@ -5,6 +5,7 @@ import com.rest_jpa.entity.User;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.exceptions.ErrorKey;
 import com.rest_jpa.repository.CustomerOrderRepository;
+import com.rest_jpa.security.AuthenticationProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,12 +1,12 @@
 package com.rest_jpa.entity;
 
 import com.rest_jpa.enumTypes.OrderStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 

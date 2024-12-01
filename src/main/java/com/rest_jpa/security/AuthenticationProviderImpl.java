@@ -1,4 +1,4 @@
-package com.rest_jpa.servise;
+package com.rest_jpa.security;
 
 import com.rest_jpa.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider{
     @Override
     public Optional<com.rest_jpa.entity.User> getUser() {
         return getUserDetails().flatMap(userDetails -> {
-            Optional<com.rest_jpa.entity.User> user = userRepository.findByLogonName(userDetails.getUsername());
+            Optional<com.rest_jpa.entity.User> user = userRepository.findByUserName(userDetails.getUsername());
             return user;
         });
     }

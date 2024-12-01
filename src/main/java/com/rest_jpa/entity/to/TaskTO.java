@@ -32,6 +32,8 @@ public class TaskTO {
         this.department = task.getDepartment().name();
         this.userId = task.getUser() != null ? task.getUser().getId() : null;
         this.item = new ItemTO(task.getItem());
-        this.orderRequestTO = new CustomerOrderResponseTO(task.getOrder());
+        if (task.getOrder() != null) {
+            this.orderRequestTO = new CustomerOrderResponseTO(task.getOrder());
+        }
     }
 }

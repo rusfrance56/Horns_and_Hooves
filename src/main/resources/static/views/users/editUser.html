@@ -8,10 +8,10 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="control-label col-sm-3" for="edit.logonName">{{'LOGON_NAME' | translate}}:</label>
+            <label class="control-label col-sm-3" for="edit.userName">{{'USER_NAME' | translate}}:</label>
             <div class="col-sm-9">
-                <input type="text" ng-model="currentUser.logonName" class="form-control" id="edit.logonName"
-                       placeholder="{{'ENTER_LOGON_NAME' | translate}}" required>
+                <input type="text" ng-model="currentUser.userName" class="form-control" id="edit.userName"
+                       placeholder="{{'ENTER_USER_NAME' | translate}}" required>
             </div>
         </div>
         <div class="form-group row" ng-if="!currentUser.id">
@@ -71,7 +71,3 @@
         </div>
     </form>
 </div>
-<!--<h3>orders for {{employee.name}} :</h3>
-<h3>department id: {{selectedDep}}</h3>
-<table class="table table-striped">-->
-</table>
