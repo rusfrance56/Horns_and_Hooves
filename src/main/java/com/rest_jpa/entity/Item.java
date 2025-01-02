@@ -18,7 +18,7 @@ public class Item extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "item_images", joinColumns = @JoinColumn(name = "item_id"))
     @Column(name = "name")
-    private List<String> imageUrls = new ArrayList<>();
+    private List<String> imageNames = new ArrayList<>();
 
     @Column(name = "department")
     @Enumerated(EnumType.STRING)
@@ -29,7 +29,7 @@ public class Item extends BaseEntity {
 
     public Item(ItemTO to) {
         super(to.getName(), to.getDescription());
-        this.imageUrls = to.getImageUrls();
+        this.imageNames = to.getImageNames();
         this.department = to.getDepartment();
         this.price = to.getPrice();
     }
@@ -37,7 +37,7 @@ public class Item extends BaseEntity {
     public static Item updateEntityFromTO(Item entity, ItemTO to) {
         entity.setName(to.getName());
         entity.setDescription(to.getDescription());
-        entity.setImageUrls(to.getImageUrls());
+        entity.setImageNames(to.getImageNames());
         entity.setDepartment(to.getDepartment());
         entity.setPrice(to.getPrice());
         return entity;

@@ -12,6 +12,8 @@ import java.util.Optional;
 import static com.rest_jpa.exceptions.ApplicationException.checkNotNullAndNotEmpty;
 import static com.rest_jpa.exceptions.ErrorKey.TASKS_NOT_FOUND;
 import static com.rest_jpa.exceptions.ErrorKey.TASK_NOT_FOUND;
+import static com.rest_jpa.utils.SecurityHelper.getCurrentUser;
+import static com.rest_jpa.utils.SecurityHelper.hasAdminRole;
 
 @Service
 @AllArgsConstructor
@@ -36,7 +38,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> findAll() {
-        return checkNotNullAndNotEmpty(taskRepository.findAll(), TASKS_NOT_FOUND);
+        if (hasAdminRole()) {
+            return checkNotNullAndNotEmpty(taskRepository.findAll(), TASKS_NOT_FOUND);
+        } else {
+            return checkNotNullAndNotEmpty(taskRepository.findAllByUser_UserName(getCurrentUser().getUsername()),
+                    TASKS_NOT_FOUND);
+        }
     }
 
     @Override

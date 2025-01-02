@@ -4,8 +4,10 @@ import com.rest_jpa.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface TaskRepository extends JpaRepository<Task, Long>, TaskRepositoryCustom {
+public interface TaskRepository extends JpaRepository<Task, Long> {
 
     /*@Query("select task from Task task where task.user.userName like " +
             "?#{hasRole('ROLE_ADMIN') ? '%' : principal.username}")
@@ -21,4 +23,7 @@ public interface TaskRepository extends JpaRepository<Task, Long>, TaskRepositor
     @Query("update BusinessObject b set b.data = upper(b.data), b.lastModifiedBy = :#{#security.principal}, b.lastModifiedDate = :#{new java.util.Date()}")
     void modifiyDataWithRecordingSecurityContext();
     */
+
+
+    List<Task> findAllByUser_UserName(String userName);
 }

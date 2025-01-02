@@ -48,7 +48,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> findAll() {
-        return checkNotNullAndNotEmpty(itemRepository.findAll(), ITEMS_NOT_FOUND);
+        return checkNotNullAndNotEmpty(itemRepository.findAllByOrderByUpdatedDesc(), ITEMS_NOT_FOUND);
+//        return checkNotNullAndNotEmpty(itemRepository.findAll(), ITEMS_NOT_FOUND);
     }
 
     @Override

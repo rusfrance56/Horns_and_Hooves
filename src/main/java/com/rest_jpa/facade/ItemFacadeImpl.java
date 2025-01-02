@@ -41,9 +41,9 @@ public class ItemFacadeImpl implements ItemFacade {
     }
 
     private void updateImages(Item item, ItemTO to) {
-        List<String> prevImageUrls = item.getImageUrls();
-        List<String> removedImages = prevImageUrls.stream()
-                .filter(img -> !to.getImageUrls().contains(img))
+        List<String> prevImageNames = item.getImageNames();
+        List<String> removedImages = prevImageNames.stream()
+                .filter(img -> !to.getImageNames().contains(img))
                 .collect(Collectors.toList());
         //        todo delete old images which don't exist in new list from to
         storageService.deleteAll(removedImages);

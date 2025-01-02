@@ -16,7 +16,7 @@ public class ItemTO {
     private long id;
     private String name;
     private String description;
-    private List<String> imageUrls;
+    private List<String> imageNames;
     private Department department;
     private double price;
     private LocalDateTime updated;
@@ -25,7 +25,7 @@ public class ItemTO {
         this.id = item.getId();
         this.name = item.getName();
         this.description = item.getDescription();
-        this.imageUrls = item.getImageUrls();
+        this.imageNames = item.getImageNames();
         this.department = item.getDepartment();
         this.price = item.getPrice();
         this.updated = item.getUpdated();

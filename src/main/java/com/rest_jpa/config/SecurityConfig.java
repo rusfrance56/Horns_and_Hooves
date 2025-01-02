@@ -27,7 +27,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig{
+public class SecurityConfig {
     private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
     private static final String LOGIN_ENDPOINT = "/api/v1/auth/signin";
     private static final String REGISTER_ENDPOINT = "/api/v1/auth/signup";
@@ -72,7 +72,10 @@ public class SecurityConfig{
                 )
                 .authorizeHttpRequests(request ->
                         request.requestMatchers(AUTH_ENDPOINT).permitAll()
-                .anyRequest().authenticated())
+//                                .requestMatchers(
+//                                        "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.gif"
+//                                ).permitAll()
+                                .anyRequest().authenticated())
 //                .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
