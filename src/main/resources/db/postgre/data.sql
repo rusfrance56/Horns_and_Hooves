@@ -63,3 +63,11 @@ INSERT INTO users_roles (user_id, role_id) VALUES
   (100005, 100013),
   (100006, 100013);
 
+INSERT INTO public.item_images (name, item_id)
+VALUES ('4fc82d67-e19f-4a96-b267-73ff0afa5da7.00000149098detail.webp', 100007),
+       ('b9baeefd-7d47-47a6-a3cf-a3538d341b21.versal_sb_1655_stenka_beliy_yasen_1.webp', 100007),
+       ('b65a9a3f-18be-4393-b44f-6e68623af9c5.versal_sb_1655_stenka_beliy_yasen_2.webp', 100007),
+       ('aafd31d3-7024-451f-9708-94a9b7b57242.versal_sb_1655_stenka_beliy_yasen_3.webp', 100007),
+       ('58cdc3aa-164d-40ef-b429-54af72c2e0a2.versal_sb_1655_stenka_beliy_yasen_4.webp', 100007);
+
+
