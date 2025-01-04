@@ -4,6 +4,7 @@ import com.rest_jpa.entity.CustomerOrder;
 import com.rest_jpa.entity.Item;
 import com.rest_jpa.entity.to.ItemTO;
 import com.rest_jpa.exceptions.ApplicationException;
+import com.rest_jpa.fileUploading.FileSystemStorageService;
 import com.rest_jpa.repository.CustomerOrderRepository;
 import com.rest_jpa.repository.ItemRepository;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class ItemServiceImpl implements ItemService {
 
     private ItemRepository itemRepository;
     private CustomerOrderRepository customerOrderRepository;
+    private FileSystemStorageService fileSystemStorageService;
 
     @Override
     public Item create(Item item) {
@@ -41,9 +43,15 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void delete(long id) {
+        Optional<Item> item = itemRepository.findById(id);
+        checkArgument(item.isPresent(), ITEM_NOT_FOUND, id);
+
         List<CustomerOrder> orders = customerOrderRepository.findByItems_Id(id);
         checkArgument(orders.isEmpty(), ITEM_PRESENT_IN_SOME_CUSTOMER_ORDERS, id);
-        itemRepository.deleteById(id);
+
+        if (fileSystemStorageService.deleteAll(item.get().getImageNames())) {
+            itemRepository.deleteById(id);
+        }
     }
 
     @Override

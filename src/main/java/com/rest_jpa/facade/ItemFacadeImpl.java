@@ -35,9 +35,9 @@ public class ItemFacadeImpl implements ItemFacade {
     public void update(ItemTO to) {
         checkNotNull(to.getId(), WRONG_INPUT_DATA, "id");
         Item item = itemService.findById(to.getId());
+        updateImages(item, to);
         Item.updateEntityFromTO(item, to);
         itemService.update(item);
-        updateImages(item, to);
     }
 
     private void updateImages(Item item, ItemTO to) {
@@ -45,7 +45,6 @@ public class ItemFacadeImpl implements ItemFacade {
         List<String> removedImages = prevImageNames.stream()
                 .filter(img -> !to.getImageNames().contains(img))
                 .collect(Collectors.toList());
-        //        todo delete old images which don't exist in new list from to
         storageService.deleteAll(removedImages);
     }
 
