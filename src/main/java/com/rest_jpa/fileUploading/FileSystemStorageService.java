@@ -23,11 +23,9 @@ import java.util.stream.Stream;
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
-    private final ApplicationProperties applicationProperties;
 
     @Autowired
     public FileSystemStorageService(ApplicationProperties applicationProperties) {
-        this.applicationProperties = applicationProperties;
         this.rootLocation = Paths.get(applicationProperties.getUploadPath());
     }
 
@@ -104,17 +102,12 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public boolean deleteAll(List<String> fileNames) {
-/*        boolean result = false;
-        if (Strings.isBlank(fileName)) {
-            return false;
+        boolean allDeleted = true;
+        for (String fileName : fileNames) {
+            if (!delete(fileName)) {
+                allDeleted = false;
+            }
         }
-        try {
-            Path path = load(fileName);
-            result = Files.deleteIfExists(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;*/
-        return true;
+        return allDeleted;
     }
 }
