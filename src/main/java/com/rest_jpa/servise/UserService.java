@@ -19,4 +19,6 @@ public interface UserService {
     User register(User user);
     User findByUserName(String userName);
     List<User> findByDepartment(Department department);
+
+    User getCurrentUser();
 }

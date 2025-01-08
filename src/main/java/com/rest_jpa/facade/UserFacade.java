@@ -1,5 +1,6 @@
 package com.rest_jpa.facade;
 
+import com.rest_jpa.entity.to.AuthUserTO;
 import com.rest_jpa.entity.to.UserRequestTO;
 import com.rest_jpa.entity.to.UserResponseTO;
 import org.springframework.data.domain.Page;
@@ -16,4 +17,5 @@ public interface UserFacade {
     Page<UserResponseTO> findAllWithPagination(int page, int size);
     UserResponseTO findById(long id);
     List<UserResponseTO> findByDepartment(String department);
+    AuthUserTO getCurrentUser();
 }

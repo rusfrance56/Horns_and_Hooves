@@ -8,6 +8,7 @@ import com.rest_jpa.enumTypes.UserActiveStatus;
 import com.rest_jpa.exceptions.ApplicationException;
 import com.rest_jpa.repository.RoleRepository;
 import com.rest_jpa.repository.UserRepository;
+import com.rest_jpa.security.AuthenticationProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private AuthenticationProvider authenticationProvider;
 
     @Override
     public User create(User user) {
@@ -92,5 +94,11 @@ public class UserServiceImpl implements UserService {
     public List<User> findByDepartment(Department department) {
         return Optional.of(userRepository.findAllByDepartment(department))
                 .orElse(Collections.emptyList());
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Optional<User> user = authenticationProvider.getUser();
+        return user.orElseThrow(() -> new ApplicationException(USER_NOT_FOUND));
     }
 }

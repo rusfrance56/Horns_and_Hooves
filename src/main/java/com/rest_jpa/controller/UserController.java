@@ -1,5 +1,6 @@
 package com.rest_jpa.controller;
 
+import com.rest_jpa.entity.to.AuthUserTO;
 import com.rest_jpa.entity.to.UserRequestTO;
 import com.rest_jpa.entity.to.UserResponseTO;
 import com.rest_jpa.facade.UserFacade;
@@ -54,5 +55,10 @@ public class UserController {
     @GetMapping("/byDepartment")
     public ResponseEntity<List<UserResponseTO>> findByDepartment(@RequestParam(value = "department") String department) {
         return new ResponseEntity<>(userFacade.findByDepartment(department), HttpStatus.OK);
+    }
+
+    @GetMapping("/currentUser")
+    public ResponseEntity<AuthUserTO> getUser() {
+        return new ResponseEntity<>(userFacade.getCurrentUser(), HttpStatus.OK);
     }
 }

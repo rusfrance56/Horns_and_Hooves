@@ -72,6 +72,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(request ->
                         request.requestMatchers(AUTH_ENDPOINT).permitAll()
+                                .requestMatchers("/users/currentUser").authenticated()
+                                .requestMatchers("/users").hasRole("ADMIN")
 //                                .requestMatchers(
 //                                        "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.gif"
 //                                ).permitAll()

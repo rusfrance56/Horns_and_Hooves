@@ -4,7 +4,7 @@ import com.rest_jpa.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,8 +22,8 @@ public class AuthenticationProviderImpl implements AuthenticationProvider{
     }
 
     @Override
-    public Optional<User> getUserDetails() {
-        return getAuthentication().map(auth -> (User) auth.getPrincipal());
+    public Optional<UserDetails> getUserDetails() {
+        return getAuthentication().map(auth -> (UserDetails) auth.getPrincipal());
     }
 
     @Override

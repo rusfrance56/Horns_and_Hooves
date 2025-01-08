@@ -1,10 +1,7 @@
 package com.rest_jpa.facade;
 
 import com.rest_jpa.entity.User;
-import com.rest_jpa.entity.to.CustomerOrderResponseTO;
-import com.rest_jpa.entity.to.TaskTO;
-import com.rest_jpa.entity.to.UserRequestTO;
-import com.rest_jpa.entity.to.UserResponseTO;
+import com.rest_jpa.entity.to.*;
 import com.rest_jpa.enumTypes.Department;
 import com.rest_jpa.servise.CustomerOrderService;
 import com.rest_jpa.servise.TaskService;
@@ -76,6 +73,12 @@ public class UserFacadeImpl implements UserFacade {
         Department dep = Department.valueOf(department);
         List<User> usersByDep = userService.findByDepartment(dep);
         return usersByDep.stream().map(UserResponseTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public AuthUserTO getCurrentUser() {
+        User currentUser = userService.getCurrentUser();
+        return new AuthUserTO(currentUser);
     }
 
     private void setUserParametersFromTO(User user, UserRequestTO to) {
